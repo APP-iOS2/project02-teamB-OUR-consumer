@@ -161,14 +161,14 @@ struct DummyModel{
         return [
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "follow",
-                            content: "@Study_X 에 가입 요청했습니다.",
+                            type: "studyAutoJoin",
+                            content: "@ddu님이 @Study_X에 가입했습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate()),
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "follow",
-                            content: "@Study_X 에 가입 요청했습니다.",
+                            type: "studyReply",
+                            content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate())]
     }
