@@ -9,9 +9,9 @@ import SwiftUI
 
 enum StudyList: String, CaseIterable, Identifiable {
     var id: Self { self }
-    case allList
-    case onlineList
-    case offlineList
+    case allList = "전체보기"
+    case onlineList = "온라인"
+    case offlineList = "오프라인"
 }
 
 struct StudyListView: View {
@@ -20,38 +20,64 @@ struct StudyListView: View {
     
     @State var isOnline: Bool = false
     @State private var selectedArray: StudyList = .allList
+    @State var menuTitle: String = "정렬"
     
     var body: some View {
         NavigationStack {
             
             HStack {
+                Spacer()
                 Picker(selection: $selectedArray) {
-                    Text("전체보기").tag(StudyList.allList)
-                    Text("대면 스터디").tag(StudyList.offlineList)
-                    Text("비대면 스터디").tag(StudyList.onlineList)
+                    ForEach(StudyList.allCases) { value in
+                        Text(value.rawValue).tag(value)
+                            .font(.caption)
+                    }
                 } label: {
                     Text("정렬기준")
                 }
-                .foregroundColor(.white)
-                .background(.gray)
+                .accentColor(.gray)
                 
-                Spacer()
+                //                Menu(menuTitle) {
+                //                    Button {
+                //                        selectedArray = .allList
+                //                        menuTitle = "전체보기"
+                //                    } label: {
+                //                        Text("전체보기")
+                //                    }
+                //                    Button {
+                //                        selectedArray = .offlineList
+                //                        menuTitle = "비대면 스터디"
+                //                    } label: {
+                //                        Text("비대면 스터디")
+                //                    }
+                //                    Button {
+                //                        selectedArray = .onlineList
+                //                        menuTitle = "대면 스터디"
+                //                    } label: {
+                //                        Text("대면 스터디")
+                //                    }
+                //                }
+                //                .font(.callout)
+                //                .padding()
+                
             }
-            .padding()
-
             
-            ScrollView {
-                if selectedArray == .allList {
-                    ForEach(studyStore.sortedStudy()) { study in
-                        StudyListItemView(study: study)
-                    }
-                } else if selectedArray == .onlineList {
-                    ForEach(studyStore.sortedOnlineStudy()) { study in
-                        StudyListItemView(study: study)
-                    }
-                } else {
-                    ForEach(studyStore.sortedOfflineStudy()) { study in
-                        StudyListItemView(study: study)
+            NavigationLink {
+                Text("넘어갑니다")
+            } label: {
+                ScrollView {
+                    if selectedArray == .allList {
+                        ForEach(studyStore.sortedStudy()) { study in
+                            StudyListItemView(study: study)
+                        }
+                    } else if selectedArray == .onlineList {
+                        ForEach(studyStore.sortedOnlineStudy()) { study in
+                            StudyListItemView(study: study)
+                        }
+                    } else {
+                        ForEach(studyStore.sortedOfflineStudy()) { study in
+                            StudyListItemView(study: study)
+                        }
                     }
                 }
             }
