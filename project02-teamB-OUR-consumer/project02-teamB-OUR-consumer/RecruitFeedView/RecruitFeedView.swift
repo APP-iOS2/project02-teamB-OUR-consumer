@@ -41,11 +41,13 @@ struct RecruitFeedView: View {
                     }
                     //위치설명 버튼
                     Button {
-                       convertLocationToAddress(location: locationManager.userLocation!)
+                        if let location = locationManager.userLocation {
+                        convertLocationToAddress(location: location)
+                        }
                     } label: {
                         address.isEmpty ? Text("위치설명 버튼") : Text("\(address)")
                     }
-  
+                    
                 }
                 .padding()
                 
@@ -128,7 +130,7 @@ struct RecruitFeedView: View {
                 return
             }
             guard let placemark = placemarks?.first else {return}
-
+            
             self.address = "\(placemark.country ?? "") \(placemark.locality ?? "") \(placemark.name ?? "")"
         }
     }
