@@ -15,13 +15,15 @@ enum NotificationType: String,Codable {
     case studyJoinRequest
     case studyJoinApproval
     // case hidden
+    case studyReply
+    case studyAutoJoin
     case none
     
     func getAccessLevel() -> Access{
         switch self {
         case .follow,.like,.comment:
             return .public
-        case .studyJoinRequest,.studyJoinApproval:
+        case .studyJoinRequest,.studyJoinApproval, .studyReply, .studyAutoJoin:
             return .personal
         case .none:
             return .none

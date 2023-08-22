@@ -58,7 +58,6 @@ struct NotificationRow: View {
     
     var body: some View {
         HStack {
-            // 좋아요, 게시글 등 뷰이동할 때
             ZStack {
                 if notification.type == .like || notification.type == .comment {
                     NavigationLink(destination:
@@ -118,7 +117,7 @@ struct NotificationRow: View {
                        let imageUrl = notification.imageURL {
                         RemoteImage(url: imageUrl)
                             .frame(width: 40, height: 40)
-
+                        
                     }
                 }
             }
