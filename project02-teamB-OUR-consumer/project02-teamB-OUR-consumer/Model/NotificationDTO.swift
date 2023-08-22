@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct NotificationDTO: Identifiable,Codable{
+    let id: ID
+    let userId: ID
+    let type: String
+    let content: String
+    let isRead: Bool
+    let createdDate: Date // 알림 시간
+}
