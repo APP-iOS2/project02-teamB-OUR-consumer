@@ -11,6 +11,8 @@ struct StudyListItemView: View {
     
     var study: Study
     
+    @State var addBookmark: Bool = false
+    
     var body: some View {
         HStack(spacing: 20) {
             AsyncImage(url: study.imageURL) { image in
@@ -29,17 +31,32 @@ struct StudyListItemView: View {
                     .bold()
                     .lineLimit(1)
                     .padding(.bottom)
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 5) {
                     Text(study.date)
                     Text(study.location)
-                    HStack {
-                        Image(systemName: "person.3.fill")
-                        Text("\(study.currentMemberCount)/\(study.totalMemberCount)")
-                    }
                 }
                 .font(.caption)
                 .bold()
                 .foregroundColor(.gray)
+                
+                HStack {
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                        Text("\(study.currentMemberCount)/\(study.totalMemberCount)")
+                    }
+                    .font(.caption)
+                    .bold()
+                    .foregroundColor(.gray)
+                    
+                    Spacer()
+                    
+                    Button {
+                        addBookmark.toggle()
+                    } label: {
+                        Label("", systemImage: addBookmark ? "bookmark.fill" : "bookmark")
+                            .font(.title2)
+                    }
+                }
             }
         }
         .frame(width: 350, height: 100)

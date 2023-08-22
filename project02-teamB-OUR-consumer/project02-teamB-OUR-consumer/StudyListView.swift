@@ -24,13 +24,20 @@ struct StudyListView: View {
     var body: some View {
         NavigationStack {
             
-            Picker(selection: $selectedArray) {
-                Text("전체보기").tag(StudyList.allList)
-                Text("대면 스터디").tag(StudyList.offlineList)
-                Text("비대면 스터디").tag(StudyList.onlineList)
-            } label: {
-                Text("정렬기준")
+            HStack {
+                Picker(selection: $selectedArray) {
+                    Text("전체보기").tag(StudyList.allList)
+                    Text("대면 스터디").tag(StudyList.offlineList)
+                    Text("비대면 스터디").tag(StudyList.onlineList)
+                } label: {
+                    Text("정렬기준")
+                }
+                .foregroundColor(.white)
+                .background(.gray)
+                
+                Spacer()
             }
+            .padding()
 
             
             ScrollView {
