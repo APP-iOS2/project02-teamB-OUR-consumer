@@ -17,6 +17,8 @@
 		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
 		F485B7532A94574200A2F5FF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7522A94574200A2F5FF /* FirebaseFirestoreSwift */; };
 		F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485B7542A94584400A2F5FF /* AuthViewModel.swift */; };
+		FA63F0392A94A5D30010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0382A94A5D30010B0FE /* FeedRecruitView.swift */; };
+		FA63F03C2A94A8200010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */; };
 		FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6FC212A949FF2005E31DC /* Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +30,8 @@
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F485B7542A94584400A2F5FF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FA63F0382A94A5D30010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
+		FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
 		FAA6FC212A949FF2005E31DC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,7 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
-				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
+				FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */,
+				FA63F03A2A94A5D90010B0FE /* View */,
 				FAA6FC212A949FF2005E31DC /* Extension.swift */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
@@ -90,6 +95,15 @@
 				F485B7542A94584400A2F5FF /* AuthViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA63F03A2A94A5D90010B0FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
+				FA63F0382A94A5D30010B0FE /* FeedRecruitView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,7 +186,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA63F03C2A94A8200010B0FE /* FeedRecruitPHPicker.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
+				FA63F0392A94A5D30010B0FE /* FeedRecruitView.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,

@@ -33,8 +33,7 @@ struct ContentView: View {
                     .tabItem {
                         Label("스터디모집", systemImage: "book.fill")
                     }
-                //RecruitAddView
-                Image(systemName: "plus.app.fill")
+                FeedRecruitView()
                     .tag(TabItem.recruitAdd)
                     .tabItem {
                         Label("작성하기", systemImage: "plus.app.fill")
