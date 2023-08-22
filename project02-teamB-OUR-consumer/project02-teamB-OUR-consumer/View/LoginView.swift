@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     var body: some View {
-        VStack {
+        NavigationStack {
             
             Spacer()
             
@@ -30,8 +30,8 @@ struct LoginView: View {
             Spacer()
             
             Group {
-                Button {
-                    //
+                NavigationLink {
+                    LoginSecondView()
                 } label: {
                     HStack {
                         Image("FacebookLogo")
@@ -42,27 +42,41 @@ struct LoginView: View {
                     .fontWeight(.medium)
                     .foregroundColor(.white)
                     .frame(width: 300, height: 40)
-                    .background(Color.blue)
+                    .background(Color(hex: 0x006FFF))
                     .cornerRadius(10)
                 }
                 
-                Button {
-                    //
+                NavigationLink {
+                    LoginSecondView()
                 } label: {
-                    HStack {
-                        Text("Google 로그인")
+                    ZStack {
+                        Rectangle()
+                            .frame(width: 300, height: 40)
+                            .foregroundColor(Color(hex: 0x090580))
+                            .cornerRadius(10)
+                        HStack(alignment: .center) {
+                            Image("GoogleLogo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 25)
+                            Text("Google 로그인")
+                                .fontWeight(.medium)
+                                .foregroundColor(Color(hex: 0x090580))
+                        }
+                        .frame(width: 297, height: 37)
+                        .background(Color.white)
+                        .cornerRadius(8)
                     }
-                    .fontWeight(.medium)
-                    .foregroundColor(.indigo)
-                    .frame(width: 300, height: 40)
-                    .background(Capsule().strokeBorder())
-                    .cornerRadius(10)
                 }
                 
-                Button {
-                    //
+                NavigationLink {
+                    LoginSecondView()
                 } label: {
                     HStack {
+                        Image("AppleLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25)
                         Text("Apple 로그인")
                     }
                     .fontWeight(.medium)
