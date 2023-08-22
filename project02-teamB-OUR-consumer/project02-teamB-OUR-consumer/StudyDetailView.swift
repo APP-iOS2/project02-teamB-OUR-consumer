@@ -23,7 +23,6 @@ struct StudyDetailView: View {
                     ProgressView()
                 }
                 .frame(maxWidth: .infinity)
-                .ignoresSafeArea()
                 
                 VStack {
                     VStack(alignment: .center, spacing: 10) {
@@ -103,18 +102,28 @@ struct StudyDetailView: View {
                                         .cornerRadius(25)
                                 }
                             }
-                            .padding(.vertical, 15)
+                            .padding(.top, 5)
                         }
                         .padding(15)
                         
                         Divider()
-                        
-                        Spacer()
                     }
                 }
-                .offset(CGSize(width: 0, height: 100))
+                .offset(CGSize(width: 0, height: 150))
             }
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("")
+                    } label: {
+                        Image(systemName: "bookmark")
+                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                    }
+                    
+                }
+            })
         }
+        .padding(.top, 10)
     }
 }
 
