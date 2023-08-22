@@ -10,22 +10,67 @@ import MapKit
 import CoreLocationUI
 
 struct ContentView: View {
-    var body: some View {
-        NavigationStack{
-            VStack {
-             RecruitFeedView()
-            }
+    
+    enum TabItem {
+            case feed, studyFeed, recruitAdd, alarm, myPage
         }
-        .padding()
+
+        @State private var selectedTab: TabItem = .feed
+        @State private var mainLogoToggle: Bool = true
+    
+    let hexColor: String = "#090580" //메인컬러로 변경
+    
+    var body: some View {
+        NavigationStack {
+            TabView(selection: $selectedTab) {
+                //FeedView
+                Image(systemName: "house.fill")
+                    .tag(TabItem.feed)
+                    .tabItem {
+                        Label("피드", systemImage: "house.fill")
+                    }
+                //StudyFeedView
+                Image(systemName: "book.fill")
+                    .tag(TabItem.studyFeed)
+                    .tabItem {
+                        Label("스터디모집", systemImage: "book.fill")
+                    }
+                RecruitFeedView()
+                    .tag(TabItem.recruitAdd)
+                    .tabItem {
+                        Label("작성하기", systemImage: "plus.app.fill")
+                    }
+                //AlarmView
+                Image(systemName: "bell.fill")
+                    .tag(TabItem.alarm)
+                    .tabItem {
+                        Label("알림", systemImage: "bell.fill")
+                    }
+                //MyPageView
+                Image(systemName: "person.fill")
+                    .tag(TabItem.myPage)
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person.fill")
+                    }
+            }
+            .tint(Color(hex: hexColor)) // 메인컬러로 변경
+            .navigationBarItems(leading: leadingBarItem)
+        }
+    }
+
+    @ViewBuilder
+    var leadingBarItem: some View {
+        if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
+struct ContentView_Preview: PreviewProvider {
     static var previews: some View {
-        NavigationStack{
-            ContentView()
-        }
+        ContentView()
     }
 }
 
