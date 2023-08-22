@@ -23,6 +23,9 @@ struct NotificationsListView: View {
                 }
             }
         }
+        .refreshable {
+             // 새로고침 로직
+        }
         .listStyle(PlainListStyle()) // 하얀색 배경
     }
 
@@ -41,15 +44,13 @@ struct NotificationRow: View {
     
     var body: some View {
         HStack {
-            // 사용자 이미지 자리 표시자
+            // 사용자 이미지
             Circle()
                 .fill(defaultGray)
                 .frame(width: 40, height: 40)
             
             // 텍스트
             VStack(alignment: .leading) {
-//                Text(notification.text)
-//                    .font(.system(size: 15))
                 styledText(text: notification.text)
                     .font(.system(size: 15))
                 
@@ -73,9 +74,19 @@ struct NotificationRow: View {
                         .cornerRadius(5)
                 }
             }
+
+            // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
+            if notification.type == .like || notification.type == .comment,
+               let imageUrl = notification.imageURL {
+                RemoteImage(url: imageUrl)
+                    .frame(width: 40, height: 40)
+
+            }
         }
     }
-    
+
+            
+           
     func styledText(text: String) -> some View {
         var output = AnyView(Text(""))
         let components = text.tokenize("@#. ")
@@ -108,16 +119,16 @@ struct NotificationRow: View {
 }
 
 
-struct NotificationsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationsListView(notifications:
-                                [
-                                    Date(): [
-                NotificationItem(type: .follow,
-                                 text: "@JohnDoe 님이 팔로우했습니다.",
-                                 date: Date(timeIntervalSinceNow: -3 * 3600))
-                                    ]
-                               ]
-        )
-    }
-}
+//struct NotificationsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NotificationsListView(notifications:
+//                                [
+//                                    Date(): [
+//                NotificationItem(type: .follow,
+//                                 text: "@JohnDoe 님이 팔로우했습니다.",
+//                                 date: Date(timeIntervalSinceNow: -3 * 3600))
+//                                    ]
+//                               ]
+//        )
+//    }
+//}
