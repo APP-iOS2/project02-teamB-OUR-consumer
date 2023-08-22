@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		632883722A949D49004DC84E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632883712A949D48004DC84E /* GoogleService-Info.plist */; };
 		9B35B2742A9458E900AD72D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2732A9458E900AD72D7 /* LoginView.swift */; };
 		9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2752A94590F00AD72D7 /* FeedTabView.swift */; };
 		9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2772A94593E00AD72D7 /* FeedView.swift */; };
@@ -18,7 +19,6 @@
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
-		F485B74A2A94570F00A2F5FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */; };
 		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
 		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
 		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		632883712A949D48004DC84E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B35B2732A9458E900AD72D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9B35B2752A94590F00AD72D7 /* FeedTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTabView.swift; sourceTree = "<group>"; };
 		9B35B2772A94593E00AD72D7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -39,7 +40,6 @@
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F485B7542A94584400A2F5FF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +61,6 @@
 		9B35B2692A94576100AD72D7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
 				9B35B2752A94590F00AD72D7 /* FeedTabView.swift */,
 				9B35B2772A94593E00AD72D7 /* FeedView.swift */,
 				9B35B2792A94594C00AD72D7 /* SheetView.swift */,
@@ -99,14 +98,13 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
-				FA2585D82A947E3200CFA8CE /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9B35B2692A94576100AD72D7 /* View */,
 				9B35B26A2A94576600AD72D7 /* Data */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
-				F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */,
+				632883712A949D48004DC84E /* GoogleService-Info.plist */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
 			);
 			path = "project02-teamB-OUR-consumer";
@@ -197,7 +195,7 @@
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
-				F485B74A2A94570F00A2F5FF /* GoogleService-Info.plist in Resources */,
+				632883722A949D49004DC84E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +358,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -391,7 +388,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
