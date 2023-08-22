@@ -16,6 +16,7 @@ let defaultGray = Color(red: 215/255, green: 215/255, blue: 215/255)
 struct AlarmContainer: View {
     @State private var selectedTab = 0
     // 개인 및 공개 알림 샘플 데이터
+    
     let personalNotifications: [Date: [NotificationItem]] = [
         Date(): [
             NotificationItem(type: .follow, text: "@John_Doe님이 팔로우했습니다.", date: Date(timeIntervalSinceNow: -2 * 3600), imageURL: nil),
@@ -28,6 +29,8 @@ struct AlarmContainer: View {
             NotificationItem(type: .like, text: "@Sarah_Kim님이 게시물을 좋아합니다.", date: Date(timeIntervalSinceNow: -1 * 3600), imageURL: "https://i.pinimg.com/564x/99/ab/b7/99abb7781f53890ab9d7472ffda1e764.jpg")
         ]
     ]
+     
+    
     let publicNotifications: [Date: [NotificationItem]] = [
         Date(): [
             NotificationItem(type: .studyJoinRequest, text: "@Study_X에 가입 요청했습니다.", date: Date(timeIntervalSinceNow: -1 * 3600), imageURL: nil),
@@ -43,28 +46,31 @@ struct AlarmContainer: View {
         ]
     ]
 
-    // 본문 뷰
+    // 본문 뷰    
     var body: some View {
-        VStack {
+        NavigationStack {
             VStack(spacing: 0) {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 
-                // 알림 뷰
-                switch selectedTab {
-                case 0:
-                    NotificationsListView(notifications: personalNotifications) // 개인 알림
-                case 1:
-                    NotificationsListView(notifications: publicNotifications) // 공개 알림
-                default:
-                    Text("알림 뷰")
-                }
-                Spacer()
+                    // 알림 뷰
+                    switch selectedTab {
+                    case 0:
+                        NotificationsListView(notifications: personalNotifications) // 개인 알림
+                    case 1:
+                        NavigationLink {
+                            TestView()
+                        } label: {
+                            NotificationsListView(notifications: publicNotifications) // 공개 알림
+                        }
+                    default:
+                        Text("알림 뷰")
+                    }
+                    Spacer()
             }
         }.navigationBarTitle("알림", displayMode: .inline)
     }
 }
-
 
 
 
