@@ -76,7 +76,6 @@ class AlarmViewModel: ObservableObject{
 //        }
         
         //FireBase update Logic
-        
     }
     
     func remove(items: NotificationItem){
@@ -95,7 +94,6 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-    
 //    private func convertType(with type: String) -> NotificationType{
 //
 //        switch type{
@@ -104,7 +102,7 @@ class AlarmViewModel: ObservableObject{
 //    }
     
     
-    private func convert(with item: NotificationDTO) -> NotificationItem{
+    private func convert(with item: NotificationDTO) -> NotificationItem {
         // 흠
         let user = getUser(user: item.userId)
         
@@ -125,12 +123,39 @@ class AlarmViewModel: ObservableObject{
 
 
 struct DummyModel{
+    
+    static func getPersonalRandom() -> [NotificationDTO]{
+        return [
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "follow",
+                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
+                            isRead: false,
+                            createdDate: "2023-08-21 13:50:39".toDate()),
+            
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "follow",
+                            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
+                            isRead: false,
+                            createdDate: "2022-08-23 13:50:39".toDate()),
+            
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "like",
+                            content: "@Tom_Johnson 님이 댓글을 남겼습니다.",
+                            isRead: false,
+                            createdDate: "2023-08-21 13:50:39".toDate())
+        ]
+    }
+    
+    
     static func getPersonal() -> [NotificationDTO]{
         return [
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@John_Doe 님이 팔로우했습니다.",
+                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             
