@@ -8,29 +8,37 @@
 import SwiftUI
 
 struct FeedView: View {
-
+    var idStore : IdStore = IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.")
+    
+    @State private var isShowingSheet: Bool = false
+    
     var body: some View {
         VStack {
             HStack {
-                Image("Jun")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(Circle())
-                    .frame(width: 80, height: 80)
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("@leeseungjun")
-                            .bold()
-                        Text("following")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                    }
-                    HStack {
+                Button {
+                    isShowingSheet.toggle()
+                } label: {
+                    VStack {
+                        HStack {
+                            Image("\(idStore.profileImgString)")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(Circle())
+                                .frame(width: 80, height: 80)
+                            
+                            Text("\(idStore.name)")
+                                .bold()
+                            Text("following")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                        }
                         Text("5일 전")
                             .font(.footnote)
                             .foregroundColor(.gray)
                     }
                 }
+                    
+                    
                 Spacer()
             }
             VStack(alignment: .leading) {
@@ -70,29 +78,30 @@ struct FeedView: View {
             }
             // Reply
             HStack {
-                Image("Jun")
+                Image("")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .background(.gray)
                     .clipShape(Circle())
-                    .frame(width: 70, height: 80)
+                    .frame(width: 50, height: 50)
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("@leeseungjun")
+                        Text("Riya Jain")
                         HStack {
                             Text("10m ago")
                             Text("Reply")
                         }
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                        .font(.footnote)
+                        .foregroundColor(Color(hex: 0x090580))
                     }
                     HStack {
                         Text("유익합니다.")
-                         
+                        
                     }
                 }
                 Spacer()
             }
-            .background(.green)
+            //            .background(Color(hex: F1F2FA))
             
             HStack(spacing: 75) {
                 Button {
@@ -115,12 +124,17 @@ struct FeedView: View {
                 } label: {
                     Image(systemName: "arrowshape.turn.up.right")
                 }
-
+                
             }
             .font(.title2)
             .bold()
-            .foregroundColor(.indigo)
+            .foregroundColor(Color(hex: 0x090580))
             .padding()
+            
+            .sheet(isPresented: $isShowingSheet) {
+                SheetView(idStore: idStore)
+                    .presentationDetents([.medium, .medium])
+            }
         }
     }
 }
