@@ -11,8 +11,7 @@ struct StudyDetailView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .top) {
-                Spacer(minLength: 60)
+            VStack {
                 AsyncImage(url: URL(string: "https://imgnews.pstatic.net/image/076/2023/08/22/2023082301001627800208041_20230822162503835.jpg?type=w647")) { image in
                     image
                         .resizable()
@@ -23,8 +22,7 @@ struct StudyDetailView: View {
                     ProgressView()
                 }
                 .frame(maxWidth: .infinity)
-                
-                VStack {
+                .overlay(alignment:.bottom) {
                     VStack(alignment: .center, spacing: 10) {
                         Text("여성은")
                             .font(.subheadline)
@@ -38,7 +36,10 @@ struct StudyDetailView: View {
                     .cornerRadius(15)
                     .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
                     .padding(.horizontal, 20)
-                    
+                    .offset(y:30)
+                }
+                
+                VStack {
                     ScrollView(.vertical) {
                         VStack {
                             Text("9월 1일 ~ 9월 30일 매주 토 14:00 ~ 16:00")
@@ -56,30 +57,20 @@ struct StudyDetailView: View {
        """)
                             .multilineTextAlignment(.leading)
                             .lineSpacing(3)
-                            
                         }
                         .padding(.horizontal, 20)
-                        .padding(.top, 5)
                         
                         Divider()
                         
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(systemName: "mappin")
-                                Text("위치 : 종각역 할리스")
-                                    .bold()
-                            }
-                            HStack {
-                                Image(systemName: "person.2.fill")
-                                Text("인원 : 최대 5명 (1/5)")
-                                    .bold()
-                            }
-                            HStack {
-                                Image(systemName: "calendar")
-                                Text("매주 토요일 14:00 ~ 16:00 9월 1일 ~ 9월 30일")
-                                    .bold()
-                            }
-                            
+                        VStack() {
+                            Text("""
+                                 📍위치 : 종각역 할리스
+                                 👥인원 : 최대 5명 (1/5)
+                                 🗓️매주 토요일 14:00 ~ 16:00 9월 1일 ~ 9월 30일
+                                 """ )
+                                .bold()
+                                .lineSpacing(5)
+
                             HStack {
                                 Button {
                                     print("")
@@ -102,14 +93,13 @@ struct StudyDetailView: View {
                                         .cornerRadius(25)
                                 }
                             }
-                            .padding(.top, 5)
                         }
                         .padding(15)
                         
                         Divider()
                     }
                 }
-                .offset(CGSize(width: 0, height: 150))
+                .padding(.top, 25)
             }
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -123,7 +113,6 @@ struct StudyDetailView: View {
                 }
             })
         }
-        .padding(.top, 10)
     }
 }
 
