@@ -60,14 +60,21 @@ struct NotificationRow: View {
             }
             
             // 좋아요, 게시글 등 뷰이동할 때
-            if notification.type == .like {
-                NavigationLink {
-                    TestView()
-                } label: {
+            ZStack {
+                if notification.type == .like || notification.type == .comment {
+                    NavigationLink(destination:
+                                    TestView()
+                    ) {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
                     
+                    HStack {
+                    }
                 }
-                .listStyle(.plain)
             }
+            
             // 팔로우/팔로잉 버튼 (해당되는 경우)
             if notification.type == .follow {
                 Spacer() // 팔로우 버튼만 오른쪽으로 밀기
