@@ -138,6 +138,6 @@ struct SheetView: View {
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(idStore: IdStore(id: UUID(), name: "이승준", imgString: "Jun", accountID: "leeseungjun", numberOfPosts: 200, numberOfFollowrs: 50000, numberOfFollowing: 4, briefIntro: "안녕하세요 이승준입니다."))
+        SheetView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다."))
     }
 }
