@@ -14,7 +14,7 @@ struct FeedRecruitPHPickerViewControllerWrapper: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 0 // 0은 제한 없음을 의미
+        configuration.selectionLimit = 0 // 선택가능한 사진의 갯수, 0은 무제한
 
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = context.coordinator
@@ -35,7 +35,7 @@ struct FeedRecruitPHPickerViewControllerWrapper: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.selectedImages = [] // 기존 이미지 초기화
+            parent.selectedImages = []
             
             for result in results {
                 if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
