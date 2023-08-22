@@ -14,12 +14,15 @@ struct LoginSecondView: View {
     
     @State private var isAgree1: Bool = false
     @State private var isAgree2: Bool = false
+    @State private var navigate: Bool = false
     
-    func isCheckAgree() {
-        if !isAgree1 || !isAgree2 {
-            //
-        }
-    }
+    @State private var isAlert: Bool = false
+    
+//    func isCheckAgree() {
+//        if !isAgree1 || !isAgree2 {
+//            //
+//        }
+//    }
     
     var body: some View {
         NavigationStack {
@@ -83,7 +86,7 @@ struct LoginSecondView: View {
                     Spacer()
                     
                     NavigationLink {
-                        AgreeView()
+                        AgreeTermView()
                     } label: {
                         Text("본문보기")
                             .foregroundColor(.gray)
@@ -108,7 +111,7 @@ struct LoginSecondView: View {
                     Text("개인정보 수집 및 이용 동의 (필수)")
                     Spacer()
                     NavigationLink {
-                        AgreeView()
+                        AgreeTermView()
                     } label: {
                         Text("본문보기")
                             .foregroundColor(.gray)
@@ -119,21 +122,58 @@ struct LoginSecondView: View {
             
             Spacer()
             
-            NavigationLink {
-                ContentView()
-            } label: {
-                Text("회원가입")
-                    .fontWeight(.bold)
-                    .frame(width: 360, height: 50)
-                    .background(Color(hex: 0x090580))
-                    .cornerRadius(5)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 50)
-            }
-            .simultaneousGesture(TapGesture().onEnded{
-                isCheckAgree()
-            })
+//            NavigationLink {
+//                ContentView()
+//            } label: {
+//                Text("회원가입")
+//                    .fontWeight(.bold)
+//                    .frame(width: 360, height: 50)
+//                    .background(Color(hex: 0x090580))
+//                    .cornerRadius(5)
+//                    .foregroundColor(.white)
+//                    .padding(.bottom, 50)
+//            }
+//            .disabled(!isAgree1 || !isAgree2)
+//            .simultaneousGesture(TapGesture().onEnded{
+//                isCheckAgree()
+//            })
             
+//            Button("회원가입") {
+//                if isAgree1 && isAgree2 {
+//                    NavigationLink {
+//                        ContentView()
+//                    } label: {
+//                        Text("회원가입")
+//                    }
+//
+//                } else {
+//                    isAlert.toggle()
+//                }
+//            }
+            NavigationLink(destination: ContentView(), isActive: $navigate){
+                Button {
+                    if !isAgree1 || !isAgree2 {
+                        isAlert.toggle()
+                    } else {
+                        navigate = isAgree1 && isAgree2
+                    }
+                } label: {
+                    Text("회원가입")
+                        .fontWeight(.bold)
+                        .frame(width: 360, height: 50)
+                        .background(Color(hex: 0x090580))
+                        .cornerRadius(5)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 50)
+                }
+
+            }
+            
+        }
+        .alert(isPresented: $isAlert){
+            Alert(title: Text("경고"),
+            message: Text("약관에 모두 동의해주세요"),
+                  dismissButton: .default(Text("OK")))
         }
         .navigationBarBackButtonHidden()
     }

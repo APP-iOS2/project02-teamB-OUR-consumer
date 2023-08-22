@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6433167C2A94EB9D0095987A /* LoginSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6433167B2A94EB9D0095987A /* LoginSecondView.swift */; };
 		6433167E2A94EC020095987A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6433167D2A94EC020095987A /* GoogleService-Info.plist */; };
-		643316802A94EC4A0095987A /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6433167F2A94EC4A0095987A /* AgreeView.swift */; };
+		643316822A9521310095987A /* AgreeTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643316812A9521310095987A /* AgreeTermView.swift */; };
 		9B35B2742A9458E900AD72D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2732A9458E900AD72D7 /* LoginView.swift */; };
 		9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2752A94590F00AD72D7 /* FeedTabView.swift */; };
 		9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2772A94593E00AD72D7 /* FeedView.swift */; };
@@ -35,7 +35,7 @@
 /* Begin PBXFileReference section */
 		6433167B2A94EB9D0095987A /* LoginSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSecondView.swift; sourceTree = "<group>"; };
 		6433167D2A94EC020095987A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6433167F2A94EC4A0095987A /* AgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AgreeView.swift; path = "../../../../../../../../.Trash/project02-teamB-OUR-consumer 오후 10.08.53/project02-teamB-OUR-consumer/project02-teamB-OUR-consumer/View/AgreeView.swift"; sourceTree = "<group>"; };
+		643316812A9521310095987A /* AgreeTermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreeTermView.swift; sourceTree = "<group>"; };
 		9B35B2732A9458E900AD72D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9B35B2752A94590F00AD72D7 /* FeedTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTabView.swift; sourceTree = "<group>"; };
 		9B35B2772A94593E00AD72D7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 				9B35B2812A947C7100AD72D7 /* FollowBtnView.swift */,
 				9B35B2732A9458E900AD72D7 /* LoginView.swift */,
 				6433167B2A94EB9D0095987A /* LoginSecondView.swift */,
-				6433167F2A94EC4A0095987A /* AgreeView.swift */,
+				643316812A9521310095987A /* AgreeTermView.swift */,
 				9B35B27B2A94595900AD72D7 /* TitleView.swift */,
 			);
 			path = View;
@@ -234,13 +234,13 @@
 			files = (
 				6433167C2A94EB9D0095987A /* LoginSecondView.swift in Sources */,
 				9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */,
-				643316802A94EC4A0095987A /* AgreeView.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
 				9B6B9B302A94A2AA004609AF /* FeedStore.swift in Sources */,
 				9B35B2822A947C7100AD72D7 /* FollowBtnView.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
+				643316822A9521310095987A /* AgreeTermView.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
