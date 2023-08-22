@@ -66,14 +66,10 @@ struct NotificationRow: View {
             
             // 텍스트
             VStack(alignment: .leading) {
-<<<<<<< HEAD
-=======
-                styledText(text: notification.text)
-                    .font(.system(size: 15))
->>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1
                 
                 styledText(content: notification.content)
                     .font(.system(size: 14))
+                
                 Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
                     .font(.system(size: 12))
                     .foregroundColor(Color.gray)
@@ -102,7 +98,7 @@ struct NotificationRow: View {
                     isFollowing.toggle()
                 }) {
                     Text(isFollowing ? "팔로잉" : "팔로우")
-                        .font(.system(size: 15, weight: .bold)) // 볼드 폰트 적용
+                        .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
                         .foregroundColor(Color.white)
                         .padding(.horizontal, 18)
                         .padding(.vertical, 5)
@@ -120,7 +116,6 @@ struct NotificationRow: View {
             }
         }
     }
-<<<<<<< HEAD
     
     func styledText(content: String) -> Text {
         var output = Text("")
@@ -135,11 +130,7 @@ struct NotificationRow: View {
         return output
     }
     
-=======
-
-            
            
->>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1
     func styledText(text: String) -> some View {
         var output = AnyView(Text(""))
         let components = text.tokenize("@#. ")
@@ -161,25 +152,9 @@ struct NotificationRow: View {
 }
 
 
-<<<<<<< HEAD
 struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
         NotificationsListView(access: .personal)
             .environmentObject(AlarmViewModel())
     }
 }
-=======
-//struct NotificationsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NotificationsListView(notifications:
-//                                [
-//                                    Date(): [
-//                NotificationItem(type: .follow,
-//                                 text: "@JohnDoe 님이 팔로우했습니다.",
-//                                 date: Date(timeIntervalSinceNow: -3 * 3600))
-//                                    ]
-//                               ]
-//        )
-//    }
-//}
->>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1

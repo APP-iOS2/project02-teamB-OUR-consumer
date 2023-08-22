@@ -26,6 +26,7 @@ struct NotificationItem: Identifiable,Codable{
     let type: NotificationType
     let content: String //
     var isRead: Bool
+    var imageURL: String?
     let createdDate: Date // 알림 시간
 }
 
