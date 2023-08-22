@@ -37,9 +37,8 @@ struct ContentView: View {
                         Image(systemName: "person.fill")
                     }
             }
-            .navigationTitle("")
             .navigationBarItems(leading: Button(action: {
-                
+                //FeedView로 돌아가기
             }, label: {
                 Image("OUR_Logo")
                     .resizable()
