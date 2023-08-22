@@ -35,10 +35,10 @@ struct CustomTabButton: View {
             Button(action: { selectedTab = index }) {
                 Text(text)
                     .fontWeight(.bold)
-                    .foregroundColor(selectedTab == index ? Color.black : defaultGray) // 선택된 탭은 블랙, 그 외는 회색
+                    .foregroundColor(selectedTab == index ? Color.black : AColor.main.color) // 선택된 탭은 블랙, 그 외는 회색
             }
             if selectedTab == index {
-                mainColor.frame(height: 2) // 강조선
+                AColor.main.color.frame(height: 2) // 강조선
             }
         }
         .frame(maxWidth: .infinity)
