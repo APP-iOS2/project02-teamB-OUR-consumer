@@ -24,4 +24,15 @@ extension String {
         output.append(buffer)
         return output
     }
+    
+    
+    func toDate() -> Date{
+        let formatter: DateFormatter = DateFormatter()
+        
+        formatter.locale = Locale(identifier: "ko_kr")
+        formatter.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return formatter.date(from: self) ?? Date()
+    }
 }
