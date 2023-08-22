@@ -63,8 +63,8 @@
 		960CCEDC2A94596F0044F279 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				960CCEE72A9459910044F279 /* NotificationItem.swift */,
 				965086882A94D34600CDA0FC /* NotificationType.swift */,
+				960CCEE72A9459910044F279 /* NotificationItem.swift */,
 				9650868A2A94D35900CDA0FC /* NotificationDTO.swift */,
 				965086862A94C86A00CDA0FC /* Color.swift */,
 			);
