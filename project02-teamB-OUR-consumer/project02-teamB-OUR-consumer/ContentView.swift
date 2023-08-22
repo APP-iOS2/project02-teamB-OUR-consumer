@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Color extension확장하여 Hex Color 받아서 바꾸기
 extension Color {
     init(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -70,7 +71,6 @@ struct ContentView: View {
                     }
             }
             .tint(Color(hex: hexColor)) // 메인컬러로 변경
-            
             .navigationBarItems(leading: leadingBarItem)
         }
     }
