@@ -60,7 +60,7 @@ struct StudyListView: View {
             .toolbar {
                 ToolbarItem {
                     NavigationLink {
-                        Text("검색창")
+                        SearchView()
                     } label: {
                         Label("검색", systemImage: "magnifyingglass")
                             .foregroundColor(.black)
