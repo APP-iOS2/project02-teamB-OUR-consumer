@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  HomeTab
+//  project02-teamB-OUR-consumer
 //
 //  Created by Handoo Jeong on 2023/08/22.
 //
