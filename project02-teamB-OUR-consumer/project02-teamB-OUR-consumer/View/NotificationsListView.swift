@@ -33,6 +33,7 @@ struct NotificationsListView: View {
             viewModel.fetchAlarm(access: access)
         }
     }
+    
     func makeListAlarmView(items: NotiItem) -> some View{
         ForEach(items.keys.sorted(by: >),
                 id: \.self)
@@ -48,8 +49,6 @@ struct NotificationsListView: View {
            })
         }
     }
-    
-    
 }
 
 // 알림 행
@@ -59,23 +58,6 @@ struct NotificationRow: View {
     
     var body: some View {
         HStack {
-            // 사용자 이미지
-            Circle()
-                .fill(AColor.defalut.color)
-                .frame(width: 40, height: 40)
-            
-            // 텍스트
-            VStack(alignment: .leading) {
-                
-                styledText(content: notification.content)
-                    .lineLimit(1)
-                    .font(.system(size: 14))
-                
-                Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.gray)
-            }
-            
             // 좋아요, 게시글 등 뷰이동할 때
             ZStack {
                 if notification.type == .like || notification.type == .comment {
@@ -90,31 +72,57 @@ struct NotificationRow: View {
                     HStack {
                     }
                 }
-            }
-            
-            // 팔로우/팔로잉 버튼 (해당되는 경우)
-            if notification.type == .follow {
-                Spacer() // 팔로우 버튼만 오른쪽으로 밀기
-                Button(action: {
-                    isFollowing.toggle()
-                }) {
-                    Text(isFollowing ? "팔로잉" : "팔로우")
-                        .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
-                        .foregroundColor(Color.white)
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 5)
-                        .background(isFollowing ? AColor.defalut.color : AColor.main.color) // 팔로잉 상태에 따른 배경색
-                        .cornerRadius(5)
+                
+                HStack{
+                    // 사용자 이미지
+                    Circle()
+                        .fill(AColor.defalut.color)
+                        .frame(width: 40, height: 40)
+                    
+                    // 텍스트
+                    VStack(alignment: .leading) {
+                        
+                        HStack{
+                            styledText(content: notification.content)
+                                .font(.system(size: 14))
+                            
+                            Spacer()
+                        }
+                        
+                        Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.gray)
+                        
+                    }
+
+                    // 팔로우/팔로잉 버튼 (해당되는 경우)
+                    if notification.type == .follow {
+                         // 팔로우 버튼만 오른쪽으로 밀기
+                        Spacer()
+                        Button(action: {
+                            isFollowing.toggle()
+                        }) {
+                            Text(isFollowing ? "팔로잉" : "팔로우")
+                                .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
+                                .foregroundColor(Color.white)
+                                .padding(.horizontal, 18)
+                                .padding(.vertical, 5)
+                                .background(isFollowing ? AColor.defalut.color : AColor.main.color) // 팔로잉 상태에 따른 배경색
+                                .cornerRadius(5)
+                        }
+                    }
+
+                    
+                    // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
+                    if notification.type == .like || notification.type == .comment,
+                       let imageUrl = notification.imageURL {
+                        RemoteImage(url: imageUrl)
+                            .frame(width: 40, height: 40)
+
+                    }
                 }
             }
-
-            // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
-            if notification.type == .like || notification.type == .comment,
-               let imageUrl = notification.imageURL {
-                RemoteImage(url: imageUrl)
-                    .frame(width: 40, height: 40)
-
-            }
+            
         }
     }
     
