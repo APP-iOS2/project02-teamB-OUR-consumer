@@ -14,12 +14,11 @@ typealias NotiItem = [ASection : [NotificationItem]]
 
 class AlarmViewModel: ObservableObject{
     
-    var publicSection: Set<ASection> = []
     var personalSection: Set<ASection> = []
+    var publicSection: Set<ASection> = []
     
-    @Published var publicNotiItem: NotiItem = [:]
     @Published var personalNotiItem: NotiItem = [:]
-    
+    @Published var publicNotiItem: NotiItem = [:]
     
     init(){
         
@@ -37,22 +36,6 @@ class AlarmViewModel: ObservableObject{
         }
     }
     
-    private func fetchPublic(){
-        let dto = DummyModel.getPulbic()
-        let items = dto.map{ convert(with: $0) }
-        var result: NotiItem = [:]
-        result = items.reduce(into: NotiItem(), { original, item in
-            let dotDate = item.createdDate.dotString()
-            if let items = original[dotDate]{
-                original[dotDate] = items + [item]
-                publicSection.insert(dotDate)
-            }else{
-                original[dotDate] = [item]
-            }
-        })
-        publicNotiItem = result
-    }
-    
     private func fetchPersonal(){
         let dto = DummyModel.getPersonal()
         let items = dto.map{ convert(with: $0) }
@@ -67,6 +50,23 @@ class AlarmViewModel: ObservableObject{
             }
         })
         personalNotiItem = result
+    }
+    
+    
+    private func fetchPublic(){
+        let dto = DummyModel.getPublic()
+        let items = dto.map{ convert(with: $0) }
+        var result: NotiItem = [:]
+        result = items.reduce(into: NotiItem(), { original, item in
+            let dotDate = item.createdDate.dotString()
+            if let items = original[dotDate]{
+                original[dotDate] = items + [item]
+                publicSection.insert(dotDate)
+            }else{
+                original[dotDate] = [item]
+            }
+        })
+        publicNotiItem = result
     }
     
     func update(isRead item: NotificationItem){
@@ -115,6 +115,7 @@ class AlarmViewModel: ObservableObject{
                                 type: type,
                                 content: item.content,
                                 isRead: item.isRead,
+                                imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvi3WpN86PNtBjUkO1ftQr6Uz7AlzimJicEX67lk9jw&s",
                                 createdDate: item.createdDate)
     }
     
@@ -124,7 +125,7 @@ class AlarmViewModel: ObservableObject{
 
 
 struct DummyModel{
-    static func getPulbic() -> [NotificationDTO]{
+    static func getPersonal() -> [NotificationDTO]{
         return [
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
@@ -142,21 +143,21 @@ struct DummyModel{
             
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "follow",
+                            type: "like",
                             content: "@Tom_Johnson 님이 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "follow",
+                            type: "comment",
                             content: "@Emily_Davis 님이 팔로우했습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate())
         ]
     }
     
-    static func getPersonal() -> [NotificationDTO]{
+    static func getPublic() -> [NotificationDTO]{
         return [
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,

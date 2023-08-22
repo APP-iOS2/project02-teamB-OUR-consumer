@@ -68,6 +68,7 @@ struct NotificationRow: View {
             VStack(alignment: .leading) {
                 
                 styledText(content: notification.content)
+                    .lineLimit(1)
                     .font(.system(size: 14))
                 
                 Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
@@ -154,7 +155,9 @@ struct NotificationRow: View {
 
 struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsListView(access: .personal)
-            .environmentObject(AlarmViewModel())
+        NavigationStack{
+            NotificationsListView(access: .personal)
+                .environmentObject(AlarmViewModel())
+        }
     }
 }
