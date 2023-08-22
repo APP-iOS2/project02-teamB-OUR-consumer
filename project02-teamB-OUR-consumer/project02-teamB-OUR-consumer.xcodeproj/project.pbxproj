@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		632883722A949D49004DC84E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632883712A949D48004DC84E /* GoogleService-Info.plist */; };
+		643316782A949D5D0095987A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 643316772A949D5D0095987A /* GoogleService-Info.plist */; };
 		9B35B2742A9458E900AD72D7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2732A9458E900AD72D7 /* LoginView.swift */; };
 		9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2752A94590F00AD72D7 /* FeedTabView.swift */; };
 		9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2772A94593E00AD72D7 /* FeedView.swift */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		632883712A949D48004DC84E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		643316772A949D5D0095987A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B35B2732A9458E900AD72D7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9B35B2752A94590F00AD72D7 /* FeedTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTabView.swift; sourceTree = "<group>"; };
 		9B35B2772A94593E00AD72D7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				632883712A949D48004DC84E /* GoogleService-Info.plist */,
 				9B6B9B2C2A949ED9004609AF /* Model */,
 				9B6B9B292A949D6C004609AF /* GoogleService-Info.plist */,
+				643316772A949D5D0095987A /* GoogleService-Info.plist */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
 			);
 			path = "project02-teamB-OUR-consumer";
@@ -220,6 +223,7 @@
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				632883722A949D49004DC84E /* GoogleService-Info.plist in Resources */,
 				9B6B9B2A2A949D6C004609AF /* GoogleService-Info.plist in Resources */,
+				643316782A949D5D0095987A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +391,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,6 +422,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
