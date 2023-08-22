@@ -6,19 +6,27 @@
 //
 
 import SwiftUI
+import MapKit
+import CoreLocationUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            VStack {
+             RecruitFeedView()
+            }
         }
         .padding()
     }
 }
 
-#Preview {
-    ContentView()
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack{
+            ContentView()
+        }
+    }
 }
+
+
