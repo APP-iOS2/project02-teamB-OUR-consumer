@@ -76,9 +76,25 @@ struct NotificationRow: View {
                     .foregroundColor(Color.gray)
             }
             
-            // 좋아요, 게시글 등 뷰이동할 때
+            // 좋아요, 게시글 등 뷰 이동
             ZStack {
                 if notification.type == .like || notification.type == .comment {
+                    NavigationLink(destination:
+                                    TestView()
+                    ) {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                    }
+                }
+            }
+            
+            // 스터디 관련 뷰 이동
+            ZStack {
+                if notification.type == .studyReply || notification.type == .studyAutoJoin {
                     NavigationLink(destination:
                                     TestView()
                     ) {
