@@ -11,6 +11,7 @@
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
+<<<<<<< HEAD
 		F485B74A2A94570F00A2F5FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */; };
 		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
 		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
@@ -21,6 +22,11 @@
 		FA63F03C2A94A8200010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */; };
 		FA63F03E2A94E1B90010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03D2A94E1B90010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6FC212A949FF2005E31DC /* Extension.swift */; };
+=======
+		B76000792A946E4E00F35291 /* RecruitFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76000782A946E4E00F35291 /* RecruitFeedViewModel.swift */; };
+		B760007B2A946E5900F35291 /* RecruitFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B760007A2A946E5900F35291 /* RecruitFeedView.swift */; };
+		B7610B832A94E3AA0074F78C /* RecruitFeedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7610B822A94E3AA0074F78C /* RecruitFeedMap.swift */; };
+>>>>>>> RecruitAddView
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,12 +35,18 @@
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F485B7542A94584400A2F5FF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FA63F0382A94A5D30010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
 		FA63F03D2A94E1B90010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FAA6FC212A949FF2005E31DC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+=======
+		B76000782A946E4E00F35291 /* RecruitFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitFeedViewModel.swift; sourceTree = "<group>"; };
+		B760007A2A946E5900F35291 /* RecruitFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitFeedView.swift; sourceTree = "<group>"; };
+		B7610B822A94E3AA0074F78C /* RecruitFeedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitFeedMap.swift; sourceTree = "<group>"; };
+>>>>>>> RecruitAddView
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +84,15 @@
 			isa = PBXGroup;
 			children = (
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
+<<<<<<< HEAD
 				FA63F03B2A94A8200010B0FE /* FeedRecruitPHPicker.swift */,
 				FA63F03A2A94A5D90010B0FE /* View */,
 				FAA6FC212A949FF2005E31DC /* Extension.swift */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
+=======
+				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
+				B76000762A946E1F00F35291 /* RecruitFeedView */,
+>>>>>>> RecruitAddView
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				F485B7492A94570F00A2F5FF /* GoogleService-Info.plist */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
@@ -91,6 +108,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		F485B7562A94584800A2F5FF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +125,16 @@
 				FA63F03D2A94E1B90010B0FE /* FeedRecruitPhotoAddView.swift */,
 			);
 			path = View;
+=======
+		B76000762A946E1F00F35291 /* RecruitFeedView */ = {
+			isa = PBXGroup;
+			children = (
+				B76000782A946E4E00F35291 /* RecruitFeedViewModel.swift */,
+				B760007A2A946E5900F35291 /* RecruitFeedView.swift */,
+				B7610B822A94E3AA0074F78C /* RecruitFeedMap.swift */,
+			);
+			path = RecruitFeedView;
+>>>>>>> RecruitAddView
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,7 +220,13 @@
 				FA63F03C2A94A8200010B0FE /* FeedRecruitPHPicker.swift in Sources */,
 				FA63F03E2A94E1B90010B0FE /* FeedRecruitPhotoAddView.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
+<<<<<<< HEAD
 				FA63F0392A94A5D30010B0FE /* FeedRecruitView.swift in Sources */,
+=======
+				B760007B2A946E5900F35291 /* RecruitFeedView.swift in Sources */,
+				B7610B832A94E3AA0074F78C /* RecruitFeedMap.swift in Sources */,
+				B76000792A946E4E00F35291 /* RecruitFeedViewModel.swift in Sources */,
+>>>>>>> RecruitAddView
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
@@ -332,6 +366,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow us to access your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -362,6 +397,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow us to access your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
