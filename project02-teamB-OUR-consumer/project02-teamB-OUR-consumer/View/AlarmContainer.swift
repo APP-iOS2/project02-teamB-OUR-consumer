@@ -15,9 +15,9 @@ struct AlarmContainer: View {
     // 개인 및 공개 알림 샘플 데이터
     @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
 
-    // 본문 뷰
+    // 본문 뷰    
     var body: some View {
-        VStack {
+        NavigationStack {
             VStack(spacing: 0) {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
@@ -39,7 +39,6 @@ struct AlarmContainer: View {
         }
     }
 }
-
 
 
 

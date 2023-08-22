@@ -25,12 +25,14 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
+        .refreshable {
+            // 새로고침 로직
+        }
+        .listStyle(PlainListStyle()) // 하얀색 배경
         .onAppear{
             viewModel.fetchAlarm(access: access)
         }
-        .listStyle(PlainListStyle()) // 하얀색 배경
     }
-    
     func makeListAlarmView(items: NotiItem) -> some View{
         ForEach(items.keys.sorted(by: >),
                 id: \.self)
@@ -46,6 +48,8 @@ struct NotificationsListView: View {
            })
         }
     }
+    
+    
 }
 
 // 알림 행
@@ -55,19 +59,40 @@ struct NotificationRow: View {
     
     var body: some View {
         HStack {
-            // 사용자 이미지 자리 표시자
+            // 사용자 이미지
             Circle()
                 .fill(AColor.defalut.color)
                 .frame(width: 40, height: 40)
             
             // 텍스트
             VStack(alignment: .leading) {
+<<<<<<< HEAD
+=======
+                styledText(text: notification.text)
+                    .font(.system(size: 15))
+>>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1
                 
                 styledText(content: notification.content)
                     .font(.system(size: 14))
                 Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
                     .font(.system(size: 12))
                     .foregroundColor(Color.gray)
+            }
+            
+            // 좋아요, 게시글 등 뷰이동할 때
+            ZStack {
+                if notification.type == .like || notification.type == .comment {
+                    NavigationLink(destination:
+                                    TestView()
+                    ) {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                    }
+                }
             }
             
             // 팔로우/팔로잉 버튼 (해당되는 경우)
@@ -85,8 +110,17 @@ struct NotificationRow: View {
                         .cornerRadius(5)
                 }
             }
+
+            // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
+            if notification.type == .like || notification.type == .comment,
+               let imageUrl = notification.imageURL {
+                RemoteImage(url: imageUrl)
+                    .frame(width: 40, height: 40)
+
+            }
         }
     }
+<<<<<<< HEAD
     
     func styledText(content: String) -> Text {
         var output = Text("")
@@ -101,6 +135,11 @@ struct NotificationRow: View {
         return output
     }
     
+=======
+
+            
+           
+>>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1
     func styledText(text: String) -> some View {
         var output = AnyView(Text(""))
         let components = text.tokenize("@#. ")
@@ -122,9 +161,25 @@ struct NotificationRow: View {
 }
 
 
+<<<<<<< HEAD
 struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
         NotificationsListView(access: .personal)
             .environmentObject(AlarmViewModel())
     }
 }
+=======
+//struct NotificationsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NotificationsListView(notifications:
+//                                [
+//                                    Date(): [
+//                NotificationItem(type: .follow,
+//                                 text: "@JohnDoe 님이 팔로우했습니다.",
+//                                 date: Date(timeIntervalSinceNow: -3 * 3600))
+//                                    ]
+//                               ]
+//        )
+//    }
+//}
+>>>>>>> c2173932490cf0e7ba714642294a1a824bae2bb1

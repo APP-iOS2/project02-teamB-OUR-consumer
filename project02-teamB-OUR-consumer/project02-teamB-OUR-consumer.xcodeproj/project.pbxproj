@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */; };
 		960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEDF2A9459840044F279 /* NotificationsListView.swift */; };
 		960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE02A9459840044F279 /* CustomTabView.swift */; };
 		960CCEE52A94598A0044F279 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE32A94598A0044F279 /* String.swift */; };
@@ -23,9 +24,11 @@
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
+		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		960CCEDF2A9459840044F279 /* NotificationsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsListView.swift; sourceTree = "<group>"; };
 		960CCEE02A9459840044F279 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		960CCEE32A94598A0044F279 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +85,11 @@
 		960CCEDE2A9459790044F279 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */,
 				960CCEED2A945A7C0044F279 /* AlarmContainer.swift */,
 				960CCEE02A9459840044F279 /* CustomTabView.swift */,
 				960CCEDF2A9459840044F279 /* NotificationsListView.swift */,
+				B0F67D592A948B3300B2A138 /* TestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,12 +214,14 @@
 				965086892A94D34600CDA0FC /* NotificationType.swift in Sources */,
 				960CCEE82A9459910044F279 /* NotificationItem.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
+				1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */,
 				960CCEF02A947BC30044F279 /* ContentView.swift in Sources */,
 				960CCEEE2A945A7C0044F279 /* AlarmContainer.swift in Sources */,
 				960CCEE52A94598A0044F279 /* String.swift in Sources */,
 				960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */,
 				9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */,
 				9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */,
+				B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */,
 				960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */,
 				965086832A94909E00CDA0FC /* Date.swift in Sources */,
 				965086852A94999700CDA0FC /* UIImage.swift in Sources */,
