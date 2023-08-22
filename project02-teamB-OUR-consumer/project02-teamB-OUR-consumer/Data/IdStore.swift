@@ -10,21 +10,23 @@ import Foundation
 class IdStore: ObservableObject {
     var id: UUID = UUID()
     var name: String
-    var imgString: String
-    var accountID: String
+    var profileImgString: String
+    var userID: String
     var numberOfPosts: Int
     var numberOfFollowrs: Int
     var numberOfFollowing: Int
-    var briefIntro: String
+    var numberOfComments: Int
+    var profileMessage: String
     
-    init(id: UUID, name: String, imgString: String, accountID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, briefIntro: String) {
+    init(id: UUID, name: String, profileImgString: String, userID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, numberOfComments: Int, profileMessage: String) {
         self.id = id
         self.name = name
-        self.imgString = imgString
-        self.accountID = accountID
+        self.profileImgString = profileImgString
+        self.userID = userID
         self.numberOfPosts = numberOfPosts
         self.numberOfFollowrs = numberOfFollowrs
         self.numberOfFollowing = numberOfFollowing
-        self.briefIntro = briefIntro
+        self.numberOfComments = numberOfComments
+        self.profileMessage = profileMessage
     }
 }

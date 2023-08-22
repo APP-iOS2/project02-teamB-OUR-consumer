@@ -31,7 +31,7 @@ struct SheetView: View {
                 Button {
                     
                 } label: {
-                    Image(idStore.imgString)
+                    Image(idStore.profileImgString)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80)
@@ -46,7 +46,7 @@ struct SheetView: View {
                     Group {
                         Text("@")
                             .padding(.leading, -30)
-                        Text(idStore.accountID)
+                        Text(idStore.userID)
                             .padding(.leading, -20)
                     }
                     .foregroundColor(Color.black)
@@ -65,7 +65,7 @@ struct SheetView: View {
                         Spacer()
                     }
                     HStack {
-                        Text(idStore.briefIntro)
+                        Text(idStore.profileMessage)
                             .padding(.leading, 33)
                             .foregroundColor(Color(hex: 0x090580))
                         Spacer()
