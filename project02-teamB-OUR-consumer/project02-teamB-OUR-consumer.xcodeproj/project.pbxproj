@@ -13,6 +13,10 @@
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
 		A0BCB8DC2A94916200A47841 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0BCB8DB2A94916200A47841 /* GoogleService-Info.plist */; };
 		A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */; };
+		A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */; };
+		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
+		A0CE32392A950D5E0019300F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE32382A950D5E0019300F /* UserData.swift */; };
+		A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyCommentReportView.swift */; };
 		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
 		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
 		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
@@ -28,6 +32,10 @@
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A0BCB8DB2A94916200A47841 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyView.swift; sourceTree = "<group>"; };
+		A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSheetView.swift; sourceTree = "<group>"; };
+		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
+		A0CE32382A950D5E0019300F /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		A0CE323C2A952C110019300F /* StudyCommentReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCommentReportView.swift; sourceTree = "<group>"; };
 		F485B7542A94584400A2F5FF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +76,10 @@
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
 				A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */,
+				A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */,
+				A0CE323C2A952C110019300F /* StudyCommentReportView.swift */,
+				A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */,
+				A0CE32382A950D5E0019300F /* UserData.swift */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				A0BCB8DB2A94916200A47841 /* GoogleService-Info.plist */,
@@ -173,6 +185,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
+				A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */,
+				A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */,
+				A0CE32392A950D5E0019300F /* UserData.swift in Sources */,
+				A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */,
