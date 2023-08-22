@@ -52,6 +52,7 @@ class StudyStore: ObservableObject {
         studyArray = [
             Study(imageURL: URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "강남역에서 2시간 빡코딩해요!", date: "8월 25일 금 오후 7시", location: "강남역 스타벅스", isOnline: false, currentMemberCount: 1, totalMemberCount: 10),
             Study(imageURL: URL(string: "https://i0.wp.com/sharehows.com/wp-content/uploads/2017/06/자소설닷컴.png?fit=500%2C500&ssl=1") ?? URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "자소설닷컴이 주최하는 무료 자소서 첨삭 스터디", date: "8월 31일 ~ 10월 25일 매주 토요일 오전 10시", location: "서울 강남구 봉은사로 230 ", isOnline: false, currentMemberCount: 2, totalMemberCount: 10),
+            Study(imageURL: URL(string: "https://i0.wp.com/sharehows.com/wp-content/uploads/2017/06/자소설닷컴.png?fit=500%2C500&ssl=1") ?? URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "iOS 개발자 면접 스터디 모집", date: "9월 1일 ~ 9월 30일 매주 토 오후 2시", location: "종각역 할리스", isOnline: false, currentMemberCount: 2, totalMemberCount: 5),
             
         ]
     }

@@ -19,7 +19,7 @@ struct StudyListItemView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
+                    .frame(width: 90, height: 90)
                     .cornerRadius(10)
             } placeholder: {
                 ProgressView()
@@ -29,8 +29,8 @@ struct StudyListItemView: View {
             VStack(alignment: .leading) {
                 Text(study.title)
                     .bold()
-                    .lineLimit(1)
-                    .padding(.bottom)
+                    .foregroundColor(.black)
+                    .lineLimit(2)
                 VStack(alignment: .leading, spacing: 5) {
                     Text(study.date)
                     Text(study.location)
@@ -59,7 +59,7 @@ struct StudyListItemView: View {
                 }
             }
         }
-        .frame(width: 350, height: 100)
+        .frame(width: 350, height: 80)
         .padding()
         .background(
            RoundedRectangle(cornerRadius: 20)
