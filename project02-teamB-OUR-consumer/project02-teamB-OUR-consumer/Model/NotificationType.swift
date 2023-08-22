@@ -14,6 +14,7 @@ enum NotificationType: String,Codable {
     case comment
     case studyJoinRequest
     case studyJoinApproval
+    // case hidden
     case studyReply
     case studyAutoJoin
     case none

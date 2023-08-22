@@ -18,7 +18,7 @@ struct AlarmContainer: View {
     // 본문 뷰    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            VStack(spacing: 0) {  
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 

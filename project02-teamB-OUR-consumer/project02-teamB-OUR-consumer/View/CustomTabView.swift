@@ -24,24 +24,27 @@ struct CustomTabView: View {
 }
 
 
+
 // 사용자 지정 탭 버튼
 struct CustomTabButton: View {
     @Binding var selectedTab: Int
     let text: String
     let index: Int
-
+    
     var body: some View {
-        VStack {
-            Button(action: { selectedTab = index }) {
+        Button(action: { selectedTab = index }) {
+            VStack {
                 Text(text)
                     .fontWeight(.bold)
-                    .foregroundColor(selectedTab == index ? Color.black : AColor.defalut.color) // 선택된 탭은 블랙, 그 외는 회색
+                    .foregroundColor(selectedTab == index ? AColor.main.color : AColor.defalut.color) // 선택된 탭은 메인컬러 , 그 외는 회색
+                if selectedTab == index {
+                    AColor.main.color.frame(height: 2) // 강조선
+                }
+                
             }
-            if selectedTab == index {
-                AColor.main.color.frame(height: 2) // 강조선
-            }
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
+        
     }
 }
 

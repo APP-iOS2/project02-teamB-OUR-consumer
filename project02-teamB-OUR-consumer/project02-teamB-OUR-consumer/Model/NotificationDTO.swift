@@ -12,6 +12,7 @@ struct NotificationDTO: Identifiable,Codable{
     let userId: ID
     let type: String
     let content: String
+    // let isHidden: Bool
     let isRead: Bool
     let createdDate: Date // 알림 시간
 }
