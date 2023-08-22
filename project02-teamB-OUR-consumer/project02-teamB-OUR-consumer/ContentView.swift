@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selection = 1
     var body: some View {
+        
         NavigationStack {
-            TabView {
+            TabView(selection: $selection) {
                 //FeedView 팀에서 넣어주시면 됩니다.
                 Image(systemName: "house.fill")
                     .tabItem {
@@ -27,23 +29,26 @@ struct ContentView: View {
                         Image(systemName: "plus.app.fill")
                     }
                 //AlarmView 팀에서 넣어주시면 됩니다.
-                Image(systemName: "bell.fill")
+                AlarmContainer()
+                    .navigationBarTitle("알림", displayMode: .inline)
                     .tabItem {
                         Image(systemName: "bell.fill")
-                    }
+                    }.tag(3)
                 //MyPageView 팀에서 넣어주시면 됩니다.
                 Image(systemName: "person.fill")
                     .tabItem {
                         Image(systemName: "person.fill")
                     }
             }
-            .navigationBarItems(leading: Button(action: {
-                //FeedView로 돌아가기
-            }, label: {
-                Image("OUR_Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }))
+            .navigationTitle(selection == 3 ? "알람" : "")
+            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarItems(leading: Button(action: {
+//                //FeedView로 돌아가기
+//            }, label: {
+//                Image("OUR_Logo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//            }))
         }
     }
 }
@@ -53,4 +58,3 @@ struct ContentView_Previews: PreviewProvider {
       ContentView()
   }
 }
->>>>>>> 2018d97b90250718feb61e5c518cbe5e1c7b2c93

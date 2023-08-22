@@ -320,11 +320,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
-=======
-				DEVELOPMENT_TEAM = 3TGR3P459K;
->>>>>>> 2018d97b90250718feb61e5c518cbe5e1c7b2c93
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -354,11 +352,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
-=======
-				DEVELOPMENT_TEAM = 3TGR3P459K;
->>>>>>> 2018d97b90250718feb61e5c518cbe5e1c7b2c93
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

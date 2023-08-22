@@ -45,7 +45,7 @@ struct AlarmContainer: View {
 
     // 본문 뷰
     var body: some View {
-        NavigationView {
+        VStack {
             VStack(spacing: 0) {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
@@ -59,11 +59,9 @@ struct AlarmContainer: View {
                 default:
                     Text("알림 뷰")
                 }
-                
                 Spacer()
             }
-            .navigationBarTitle("알림", displayMode: .inline)
-        }
+        }.navigationBarTitle("알림", displayMode: .inline)
     }
 }
 
