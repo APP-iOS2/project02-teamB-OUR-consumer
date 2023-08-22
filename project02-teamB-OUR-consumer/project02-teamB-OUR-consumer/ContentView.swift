@@ -25,60 +25,65 @@ extension Color {
 }
 
 struct ContentView: View {
-    @State var mainLogoToggle: Bool = true
+    
+    enum TabItem {
+            case feed, studyFeed, recruitAdd, alarm, myPage
+        }
+
+        @State private var selectedTab: TabItem = .feed
+        @State private var mainLogoToggle: Bool = true
     
     let hexColor: String = "#090580" //메인컬러로 변경
     
     var body: some View {
         NavigationStack {
-            TabView {
-                //FeedView 팀에서 넣어주시면 됩니다.
+            TabView(selection: $selectedTab) {
+                //FeedView
                 Image(systemName: "house.fill")
+                    .tag(TabItem.feed)
                     .tabItem {
                         Label("피드", systemImage: "house.fill")
                     }
-                //StudyFeedView 팀에서 넣어주시면 됩니다.
+                //StudyFeedView
                 Image(systemName: "book.fill")
+                    .tag(TabItem.studyFeed)
                     .tabItem {
                         Label("스터디모집", systemImage: "book.fill")
                     }
-                //RecruitAddView 팀에서 넣어주시면 됩니다.
+                //RecruitAddView
                 Image(systemName: "plus.app.fill")
+                    .tag(TabItem.recruitAdd)
                     .tabItem {
                         Label("작성하기", systemImage: "plus.app.fill")
                     }
-                //AlarmView 팀에서 넣어주시면 됩니다.
+                //AlarmView
                 Image(systemName: "bell.fill")
+                    .tag(TabItem.alarm)
                     .tabItem {
-                        Button {
-                            mainLogoToggle = false
-                            print(mainLogoToggle)
-                        } label: {
-                            Label("알림", systemImage: "bell.fill")
-                        }
+                        Label("알림", systemImage: "bell.fill")
                     }
-                //MyPageView 팀에서 넣어주시면 됩니다.
+                //MyPageView
                 Image(systemName: "person.fill")
+                    .tag(TabItem.myPage)
                     .tabItem {
                         Label("마이페이지", systemImage: "person.fill")
                     }
             }
             .tint(Color(hex: hexColor)) // 메인컬러로 변경
-            .navigationBarItems(leading: Button(action: {
-                //FeedView로 돌아가기
-            }, label: {
-                if mainLogoToggle == false {
-                    
-                } else {
-                    Image("OUR_Logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
-            }))
+            
+            .navigationBarItems(leading: leadingBarItem)
+        }
+    }
+
+    @ViewBuilder
+    var leadingBarItem: some View {
+        if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
-
 
 struct ContentView_Preview: PreviewProvider {
     static var previews: some View {
