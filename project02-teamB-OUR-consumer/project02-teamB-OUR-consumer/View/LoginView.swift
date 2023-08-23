@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import FacebookCore
+import FacebookLogin
 
 struct LoginView: View {
+    @StateObject var authViewModel: AuthViewModel = AuthViewModel()
+    
     var body: some View {
         NavigationStack {
             
@@ -30,21 +34,8 @@ struct LoginView: View {
             Spacer()
             
             Group {
-                NavigationLink {
-                    LoginSecondView()
-                } label: {
-                    HStack {
-                        Image("FacebookLogo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                        Text("Facebook 로그인")
-                    }
-                    .fontWeight(.medium)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 40)
-                    .background(Color(hex: 0x006FFF))
-                    .cornerRadius(10)
-                }
+                FacebookLoginButton()
+                    .frame(width: 200, height: 40)
                 
                 NavigationLink {
                     LoginSecondView()
@@ -89,6 +80,16 @@ struct LoginView: View {
             
             Spacer()
         }
+    }
+}
+
+struct FacebookLoginButton: UIViewRepresentable {
+    func makeUIView(context: Context) -> FBLoginButton {
+        return FBLoginButton()
+    }
+    
+    func updateUIView(_ uiView: FBLoginButton, context: Context) {
+        // You can perform additional updates or configurations here if needed
     }
 }
 
