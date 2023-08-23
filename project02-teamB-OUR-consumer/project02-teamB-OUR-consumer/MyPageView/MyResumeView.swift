@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyResumeView: View {
     @Binding var isMyProfile: Bool
+
     
     var body: some View {
         NavigationStack {

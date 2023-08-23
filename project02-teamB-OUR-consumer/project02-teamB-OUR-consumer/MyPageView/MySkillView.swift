@@ -21,12 +21,13 @@ struct MySkillCellView: View {
                 Spacer()
                 
                 if isMyProfile {
-                    Button {
-                        // 스킬 편집
+                    NavigationLink {
+                        MySkillView()
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
                     }
+
                 }
             }
             
