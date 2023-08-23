@@ -148,6 +148,9 @@ struct PostView: View {
                                 .presentationDetents([.medium, .medium])
                         }
                     }
+                    VStack(alignment: .leading) {
+                        RecommendFriendView(idData: idData)
+                    }
                 }
             }
         }

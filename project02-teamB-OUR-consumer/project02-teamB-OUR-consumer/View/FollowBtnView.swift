@@ -16,15 +16,15 @@ struct FollowBtnView: View {
             Rectangle()
                 .frame(width: frameWidth, height: frameHeight)
                 .background(Color(hex: 0x090580))
-                .cornerRadius(15)
+                .cornerRadius(5)
                 
-            Text("+ 팔로우")
+            Text("팔로잉")
                 .foregroundColor(Color(hex: 0x090580))
                 .font(.title2)
                 .bold()
                 .frame(width: frameWidth - 3, height: frameHeight - 3)
                 .background(Color.white)
-                .cornerRadius(13)
+                .cornerRadius(3)
 
         }
     }
