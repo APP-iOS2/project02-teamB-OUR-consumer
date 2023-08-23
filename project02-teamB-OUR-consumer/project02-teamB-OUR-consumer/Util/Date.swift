@@ -69,9 +69,7 @@ extension TimeInterval{
         let seconds = time % 60
         if seconds != 0 {return TimeDiffereceType.defalut.rawValue }
         
-        
         return TimeDiffereceType.defalut.rawValue
-        
     }
 }
 
