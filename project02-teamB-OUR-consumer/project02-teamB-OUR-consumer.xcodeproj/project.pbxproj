@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDA2A9491970036CEC1 /* MyResumeView.swift */; };
+		960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDF2A9497040036CEC1 /* MyIntroView.swift */; };
+		960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE12A94971D0036CEC1 /* MyWorkView.swift */; };
+		960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE32A9497330036CEC1 /* MyProjectView.swift */; };
+		960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE52A9497430036CEC1 /* MyEduView.swift */; };
+		960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE72A9497530036CEC1 /* MySkillView.swift */; };
+		960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE92A94A9C40036CEC1 /* ResumeData.swift */; };
+		960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */; };
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
@@ -14,6 +22,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		960EFDDA2A9491970036CEC1 /* MyResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyResumeView.swift; sourceTree = "<group>"; };
+		960EFDDF2A9497040036CEC1 /* MyIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroView.swift; sourceTree = "<group>"; };
+		960EFDE12A94971D0036CEC1 /* MyWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkView.swift; sourceTree = "<group>"; };
+		960EFDE32A9497330036CEC1 /* MyProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProjectView.swift; sourceTree = "<group>"; };
+		960EFDE52A9497430036CEC1 /* MyEduView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEduView.swift; sourceTree = "<group>"; };
+		960EFDE72A9497530036CEC1 /* MySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillView.swift; sourceTree = "<group>"; };
+		960EFDE92A94A9C40036CEC1 /* ResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeData.swift; sourceTree = "<group>"; };
+		960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeStore.swift; sourceTree = "<group>"; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +48,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960EFDDC2A9491B20036CEC1 /* MyPageView */ = {
+			isa = PBXGroup;
+			children = (
+				960EFDDA2A9491970036CEC1 /* MyResumeView.swift */,
+				960EFDDF2A9497040036CEC1 /* MyIntroView.swift */,
+				960EFDE12A94971D0036CEC1 /* MyWorkView.swift */,
+				960EFDE32A9497330036CEC1 /* MyProjectView.swift */,
+				960EFDE52A9497430036CEC1 /* MyEduView.swift */,
+				960EFDE72A9497530036CEC1 /* MySkillView.swift */,
+				960EFDE92A94A9C40036CEC1 /* ResumeData.swift */,
+				960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */,
+			);
+			path = MyPageView;
+			sourceTree = "<group>";
+		};
 		9E99CCE12A944A5700699B6A = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +84,7 @@
 			children = (
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
+				960EFDDC2A9491B20036CEC1 /* MyPageView */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
 			);
@@ -137,8 +169,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
+				960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */,
+				960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */,
+				960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
+				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
+				960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
+				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
+				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
