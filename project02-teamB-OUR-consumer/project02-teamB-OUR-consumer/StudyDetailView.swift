@@ -27,10 +27,9 @@ struct StudyDetailView: View {
                 .overlay(alignment:.bottom) {
                     VStack(alignment: .center, spacing: 10) {
                         Text("여성은")
-                            .font(.subheadline)
+                            .font(.system(size: 14, weight: .semibold))
                         Text("iOS 개발자 면접 스터디 모집")
-                            .font(.title2)
-                            .bold()
+                            .font(.system(size: 16, weight: .bold))
                     }
                     .padding(15)
                     .frame(maxWidth: .infinity)
@@ -44,9 +43,6 @@ struct StudyDetailView: View {
                 VStack {
                     ScrollView(.vertical) {
                         VStack {
-                            Text("9월 1일 ~ 9월 30일 매주 토 14:00 ~ 16:00")
-                                .font(.subheadline)
-                                .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                             Spacer(minLength: 20)
                             Text("""
        안녕하세용?
@@ -57,6 +53,7 @@ struct StudyDetailView: View {
        경기 후 손흥민을 향한 찬사가 쏟아졌다.
        영국 '90MIN'은 "오랜 시간 스포츠 탈장으로 고생한 손흥민이 회복 후 다른 모습을 보였다. 이전보다
        """)
+                            .font(.system(size: 14))
                             .multilineTextAlignment(.leading)
                             .lineSpacing(3)
                         }
@@ -69,19 +66,22 @@ struct StudyDetailView: View {
                                 print("")
                             } label: {
                                 Text("📍 위치 : 종각역 할리스")
-                                    .bold()
+                                    .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
+                            .padding(.bottom, 1)
                             Button {
                                 isShowingStudyMemberSheet.toggle()
                             } label: {
                                 Text("👥 인원 : 최대 5명 (1/5)")
-                                    .bold()
+                                    .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
-                            
-                            Text("🗓️ 매주 토요일 14:00 ~ 16:00 9월 1일 ~ 9월 30일")
-                                .bold()
+                            .padding(.bottom, 1)
+                            Text("🗓️ 9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.black)
+
                             
                             HStack {
                                 Button {
@@ -92,7 +92,7 @@ struct StudyDetailView: View {
                                         .frame(width: 180, height: 40)
                                         .foregroundColor(.white)
                                         .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                        .cornerRadius(25)
+                                        .cornerRadius(20)
                                 }
                                 Button {
                                     print("")
@@ -102,7 +102,7 @@ struct StudyDetailView: View {
                                         .frame(width: 180, height: 40)
                                         .foregroundColor(.black)
                                         .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                        .cornerRadius(25)
+                                        .cornerRadius(20)
                                 }
                             }
                         }
