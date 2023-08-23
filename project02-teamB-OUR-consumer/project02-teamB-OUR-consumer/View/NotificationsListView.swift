@@ -110,6 +110,8 @@ struct NotificationRow: View {
                     
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
+                        Spacer()
+
                         // 팔로우 버튼만 오른쪽으로 밀기
                         Spacer()
                         Button(action: {
@@ -163,6 +165,7 @@ struct NotificationRow: View {
         }
         return output
     }
+
     
     
     func styledText(text: String) -> some View {
@@ -182,9 +185,7 @@ struct NotificationRow: View {
         }
         return output
     }
-    
 }
-
 
 struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
