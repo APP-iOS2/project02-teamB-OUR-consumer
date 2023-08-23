@@ -15,18 +15,18 @@ struct FeedRecruitPhotoAddView: View {
     var body: some View {
         VStack {
             HStack {
-                Spacer()
                 
                 Button("사진 추가") {
                     isImagePickerPresented = true
                 }
+                Spacer()
             }
             .padding()
             
             if selectedImages.isEmpty {
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(1..<6) { _ in
+                        ForEach(1..<4) { _ in
                             ZStack {
                                 Rectangle()
                                     .stroke(lineWidth: 2)
@@ -35,9 +35,10 @@ struct FeedRecruitPhotoAddView: View {
                                     .border(.black)
                                 Image(systemName: "plus")
                                     .font(.system(size: 80, weight: .thin))
+                                    .padding(.horizontal)
                             }
                         }
-                    }
+                    }.padding(.horizontal)
                 }
             } else {
                 ScrollView(.horizontal) {
