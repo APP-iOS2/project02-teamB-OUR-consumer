@@ -34,7 +34,7 @@ struct LoginView: View {
             Group {
                 NavigationLink {
                     if true {
-                        LoginSecondView(viewModel: viewModel)
+                        LoginSecondView()
                     } else {
                         
                     }
@@ -77,7 +77,7 @@ struct LoginView: View {
                     }
                 }
                 NavigationLink {
-                    LoginSecondView(viewModel: viewModel)
+                    LoginSecondView()
                 } label: {
                     HStack {
                         Image("AppleLogo")
@@ -95,7 +95,7 @@ struct LoginView: View {
             }
         }.navigationDestination(isPresented: $navigate) {
             if viewModel.state == .signUp {
-                LoginSecondView(viewModel: viewModel)
+                LoginSecondView()
             } else {
                 FeedTabView()
             }
