@@ -20,7 +20,6 @@ struct DateCalculate{
     
     func currentTime() -> String {
         let kr = formatter.string(from: date)
-        print("krTime \(kr)")
         return kr
     }
     
@@ -28,8 +27,6 @@ struct DateCalculate{
         let current = self.currentTime()
         
         let difference = formatter.date(from: current)! - formatter.date(from: dateString)!
-        
-        print("timeInterval : \(difference)")
         
         return difference.stringFromTimeInterval()
     }
@@ -104,6 +101,7 @@ extension Date {
         formatter.dateFormat = "yyyy.MM.dd"
         return formatter.string(from: self)
     }
+    
     
     func toString() -> String{
         let formatter: DateFormatter = DateFormatter()

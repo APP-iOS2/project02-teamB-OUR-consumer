@@ -2,57 +2,70 @@
 //  ContentView.swift
 //  project02-teamB-OUR-consumer
 //
-//  Created by 박형환 on 2023/08/22.
+//  Created by 전민돌 on 8/22/23.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @State var selection = 1
+    
+    enum TabItem {
+            case feed, studyFeed, recruitAdd, alarm, myPage
+        }
+
+        @State private var selectedTab: TabItem = .feed
+        @State private var mainLogoToggle: Bool = true
+    
+    let hexColor: String = "#090580" //메인컬러로 변경
+    
     var body: some View {
-        
         NavigationStack {
-            TabView(selection: $selection) {
-                //FeedView 팀에서 넣어주시면 됩니다.
+            TabView(selection: $selectedTab) {
+                //FeedView
                 Image(systemName: "house.fill")
+                    .tag(TabItem.feed)
                     .tabItem {
-                        Image(systemName: "house.fill")
+                        Label("피드", systemImage: "house.fill")
                     }
-                //StudyFeedView 팀에서 넣어주시면 됩니다.
+                //StudyFeedView
                 Image(systemName: "book.fill")
+                    .tag(TabItem.studyFeed)
                     .tabItem {
-                        Image(systemName: "book.fill")
+                        Label("스터디모집", systemImage: "book.fill")
                     }
-                //RecruitAddView 팀에서 넣어주시면 됩니다.
+                //RecruitAddView
                 Image(systemName: "plus.app.fill")
+                    .tag(TabItem.recruitAdd)
                     .tabItem {
-                        Image(systemName: "plus.app.fill")
+                        Label("작성하기", systemImage: "plus.app.fill")
                     }
-                //AlarmView 팀에서 넣어주시면 됩니다.
+                //AlarmView
                 AlarmContainer()
-                    .navigationBarTitle("알림", displayMode: .inline)
+                    .tag(TabItem.alarm)
                     .tabItem {
-                        Image(systemName: "bell.fill")
-                    }.tag(3)
-                //MyPageView 팀에서 넣어주시면 됩니다.
+                        Label("알림", systemImage: "bell.fill")
+                    }
+                //MyPageView
                 Image(systemName: "person.fill")
+                    .tag(TabItem.myPage)
                     .tabItem {
-                        Image(systemName: "person.fill")
+                        Label("마이페이지", systemImage: "person.fill")
                     }
             }
-            .navigationTitle(selection == 3 ? "알람" : "")
-            .navigationBarTitleDisplayMode(.inline)
-//            .navigationBarItems(leading: Button(action: {
-//                //FeedView로 돌아가기
-//            }, label: {
-//                Image("OUR_Logo")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//            }))
+            .tint(AColor.main.color) // 메인컬러로 변경
+            .navigationBarItems(leading: leadingBarItem)
+        }
+    }
+
+    @ViewBuilder
+    var leadingBarItem: some View {
+        if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
-
 
 struct ContentView_Preview: PreviewProvider {
     static var previews: some View {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Firebase
 
 
 typealias ASection = String
@@ -14,111 +14,95 @@ typealias NotiItem = [ASection : [NotificationItem]]
 
 class AlarmViewModel: ObservableObject{
     
-    var personalSection: Set<ASection> = []
-    var publicSection: Set<ASection> = []
+    private var service: AlarmFireService
+    
     
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
-    init(){
-        
-    }
     
-    func fetchAlarm(access: NotificationType.Access, limit: Int = 10){
-        // access 분리
-        switch access {
-        case .public:
-            fetchPublic()
-        case .personal:
-            fetchPersonal()
-        case .none:
-            break
+    init(dependency: AlarmFireService = AlarmFireService()){
+        self.service = dependency
+    }
+ 
+    #if DEBUG
+    // sample model 생성
+    func createNoti(){
+        let personal = DummyModel.getPersonal()
+        let publicmodel = DummyModel.getPublic()
+        personal.forEach { model in
+            service.create(send: model, completion: { value in
+                print("success : \(value)")
+                print("sampleModel : \(model)")
+            })
+        }
+        publicmodel.forEach { model in
+            service.create(send: model, completion: { value in
+                print("success2: \(value)")
+                print("sampleModel2: \(model)")
+            })
+        }
+    }
+    #endif
+    
+    
+    
+    func fetchNotificationItem(limit: Int = 10){
+        service.read{ [weak self] ids, notifiationDTO in
+            guard let self else { return }
+            let items = notifiationDTO.map{ $0.toDomain(user: self.getUser(user: $0.userId) )  }
+            personalNotiItem = mapToDictionary(items: items).0
+            publicNotiItem = mapToDictionary(items: items).1
         }
     }
     
-    private func fetchPersonal(){
-        let dto = DummyModel.getPersonal()
-        let items = dto.map{ convert(with: $0) }
-        var result: NotiItem = [:]
-        result = items.reduce(into: NotiItem(), { original, item in
-            let dotDate = item.createdDate.dotString()
-            if let items = original[dotDate]{
-                original[dotDate] = items + [item]
-                personalSection.insert(dotDate)
-            }else{
-                original[dotDate] = [item]
-            }
-        })
-        personalNotiItem = result
+    
+    func delete(notification id: ID){
     }
     
-    
-    private func fetchPublic(){
-        let dto = DummyModel.getPublic()
-        let items = dto.map{ convert(with: $0) }
-        var result: NotiItem = [:]
-        result = items.reduce(into: NotiItem(), { original, item in
-            let dotDate = item.createdDate.dotString()
-            if let items = original[dotDate]{
-                original[dotDate] = items + [item]
-                publicSection.insert(dotDate)
-            }else{
-                original[dotDate] = [item]
-            }
-        })
-        publicNotiItem = result
-    }
     
     func update(isRead item: NotificationItem){
-        //임시
-//        if let index = notificationItems.enumerated().filter({ index, item in item.id == item.id }).first{
-//            notificationItems[index.offset] = item
-//        }
-        
-        //FireBase update Logic
     }
+    
     
     func remove(items: NotificationItem){
-        
         //FireBase remove Logic
-        
-        
     }
     
+    
     private func getUser(user id: ID) -> User{
-        
         // find user
         return ["박형환","박찬호","장수지"].randomElement().map{ User(id: id, name: $0) }!
-        
         //firebase find user
     }
     
     
-//    private func convertType(with type: String) -> NotificationType{
-//
-//        switch type{
-//            case "follow"
-//        }
-//    }
-    
-    
-    private func convert(with item: NotificationDTO) -> NotificationItem {
-        // 흠
-        let user = getUser(user: item.userId)
-        
-        let type = NotificationType(rawValue: item.type) ?? .none
-        
-        return NotificationItem(id: item.id,
-                                user: user ,
-                                type: type,
-                                content: item.content,
-                                isRead: item.isRead,
-                                imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvi3WpN86PNtBjUkO1ftQr6Uz7AlzimJicEX67lk9jw&s",
-                                createdDate: item.createdDate)
+    /// Mapping To View Model
+    /// - Parameter items: notification Item
+    /// - Returns: public , personal
+    private func mapToDictionary(items: [NotificationItem]) -> (NotiItem,NotiItem){
+        return items.reduce(into: (NotiItem(),NotiItem()), { original, item in
+            if item.type.getAccessLevel() == .personal{
+                let dotDate = item.createdDate.dotString()
+                if let items = original.0[dotDate]{
+                    original.0[dotDate] = items + [item]
+                }else{
+                    original.0[dotDate] = [item]
+                }
+            }else {
+                let dotDate = item.createdDate.dotString()
+                if let items = original.1[dotDate]{
+                    original.1[dotDate] = items + [item]
+                }else{
+                    original.1[dotDate] = [item]
+                }
+                
+            }
+        })
     }
-    
-    
 }
+
+
 
 
 
