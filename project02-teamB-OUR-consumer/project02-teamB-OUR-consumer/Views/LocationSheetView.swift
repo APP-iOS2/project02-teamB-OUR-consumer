@@ -15,6 +15,8 @@ struct Annotation: Identifiable {
 
 struct LocationSheetView: View {
     
+    @Binding var isShowingLocationSheet: Bool
+    
     var locationName: String = "광화문역 사거리"
     
     var locationCoordinate: CLLocationCoordinate2D
@@ -26,12 +28,24 @@ struct LocationSheetView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008))
     
     var body: some View {
-        VStack {
+        
+        NavigationStack {
             HStack {
                 Image(systemName: "mappin.and.ellipse")
                 Text("\(locationName)")
                     .fontWeight(.heavy)
                 Spacer()
+            }
+            .navigationTitle("모임 장소 위치")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isShowingLocationSheet = false
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
             }
             
             Map(coordinateRegion: $region,
@@ -48,6 +62,6 @@ struct LocationSheetView: View {
 
 struct LocationSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSheetView(locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+        LocationSheetView(isShowingLocationSheet: .constant(false), locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
     }
 }

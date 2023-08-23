@@ -45,7 +45,7 @@ struct StudyReplyView: View {
     @State var content: String = ""
     
     var body: some View {
-        NavigationStack{
+        VStack{
             List {
                 ForEach($studyGroupComments) { $comment in
                     StudyReplyDetailView(userId: "성은", comment: comment)

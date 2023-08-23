@@ -97,10 +97,10 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
+				84298D0F2A948F3200609CAA /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
 				842192092A95DB3C007224EE /* Views */,
-				84298D0F2A948F3200609CAA /* GoogleService-Info.plist */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,

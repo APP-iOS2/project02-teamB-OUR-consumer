@@ -11,7 +11,7 @@ import CoreLocation
 struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
-    @State private var isShowingLocationSheet: Bool = false
+    @State var isShowingLocationSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -130,7 +130,7 @@ struct StudyDetailView: View {
                     .presentationDetents([.medium, .large])
             }
             .sheet(isPresented: $isShowingLocationSheet) {
-                LocationSheetView(locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+                LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                 .presentationDetents([.medium])
             }
         }
