@@ -17,13 +17,12 @@ struct CommentView: View {
                 .aspectRatio(contentMode: .fit)
                 .background(.gray)
                 .clipShape(Circle())
-                .frame(width: 45, height: 45)
+                .frame(width: 30, height: 30)
             VStack(alignment: .leading) {
                 HStack {
                     Text("\(comment.userId)")
                     HStack {
                         Text("\(comment.createdDate)")
-                        Text("Reply")
                     }
                     .font(.footnote)
                     .foregroundColor(Color(hex: 0x090580))

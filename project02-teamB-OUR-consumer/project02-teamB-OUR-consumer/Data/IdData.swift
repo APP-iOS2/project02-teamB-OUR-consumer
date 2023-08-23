@@ -9,6 +9,9 @@ import Foundation
 
 class IdData: ObservableObject {
     var idStore: [IdStore] = [
+        IdStore(id: UUID(), name: "라이언", profileImg: ["Lion"], userID: "lion", numberOfPosts: , numberOfFollowrs: , numberOfFollowing: , numberOfComments: <#T##Int#>, profileMessage: <#T##String#>, posts: [], followers: <#T##[String]#>, followings: <#T##[String]#>, comments: <#T##[String]#>)
+        
+        
         IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다."),
         IdStore(id: UUID(), name: "정한두", profileImgString: "Doo", userID: "jeonghandoo", numberOfPosts: 2, numberOfFollowrs: 3, numberOfFollowing: 3203, numberOfComments: 79, profileMessage: "안녕하세요 정한두입니다."),
         IdStore(id: UUID(), name: "김종찬", profileImgString: "Chan", userID: "kimjongchan", numberOfPosts: 212, numberOfFollowrs: 3389, numberOfFollowing: 212, numberOfComments: 3492, profileMessage: "안녕하세요 김종찬입니다."),

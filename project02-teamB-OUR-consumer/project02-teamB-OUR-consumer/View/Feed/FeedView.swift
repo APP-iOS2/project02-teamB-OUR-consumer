@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct FeedView: View {
+    
     @ObservedObject var postData: PostData = PostData()
-    @ObservedObject var idData: IdData = IdData()
     @State private var isShowingSheet: Bool = false
     
     var body: some View {
-        VStack {
-            PostView(idData: idData, postData: postData, isShowingSheet: $isShowingSheet)
+        ForEach(postData.postStore) { post in
+            VStack {
+                PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                PostView(post: post)
+                CommentView(comment: postData.postCommentStore[0])
+                PostButtonView(post: post, postData: postData)
+                
+            }
+            .padding()
+            
         }
-
     }
 }
 
