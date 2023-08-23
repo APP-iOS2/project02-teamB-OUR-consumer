@@ -8,44 +8,61 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    enum TabItem {
+            case feed, studyFeed, recruitAdd, alarm, myPage
+        }
+
+        @State private var selectedTab: TabItem = .feed
+        @State private var mainLogoToggle: Bool = true
+    
+    let hexColor: String = "#090580" //메인컬러로 변경
+    
     var body: some View {
-        TabView {
-            //FeedView 팀에서 넣어주시면 됩니다.
-            NavigationStack {
+        NavigationStack {
+            TabView(selection: $selectedTab) {
+                //FeedView
                 Image(systemName: "house.fill")
-                    .navigationBarItems(leading: Button(action: {
-                        //FeedView로 돌아가기
-                    }, label: {
-                        Image("OUR_Logo")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }))
+                    .tag(TabItem.feed)
+                    .tabItem {
+                        Label("피드", systemImage: "house.fill")
+                    }
+                //StudyFeedView
+                Image(systemName: "book.fill")
+                    .tag(TabItem.studyFeed)
+                    .tabItem {
+                        Label("스터디모집", systemImage: "book.fill")
+                    }
+                //RecruitAddView
+                Image(systemName: "plus.app.fill")
+                    .tag(TabItem.recruitAdd)
+                    .tabItem {
+                        Label("작성하기", systemImage: "plus.app.fill")
+                    }
+                //AlarmView
+                Image(systemName: "bell.fill")
+                    .tag(TabItem.alarm)
+                    .tabItem {
+                        Label("알림", systemImage: "bell.fill")
+                    }
+                //MyPageView
+                Image(systemName: "person.fill")
+                    .tag(TabItem.myPage)
+                    .tabItem {
+                        Label("마이페이지", systemImage: "person.fill")
+                    }
             }
-            
-            .tabItem {
-                Image(systemName: "house.fill")
-            }
-            
-            //StudyFeedView 팀에서 넣어주시면 됩니다.
-            Image(systemName: "book.fill")
-                .tabItem {
-                    Image(systemName: "book.fill")
-                }
-            //RecruitAddView 팀에서 넣어주시면 됩니다.
-            Image(systemName: "plus.app.fill")
-                .tabItem {
-                    Image(systemName: "plus.app.fill")
-                }
-            //AlarmView 팀에서 넣어주시면 됩니다.
-            Image(systemName: "bell.fill")
-                .tabItem {
-                    Image(systemName: "bell.fill")
-                }
-            //MyPageView 팀에서 넣어주시면 됩니다.
-            MyResumeView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                }
+            .tint(Color(hex: hexColor)) // 메인컬러로 변경
+            .navigationBarItems(leading: leadingBarItem)
+        }
+    }
+
+    @ViewBuilder
+    var leadingBarItem: some View {
+        if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
