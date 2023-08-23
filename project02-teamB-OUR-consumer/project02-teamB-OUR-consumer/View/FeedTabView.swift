@@ -9,10 +9,13 @@ import SwiftUI
 
 struct FeedTabView: View {
     var body: some View {
-        VStack {
-            TitleView()
-            FeedView()
-//            SheetView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다."))
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    TitleView()
+                    FeedView()
+                }
+            }
         }
     }
 }

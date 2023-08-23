@@ -23,4 +23,8 @@ class PostData: ObservableObject {
         PostCommentStore(id: UUID(), postId: "kimjongchan", userId: "leeseungjun", content: "?", createdAt: Date().timeIntervalSince1970),
 
     ]
+    
+    func pressLikeButton(post: FeedStore) {
+//        if postStore.contains(post)
+    }
 }
