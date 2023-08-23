@@ -46,7 +46,6 @@ class AlarmFireService{
         
         if let _ = dto["createdDate"]  {
             dto["createdDate"] = date
-            print("date.dateValue().toString() : \(date.dateValue().toString())")
         }
         
         ref = db.collection("\(path)").addDocument(data: dto) { err in
@@ -69,11 +68,6 @@ class AlarmFireService{
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-                
                 let documentsID = querySnapshot!.documents.map{ $0.documentID }
                 
                 let notifications = querySnapshot!.documents.compactMap{
@@ -114,7 +108,6 @@ class AlarmFireService{
                 completion: @escaping (String) -> ())
     {
         db.collection("\(path)").document(id).delete(completion: { vs in
-            print("id: \(id) is delete - \(vs) ")
             completion("\(id)")
         })
     }
