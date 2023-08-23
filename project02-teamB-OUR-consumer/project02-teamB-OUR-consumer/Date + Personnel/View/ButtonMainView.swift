@@ -43,7 +43,7 @@ struct ButtonMainView: View {
                     Text("시작: \(startDate.formatted(.dateTime))")
                     Text("마감: \(endDate.formatted(.dateTime))")
                 }
-                ZStack {
+             
                     HStack {
                         Button {
                             isShowingPersonSheet.toggle()
@@ -60,14 +60,12 @@ struct ButtonMainView: View {
                                 .presentationDetents([.fraction(0.45)])
                         }
                         
-                        Spacer().frame(width: 190)
-                        
+                        Spacer().frame(width: 121)
+                        Text("인원: \(number) ")
+                           
                     }
-                    VStack(alignment: .trailing) {
-                        Text("\(number) 명")
-                            .padding(.leading)
-                    }
-                }
+                       
+                
             }
         }
     }
