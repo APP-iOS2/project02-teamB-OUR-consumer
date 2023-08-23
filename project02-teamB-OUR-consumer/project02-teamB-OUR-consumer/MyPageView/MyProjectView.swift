@@ -10,6 +10,8 @@ import SwiftUI
 struct MyProjectCellView: View {
     var project: Project
     
+    @Binding var isChangeItem: Bool
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -19,12 +21,20 @@ struct MyProjectCellView: View {
                 
                 Spacer()
                 
-                Button {
-                    // 프로젝트 편집
-                } label: {
-                    Image(systemName: "pencil")
-                        .foregroundColor(.black)
+//                Button {
+//                    // 프로젝트 편집
+//                } label: {
+//                    Image(systemName: "pencil")
+//                        .foregroundColor(.black)
+//                }
+                NavigationLink(destination: MyProjectEditView(isChangeItem: $isChangeItem)) {
+                        Image(systemName: "pencil")
+                            .foregroundColor(.black)
                 }
+                .onTapGesture {
+                    isChangeItem.toggle()
+                }
+
             }
             
             Text("2023.08 - 현재")
@@ -40,6 +50,10 @@ struct MyProjectCellView: View {
 struct MyProjectView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     
+    @State var isDeleteItemAlert: Bool = false
+    
+    @State var isChangeItem: Bool = true
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -51,10 +65,11 @@ struct MyProjectView: View {
                     Spacer()
                     
                     NavigationLink {
-                        MyProjectEditView()
+                        MyProjectEditView(isChangeItem: $isChangeItem)
                     } label: {
                         Image(systemName: "plus")
                     }
+                    
                 }
                 .padding(.vertical, 5)
             }
@@ -66,7 +81,7 @@ struct MyProjectView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
                     if index < 3 {
-                        MyProjectCellView(project: resumeStore.resume.projects[index])
+                        MyProjectCellView(project: resumeStore.resume.projects[index], isChangeItem: $isChangeItem)
                             .padding(.vertical, 8)
                         Divider()
                     }

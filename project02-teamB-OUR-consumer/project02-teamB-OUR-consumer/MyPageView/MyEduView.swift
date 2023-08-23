@@ -10,6 +10,8 @@ import SwiftUI
 struct MyEduCellView: View {
     var education: Education
     
+    @Binding var isChangeItem: Bool
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -18,11 +20,11 @@ struct MyEduCellView: View {
                     .fontWeight(.semibold)
                 
                 Spacer()
-                
-                Button {
-                    // 교육 편집
+
+                NavigationLink {
+                    MyEduEditView()
                 } label: {
-                    Image(systemName: "pencil")
+                    Image(systemName: "plus")
                         .foregroundColor(.black)
                 }
             }
@@ -40,6 +42,8 @@ struct MyEduCellView: View {
 struct MyEduView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
 
+    @State var isChangeItem: Bool = true
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -65,7 +69,7 @@ struct MyEduView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
                     if index < 3 {
-                        MyEduCellView(education: resumeStore.resume.education[index])
+                        MyEduCellView(education: resumeStore.resume.education[index], isChangeItem: $isChangeItem)
                             .padding(.vertical, 8)
                         Divider()
                     }
