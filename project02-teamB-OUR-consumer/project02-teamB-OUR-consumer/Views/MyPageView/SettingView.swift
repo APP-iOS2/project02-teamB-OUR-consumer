@@ -73,14 +73,13 @@ struct SettingView: View {
                     }
                     
                     Group {
-                        Button {
-                            // 문의 뷰
+                        NavigationLink {
+                            InquiryView()
                         } label: {
-                            Text("일대일 문의")
+                            Text("1 대 1 문의")
                                 .font(.headline)
+                                .foregroundColor(.black)
                         }
-                        .buttonStyle(.plain)
-                        
                         .padding(.vertical)
                         Divider()
                     }
