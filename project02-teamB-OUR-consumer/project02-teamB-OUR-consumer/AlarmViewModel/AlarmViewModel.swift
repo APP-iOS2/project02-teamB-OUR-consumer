@@ -50,7 +50,7 @@ class AlarmViewModel: ObservableObject{
     func fetchNotificationItem(limit: Int = 10){
         service.read{ [weak self] ids, notifiationDTO in
             guard let self else { return }
-            let items = notifiationDTO.map{ $0.toDomain(user: self.getUser(user: $0.userId) )  }
+            let items = notifiationDTO.compactMap{ $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "") )  }
             personalNotiItem = mapToDictionary(items: items).0
             publicNotiItem = mapToDictionary(items: items).1
         }
