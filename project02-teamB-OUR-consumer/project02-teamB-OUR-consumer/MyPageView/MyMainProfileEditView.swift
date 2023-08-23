@@ -9,24 +9,28 @@ import SwiftUI
 
 struct MyMainProfileEditView: View {
     
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    @State var image: Image = Image("OUR_Logo")
     @State var username: String
 //    @State var profileMessage: String
+    @State var showModal: Bool = false
+    @State var showImagePicker: Bool = false
     
     var body: some View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
-                        ZStack(alignment: .bottomTrailing) {
-                            Image("OUR_Logo")
-                                .resizable()
-                                .frame(width: 120, height: 120)
-                                .cornerRadius(60)
+                        Button {
+                            showModal = true
+                        } label: {
+                            ZStack(alignment: .bottomTrailing) {
+                                image
+                                    .resizable()
+                                    .frame(width: 120, height: 120)
+                                    .cornerRadius(60)
                             
-                            
-                            Button {
-                                
-                            } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .resizable()
                                     .frame(width: 24, height: 24)
@@ -35,21 +39,14 @@ struct MyMainProfileEditView: View {
                                         Circle()
                                             .stroke(Color.white, lineWidth: 2) // 원형 보더 설정
                                     )
-                                    
                             }
-                            
-                            
+                            .padding(.vertical)
                         }
-                        .padding(.vertical)
-                    
                         Spacer()
-                        
                     }
-                    
-                    
-                
                     VStack(alignment: .leading, spacing: 8) {
                         Text("이름")
+                            .font(.system(size: 16))
                             .bold()
                             .padding(.vertical, 4)
                             
@@ -58,15 +55,16 @@ struct MyMainProfileEditView: View {
                             .overlay {
                                 TextField("이름을 입력해주세요.", text: $username)
                                     .padding()
+                                
                                     
                             }
                             .frame(height: 50)
                     }
                     .padding(.vertical)
                     
-                    
                     VStack(alignment: .leading, spacing: 8) {
                         Text("자기소개")
+                            .font(.system(size: 16))
                             .bold()
                             .padding(.vertical, 4)
                         
@@ -79,17 +77,17 @@ struct MyMainProfileEditView: View {
                             .frame(minHeight: 300)
                     }
                     .padding(.vertical)
-                
-                
                 }
                 .padding(.horizontal)
-                
-                
-                
                 Spacer()
-                
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+            self.mode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "chevron.backward")
+        })
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -100,14 +98,32 @@ struct MyMainProfileEditView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(.black)
+                        .background(mainColor)
                         .cornerRadius(5)
-                    
                 }
                 .buttonStyle(.plain)
-
             }
         })
+        .sheet(isPresented: $showModal) {
+            CameraORImageModalView(showModal: $showModal) { form in
+                switch form {
+                case .camera:
+                    break
+                case .picker:
+                    showModal = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showImagePicker = true
+                    }
+                }
+            }
+            .presentationDetents([.height(120), .height(120)])
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(isPresented: $showImagePicker) { uiImage in
+                let convertedImage = Image(uiImage: uiImage)
+                image = convertedImage
+            }
+        }
         .navigationTitle("프로필 편집")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -115,7 +131,7 @@ struct MyMainProfileEditView: View {
 
 struct MyMainProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             MyMainProfileEditView(username: "하이")
         }
     }
