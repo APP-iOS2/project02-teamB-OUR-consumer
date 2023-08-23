@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct MyProjectEditView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+
+
+    
     @State var projectTitle: String = ""
     @State var jobTitle: String = ""
     @State var startDate = Date()
     @State var endDate = Date()
     @State var description: String = ""
     
+    @State var isTextFieldEmpty: Bool = false
+    @State var isDeleteItemAlert: Bool = false
+    
+    @Binding var isChangeItem: Bool
+    
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     Divider()
@@ -27,41 +37,53 @@ struct MyProjectEditView: View {
                                 .foregroundColor(.red)
                                 .padding(.leading, -10)
                         }
+                        .font(.system(size: 16))
+                        .bold()
                         .padding(.top, 5)
-                        .padding(.bottom)
-                        TextField("  프로젝트 직무를 입력해주세요.", text: $projectTitle)
-                            .overlay(RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.gray, lineWidth: 1.5)
-                                .frame(height: 50))
                         
-                        // 텍스트필드의 height 넓히기
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isTextFieldEmpty ? .red : .gray, lineWidth: 2)
+                            .overlay {
+                                TextField("프로젝트 직무를 입력해주세요.", text: $projectTitle)
+                                    .padding()
+                                    .onChange(of: projectTitle) { newValue in
+                                        isTextFieldEmpty = newValue.isEmpty
+                                    }
+                            }
+                            .frame(height: 50)
                     }
                     
                     Group {
                         Text("직무명 ") // 폰트 크기랑 굵기 조절필요
+                            .font(.system(size: 16))
+                            .bold()
                             .padding(.top, 25)
-                            .padding(.bottom)
                         
-                        TextField("  직무명을 입력해주세요.(예: 앱 개발 과정)", text: $jobTitle)
-                            .overlay(RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.gray, lineWidth: 1.5)
-                                .frame(height: 50))
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.gray, lineWidth: 2)
+                            .overlay {
+                                TextField("직무명을 입력해주세요.(예: 앱 개발 과정)", text: $jobTitle)
+                                    .padding()
+                            }
+                            .frame(height: 50)
                     }
                     
                     Group {
                         HStack {
-                            Text("프로젝트 기간") // 폰트 크기랑 굵기 조절필요
+                            Text("프로젝트 기간")
                             Text("*")
                                 .foregroundColor(.red)
                                 .padding(.leading, -7)
                         }
+                        .font(.system(size: 16))
+                        .bold()
                         .padding(.top, 25)
                         
                         HStack {
-                            // 피커 스타일 / 색상 바꾸기 / 크기 바꾸기
                             DatePicker("", selection: $startDate,
                                        displayedComponents: [.date]
                             )
+                            .padding()
                             .labelsHidden()
                             
                             Text(" ~ ")
@@ -69,6 +91,7 @@ struct MyProjectEditView: View {
                             DatePicker("", selection: $endDate,
                                        displayedComponents: [.date]
                             )
+                            .padding()
                             .datePickerStyle(.compact)
                             .labelsHidden()
                         }
@@ -76,14 +99,48 @@ struct MyProjectEditView: View {
                     
                     Group {
                         Text("활동을 입력해 주세요.")
+                            .font(.system(size: 16))
+                            .bold()
                             .padding(.top)
-                        TextEditor(text: $description)
-                            .frame(height: 170)
-                            .overlay(RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray, lineWidth: 1))
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.gray, lineWidth: 2)
+                            .overlay {
+                                TextEditor(text: $description)
+                                    .padding()
+                            }
+                            .frame(minHeight: 200)
                     }
                 }
                 .padding(.vertical)
+                .padding(.bottom, 15)
+                .navigationBarBackButtonHidden(true)
+                            .navigationBarItems(leading: Button(action : {
+                                self.mode.wrappedValue.dismiss()
+                            }){
+                                Image(systemName: "chevron.backward")
+                            })
+            
+                if isChangeItem {
+                    HStack{
+                        Spacer()
+                        Button {
+                            isDeleteItemAlert.toggle()
+                        } label: {
+                            Text("삭제하기")
+                                .font(.system(size: 12))
+                                .fontWeight(.semibold)
+                            
+                        }
+                        .foregroundColor(.gray)
+                        .alert(isPresented: $isDeleteItemAlert) {
+                            Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
+                                //삭제 함수
+                                dismiss()
+                            }), secondaryButton: .cancel(Text("취소")))
+                        }
+                        Spacer()
+                    }
+                }
                 
                 Spacer()
                 
@@ -94,28 +151,23 @@ struct MyProjectEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // 완료 버튼
+                        if projectTitle.isEmpty {
+                            isTextFieldEmpty.toggle()
+                        }
                     } label: {
                         Text("완료")
                     }
                     .buttonStyle(.bordered)
                     
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        // 뒤로가기
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                    }
-                }
             }
-        }
+//        }
     }
 }
 
 
 struct MyExperienceEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectEditView()
+        MyProjectEditView(isChangeItem: .constant(true))
     }
 }

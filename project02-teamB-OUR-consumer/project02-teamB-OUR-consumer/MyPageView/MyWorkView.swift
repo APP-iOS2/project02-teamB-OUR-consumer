@@ -10,6 +10,8 @@ import SwiftUI
 struct MyWorkCellView: View {
     var work: WorkExperience
     
+    @Binding var isChangeItem: Bool
+
     var body: some View {
         HStack(alignment: .top) {
             Image(work.company.companyImage ?? "CompanyImageSample")
@@ -25,12 +27,15 @@ struct MyWorkCellView: View {
                         .fontWeight(.semibold)
                     
                     Spacer()
-                    
-                    Button {
-                        // 경력 편집
+
+                    NavigationLink {
+                        MyWorkEditView(isChangeItem: $isChangeItem)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
+                    }
+                    .onTapGesture {
+                        isChangeItem = true
                     }
                 }
                 
@@ -47,7 +52,9 @@ struct MyWorkCellView: View {
 
 struct MyWorkView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
-
+    
+    @State var isChangeItem: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -59,10 +66,14 @@ struct MyWorkView: View {
                     Spacer()
                     
                     NavigationLink {
-                        MyWorkEditView()
+                        MyWorkEditView(isChangeItem: $isChangeItem)
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .onTapGesture {
+                        isChangeItem = false
+                    }
+  
                 }
                 .padding(.vertical, 5)
             }
@@ -74,7 +85,7 @@ struct MyWorkView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
                     if index < 3 {
-                        MyWorkCellView(work: resumeStore.resume.workExperience[index])
+                        MyWorkCellView(work: resumeStore.resume.workExperience[index], isChangeItem: $isChangeItem)
                             .padding(.vertical, 8)
                         Divider()
                     }

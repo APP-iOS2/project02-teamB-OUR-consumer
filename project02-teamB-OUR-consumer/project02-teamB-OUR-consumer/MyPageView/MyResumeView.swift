@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyResumeView: View {
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView {
