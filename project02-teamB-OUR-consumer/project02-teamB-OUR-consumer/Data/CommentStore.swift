@@ -35,5 +35,4 @@ class CommentStore {
         }
         return count
     }
-    
 }
