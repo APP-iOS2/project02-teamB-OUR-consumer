@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct MyResumeView: View {
+    @Binding var isMyProfile: Bool
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    MyIntroView()
+                    MyIntroView(isMyProfile: $isMyProfile)
                         Rectangle()
                             .fill(Color("DefaultGray"))
-                    MyWorkView()
+                    MyWorkView(isMyProfile: $isMyProfile)
                         Rectangle()
                             .fill(Color("DefaultGray"))
-                    MyProjectView()
+                    MyProjectView(isMyProfile: $isMyProfile)
                         Rectangle()
                             .fill(Color("DefaultGray"))
-                    MyEduView()
+                    MyEduView(isMyProfile: $isMyProfile)
                         Rectangle()
                             .fill(Color("DefaultGray"))
-                    MySkillView()
+                    MySkillView(isMyProfile: $isMyProfile)
                 }
             }
         }
@@ -33,6 +35,6 @@ struct MyResumeView: View {
 
 struct MyResumeView_Previews: PreviewProvider {
     static var previews: some View {
-        MyResumeView()
+        MyResumeView(isMyProfile: .constant(true))
     }
 }

@@ -20,6 +20,10 @@
 		960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE72A9497530036CEC1 /* MySkillView.swift */; };
 		960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE92A94A9C40036CEC1 /* ResumeData.swift */; };
 		960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */; };
+		962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B7E1A2A95D8F100083790 /* MyWorkMoreView.swift */; };
+		962B7E1D2A95F04800083790 /* MyProjectMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B7E1C2A95F04800083790 /* MyProjectMoreView.swift */; };
+		962B7E1F2A95F05700083790 /* MyEduMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B7E1E2A95F05700083790 /* MyEduMoreView.swift */; };
+		962B7E212A95F06700083790 /* MySkillMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B7E202A95F06700083790 /* MySkillMoreView.swift */; };
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
@@ -50,6 +54,10 @@
 		960EFDE72A9497530036CEC1 /* MySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillView.swift; sourceTree = "<group>"; };
 		960EFDE92A94A9C40036CEC1 /* ResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeData.swift; sourceTree = "<group>"; };
 		960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeStore.swift; sourceTree = "<group>"; };
+		962B7E1A2A95D8F100083790 /* MyWorkMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkMoreView.swift; sourceTree = "<group>"; };
+		962B7E1C2A95F04800083790 /* MyProjectMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProjectMoreView.swift; sourceTree = "<group>"; };
+		962B7E1E2A95F05700083790 /* MyEduMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEduMoreView.swift; sourceTree = "<group>"; };
+		962B7E202A95F06700083790 /* MySkillMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillMoreView.swift; sourceTree = "<group>"; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,12 +96,16 @@
 				960EFDDA2A9491970036CEC1 /* MyResumeView.swift */,
 				960EFDDF2A9497040036CEC1 /* MyIntroView.swift */,
 				960EFDE12A94971D0036CEC1 /* MyWorkView.swift */,
+				962B7E1A2A95D8F100083790 /* MyWorkMoreView.swift */,
 				118AA96C2A95099F006946C3 /* MyWorkEditView.swift */,
 				960EFDE32A9497330036CEC1 /* MyProjectView.swift */,
+				962B7E1C2A95F04800083790 /* MyProjectMoreView.swift */,
 				118AA96A2A95099F006946C3 /* MyProjectEditView.swift */,
 				960EFDE52A9497430036CEC1 /* MyEduView.swift */,
+				962B7E1E2A95F05700083790 /* MyEduMoreView.swift */,
 				118AA9682A95099F006946C3 /* MyEduEditView.swift */,
 				960EFDE72A9497530036CEC1 /* MySkillView.swift */,
+				962B7E202A95F06700083790 /* MySkillMoreView.swift */,
 				118AA96B2A95099F006946C3 /* MySkillEditView.swift */,
 				118AA9692A95099F006946C3 /* SettingView.swift */,
 			);
@@ -245,17 +257,21 @@
 				960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
+				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
+				962B7E1F2A95F05700083790 /* MyEduMoreView.swift in Sources */,
 				A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */,
 				A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
+				962B7E212A95F06700083790 /* MySkillMoreView.swift in Sources */,
 				A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */,
 				118AA96E2A95099F006946C3 /* SettingView.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */,
 				118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */,
+				962B7E1D2A95F04800083790 /* MyProjectMoreView.swift in Sources */,
 				118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MySkillCellView: View {
+    @Binding var isMyProfile: Bool
     var skill: Skill
     
     var body: some View {
@@ -19,11 +20,13 @@ struct MySkillCellView: View {
                 
                 Spacer()
                 
-                Button {
-                    // 스킬 편집
-                } label: {
-                    Image(systemName: "pencil")
-                        .foregroundColor(.black)
+                if isMyProfile {
+                    Button {
+                        // 스킬 편집
+                    } label: {
+                        Image(systemName: "pencil")
+                            .foregroundColor(.black)
+                    }
                 }
             }
             
@@ -35,6 +38,7 @@ struct MySkillCellView: View {
 
 struct MySkillView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    @Binding var isMyProfile: Bool
 
     var body: some View {
         NavigationStack {
@@ -46,10 +50,12 @@ struct MySkillView: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        MySkillEditView()
-                    } label: {
-                        Image(systemName: "plus")
+                    if isMyProfile {
+                        NavigationLink {
+                            MySkillEditView()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
                 .padding(.vertical, 5)
@@ -62,7 +68,7 @@ struct MySkillView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.skills.count, id: \.self) { index in
                     if index < 3 {
-                        MySkillCellView(skill: resumeStore.resume.skills[index])
+                        MySkillCellView(isMyProfile: $isMyProfile, skill: resumeStore.resume.skills[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -72,7 +78,7 @@ struct MySkillView: View {
                 // 스킬 3개 넘으면 더보기
                 if resumeStore.resume.skills.count > 3 {
                     NavigationLink {
-                        // 스킬 더보기
+                        MySkillMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -89,6 +95,6 @@ struct MySkillView: View {
 
 struct MySkillView_Previews: PreviewProvider {
     static var previews: some View {
-        MySkillView()
+        MySkillView(isMyProfile: .constant(true))
     }
 }

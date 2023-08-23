@@ -14,7 +14,7 @@ let mainColor = Color(hex: "#090580")
 struct MyMain: View {
     
     @State private var currentTab: Int = 0
-    @State private var isMyProfile: Bool = true
+    @State private var isMyProfile: Bool = false
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     
     var body: some View {
@@ -105,11 +105,8 @@ struct MyMain: View {
                                             .foregroundColor(.white)
                                             
                                     }
-                                    
                                 }
                             }
-                            
-                            
                         }
                         .frame(height: 36)
                         
@@ -122,7 +119,7 @@ struct MyMain: View {
                     // 탭바들 자리 (index 값 따라서 다른뷰 보여주면 될 듯)
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section {
-                            MyResumeView()
+                            MyResumeView(isMyProfile: $isMyProfile)
                         } header: {
                             MyMainTabBar(currentTab: $currentTab, namespace: Namespace())
                         }

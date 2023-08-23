@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyProjectCellView: View {
+    @Binding var isMyProfile: Bool
     var project: Project
     
     var body: some View {
@@ -19,11 +20,13 @@ struct MyProjectCellView: View {
                 
                 Spacer()
                 
-                Button {
-                    // 프로젝트 편집
-                } label: {
-                    Image(systemName: "pencil")
-                        .foregroundColor(.black)
+                if isMyProfile {
+                    Button {
+                        // 프로젝트 편집
+                    } label: {
+                        Image(systemName: "pencil")
+                            .foregroundColor(.black)
+                    }
                 }
             }
             
@@ -39,6 +42,7 @@ struct MyProjectCellView: View {
 
 struct MyProjectView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    @Binding var isMyProfile: Bool
     
     var body: some View {
         NavigationStack {
@@ -50,10 +54,12 @@ struct MyProjectView: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        MyProjectEditView()
-                    } label: {
-                        Image(systemName: "plus")
+                    if isMyProfile {
+                        NavigationLink {
+                            MyProjectEditView()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
                 .padding(.vertical, 5)
@@ -66,7 +72,7 @@ struct MyProjectView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
                     if index < 3 {
-                        MyProjectCellView(project: resumeStore.resume.projects[index])
+                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -76,7 +82,7 @@ struct MyProjectView: View {
                 // 프로젝트 3개 넘으면 더보기
                 if resumeStore.resume.projects.count > 3 {
                     NavigationLink {
-                        // 프로젝트 더보기
+                        MyProjectMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -93,6 +99,6 @@ struct MyProjectView: View {
 
 struct MyProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectView()
+        MyProjectView(isMyProfile: .constant(true))
     }
 }
