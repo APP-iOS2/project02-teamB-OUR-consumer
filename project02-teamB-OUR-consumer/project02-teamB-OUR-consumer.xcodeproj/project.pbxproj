@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */; };
+		960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEDF2A9459840044F279 /* NotificationsListView.swift */; };
+		960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE02A9459840044F279 /* CustomTabView.swift */; };
+		960CCEE82A9459910044F279 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE72A9459910044F279 /* NotificationItem.swift */; };
+		960CCEEE2A945A7C0044F279 /* AlarmContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEED2A945A7C0044F279 /* AlarmContainer.swift */; };
+		960CCEF02A947BC30044F279 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEEF2A947BC30044F279 /* ContentView.swift */; };
+		9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650867E2A948A9200CDA0FC /* AlarmViewModel.swift */; };
+		965086872A94C86A00CDA0FC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965086862A94C86A00CDA0FC /* Color.swift */; };
+		965086892A94D34600CDA0FC /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965086882A94D34600CDA0FC /* NotificationType.swift */; };
+		9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650868A2A94D35900CDA0FC /* NotificationDTO.swift */; };
+		9650868D2A95A86800CDA0FC /* UNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */; };
+		965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965086912A95D29B00CDA0FC /* AlarmFireService.swift */; };
+		965086A12A95F9A200CDA0FC /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650869C2A95F9A100CDA0FC /* UIImage.swift */; };
+		965086A22A95F9A200CDA0FC /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650869D2A95F9A100CDA0FC /* Date.swift */; };
+		965086A32A95F9A200CDA0FC /* AnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650869E2A95F9A100CDA0FC /* AnyView.swift */; };
+		965086A42A95F9A200CDA0FC /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650869F2A95F9A100CDA0FC /* Encodable.swift */; };
+		965086A52A95F9A200CDA0FC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965086A02A95F9A100CDA0FC /* String.swift */; };
 		118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9682A95099F006946C3 /* MyEduEditView.swift */; };
 		118AA96E2A95099F006946C3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9692A95099F006946C3 /* SettingView.swift */; };
 		118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96A2A95099F006946C3 /* MyProjectEditView.swift */; };
@@ -63,9 +80,34 @@
 		9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B9B312A94A3F2004609AF /* PostCommentStore.swift */; };
 		9B6B9B362A94A746004609AF /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B9B352A94A746004609AF /* PostData.swift */; };
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
-		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
+		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
+		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
+		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
+		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
+		F485B7532A94574200A2F5FF /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7522A94574200A2F5FF /* FirebaseFirestoreSwift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
+		960CCEDF2A9459840044F279 /* NotificationsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsListView.swift; sourceTree = "<group>"; };
+		960CCEE02A9459840044F279 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		960CCEE72A9459910044F279 /* NotificationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
+		960CCEED2A945A7C0044F279 /* AlarmContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmContainer.swift; sourceTree = "<group>"; };
+		960CCEEF2A947BC30044F279 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9650867E2A948A9200CDA0FC /* AlarmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewModel.swift; sourceTree = "<group>"; };
+		965086862A94C86A00CDA0FC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		965086882A94D34600CDA0FC /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
+		9650868A2A94D35900CDA0FC /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
+		9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
+		9650868F2A95CCBB00CDA0FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		965086912A95D29B00CDA0FC /* AlarmFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFireService.swift; sourceTree = "<group>"; };
+		9650869C2A95F9A100CDA0FC /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/UIImage.swift"; sourceTree = SOURCE_ROOT; };
+		9650869D2A95F9A100CDA0FC /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/Date.swift"; sourceTree = SOURCE_ROOT; };
+		9650869E2A95F9A100CDA0FC /* AnyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnyView.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/AnyView.swift"; sourceTree = SOURCE_ROOT; };
+		9650869F2A95F9A100CDA0FC /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encodable.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/Encodable.swift"; sourceTree = SOURCE_ROOT; };
+		965086A02A95F9A100CDA0FC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/String.swift"; sourceTree = SOURCE_ROOT; };
 		A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
@@ -136,9 +178,9 @@
 		9B6B9B352A94A746004609AF /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
-		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		A09ED4BA2A9490D200E6A626 /* MyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainView.swift; sourceTree = "<group>"; };
 		A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainTabBar.swift; sourceTree = "<group>"; };
 		A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainProfileEditView.swift; sourceTree = "<group>"; };
@@ -155,7 +197,6 @@
 		FAB51C102A9655590047A725 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FAB51C112A9655590047A725 /* AgreeTermView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreeTermView.swift; sourceTree = "<group>"; };
 		FAB51C122A9655590047A725 /* LoginSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSecondView.swift; sourceTree = "<group>"; };
-		FAB51C1A2A96568D0047A725 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +218,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		960CCEDE2A9459790044F279 /* AlarmView */ = {
+			isa = PBXGroup;
+			children = (
+				960CCEED2A945A7C0044F279 /* AlarmContainer.swift */,
+				1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */,
+				960CCEE02A9459840044F279 /* CustomTabView.swift */,
+				960CCEDF2A9459840044F279 /* NotificationsListView.swift */,
+				B0F67D592A948B3300B2A138 /* TestView.swift */,
+			);
+			path = AlarmView;
+			sourceTree = "<group>";
+		};
+		963A46102A96525F00A43DDA /* AlarmExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9650869E2A95F9A100CDA0FC /* AnyView.swift */,
+				9650869D2A95F9A100CDA0FC /* Date.swift */,
+				9650869F2A95F9A100CDA0FC /* Encodable.swift */,
+				965086A02A95F9A100CDA0FC /* String.swift */,
+				9650869C2A95F9A100CDA0FC /* UIImage.swift */,
+			);
+			path = AlarmExtension;
+			sourceTree = "<group>";
+		};
+		965086972A95F5F700CDA0FC /* AlarmViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				965086912A95D29B00CDA0FC /* AlarmFireService.swift */,
+				9650867E2A948A9200CDA0FC /* AlarmViewModel.swift */,
+				9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */,
+			);
+			path = AlarmViewModel;
+			sourceTree = "<group>";
+		};
+		965086982A95F65800CDA0FC /* NotificationData */ = {
+			isa = PBXGroup;
+			children = (
+				965086882A94D34600CDA0FC /* NotificationType.swift */,
+				960CCEE72A9459910044F279 /* NotificationItem.swift */,
+				9650868A2A94D35900CDA0FC /* NotificationDTO.swift */,
+				965086862A94C86A00CDA0FC /* Color.swift */,
+			);
+			path = NotificationData;
+    };
 		3AF70F392A951C1D008E9CAB /* Key */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +396,14 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
+				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
+				960CCEEF2A947BC30044F279 /* ContentView.swift */,
+				9650868F2A95CCBB00CDA0FC /* GoogleService-Info.plist */,
+				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
+				960CCEDE2A9459790044F279 /* AlarmView */,
+				965086972A95F5F700CDA0FC /* AlarmViewModel */,
+				965086982A95F65800CDA0FC /* NotificationData */,
+				963A46102A96525F00A43DDA /* AlarmExtension */,
 				FAB51C1A2A96568D0047A725 /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				842192092A95DB3C007224EE /* Views */,
@@ -431,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
+				965086902A95CCBB00CDA0FC /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				FAB51C1B2A96568D0047A725 /* GoogleService-Info.plist in Resources */,
 			);
@@ -443,6 +537,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965086A52A95F9A200CDA0FC /* String.swift in Sources */,
+				965086892A94D34600CDA0FC /* NotificationType.swift in Sources */,
+				965086A42A95F9A200CDA0FC /* Encodable.swift in Sources */,
+				960CCEE82A9459910044F279 /* NotificationItem.swift in Sources */,
+				965086A32A95F9A200CDA0FC /* AnyView.swift in Sources */,
+				9650868D2A95A86800CDA0FC /* UNNotificationCenter.swift in Sources */,
+				965086A22A95F9A200CDA0FC /* Date.swift in Sources */,
+				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
+				1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */,
+				960CCEF02A947BC30044F279 /* ContentView.swift in Sources */,
+				965086A12A95F9A200CDA0FC /* UIImage.swift in Sources */,
+				960CCEEE2A945A7C0044F279 /* AlarmContainer.swift in Sources */,
+				960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */,
+				9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */,
+				9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */,
+				B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */,
+				960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */,
+				965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */,
+				965086872A94C86A00CDA0FC /* Color.swift in Sources */,
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
@@ -645,7 +758,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "project02-teamB-OUR-consumer/Info.plist";
@@ -676,7 +789,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "project02-teamB-OUR-consumer/Info.plist";

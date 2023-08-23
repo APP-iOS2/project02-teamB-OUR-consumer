@@ -40,7 +40,7 @@ struct ContentView: View {
                         Label("작성하기", systemImage: "plus.app.fill")
                     }
                 //AlarmView
-                Image(systemName: "bell.fill")
+                AlarmContainer()
                     .tag(TabItem.alarm)
                     .tabItem {
                         Label("알림", systemImage: "bell.fill")
@@ -52,6 +52,7 @@ struct ContentView: View {
                         Label("마이페이지", systemImage: "person.fill")
                     }
             }
+            .tint(AColor.main.color) // 메인컬러로 변경
             .navigationBarBackButtonHidden()
             .navigationBarItems(leading: Button(action: {
                 //FeedView로 돌아가기
@@ -73,9 +74,8 @@ struct ContentView: View {
                 .aspectRatio(contentMode: .fit)
         }
     }
-}
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentView_Preview: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
