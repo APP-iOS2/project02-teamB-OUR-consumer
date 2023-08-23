@@ -52,11 +52,19 @@ struct ContentView: View {
                         Label("마이페이지", systemImage: "person.fill")
                     }
             }
+            .navigationBarBackButtonHidden()
+            .navigationBarItems(leading: Button(action: {
+                //FeedView로 돌아가기
+            }, label: {
+                Image("OUR_Logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }))
             .tint(Color(hex: hexColor)) // 메인컬러로 변경
             .navigationBarItems(leading: leadingBarItem)
         }
     }
-
+    
     @ViewBuilder
     var leadingBarItem: some View {
         if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {

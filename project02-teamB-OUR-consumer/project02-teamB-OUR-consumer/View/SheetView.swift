@@ -34,7 +34,7 @@ struct SheetView: View {
                     Image(idStore.profileImgString)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 80)
+                        .frame(width: 40)
                         .border(Color.gray, width: 4)
                         .padding(.leading, 30)
                         .clipShape(Circle())
@@ -47,6 +47,8 @@ struct SheetView: View {
                         Text("@")
                             .padding(.leading, -30)
                         Text(idStore.userID)
+                            .font(.system(size: 16))
+                            .fontWeight(.bold)
                             .padding(.leading, -20)
                     }
                     .foregroundColor(Color.black)
@@ -60,12 +62,14 @@ struct SheetView: View {
                 VStack {
                     HStack {
                         Text(idStore.name)
+                            .font(.system(size: 16))
                             .bold()
                             .padding(.leading, 33)
                         Spacer()
                     }
                     HStack {
                         Text(idStore.profileMessage)
+                            .font(.system(size: 14))
                             .padding(.leading, 33)
                             .foregroundColor(Color(hex: 0x090580))
                         Spacer()
@@ -138,6 +142,6 @@ struct SheetView: View {
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다."))
+        SheetView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.", isFollow: false))
     }
 }

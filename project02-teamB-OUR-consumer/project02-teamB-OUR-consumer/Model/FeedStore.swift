@@ -6,7 +6,8 @@
 //
 
 import Foundation
-class FeedStore: ObservableObject {
+
+class FeedStore: ObservableObject, Identifiable {
     var id: UUID = UUID()
     var postId: String
     var numberOfComments: Int
