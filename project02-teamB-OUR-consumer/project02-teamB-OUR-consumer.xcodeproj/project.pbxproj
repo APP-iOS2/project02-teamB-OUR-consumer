@@ -49,11 +49,11 @@
 		9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		9650868F2A95CCBB00CDA0FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		965086912A95D29B00CDA0FC /* AlarmFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFireService.swift; sourceTree = "<group>"; };
-		9650869C2A95F9A100CDA0FC /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = "project02-teamB-OUR-consumer/Extension/UIImage.swift"; sourceTree = SOURCE_ROOT; };
-		9650869D2A95F9A100CDA0FC /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = "project02-teamB-OUR-consumer/Extension/Date.swift"; sourceTree = SOURCE_ROOT; };
-		9650869E2A95F9A100CDA0FC /* AnyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnyView.swift; path = "project02-teamB-OUR-consumer/Extension/AnyView.swift"; sourceTree = SOURCE_ROOT; };
-		9650869F2A95F9A100CDA0FC /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encodable.swift; path = "project02-teamB-OUR-consumer/Extension/Encodable.swift"; sourceTree = SOURCE_ROOT; };
-		965086A02A95F9A100CDA0FC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = "project02-teamB-OUR-consumer/Extension/String.swift"; sourceTree = SOURCE_ROOT; };
+		9650869C2A95F9A100CDA0FC /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/UIImage.swift"; sourceTree = SOURCE_ROOT; };
+		9650869D2A95F9A100CDA0FC /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/Date.swift"; sourceTree = SOURCE_ROOT; };
+		9650869E2A95F9A100CDA0FC /* AnyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnyView.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/AnyView.swift"; sourceTree = SOURCE_ROOT; };
+		9650869F2A95F9A100CDA0FC /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Encodable.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/Encodable.swift"; sourceTree = SOURCE_ROOT; };
+		965086A02A95F9A100CDA0FC /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = "project02-teamB-OUR-consumer/AlarmExtension/String.swift"; sourceTree = SOURCE_ROOT; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,31 +76,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		960CCEDC2A94596F0044F279 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				965086982A95F65800CDA0FC /* NotificationData */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		960CCEDE2A9459790044F279 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				965086962A95F5EB00CDA0FC /* Alarm */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		9650867D2A948A7D00CDA0FC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				965086972A95F5F700CDA0FC /* AlarmViewModel */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		965086962A95F5EB00CDA0FC /* Alarm */ = {
+		960CCEDE2A9459790044F279 /* AlarmView */ = {
 			isa = PBXGroup;
 			children = (
 				960CCEED2A945A7C0044F279 /* AlarmContainer.swift */,
@@ -109,7 +85,19 @@
 				960CCEDF2A9459840044F279 /* NotificationsListView.swift */,
 				B0F67D592A948B3300B2A138 /* TestView.swift */,
 			);
-			path = Alarm;
+			path = AlarmView;
+			sourceTree = "<group>";
+		};
+		963A46102A96525F00A43DDA /* AlarmExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9650869E2A95F9A100CDA0FC /* AnyView.swift */,
+				9650869D2A95F9A100CDA0FC /* Date.swift */,
+				9650869F2A95F9A100CDA0FC /* Encodable.swift */,
+				965086A02A95F9A100CDA0FC /* String.swift */,
+				9650869C2A95F9A100CDA0FC /* UIImage.swift */,
+			);
+			path = AlarmExtension;
 			sourceTree = "<group>";
 		};
 		965086972A95F5F700CDA0FC /* AlarmViewModel */ = {
@@ -131,18 +119,6 @@
 				965086862A94C86A00CDA0FC /* Color.swift */,
 			);
 			path = NotificationData;
-			sourceTree = "<group>";
-		};
-		965086A62A95FA2000CDA0FC /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				9650869E2A95F9A100CDA0FC /* AnyView.swift */,
-				9650869D2A95F9A100CDA0FC /* Date.swift */,
-				9650869F2A95F9A100CDA0FC /* Encodable.swift */,
-				965086A02A95F9A100CDA0FC /* String.swift */,
-				9650869C2A95F9A100CDA0FC /* UIImage.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		9E99CCE12A944A5700699B6A = {
@@ -168,10 +144,10 @@
 				960CCEEF2A947BC30044F279 /* ContentView.swift */,
 				9650868F2A95CCBB00CDA0FC /* GoogleService-Info.plist */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
-				960CCEDE2A9459790044F279 /* View */,
-				9650867D2A948A7D00CDA0FC /* ViewModel */,
-				960CCEDC2A94596F0044F279 /* Data */,
-				965086A62A95FA2000CDA0FC /* Extension */,
+				960CCEDE2A9459790044F279 /* AlarmView */,
+				965086972A95F5F700CDA0FC /* AlarmViewModel */,
+				965086982A95F65800CDA0FC /* NotificationData */,
+				963A46102A96525F00A43DDA /* AlarmExtension */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
 			);
 			path = "project02-teamB-OUR-consumer";

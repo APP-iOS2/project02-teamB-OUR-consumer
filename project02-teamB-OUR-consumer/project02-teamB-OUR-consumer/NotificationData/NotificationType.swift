@@ -29,7 +29,6 @@ enum NotificationType: String {
             return .none
         }
     }
-
     
     enum Access{
         case `public`
