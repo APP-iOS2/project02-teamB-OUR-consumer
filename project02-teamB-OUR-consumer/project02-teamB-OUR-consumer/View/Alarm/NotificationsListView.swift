@@ -111,24 +111,21 @@ struct NotificationRow: View {
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
                         Spacer()
-
+                        
                         // 팔로우 버튼만 오른쪽으로 밀기
                         Spacer()
-                        Button(action: {
-                            isFollowing.toggle()
-                            followTapped(tap: isFollowing)
-                        }) {
-                            Text(isFollowing ? "팔로잉" : "팔로우")
-                                .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
-                                .foregroundColor(isFollowing ? AColor.main.color : Color.white)
-                                .frame(width: 90.05, height: 27.85)
-//                                .padding(.horizontal, 18)
-//                                .padding(.vertical, 5)
-                                .background(isFollowing ? Color.white : AColor.main.color) // 팔로잉 상태에 따른 배경색
-                                .cornerRadius(5)
-                                .overlay(RoundedRectangle(cornerRadius: 5)
-                                    .stroke(AColor.main.color, lineWidth: 2))
-                        }
+                        Text(isFollowing ? "팔로잉" : "팔로우")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(isFollowing ? AColor.main.color : Color.white)
+                            .frame(width: 90.05, height: 27.85)
+                            .background(isFollowing ? Color.white : AColor.main.color)
+                            .cornerRadius(5)
+                            .overlay(RoundedRectangle(cornerRadius: 5)
+                                .stroke(AColor.main.color, lineWidth: 2))
+                            .onTapGesture {
+                                isFollowing.toggle()
+                                followTapped(tap: isFollowing)
+                            }
                     }
                     
                     // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
@@ -165,7 +162,7 @@ struct NotificationRow: View {
         }
         return output
     }
-
+    
     
     
     func styledText(text: String) -> some View {
