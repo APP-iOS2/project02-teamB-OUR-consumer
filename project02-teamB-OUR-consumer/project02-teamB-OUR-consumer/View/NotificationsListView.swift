@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 // 알림 목록 뷰
 struct NotificationsListView: View {
@@ -100,6 +101,9 @@ struct NotificationRow: View {
                         Spacer()
                         Button(action: {
                             isFollowing.toggle()
+                            
+                            // (숫자)바꾸면 기본 제공 효과음
+                            AudioServicesPlaySystemSound(1101)
                         }) {
                             Text(isFollowing ? "팔로잉" : "팔로우")
                                 .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
