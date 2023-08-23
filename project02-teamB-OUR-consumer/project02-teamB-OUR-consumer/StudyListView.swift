@@ -18,6 +18,7 @@ struct StudyListView: View {
     
     @ObservedObject var studyStore = StudyStore()
     
+    @State var searchText: String = ""
     @State var isOnline: Bool = false
     @State private var selectedArray: StudyList = .allList
     
@@ -60,7 +61,7 @@ struct StudyListView: View {
             .toolbar {
                 ToolbarItem {
                     NavigationLink {
-                        SearchView()
+                     //   SearchView()
                     } label: {
                         Label("검색", systemImage: "magnifyingglass")
                             .foregroundColor(.black)
