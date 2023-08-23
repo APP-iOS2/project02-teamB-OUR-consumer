@@ -23,7 +23,6 @@ class AlarmViewModel: ObservableObject{
     
     init(dependency: AlarmFireService = AlarmFireService()){
         self.service = dependency
-        createNoti()
     }
  
     #if DEBUG
@@ -59,12 +58,10 @@ class AlarmViewModel: ObservableObject{
     
     
     func delete(notification id: ID){
-        
     }
     
     
     func update(isRead item: NotificationItem){
-        
     }
     
     
@@ -80,21 +77,18 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-    
     /// Mapping To View Model
     /// - Parameter items: notification Item
     /// - Returns: public , personal
     private func mapToDictionary(items: [NotificationItem]) -> (NotiItem,NotiItem){
         return items.reduce(into: (NotiItem(),NotiItem()), { original, item in
             if item.type.getAccessLevel() == .personal{
-                
                 let dotDate = item.createdDate.dotString()
                 if let items = original.0[dotDate]{
                     original.0[dotDate] = items + [item]
                 }else{
                     original.0[dotDate] = [item]
                 }
-                
             }else {
                 let dotDate = item.createdDate.dotString()
                 if let items = original.1[dotDate]{
