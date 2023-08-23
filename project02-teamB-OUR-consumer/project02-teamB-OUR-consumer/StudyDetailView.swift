@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StudyDetailView: View {
     
+    @State private var isShowingStudyMemberSheet: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -62,15 +64,25 @@ struct StudyDetailView: View {
                         
                         Divider()
                         
-                        VStack() {
-                            Text("""
-                                 📍위치 : 종각역 할리스
-                                 👥인원 : 최대 5명 (1/5)
-                                 🗓️매주 토요일 14:00 ~ 16:00 9월 1일 ~ 9월 30일
-                                 """ )
+                        VStack(alignment: .leading) {
+                            Button {
+                                print("")
+                            } label: {
+                                Text("📍 위치 : 종각역 할리스")
+                                    .bold()
+                                    .foregroundColor(.black)
+                            }
+                            Button {
+                                isShowingStudyMemberSheet.toggle()
+                            } label: {
+                                Text("👥 인원 : 최대 5명 (1/5)")
+                                    .bold()
+                                    .foregroundColor(.black)
+                            }
+                            
+                            Text("🗓️ 매주 토요일 14:00 ~ 16:00 9월 1일 ~ 9월 30일")
                                 .bold()
-                                .lineSpacing(5)
-
+                            
                             HStack {
                                 Button {
                                     print("")
@@ -101,7 +113,7 @@ struct StudyDetailView: View {
                 }
                 .padding(.top, 25)
             }
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         print("")
@@ -109,9 +121,12 @@ struct StudyDetailView: View {
                         Image(systemName: "bookmark")
                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                     }
-                    
                 }
-            })
+            }
+            .sheet(isPresented: $isShowingStudyMemberSheet) {
+                StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet)
+                    .presentationDetents([.medium, .large])
+            }
         }
     }
 }
