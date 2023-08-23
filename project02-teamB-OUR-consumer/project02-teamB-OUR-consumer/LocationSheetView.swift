@@ -40,7 +40,7 @@ struct LocationSheetView: View {
                 annotationItems: [Annotation(coordinate: locationCoordinate)]) { annotation in
                 MapMarker(coordinate: annotation.coordinate)
             }
-            .frame(height: 300)
+            .frame(height: 250)
             
             
         }

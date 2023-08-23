@@ -9,6 +9,10 @@ import SwiftUI
 
 struct StudyReplyDetailView: View {
     
+    
+    @State private var showAlert: Bool = false
+    
+    
     var userId: String
     var comment: StudyGroupComment
     
@@ -21,7 +25,7 @@ struct StudyReplyDetailView: View {
                     comment.profileImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 55)
+                        .frame(width: 40)
                         .clipShape(Circle())
                 }
 
@@ -29,11 +33,22 @@ struct StudyReplyDetailView: View {
                 VStack(alignment: .leading, spacing: 5){
                     HStack {
                         Text(comment.userId)
+                            .font(.system(size: 14))
                             .fontWeight(.bold)
                         Text(comment.createdDate)
-                            .font(.footnote)
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+//                        Button {
+//                            //대댓글
+//                        } label: {
+//                            Text("Reply")
+//                                .font(.system(size: 12))
+//                                .foregroundColor(.gray)
+//                        }
+
                     }
                     Text(comment.content)
+                        .font(.system(size: 14))
                     
                 }
                 Spacer()
@@ -45,15 +60,16 @@ struct StudyReplyDetailView: View {
                         } label: {
                             Text("수정하기")
                         }
-                        
+                        // 삭제 : 포스트 아이디가 같은경우도 !!해보기 
                         Button {
-                            //삭제하는 func 만들기~
+                            showAlert = true
+                            //삭제하는 func 만들어서 호출은 alert에서
                         } label: {
                             Text("삭제하기")
                         }
                     } else {
-                        Button {
-                            //신고뷰
+                        NavigationLink {
+                            StudyCommentReportView(userId: userId, comment: comment)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
@@ -65,6 +81,15 @@ struct StudyReplyDetailView: View {
                 .foregroundColor(.gray)
             }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("정말 삭제하겠습니까?"),
+                      message: Text("댓글을 삭제합니다"),
+                      primaryButton: .destructive(Text("삭제")) {
+                            //댓글삭제하는 함수 넣기
+                        },
+                      secondaryButton: .cancel(Text("취소")))
+            }
+        
 
     }
 }

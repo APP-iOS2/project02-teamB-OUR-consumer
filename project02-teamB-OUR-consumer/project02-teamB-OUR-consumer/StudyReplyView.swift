@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+struct StudyGroupComment: Identifiable {
+    var id: UUID = UUID()
+    var userId: String // 이것도 포스트아이디처럼 따로 받아와야되나?!
+    var profileString: String?
+    var content: String
+    var createdAt: Double = Date().timeIntervalSince1970
+    
+    var profileImage: Image {
+        Image(profileString ?? "OUR_Logo")
+    }
+    var createdDate: String {
+        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
+        
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.dateFormat = "MM월 dd일 HH시 mm분"
+        
+        return dateFormatter.string(from: dateCreatedAt)
+    }
+    
+}
+
 struct StudyReplyView: View {
     
     @State var isEditing: Bool = false
@@ -35,11 +58,13 @@ struct StudyReplyView: View {
             
             
             HStack {
+                //프로필 이미지
                 Image("OUR_Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 45)
+                    .frame(width: 40)
                     .clipShape(Circle())
+                //댓글입력창
                 if isEditing {
                     TextField("Edit reply",text: $studyGroupComments[2].content)
                         .onTapGesture {
@@ -51,7 +76,7 @@ struct StudyReplyView: View {
                         isEditing = false
                     }
                 } else {
-                    TextField("Add reply", text: $content)
+                    TextField("Add reply", text: $content, axis: .vertical)
                     Button("Add") {
                         let comment: StudyGroupComment = StudyGroupComment(userId: "로그인된 유저아이디", content: content)
                         studyGroupComments.append(comment)
