@@ -28,6 +28,13 @@
 		9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B9B312A94A3F2004609AF /* PostCommentStore.swift */; };
 		9B6B9B362A94A746004609AF /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6B9B352A94A746004609AF /* PostData.swift */; };
 		9BAB5F6F2A95FCF00099A9C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BAB5F6E2A95FCF00099A9C9 /* GoogleService-Info.plist */; };
+		9BB1DB4F2A961E6D00B18122 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB4E2A961E6D00B18122 /* Account.swift */; };
+		9BB1DB512A961FC100B18122 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB502A961FC100B18122 /* Post.swift */; };
+		9BB1DB532A96226100B18122 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB522A96226100B18122 /* Comment.swift */; };
+		9BB1DB552A96241100B18122 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB542A96241100B18122 /* AccountStore.swift */; };
+		9BB1DB572A96252A00B18122 /* PostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB562A96252A00B18122 /* PostStore.swift */; };
+		9BB1DB592A9625EE00B18122 /* CommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB582A9625EE00B18122 /* CommentStore.swift */; };
+		9BB1DB5E2A962B0400B18122 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1DB5D2A962B0400B18122 /* Test.swift */; };
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
@@ -61,6 +68,13 @@
 		9B6B9B312A94A3F2004609AF /* PostCommentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentStore.swift; sourceTree = "<group>"; };
 		9B6B9B352A94A746004609AF /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		9BAB5F6E2A95FCF00099A9C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9BB1DB4E2A961E6D00B18122 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		9BB1DB502A961FC100B18122 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		9BB1DB522A96226100B18122 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		9BB1DB542A96241100B18122 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
+		9BB1DB562A96252A00B18122 /* PostStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStore.swift; sourceTree = "<group>"; };
+		9BB1DB582A9625EE00B18122 /* CommentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentStore.swift; sourceTree = "<group>"; };
+		9BB1DB5D2A962B0400B18122 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +133,9 @@
 			children = (
 				9B6B9B2D2A949F15004609AF /* IdData.swift */,
 				9B6B9B352A94A746004609AF /* PostData.swift */,
+				9BB1DB542A96241100B18122 /* AccountStore.swift */,
+				9BB1DB562A96252A00B18122 /* PostStore.swift */,
+				9BB1DB582A9625EE00B18122 /* CommentStore.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -129,8 +146,19 @@
 				9B35B27F2A94598400AD72D7 /* IdStore.swift */,
 				9B6B9B2F2A94A2AA004609AF /* FeedStore.swift */,
 				9B6B9B312A94A3F2004609AF /* PostCommentStore.swift */,
+				9BB1DB4E2A961E6D00B18122 /* Account.swift */,
+				9BB1DB502A961FC100B18122 /* Post.swift */,
+				9BB1DB522A96226100B18122 /* Comment.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9BB1DB5A2A962AC900B18122 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				9BB1DB5D2A962B0400B18122 /* Test.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		9E99CCE12A944A5700699B6A = {
@@ -154,6 +182,7 @@
 			children = (
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
+				9BB1DB5A2A962AC900B18122 /* Test */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9B35B2692A94576100AD72D7 /* View */,
 				9B35B26A2A94576600AD72D7 /* Data */,
@@ -268,24 +297,31 @@
 				9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
+				9BB1DB552A96241100B18122 /* AccountStore.swift in Sources */,
 				9B6B9B302A94A2AA004609AF /* FeedStore.swift in Sources */,
 				9B35B2822A947C7100AD72D7 /* FollowBtnView.swift in Sources */,
+				9BB1DB512A961FC100B18122 /* Post.swift in Sources */,
+				9BB1DB4F2A961E6D00B18122 /* Account.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				643316822A9521310095987A /* AgreeTermView.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
+				9BB1DB5E2A962B0400B18122 /* Test.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				6332A6002A95A3640047E2DD /* PostButtonView.swift in Sources */,
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
+				9BB1DB592A9625EE00B18122 /* CommentStore.swift in Sources */,
 				632883742A94DD31004DC84E /* PostView.swift in Sources */,
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */,
+				9BB1DB532A96226100B18122 /* Comment.swift in Sources */,
 				9B35B27C2A94595900AD72D7 /* TitleView.swift in Sources */,
 				6332A6052A95D12C0047E2DD /* ShareView.swift in Sources */,
+				9BB1DB572A96252A00B18122 /* PostStore.swift in Sources */,
 				632883762A94F0ED004DC84E /* PostDetailView.swift in Sources */,
 				9B35B2742A9458E900AD72D7 /* LoginView.swift in Sources */,
 				9B35B27A2A94594C00AD72D7 /* SheetView.swift in Sources */,
