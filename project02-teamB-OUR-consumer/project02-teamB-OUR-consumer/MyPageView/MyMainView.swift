@@ -23,12 +23,22 @@ struct MyMain: View {
             ScrollView {
                 HStack {
                     Text("내 프로필")
-                        .font(.system(size: 20))
+                        .font(.system(size: 16))
                         .bold()
                     Spacer()
                     if isMyProfile == true {
-                        Text("북마크")
-                        Text("톱니")
+                        NavigationLink {
+                            MyBookMarkView()
+                        } label: {
+                            Image(systemName: "bookmark")
+                                .foregroundColor(.black)
+                        }
+                        NavigationLink {
+                            SettingView()
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .foregroundColor(.black)
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
@@ -38,23 +48,37 @@ struct MyMain: View {
                         HStack(spacing: 20) {
                             Image("OUR_Logo")
                                 .resizable()
-                                .frame(width: 86, height: 86)
-                                .cornerRadius(43)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(50)
                             
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("김멋사")
                                     .bold()
-                                    .font(.system(size: 24))
-                                HStack {
-                                    Text("팔로워") + Text(" 22").bold()
-                                    Text("팔로잉") + Text(" 32").bold()
-                                    Text("게시물") + Text(" 64").bold()
+                                    .font(.system(size: 16))
+                                HStack(spacing: 20) {
+                                    HStack(spacing: 2) {
+                                        Text("팔로워")
+                                        Text("233").bold()
+                                    }
+                                    
+                                    HStack(spacing: 2) {
+                                        Text("팔로잉")
+                                        Text("214").bold()
+                                    }
+                                    
+                                    HStack(spacing: 2) {
+                                        Text("게시물")
+                                        Text("2").bold()
+                                    }
+                                    
                                 }
+                                .font(.system(size: 12))
+                                
                             }
                             
                         }
-                        
                         Text("간단 자기소개")
+                            .font(.system(size: 14))
                             .padding(.vertical)
                         
                         HStack(spacing: 12) {
@@ -63,12 +87,12 @@ struct MyMain: View {
                                     // TODO: 편집 페이지로 이동
                                     MyMainProfileEditView(username: "회사")
                                 } label: {
-                                    Text("프로필 편집")
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .stroke(Color.black, lineWidth: 1)
-                                        )
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color.black, lineWidth: 1)
+                                        Text("프로필 편집")
+                                            .font(.system(size: 14))
+                                    }
                                 }
                                 .buttonStyle(.plain)
                                 
@@ -80,13 +104,8 @@ struct MyMain: View {
                                         RoundedRectangle(cornerRadius: 5)
                                             .stroke(Color.black, lineWidth: 1)
                                         Text("프로필 공유")
+                                            .font(.system(size: 14))
                                     }
-//                                    Text("프로필 공유")
-//                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                                        .overlay(
-//                                            RoundedRectangle(cornerRadius: 5)
-//                                                .stroke(Color.black, lineWidth: 1)
-//                                        )
                                 }
                                 .buttonStyle(.plain)
                             } else {
@@ -102,8 +121,9 @@ struct MyMain: View {
                                             .fill(mainColor)
                                         
                                         Text("팔로우")
+                                            .font(.system(size: 14))
                                             .foregroundColor(.white)
-                                            
+                                        
                                     }
                                     
                                 }
@@ -116,13 +136,20 @@ struct MyMain: View {
                         
                     }
                     .padding(20)
-                    
-                    
-                    
+         
                     // 탭바들 자리 (index 값 따라서 다른뷰 보여주면 될 듯)
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section {
-                            MyResumeView()
+                            switch currentTab {
+                            case 0:
+                                MyResumeView()
+                            case 1:
+                                MyBoardView()
+                            case 2:
+                                MyStudyView()
+                            default:
+                                EmptyView()
+                            }
                         } header: {
                             MyMainTabBar(currentTab: $currentTab, namespace: Namespace())
                         }

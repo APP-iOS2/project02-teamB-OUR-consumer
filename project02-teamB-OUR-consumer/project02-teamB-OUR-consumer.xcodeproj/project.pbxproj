@@ -28,6 +28,11 @@
 		A09ED4BD2A9494B100E6A626 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A09ED4BC2A9494B100E6A626 /* GoogleService-Info.plist */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
+		A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */; };
+		A09ED4C62A95D5B200E6A626 /* CameraORImageModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C52A95D5B100E6A626 /* CameraORImageModalView.swift */; };
+		A09ED4C82A95F45900E6A626 /* MyBookMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */; };
+		A09ED4CA2A95F62E00E6A626 /* MyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */; };
+		A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4CB2A95F63700E6A626 /* MyStudyView.swift */; };
 		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
 		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
 		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
@@ -59,6 +64,11 @@
 		A09ED4BC2A9494B100E6A626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainTabBar.swift; sourceTree = "<group>"; };
 		A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainProfileEditView.swift; sourceTree = "<group>"; };
+		A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		A09ED4C52A95D5B100E6A626 /* CameraORImageModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraORImageModalView.swift; sourceTree = "<group>"; };
+		A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookMarkView.swift; sourceTree = "<group>"; };
+		A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoardView.swift; sourceTree = "<group>"; };
+		A09ED4CB2A95F63700E6A626 /* MyStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStudyView.swift; sourceTree = "<group>"; };
 		F485B7542A94584400A2F5FF /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FAA6FC212A949FF2005E31DC /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +93,10 @@
 			children = (
 				962B7E192A95901600083790 /* MyPageViewModel */,
 				A09ED4BA2A9490D200E6A626 /* MyMainView.swift */,
+				A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */,
+				A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */,
 				A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */,
+				A09ED4C52A95D5B100E6A626 /* CameraORImageModalView.swift */,
 				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
 				960EFDDA2A9491970036CEC1 /* MyResumeView.swift */,
 				960EFDDF2A9497040036CEC1 /* MyIntroView.swift */,
@@ -95,6 +108,8 @@
 				118AA9682A95099F006946C3 /* MyEduEditView.swift */,
 				960EFDE72A9497530036CEC1 /* MySkillView.swift */,
 				118AA96B2A95099F006946C3 /* MySkillEditView.swift */,
+				A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */,
+				A09ED4CB2A95F63700E6A626 /* MyStudyView.swift */,
 				118AA9692A95099F006946C3 /* SettingView.swift */,
 			);
 			path = MyPageView;
@@ -237,13 +252,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
+				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
 				960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */,
 				960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */,
+				A09ED4C62A95D5B200E6A626 /* CameraORImageModalView.swift in Sources */,
 				960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
 				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
 				960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
+				A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */,
@@ -255,9 +273,11 @@
 				118AA96E2A95099F006946C3 /* SettingView.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */,
+				A09ED4CA2A95F62E00E6A626 /* MyBoardView.swift in Sources */,
 				118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */,
 				118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
+				A09ED4C82A95F45900E6A626 /* MyBookMarkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
