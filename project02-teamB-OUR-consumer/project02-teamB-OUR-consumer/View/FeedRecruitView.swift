@@ -32,29 +32,34 @@ struct FeedRecruitView: View {
                         .pickerStyle(.menu)
                         Spacer()
                     }
-                    
-                    //현재위치설정 버튼
-                    LocationButton(.currentLocation) {
-                        locationManager.requestLocation()
+                    HStack{
+                        //현재위치설정 버튼
+//                        LocationButton(.currentLocation) {
+//                            locationManager.requestLocation()
+//
+//                        }
+//                        .labelStyle(.iconOnly)
                         
-                    }
-                    //위치설명 버튼
-                    Button {
-                        if let location = locationManager.userLocation {
-                            convertLocationToAddress(location: location)
+                        //현재 위치설정 버튼
+                        Button {
+                            locationManager.requestLocation()
+                            if let location = locationManager.userLocation {
+                                convertLocationToAddress(location: location)
+                            }
+                        } label: {
+                            Image(systemName: "location")
+                            address.isEmpty ? Text("위치설정") : Text("\(address)")
                         }
-                    } label: {
-                        address.isEmpty ? Text("위치설명 버튼") : Text("\(address)")
-                    }
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                    }.padding(.horizontal)
                     
                 }
                 .padding()
                 
                 ZStack{
                     TextEditor(text: $contentText)
-                        .frame(minHeight:300, maxHeight:350)
+                        .frame(minHeight:350, maxHeight:350)
                         .buttonBorderShape(.roundedRectangle)
                         .border(Color.secondary)
                     
