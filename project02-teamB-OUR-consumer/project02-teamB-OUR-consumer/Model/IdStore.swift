@@ -10,19 +10,19 @@ import Foundation
 class IdStore: ObservableObject, Identifiable {
     var id: UUID = UUID()
     var name: String
-    var profileImg: [String]
+    var profileImg: String
     var userID: String
     var numberOfPosts: Int
     var numberOfFollowrs: Int
     var numberOfFollowing: Int
     var numberOfComments: Int
     var profileMessage: String
-    var posts: [String]
-    var followers: [String]
-    var followings: [String]
-    var comments: [String]
+//    var posts: [String]
+//    var followers: [String]
+//    var followings: [String]
+//    var comments: [String]
     
-    init(id: UUID, name: String, profileImg: [String], userID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, numberOfComments: Int, profileMessage: String, posts: [String], followers: [String], followings: [String], comments: [String]) {
+    init(id: UUID, name: String, profileImg: String, userID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, numberOfComments: Int, profileMessage: String) {
         self.id = id
         self.name = name
         self.profileImg = profileImg
@@ -32,10 +32,10 @@ class IdStore: ObservableObject, Identifiable {
         self.numberOfFollowing = followings.count
         self.numberOfComments = comments.count
         self.profileMessage = profileMessage
-        self.posts = posts
-        self.followers = followers
-        self.followings = followings
-        self.comments = comments
+//        self.posts = posts
+//        self.followers = followers
+//        self.followings = followings
+//        self.comments = comments
     }
 
 }
