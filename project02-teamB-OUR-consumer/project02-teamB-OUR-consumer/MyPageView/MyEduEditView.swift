@@ -24,7 +24,6 @@ struct MyEduEditView: View {
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-//    @State var isChangeItem: Bool = true
     
     var body: some View {
 //        NavigationStack {
@@ -175,7 +174,6 @@ struct MyEduEditView: View {
                                 })
                 
                     
-//                    if isChangeItem {
                         HStack{
                             Spacer()
                             Button {
@@ -195,7 +193,6 @@ struct MyEduEditView: View {
                             }
                             Spacer()
                         }
-//                    }
                     Spacer()
                     
                 }

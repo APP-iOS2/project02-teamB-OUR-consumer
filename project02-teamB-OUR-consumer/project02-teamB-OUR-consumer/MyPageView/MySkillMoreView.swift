@@ -11,7 +11,6 @@ struct MySkillMoreView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @Binding var isChangeItem: Bool
     
     var body: some View {
         NavigationStack {
@@ -40,7 +39,7 @@ struct MySkillMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView(isChangeItem: $isChangeItem)
+                        MySkillEditView()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -53,7 +52,7 @@ struct MySkillMoreView: View {
 struct MySkillMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MySkillMoreView(isMyProfile: .constant(true), isChangeItem: .constant(true))
+            MySkillMoreView(isMyProfile: .constant(true))
         }
     }
 }

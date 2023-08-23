@@ -10,9 +10,7 @@ import SwiftUI
 struct MyEduCellView: View {
     @Binding var isMyProfile: Bool
     var education: Education
-    
-    @Binding var isChangeItem: Bool
-    
+        
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -46,7 +44,6 @@ struct MyEduView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
 
-    @State var isChangeItem: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -75,7 +72,7 @@ struct MyEduView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
                     if index < 3 {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index], isChangeItem: $isChangeItem)
+                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
                             .padding(.vertical, 8)
                         Divider()
                     }

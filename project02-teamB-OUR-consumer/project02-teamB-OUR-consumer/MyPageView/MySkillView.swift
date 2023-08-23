@@ -22,7 +22,7 @@ struct MySkillCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-//                        MySkillView()
+                        MySkillEditView()
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -40,7 +40,6 @@ struct MySkillCellView: View {
 struct MySkillView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
-    @State var isChangeItem: Bool = true
 
     var body: some View {
         NavigationStack {
@@ -80,7 +79,7 @@ struct MySkillView: View {
                 // 스킬 3개 넘으면 더보기
                 if resumeStore.resume.skills.count > 3 {
                     NavigationLink {
-                        MySkillMoreView(isMyProfile: $isMyProfile, isChangeItem: $isChangeItem)
+                        MySkillMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)

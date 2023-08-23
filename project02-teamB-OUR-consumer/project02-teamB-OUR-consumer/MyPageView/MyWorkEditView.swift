@@ -22,7 +22,6 @@ struct MyWorkEditView: View {
     @State var isEmptyJobTitle: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    @Binding var isChangeItem: Bool
     
 
     var body: some View {
@@ -143,8 +142,7 @@ struct MyWorkEditView: View {
                                 Image(systemName: "chevron.backward")
                             })
             
-                
-                if isChangeItem {
+                //MARK: 편집일때 삭제하기 뜨도록
                     HStack{
                         Spacer()
                         Button {
@@ -164,11 +162,7 @@ struct MyWorkEditView: View {
                         }
                         Spacer()
                     }
-                }
             }
-//            .onAppear {
-//                isChangeItem.toggle()
-//            }
             .navigationTitle("경력")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -205,6 +199,6 @@ struct MyWorkEditView: View {
 
 struct MyCarreerEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkEditView(isChangeItem: .constant(true))
+        MyWorkEditView()
     }
 }

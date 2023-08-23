@@ -25,7 +25,6 @@ struct MySkillEditView: View {
     @State var isShowingAlert: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    @State var isChangeItem: Bool = true
     
     @State var skill: [Skill] = [Skill(skillName: "uikit", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
                                  Skill(skillName: "swiftUi", description: "swiftUI zzang jam")
@@ -95,10 +94,11 @@ struct MySkillEditView: View {
                     Divider()
                         .padding(.vertical)
                     
+                    //TODO: 스킬목록 만들기
                     Text("스킬 목록")
                         .font(.system(size: 16))
                         .bold()
-                    
+
                     ForEach(skill) { skill in
                         VStack(alignment: .leading) {
                             Divider()
@@ -114,15 +114,9 @@ struct MySkillEditView: View {
                         }
                     }
                     .padding(.bottom)
-                    .navigationBarBackButtonHidden(true)
-                                .navigationBarItems(leading: Button(action : {
-                                    self.mode.wrappedValue.dismiss()
-                                }){
-                                    Image(systemName: "chevron.backward")
-                                })
+                     
                 
-                    
-                    if !isChangeItem {
+                    //MARK: 편집일 때 삭제하기 뜨도록
                         HStack{
                             Spacer()
                             Button {
@@ -142,12 +136,16 @@ struct MySkillEditView: View {
                             }
                             Spacer()
                         }
-                    }
                 }
                 Spacer()
             }
             .padding()
-            
+            .navigationBarBackButtonHidden(true)
+                        .navigationBarItems(leading: Button(action : {
+                            self.mode.wrappedValue.dismiss()
+                        }){
+                            Image(systemName: "chevron.backward")
+                        })
         }
         
         .navigationTitle("경력")
@@ -166,13 +164,14 @@ struct MySkillEditView: View {
             }
  
         }
-        //        }
     }
     
 }
 
 struct MySkillEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MySkillEditView()
+        NavigationStack {
+            MySkillEditView()
+        }
     }
 }

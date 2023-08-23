@@ -11,7 +11,6 @@ struct MyWorkCellView: View {
     @Binding var isMyProfile: Bool
     var work: WorkExperience
     
-    @Binding var isChangeItem: Bool
 
     var body: some View {
         HStack(alignment: .top) {
@@ -31,7 +30,7 @@ struct MyWorkCellView: View {
                   
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView(isChangeItem: $isChangeItem)
+                            MyWorkEditView()
                         } label: {
                             Image(systemName: "pencil")
                                 .foregroundColor(.black)
@@ -55,7 +54,6 @@ struct MyWorkView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
     
-    @State var isChangeItem: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -69,7 +67,7 @@ struct MyWorkView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView(isChangeItem: $isChangeItem)
+                            MyWorkEditView()
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -88,7 +86,7 @@ struct MyWorkView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
                     if index < 3 {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index], isChangeItem: $isChangeItem)
+                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index])
 
                             .padding(.vertical, 8)
                         Divider()
@@ -99,7 +97,7 @@ struct MyWorkView: View {
                 // 경력 3개 넘으면 더보기
                 if resumeStore.resume.workExperience.count > 3 {
                     NavigationLink {
-                        MyWorkMoreView(isMyProfile: $isMyProfile, isChangeItem: $isChangeItem)
+                        MyWorkMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)

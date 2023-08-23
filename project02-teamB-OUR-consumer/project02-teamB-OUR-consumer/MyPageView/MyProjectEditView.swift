@@ -22,7 +22,6 @@ struct MyProjectEditView: View {
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    @Binding var isChangeItem: Bool
     
     var body: some View {
 //        NavigationStack {
@@ -119,8 +118,7 @@ struct MyProjectEditView: View {
                             }){
                                 Image(systemName: "chevron.backward")
                             })
-            
-                if isChangeItem {
+                //MARK: 편집이면 삭제뜨게
                     HStack{
                         Spacer()
                         Button {
@@ -140,7 +138,6 @@ struct MyProjectEditView: View {
                         }
                         Spacer()
                     }
-                }
                 
                 Spacer()
                 
@@ -168,6 +165,6 @@ struct MyProjectEditView: View {
 
 struct MyExperienceEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectEditView(isChangeItem: .constant(true))
+        MyProjectEditView()
     }
 }

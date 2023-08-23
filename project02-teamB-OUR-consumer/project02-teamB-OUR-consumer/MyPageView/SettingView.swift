@@ -12,6 +12,7 @@ import SwiftUI
 struct SettingView: View {
     @State var notificationsEnabled: Bool = false
     @State var privacySetting: Bool = false // 스프레드 시트 보기
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         NavigationStack {
@@ -112,15 +113,12 @@ struct SettingView: View {
             }
             .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        // 뒤로가기
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                    }
-                }
-            }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action : {
+                self.mode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "chevron.backward")
+            })
         }
     }
 }

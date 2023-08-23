@@ -10,9 +10,7 @@ import SwiftUI
 struct MyProjectCellView: View {
     @Binding var isMyProfile: Bool
     var project: Project
-    
-    @Binding var isChangeItem: Bool
-    
+        
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -24,7 +22,7 @@ struct MyProjectCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyProjectEditView(isChangeItem: $isChangeItem)
+                        MyProjectEditView()
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -49,7 +47,6 @@ struct MyProjectView: View {
     
     @State var isDeleteItemAlert: Bool = false
     
-    @State var isChangeItem: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -63,7 +60,7 @@ struct MyProjectView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyProjectEditView(isChangeItem: $isChangeItem)
+                            MyProjectEditView()
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -81,7 +78,7 @@ struct MyProjectView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
                     if index < 3 {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index], isChangeItem: $isChangeItem)
+                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -91,7 +88,7 @@ struct MyProjectView: View {
                 // 프로젝트 3개 넘으면 더보기
                 if resumeStore.resume.projects.count > 3 {
                     NavigationLink {
-                        MyProjectMoreView(isMyProfile: $isMyProfile, isChangeItem: $isChangeItem)
+                        MyProjectMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)

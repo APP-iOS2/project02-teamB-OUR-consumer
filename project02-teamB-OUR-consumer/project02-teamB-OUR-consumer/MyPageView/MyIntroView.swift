@@ -10,7 +10,6 @@ import SwiftUI
 struct MyIntroView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
-    
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +27,6 @@ struct MyIntroView: View {
                         Image(systemName: "pencil")
                     }
                 }
-
             }
             .padding(.vertical, 5)
             
@@ -38,9 +36,9 @@ struct MyIntroView: View {
         .padding()
         .foregroundColor(.black)
     }
-    func changeToggle(_ toggle: Bool) {
-        
-    }
+//    func changeToggle(_ toggle: Bool) {
+//
+//    }
 }
 
 struct MyIntroView_Previews: PreviewProvider {

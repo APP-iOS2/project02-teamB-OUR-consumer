@@ -14,9 +14,7 @@ struct MyIntroEditView: View {
     @State var intro: String = ""
     
     @State var isDeleteItemAlert: Bool = false
-    
-    @State var isChangeItem: Bool = false
-    
+        
     var body: some View {
             ScrollView {
                 Divider()
@@ -40,7 +38,7 @@ struct MyIntroEditView: View {
                                         Image(systemName: "chevron.backward")
                                     })
                     
-                    if !isChangeItem {
+                    //MARK: Intro에 삭제 기능은 없어도 될 것 같아요!
                         HStack{
                             Spacer()
                             Button {
@@ -61,7 +59,6 @@ struct MyIntroEditView: View {
                             Spacer()
                         }
                         .padding(.vertical, 20)
-                    }
                     
                 }
                 .padding()
