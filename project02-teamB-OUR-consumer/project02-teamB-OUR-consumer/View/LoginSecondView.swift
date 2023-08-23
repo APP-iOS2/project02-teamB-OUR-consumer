@@ -18,6 +18,11 @@ struct LoginSecondView: View {
     
     @State private var isAlert: Bool = false
     
+//    func isCheckAgree() {
+//        if !isAgree1 || !isAgree2 {
+//            //
+//        }
+//    }
     
     var body: some View {
         NavigationStack {
@@ -28,6 +33,7 @@ struct LoginSecondView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40)
+                    //                    .padding(.trailing, 10)
                     Text("OUR")
                         .font(.system(size: 25))
                         .fontWeight(.black)
@@ -170,9 +176,6 @@ struct LoginSecondView: View {
                   dismissButton: .default(Text("OK")))
         }
         .navigationBarBackButtonHidden()
-        // sheet?
-        // -> 구글로그인을 시도했을때 시트로 나오기 때문에
-        // 그냥 뒤로가기 없애는 새로운 뷰로 나오게 하는 방향으로 해야할 듯?
     }
 }
 

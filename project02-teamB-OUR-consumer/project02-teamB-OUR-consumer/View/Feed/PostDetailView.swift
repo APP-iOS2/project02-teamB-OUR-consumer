@@ -13,6 +13,8 @@ struct PostDetailView: View {
     var postData: PostData = PostData()
     @ObservedObject var idData: IdData
 
+    @Binding var isLikeButton: Bool
+    
     var body: some View {
         ForEach(idData.idStore) { user in
             if post.postId == user.userID {
@@ -75,8 +77,9 @@ struct PostDetailView: View {
                     HStack(spacing: 75) {
                         Button {
                             // 좋아요 버튼
+                            isLikeButton.toggle()
                         } label: {
-                            Image(systemName: "hand.thumbsup")
+                            isLikeButton ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
                         }
                         Button {
                             
@@ -113,6 +116,6 @@ struct PostDetailView: View {
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), idData: IdData())
+        PostDetailView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), idData: IdData(), isLikeButton: .constant(false))
     }
 }

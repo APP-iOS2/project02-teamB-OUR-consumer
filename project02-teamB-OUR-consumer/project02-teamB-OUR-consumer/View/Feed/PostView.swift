@@ -14,6 +14,10 @@ struct PostView: View {
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
     
+    @State var likeCount: Int = 0
+    @State var commentCount: Int = 0
+    @State var rePostCount: Int = 0
+    
     var body: some View {
         
         VStack {

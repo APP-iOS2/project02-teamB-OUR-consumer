@@ -23,7 +23,7 @@ struct PostButtonView: View {
                 isLikeButton.toggle()
                 if isLikeButton == true {
                     post.numberOfLike += 1
-                    postData.pressLikeButton(post: post)
+//                    postData.pressLikeButton(post: post)
                 } else {
                     post.numberOfLike -= 1
                 }
@@ -31,7 +31,7 @@ struct PostButtonView: View {
                 isLikeButton ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
             }
             NavigationLink {
-                PostDetailView(post: post, idData: idData)
+                PostDetailView(post: post, idData: idData, isLikeButton: $isLikeButton)
             } label: {
                 Image(systemName: "bubble.left")
             }
@@ -52,7 +52,7 @@ struct PostButtonView: View {
         .padding()
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {
-            ScrapView()
+            ScrapView(post: post)
                 .presentationDetents([.height(200), .height(200)])
         }
         .sheet(isPresented: $isShowingShareSheet) {

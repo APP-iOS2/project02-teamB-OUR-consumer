@@ -44,7 +44,6 @@ struct ContentView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }))
-            .navigationBarBackButtonHidden()
         }
     }
 }
