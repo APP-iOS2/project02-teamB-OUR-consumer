@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-<<<<<<< HEAD
     
     enum TabItem {
         case feed, studyFeed, recruitAdd, alarm, myPage
@@ -78,19 +77,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Preview: PreviewProvider {
-=======
-    var body: some View {
-        FeedTabView()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
->>>>>>> dev
     static var previews: some View {
         ContentView()
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
