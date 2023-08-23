@@ -32,8 +32,8 @@ struct NotificationItem: Identifiable{
 
 
 
-//TODO: - TestModel 추후 변경
-struct User: Codable{
-    let id: ID
-    let name: String
-}
+////TODO: - TestModel 추후 변경
+//struct User: Codable{
+//    let id: ID
+//    let name: String
+//}
