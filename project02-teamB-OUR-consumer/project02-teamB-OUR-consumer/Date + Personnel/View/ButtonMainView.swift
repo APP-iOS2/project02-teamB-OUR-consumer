@@ -60,9 +60,9 @@ struct ButtonMainView: View {
                                 .presentationDetents([.fraction(0.45)])
                         }
                         
-                        Spacer().frame(width: 121)
-                        Text("인원: \(number) ")
-                           
+                        Spacer().frame(width: 137)
+                        Text("인원: \(number)명")
+                        
                     }
                        
                 
