@@ -55,6 +55,7 @@ struct StudyListItemView: View {
                     } label: {
                         Label("", systemImage: addBookmark ? "bookmark.fill" : "bookmark")
                             .font(.title2)
+                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                     }
                 }
             }
@@ -67,7 +68,7 @@ struct StudyListItemView: View {
                .shadow(color: .gray, radius: 3, x: 1, y: 1)
                .opacity(0.3)
            )
-        .padding()
+        .padding([.leading, .trailing])
     }
 }
 

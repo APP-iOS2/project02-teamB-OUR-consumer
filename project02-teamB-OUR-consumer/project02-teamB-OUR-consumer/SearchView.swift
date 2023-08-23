@@ -14,7 +14,6 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             Text("Search For \(searchText)")
-                .navigationTitle("Searchable Example")
         }
         .searchable(text: $searchText, prompt: "검색어를 입력해주세요.")
     }
