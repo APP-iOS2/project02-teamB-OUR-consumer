@@ -14,7 +14,7 @@ let mainColor = Color(hex: "#090580")
 struct MyMain: View {
     
     @State private var currentTab: Int = 0
-    @State private var isMyProfile: Bool = true
+    @State private var isMyProfile: Bool = false
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     
     var body: some View {
@@ -125,11 +125,8 @@ struct MyMain: View {
                                             .foregroundColor(.white)
                                         
                                     }
-                                    
                                 }
                             }
-                            
-                            
                         }
                         .frame(height: 36)
                         
@@ -142,7 +139,7 @@ struct MyMain: View {
                         Section {
                             switch currentTab {
                             case 0:
-                                MyResumeView()
+                                MyResumeView(isMyProfile: $isMyProfile)
                             case 1:
                                 MyBoardView()
                             case 2:

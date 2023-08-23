@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyIntroView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    @Binding var isMyProfile: Bool
     
 
     var body: some View {
@@ -20,11 +21,12 @@ struct MyIntroView: View {
                 
                 Spacer()
                 
-                NavigationLink {
-                    MyIntroEditView()
-                } label: {
-                    Image(systemName: "pencil")
-                        .foregroundColor(.black)
+                if isMyProfile {
+                    NavigationLink {
+                        MyIntroEditView()
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
                 }
 
             }
@@ -43,6 +45,6 @@ struct MyIntroView: View {
 
 struct MyIntroView_Previews: PreviewProvider {
     static var previews: some View {
-        MyIntroView()
+        MyIntroView(isMyProfile: .constant(true))
     }
 }

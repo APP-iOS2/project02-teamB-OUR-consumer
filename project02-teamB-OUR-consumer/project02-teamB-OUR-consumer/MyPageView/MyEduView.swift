@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyEduCellView: View {
+    @Binding var isMyProfile: Bool
     var education: Education
     
     @Binding var isChangeItem: Bool
@@ -20,12 +21,14 @@ struct MyEduCellView: View {
                     .fontWeight(.semibold)
                 
                 Spacer()
-
-                NavigationLink {
-                    MyEduEditView()
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(.black)
+                
+                if isMyProfile {
+                    NavigationLink {
+                        MyEduEditView()
+                    } label: {
+                        Image(systemName: "pencil")
+                            .foregroundColor(.black)
+                    }
                 }
             }
             
@@ -41,6 +44,7 @@ struct MyEduCellView: View {
 
 struct MyEduView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    @Binding var isMyProfile: Bool
 
     @State var isChangeItem: Bool = true
     
@@ -54,10 +58,12 @@ struct MyEduView: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        MyEduEditView()
-                    } label: {
-                        Image(systemName: "plus")
+                    if isMyProfile {
+                        NavigationLink {
+                            MyEduEditView()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
                 .padding(.vertical, 5)
@@ -69,7 +75,7 @@ struct MyEduView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
                     if index < 3 {
-                        MyEduCellView(education: resumeStore.resume.education[index], isChangeItem: $isChangeItem)
+                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index], isChangeItem: $isChangeItem)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -79,7 +85,7 @@ struct MyEduView: View {
                 // 교육 3개 넘으면 더보기
                 if resumeStore.resume.education.count > 3 {
                     NavigationLink {
-                        // 교육 더보기
+                        MyEduMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -96,6 +102,6 @@ struct MyEduView: View {
 
 struct MyEduView_Previews: PreviewProvider {
     static var previews: some View {
-        MyEduView()
+        MyEduView(isMyProfile: .constant(true))
     }
 }

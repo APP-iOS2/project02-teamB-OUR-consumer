@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyWorkCellView: View {
+    @Binding var isMyProfile: Bool
     var work: WorkExperience
     
     @Binding var isChangeItem: Bool
@@ -27,12 +28,14 @@ struct MyWorkCellView: View {
                         .fontWeight(.semibold)
                     
                     Spacer()
-
-                    NavigationLink {
-                        MyWorkEditView(isChangeItem: $isChangeItem)
-                    } label: {
-                        Image(systemName: "pencil")
-                            .foregroundColor(.black)
+                  
+                    if isMyProfile {
+                        NavigationLink {
+                            MyWorkEditView(isChangeItem: $isChangeItem)
+                        } label: {
+                            Image(systemName: "pencil")
+                                .foregroundColor(.black)
+                        }
                     }
                     .onTapGesture {
                         isChangeItem = true
@@ -52,6 +55,7 @@ struct MyWorkCellView: View {
 
 struct MyWorkView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    @Binding var isMyProfile: Bool
     
     @State var isChangeItem: Bool = false
     
@@ -65,10 +69,13 @@ struct MyWorkView: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        MyWorkEditView(isChangeItem: $isChangeItem)
-                    } label: {
-                        Image(systemName: "plus")
+                    if isMyProfile {
+                        NavigationLink {
+                            MyWorkEditView(isChangeItem: $isChangeItem)
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+
                     }
                     .onTapGesture {
                         isChangeItem = false
@@ -85,7 +92,8 @@ struct MyWorkView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
                     if index < 3 {
-                        MyWorkCellView(work: resumeStore.resume.workExperience[index], isChangeItem: $isChangeItem)
+                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index], isChangeItem: $isChangeItem)
+
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -95,7 +103,7 @@ struct MyWorkView: View {
                 // 경력 3개 넘으면 더보기
                 if resumeStore.resume.workExperience.count > 3 {
                     NavigationLink {
-                        // 경력 더보기
+                        MyWorkMoreView(isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -112,6 +120,6 @@ struct MyWorkView: View {
 
 struct MyWorkView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkView()
+        MyWorkView(isMyProfile: .constant(true))
     }
 }
