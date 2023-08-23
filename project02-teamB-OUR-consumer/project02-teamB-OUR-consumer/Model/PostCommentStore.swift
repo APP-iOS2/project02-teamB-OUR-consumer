@@ -12,9 +12,6 @@ class PostCommentStore: ObservableObject, Identifiable {
     var postId: String
     var userId: String
     var content: String
-    var createdDate: Date
-    
-    init(id: UUID, postId: String, userId: String, content: String, createdDate: Date) {
     var createdAt: Double = Date().timeIntervalSince1970
     
     var createdDate: String {
@@ -33,7 +30,6 @@ class PostCommentStore: ObservableObject, Identifiable {
         self.postId = postId
         self.userId = userId
         self.content = content
-        self.createdDate = createdDate
         self.createdAt = createdAt
     }
 
