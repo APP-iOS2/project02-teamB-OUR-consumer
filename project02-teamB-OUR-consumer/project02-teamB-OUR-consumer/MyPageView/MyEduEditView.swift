@@ -8,16 +8,26 @@
 import SwiftUI
 
 struct MyEduEditView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+
+
+    
     @State var schoolNameTextField: String = ""
+    @State var fieldOfStudy: String = ""
     @State var startDate = Date()
     @State var endDate = Date()
     @State var description: String = ""
     
     @State var isPressedBtn: Bool = false
     @State var isSelectedToggle: Bool = false
+    @State var isTextFieldEmpty: Bool = false
+    @State var isDeleteItemAlert: Bool = false
+    
+    @State var isChangeItem: Bool = true
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     Divider()
@@ -29,25 +39,35 @@ struct MyEduEditView: View {
                                 .foregroundColor(.red)
                                 .padding(.leading, -10)
                         }
+                        .font(.system(size: 16))
+                        .bold()
                         .padding(.top, 5)
-                        .padding(.bottom)
-                        TextField("  교육기관을 입력해주세요.", text: $schoolNameTextField)
-                            .overlay(RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.gray, lineWidth: 1.5)
-                                        .frame(height: 50))
-                            
-                        // 텍스트필드의 height 넓히기
+
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isTextFieldEmpty ? .red : .gray, lineWidth: 2)
+                            .overlay {
+                                TextField("교육기관을 입력해주세요.", text: $schoolNameTextField)
+                                    .padding()
+                                    .onChange(of: schoolNameTextField) { newValue in
+                                        isTextFieldEmpty = newValue.isEmpty
+                                    }
+                            }
+                            .frame(height: 50)
                     }
                     
                     Group {
                         Text("전공/과정 ") // 폰트 크기랑 굵기 조절필요
+                            .font(.system(size: 16))
+                            .bold()
                             .padding(.top, 25)
-                            .padding(.bottom)
-                        
-                        TextField("  전공/과정을 입력해주세요.(예: 앱 개발 과정)", text: $schoolNameTextField)
-                            .overlay(RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.gray, lineWidth: 1.5)
-                                        .frame(height: 50))
+
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.gray, lineWidth: 2)
+                            .overlay {
+                                TextField("전공/과정을 입력해주세요.(예: 앱 개발 과정)", text: $fieldOfStudy)
+                                    .padding()
+                            }
+                            .frame(height: 50)
                     }
                     
                     Group {
@@ -57,6 +77,8 @@ struct MyEduEditView: View {
                                 .foregroundColor(.red)
                                 .padding(.leading, -7)
                         }
+                        .font(.system(size: 16))
+                        .bold()
                         .padding(.top, 25)
                         
                         HStack {
@@ -64,6 +86,7 @@ struct MyEduEditView: View {
                             DatePicker("", selection: $startDate,
                                        displayedComponents: [.date]
                             )
+                            .padding()
                             .labelsHidden()
                             
                             Text(" ~ ")
@@ -71,17 +94,20 @@ struct MyEduEditView: View {
                             DatePicker("", selection: $endDate,
                                        displayedComponents: [.date]
                             )
+                            .padding()
                             .datePickerStyle(.compact)
                             .labelsHidden()
                         }
                         HStack {
-                            if isSelectedToggle {
+                            if !isSelectedToggle {
                                 Button {
                                     isSelectedToggle.toggle()
                                     
                                 } label: {
                                     Image(systemName: "square") // 모양 왤ㅋ ㅔ 별로지
                                     Text("재학 중")
+                                        .font(.system(size: 16))
+                                        .bold()
                                 }
                                 .buttonStyle(.plain)
                             } else {
@@ -92,6 +118,8 @@ struct MyEduEditView: View {
                                     Image(systemName: "checkmark.square")
 
                                     Text("재학 중")
+                                        .font(.system(size: 16))
+                                        .bold()
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -105,23 +133,30 @@ struct MyEduEditView: View {
                             } label: {
                                     HStack {
                                         Text("활동을 입력해 주세요.")
+                                            .font(.system(size: 16))
+                                            .bold()
                                         Spacer()
                                         Image(systemName: "chevron.up")
                                     }
                                     .foregroundColor(.black)
                                 }
 
-                            TextEditor(text: $description)
-                                .frame(height: 170)
-                                .overlay(RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color.gray, lineWidth: 1))
-                                .padding(.top, -23)
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.gray, lineWidth: 2)
+                                .overlay {
+                                    TextEditor(text: $description)
+                                        .padding()
+                                }
+                                .padding(.top, 0)
+                                .frame(minHeight: 250) 
                         } else {
                             Button {
                                 isPressedBtn.toggle()
                             } label: {
                                 HStack {
                                     Text("활동을 입력해 주세요.")
+                                        .font(.system(size: 16))
+                                        .bold()
                                     Spacer()
                                     Image(systemName: "chevron.down")
                                 }
@@ -129,10 +164,38 @@ struct MyEduEditView: View {
 
                             }
                         }
-
                     }
                     .padding(.vertical)
+                    .padding(.bottom, 15)
+                    .navigationBarBackButtonHidden(true)
+                                .navigationBarItems(leading: Button(action : {
+                                    self.mode.wrappedValue.dismiss()
+                                }){
+                                    Image(systemName: "chevron.backward")
+                                })
+                
                     
+                    if isChangeItem {
+                        HStack{
+                            Spacer()
+                            Button {
+                                isDeleteItemAlert.toggle()
+                            } label: {
+                                Text("삭제하기")
+                                    .font(.system(size: 12))
+                                    .fontWeight(.semibold)
+                                
+                            }
+                            .foregroundColor(.gray)
+                            .alert(isPresented: $isDeleteItemAlert) {
+                                Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
+                                    //삭제 함수
+                                    dismiss()
+                                }), secondaryButton: .cancel(Text("취소")))
+                            }
+                            Spacer()
+                        }
+                    }
                     Spacer()
                     
                 }
@@ -143,23 +206,18 @@ struct MyEduEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // 완료 버튼
+                        if schoolNameTextField.isEmpty {
+                            isTextFieldEmpty.toggle()
+                        }
                     } label: {
                         Text("완료")
                     }
                     .buttonStyle(.bordered)
                     
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        // 뒤로가기
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                    }
-                    
-                }
+
             }
-        }
+//        }
     }
 }
 

@@ -19,8 +19,8 @@ struct MySkillCellView: View {
                 
                 Spacer()
                 
-                Button {
-                    // 스킬 편집
+                NavigationLink {
+                    MySkillView()
                 } label: {
                     Image(systemName: "pencil")
                         .foregroundColor(.black)

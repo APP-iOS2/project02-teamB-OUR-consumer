@@ -12,6 +12,7 @@
 		118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96A2A95099F006946C3 /* MyProjectEditView.swift */; };
 		118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96B2A95099F006946C3 /* MySkillEditView.swift */; };
 		118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96C2A95099F006946C3 /* MyWorkEditView.swift */; };
+		118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9722A95A24E006946C3 /* MyIntroEditView.swift */; };
 		960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDA2A9491970036CEC1 /* MyResumeView.swift */; };
 		960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDF2A9497040036CEC1 /* MyIntroView.swift */; };
 		960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE12A94971D0036CEC1 /* MyWorkView.swift */; };
@@ -47,6 +48,7 @@
 		118AA96A2A95099F006946C3 /* MyProjectEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProjectEditView.swift; sourceTree = "<group>"; };
 		118AA96B2A95099F006946C3 /* MySkillEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySkillEditView.swift; sourceTree = "<group>"; };
 		118AA96C2A95099F006946C3 /* MyWorkEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWorkEditView.swift; sourceTree = "<group>"; };
+		118AA9722A95A24E006946C3 /* MyIntroEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroEditView.swift; sourceTree = "<group>"; };
 		960EFDDA2A9491970036CEC1 /* MyResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyResumeView.swift; sourceTree = "<group>"; };
 		960EFDDF2A9497040036CEC1 /* MyIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroView.swift; sourceTree = "<group>"; };
 		960EFDE12A94971D0036CEC1 /* MyWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
 				960EFDDA2A9491970036CEC1 /* MyResumeView.swift */,
 				960EFDDF2A9497040036CEC1 /* MyIntroView.swift */,
+				118AA9722A95A24E006946C3 /* MyIntroEditView.swift */,
 				960EFDE12A94971D0036CEC1 /* MyWorkView.swift */,
 				118AA96C2A95099F006946C3 /* MyWorkEditView.swift */,
 				960EFDE32A9497330036CEC1 /* MyProjectView.swift */,
@@ -253,6 +256,7 @@
 			files = (
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
+                118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */,
 				960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */,
 				960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */,
 				A09ED4C62A95D5B200E6A626 /* CameraORImageModalView.swift in Sources */,

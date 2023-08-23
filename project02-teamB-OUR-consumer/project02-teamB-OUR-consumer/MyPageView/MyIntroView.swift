@@ -10,6 +10,7 @@ import SwiftUI
 struct MyIntroView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -20,10 +21,12 @@ struct MyIntroView: View {
                 Spacer()
                 
                 NavigationLink {
-                    // 자기소개 편집
+                    MyIntroEditView()
                 } label: {
                     Image(systemName: "pencil")
+                        .foregroundColor(.black)
                 }
+
             }
             .padding(.vertical, 5)
             
@@ -32,6 +35,9 @@ struct MyIntroView: View {
         }
         .padding()
         .foregroundColor(.black)
+    }
+    func changeToggle(_ toggle: Bool) {
+        
     }
 }
 
