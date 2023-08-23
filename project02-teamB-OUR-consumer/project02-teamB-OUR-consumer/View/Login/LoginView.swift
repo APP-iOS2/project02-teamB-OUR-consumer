@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct LoginView: View {
+    @StateObject var viewModel = AuthViewModel()
+    @State var navigate: Bool = false
+    
     var body: some View {
         NavigationStack {
-            
             Spacer()
             
             Group{
@@ -31,7 +33,11 @@ struct LoginView: View {
             
             Group {
                 NavigationLink {
-                    LoginSecondView()
+                    if true {
+                        LoginSecondView(viewModel: viewModel)
+                    } else {
+                        
+                    }
                 } label: {
                     HStack {
                         Image("FacebookLogo")
@@ -45,9 +51,11 @@ struct LoginView: View {
                     .background(Color(hex: 0x006FFF))
                     .cornerRadius(10)
                 }
-                
-                NavigationLink {
-                    LoginSecondView()
+                Button {
+                    viewModel.signOut()
+                    viewModel.signIn() {
+                        navigate = true
+                    }
                 } label: {
                     ZStack {
                         Rectangle()
@@ -68,9 +76,8 @@ struct LoginView: View {
                         .cornerRadius(8)
                     }
                 }
-                
                 NavigationLink {
-                    LoginSecondView()
+                    LoginSecondView(viewModel: viewModel)
                 } label: {
                     HStack {
                         Image("AppleLogo")
@@ -80,14 +87,18 @@ struct LoginView: View {
                         Text("Apple 로그인")
                     }
                     .fontWeight(.medium)
-                        .foregroundColor(.white)
-                        .frame(width: 300, height: 40)
-                        .background(Color.black)
-                        .cornerRadius(10)
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 40)
+                    .background(Color.black)
+                    .cornerRadius(10)
                 }
             }
-            
-            Spacer()
+        }.navigationDestination(isPresented: $navigate) {
+            if viewModel.state == .signUp {
+                LoginSecondView(viewModel: viewModel)
+            } else {
+                FeedTabView()
+            }
         }
     }
 }
