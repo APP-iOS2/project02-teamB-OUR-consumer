@@ -37,6 +37,7 @@ struct ContentView: View {
                         Image(systemName: "person.fill")
                     }
             }
+            .navigationBarBackButtonHidden()
             .navigationBarItems(leading: Button(action: {
                 //FeedView로 돌아가기
             }, label: {
