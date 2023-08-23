@@ -25,7 +25,7 @@ struct AlarmContainer: View {
                 // 알림 뷰
                 switch selectedTab {
                 case 0:
-                    NotificationsListView(access: .personal ) // 개인 알림
+                    NotificationsListView(access: .personal) // 개인 알림
                         .environmentObject(viewModel)
                     
                 case 1:
