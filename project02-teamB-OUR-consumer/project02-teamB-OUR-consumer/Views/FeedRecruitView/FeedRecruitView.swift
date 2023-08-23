@@ -12,6 +12,8 @@ import CoreLocation
 
 struct FeedRecruitView: View {
     
+    @Environment(\.dismiss) private var dismiss: DismissAction
+    
     @StateObject var feedStoreViewModel: FeedRecruitStore = FeedRecruitStore()
     @StateObject var locationManager = LocationManager.shared
     @State var toolbarToogle: Bool = false
@@ -79,6 +81,7 @@ struct FeedRecruitView: View {
                 ToolbarItem(placement:.navigationBarLeading) {
                     Button("취소") {
                         toolbarToogle.toggle()
+                        dismiss()
                     }
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddStudyMain: View {
     
+    @Environment(\.dismiss) private var dismiss: DismissAction
+    
     @State var studyTitle: String = ""
     @State var addStudy: Bool = false
     @State var cancel: Bool = false
@@ -84,6 +86,7 @@ struct AddStudyMain: View {
                             cancel.toggle()
                             print(cancel)
                             print("취소 버튼 tapped")
+                            dismiss()
                         }
                     }
                 }
