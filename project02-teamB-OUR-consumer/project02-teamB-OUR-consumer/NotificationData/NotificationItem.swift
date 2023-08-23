@@ -33,7 +33,10 @@ struct NotificationItem: Identifiable{
 
 
 ////TODO: - TestModel 추후 변경
-//struct User: Codable{
-//    let id: ID
+//struct User: Identifiable {
+//    let id: String = UUID().uuidString
 //    let name: String
+//    let email: String
+//    let profileImage: String?
+//    let profileMessage: String?
 //}

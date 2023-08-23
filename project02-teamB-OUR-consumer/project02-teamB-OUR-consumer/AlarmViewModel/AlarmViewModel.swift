@@ -46,16 +46,16 @@ class AlarmViewModel: ObservableObject{
     #endif
     
     
-    
-    func fetchNotificationItem(limit: Int = 10){
-        service.read{ [weak self] ids, notifiationDTO in
-            guard let self else { return }
-            let items = notifiationDTO.map{ $0.toDomain(user: self.getUser(user: $0.userId) )  }
-            personalNotiItem = mapToDictionary(items: items).0
-            publicNotiItem = mapToDictionary(items: items).1
-        }
-    }
-    
+//
+//    func fetchNotificationItem(limit: Int = 10){
+//        service.read{ [weak self] ids, notifiationDTO in
+//            guard let self else { return }
+//            let items = notifiationDTO.map{ $0.toDomain(user: self.getUser(user: $0.userId) )  }
+//            personalNotiItem = mapToDictionary(items: items).0
+//            publicNotiItem = mapToDictionary(items: items).1
+//        }
+//    }
+//
     
     func delete(notification id: ID){
     }
@@ -75,7 +75,7 @@ class AlarmViewModel: ObservableObject{
 //        return ["박형환","박찬호","장수지"].randomElement().map{ User(id: id, name: $0) }!
 //        //firebase find user
 //    }
-    
+//
     
     /// Mapping To View Model
     /// - Parameter items: notification Item
