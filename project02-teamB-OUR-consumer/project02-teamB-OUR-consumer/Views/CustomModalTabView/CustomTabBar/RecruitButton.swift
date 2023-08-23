@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct RecruitButton: View {
+    @State var isShowToggle: Bool = false
+    @State var isShowToggle1: Bool = false
+    
     var body: some View {
         VStack {
             Divider()
             Button {
-                
+                isShowToggle.toggle()
             } label: {
                 HStack {
                     ZStack {
@@ -33,9 +36,12 @@ struct RecruitButton: View {
                 .padding()
                 
             }
+            .navigationDestination(isPresented: $isShowToggle) {
+                AddStudyMain()
+            }
             Divider()
             Button {
-                
+                isShowToggle1.toggle()
             } label: {
                 HStack {
                     ZStack {
@@ -55,12 +61,17 @@ struct RecruitButton: View {
                 }
                 .padding()
             }
+            .navigationDestination(isPresented: $isShowToggle1) {
+                FeedRecruitView()
+            }
         }
     }
 }
 
 struct RecruitButton_Previews: PreviewProvider {
     static var previews: some View {
-        RecruitButton()
+        NavigationStack {
+            RecruitButton()
+        }
     }
 }

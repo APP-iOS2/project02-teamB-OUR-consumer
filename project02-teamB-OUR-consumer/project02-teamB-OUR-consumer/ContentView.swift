@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-<<<<<<< HEAD
     
     enum TabItem {
         case feed, studyFeed, recruitAdd, alarm, myPage
@@ -22,20 +21,18 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
-                //FeedView
-                Image(systemName: "house.fill")
+                FeedTabView()
                     .tag(TabItem.feed)
                     .tabItem {
                         Label("피드", systemImage: "house.fill")
                     }
-                //StudyFeedView
-                Image(systemName: "book.fill")
+                StudyListView()
                     .tag(TabItem.studyFeed)
                     .tabItem {
                         Label("스터디모집", systemImage: "book.fill")
                     }
-                //RecruitAddView
-                Image(systemName: "plus.app.fill")
+                Image(systemName: "love")
+//                RecruitMainSheet(isShowingSheet: <#Binding<Bool>#>)
                     .tag(TabItem.recruitAdd)
                     .tabItem {
                         Label("작성하기", systemImage: "plus.app.fill")
@@ -46,8 +43,7 @@ struct ContentView: View {
                     .tabItem {
                         Label("알림", systemImage: "bell.fill")
                     }
-                //MyPageView
-                Image(systemName: "person.fill")
+                MyMain()
                     .tag(TabItem.myPage)
                     .tabItem {
                         Label("마이페이지", systemImage: "person.fill")
@@ -55,15 +51,14 @@ struct ContentView: View {
             }
             .tint(AColor.main.color) // 메인컬러로 변경
             .navigationBarBackButtonHidden()
-            .navigationBarItems(leading: Button(action: {
-                //FeedView로 돌아가기
-            }, label: {
-                Image("OUR_Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }))
-            .tint(Color(hex: hexColor)) // 메인컬러로 변경
             .navigationBarItems(leading: leadingBarItem)
+//            .navigationBarItems(leading: Button(action: {
+//                //FeedView로 돌아가기
+//            }, label: {
+//                Image("OUR_Logo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//            }))
         }
     }
     
@@ -77,20 +72,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Preview: PreviewProvider {
-=======
-    var body: some View {
-        FeedTabView()
-    }
-}
-
 struct ContentView_Previews: PreviewProvider {
->>>>>>> dev
     static var previews: some View {
         ContentView()
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev

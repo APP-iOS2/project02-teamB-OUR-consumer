@@ -16,17 +16,17 @@ struct CustomTabBarView: View {
         VStack {
             ZStack {
                 if selectedIndex == 0 {
-                   //HomeView()
+                    FeedTabView()
                 } else if selectedIndex == 1 {
-                    //StudyView()
+                    StudyListView()
                 } else if selectedIndex == 2 {
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 } else if selectedIndex == 3 {
-                    //ForthView()
+                    AlarmContainer()
                 } else if selectedIndex == 4 {
-                    //FifthView()
+                    MyMain()
                 } else {
-                    //MainView()
+                    
                 }
             }
             
@@ -34,7 +34,7 @@ struct CustomTabBarView: View {
             ZStack {
                 Rectangle()
                     .frame(width: 350, height: 80)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
                 HStack {

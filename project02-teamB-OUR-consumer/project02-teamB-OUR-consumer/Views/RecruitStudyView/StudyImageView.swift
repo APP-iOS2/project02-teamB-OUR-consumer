@@ -43,7 +43,7 @@ struct StudyImageView: View {
                 }
             }
             .sheet(isPresented: $openPhoto) {
-                ImagePicker(selectedImages: $selectedImages)
+                RecruitImagePicker(selectedImages: $selectedImages)
             }
 //        }
     }

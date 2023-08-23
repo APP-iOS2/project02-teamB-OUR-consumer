@@ -7,7 +7,7 @@
 
 import Foundation
 
-class IdStore: ObservableObject {
+class IdClassStore: ObservableObject {
     var id: UUID = UUID()
     var name: String
     var profileImgString: String

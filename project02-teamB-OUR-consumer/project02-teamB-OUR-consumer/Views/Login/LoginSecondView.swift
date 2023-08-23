@@ -131,7 +131,7 @@ struct LoginSecondView: View {
                     .padding(.bottom, 50)
             }
             .navigationDestination(isPresented: $navigate) {
-                ContentView()
+                CustomTabBarView()
             }
         }
         .alert(isPresented: $isAgreeAlert){
