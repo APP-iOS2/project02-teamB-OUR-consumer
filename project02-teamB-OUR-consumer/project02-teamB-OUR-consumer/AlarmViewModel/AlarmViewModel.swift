@@ -70,10 +70,15 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-    private func getUser(user id: ID) -> User{
-        // find user
-        return ["박형환","박찬호","장수지"].randomElement().map{ User(id: id, name: $0) }!
-        //firebase find user
+    private func getUser(user id: ID) -> User?{
+        guard
+            let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
+        else {return nil}
+        
+        return User(name: sampleUserName,
+                    email: "",
+                    profileImage: "",
+                    profileMessage: "")
     }
     
     
