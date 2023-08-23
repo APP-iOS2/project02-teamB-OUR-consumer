@@ -38,6 +38,9 @@ struct AddStudyMain: View {
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
                         .padding(.bottom, 20)
+                    VStack {
+                        ButtonMainView(startDate: Date(), endDate: Date())
+                    }
                     
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")

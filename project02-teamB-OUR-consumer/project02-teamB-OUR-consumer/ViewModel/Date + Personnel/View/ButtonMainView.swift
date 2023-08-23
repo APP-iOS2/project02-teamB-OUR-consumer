@@ -19,14 +19,13 @@ struct ButtonMainView: View {
     @State var number: Int = 1
     
     var body: some View {
-        VStack{
-            HStack {
-                VStack {
+            VStack {
+                HStack {
                     Button {
                         isShowingDateSheet.toggle()
                     } label: {
                         VStack {
-                            Text("기간")
+                            Text("기간 설정")
                                 .padding().frame(width: 150)
                                 .foregroundColor(Color.black)
                             
@@ -44,30 +43,35 @@ struct ButtonMainView: View {
                     Text("시작: \(startDate.formatted(.dateTime))")
                     Text("마감: \(endDate.formatted(.dateTime))")
                 }
-                
-                VStack {
-                    Button {
-                        isShowingPersonSheet.toggle()
-                    } label: {
-                        Text("인원수")
-                            .padding().frame(width: 150)
-                            .foregroundColor(Color.black)
+                ZStack {
+                    HStack {
+                        Button {
+                            isShowingPersonSheet.toggle()
+                        } label: {
+                            Text("인원수 선택")
+                                .padding().frame(width: 150)
+                                .foregroundColor(Color.black)
+                        }
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.roundedRectangle(radius: 8))
+                        .shadow(radius: 8)
+                        .sheet(isPresented: $isShowingPersonSheet) {
+                            PersonnelSheet(isShowingPersonSheet: $isShowingPersonSheet, number: $number)
+                                .presentationDetents([.fraction(0.45)])
+                        }
+                        
+                        Spacer().frame(width: 190)
+                        
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle(radius: 8))
-                    .shadow(radius: 8)
-                    .sheet(isPresented: $isShowingPersonSheet) {
-                        PersonnelSheet(isShowingPersonSheet: $isShowingPersonSheet, number: $number)
-                            .presentationDetents([.fraction(0.45)])
+                    VStack(alignment: .trailing) {
+                        Text("\(number) 명")
+                            .padding(.leading)
                     }
-                    Spacer().frame(height: 30)
-                    Text("\(number) 명")
-                    
                 }
             }
         }
     }
-}
+
 
 struct ButtonMainView_Previews: PreviewProvider {
     static var previews: some View {
