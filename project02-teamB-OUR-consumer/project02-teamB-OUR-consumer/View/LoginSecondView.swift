@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct LoginSecondView: View {
-    
+    let viewModel: AuthViewModel
     @State private var nameField: String = ""
     @State private var emailField: String = ""
     
     @State private var isAgree1: Bool = false
     @State private var isAgree2: Bool = false
     
-    func isCheckAgree() {
-        if !isAgree1 || !isAgree2 {
-            //
-        }
-    }
+    @State private var navigate: Bool = false
+    @State private var isAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -55,8 +52,9 @@ struct LoginSecondView: View {
                     Text("E-Mail")
                         .fontWeight(.bold)
                         .padding(.leading, 50)
-                    TextField("E-mail", text: $emailField, axis: .horizontal)
+                    TextField(viewModel.signUpData.email, text: $emailField, axis: .horizontal)
                         .frame(width: 360, height: 50, alignment: .center)
+                        .disabled(true)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
                         .padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50))
@@ -83,7 +81,7 @@ struct LoginSecondView: View {
                     Spacer()
                     
                     NavigationLink {
-                        AgreeView()
+//                        AgreeView()
                     } label: {
                         Text("본문보기")
                             .foregroundColor(.gray)
@@ -108,7 +106,7 @@ struct LoginSecondView: View {
                     Text("개인정보 수집 및 이용 동의 (필수)")
                     Spacer()
                     NavigationLink {
-                        AgreeView()
+//                        AgreeView()
                     } label: {
                         Text("본문보기")
                             .foregroundColor(.gray)
@@ -119,20 +117,25 @@ struct LoginSecondView: View {
             
             Spacer()
             
-            NavigationLink {
-                ContentView()
-            } label: {
-                Text("회원가입")
-                    .fontWeight(.bold)
-                    .frame(width: 360, height: 50)
-                    .background(Color(hex: 0x090580))
-                    .cornerRadius(5)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 50)
-            }
-            .simultaneousGesture(TapGesture().onEnded{
-                isCheckAgree()
-            })
+            NavigationLink(destination: FeedTabView(), isActive: $navigate){
+                   Button {
+                       if !isAgree1 || !isAgree2 {
+                           isAlert.toggle()
+                       } else {
+                           viewModel.signUp(name: self.nameField)
+                           navigate = isAgree1 && isAgree2
+                       }
+                   } label: {
+                       Text("회원가입")
+                           .fontWeight(.bold)
+                           .frame(width: 360, height: 50)
+                           .background(Color(hex: 0x090580))
+                           .cornerRadius(5)
+                           .foregroundColor(.white)
+                           .padding(.bottom, 50)
+                   }
+
+               }
             
         }
         .navigationBarBackButtonHidden()
@@ -141,6 +144,6 @@ struct LoginSecondView: View {
 
 struct LoginSecondView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginSecondView()
+        LoginSecondView(viewModel: AuthViewModel())
     }
 }
