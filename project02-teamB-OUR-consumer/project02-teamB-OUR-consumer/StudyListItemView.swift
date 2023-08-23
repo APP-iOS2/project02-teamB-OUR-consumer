@@ -19,7 +19,7 @@ struct StudyListItemView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 90, height: 90)
+                    .frame(width: 100, height: 100)
                     .cornerRadius(10)
             } placeholder: {
                 ProgressView()
@@ -28,14 +28,15 @@ struct StudyListItemView: View {
             
             VStack(alignment: .leading) {
                 Text(study.title)
+                    .font(.system(size: 16))
                     .bold()
                     .foregroundColor(.black)
                     .lineLimit(2)
                 VStack(alignment: .leading, spacing: 5) {
                     Text(study.date)
-                    Text(study.location)
+                    Label(study.location, systemImage: "mappin.and.ellipse")
                 }
-                .font(.caption)
+                .font(.system(size: 12))
                 .bold()
                 .foregroundColor(.gray)
                 
@@ -44,7 +45,7 @@ struct StudyListItemView: View {
                         Image(systemName: "person.3.fill")
                         Text("\(study.currentMemberCount)/\(study.totalMemberCount)")
                     }
-                    .font(.caption)
+                    .font(.system(size: 12))
                     .bold()
                     .foregroundColor(.gray)
                     
@@ -60,7 +61,7 @@ struct StudyListItemView: View {
                 }
             }
         }
-        .frame(width: 350, height: 80)
+        .frame(width: 350, height: 90)
         .padding()
         .background(
            RoundedRectangle(cornerRadius: 20)
