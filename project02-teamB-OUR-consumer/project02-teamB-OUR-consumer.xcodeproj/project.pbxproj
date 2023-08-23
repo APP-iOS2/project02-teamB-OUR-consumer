@@ -100,9 +100,9 @@
 		9620C50C2A95FD39000C21BC /* CustomTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				9620C50F2A95FD8F000C21BC /* CustomTabBarView.swift */,
 				9620C50A2A95FD31000C21BC /* PostButton.swift */,
 				9620C50D2A95FD69000C21BC /* RecruitButton.swift */,
-				9620C50F2A95FD8F000C21BC /* CustomTabBarView.swift */,
 			);
 			path = CustomTabBar;
 			sourceTree = "<group>";
