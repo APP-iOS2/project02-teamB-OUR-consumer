@@ -37,6 +37,7 @@ struct AlarmContainer: View {
                 Spacer()
             }
         }
+        .navigationTitle("")
     }
 }
 
@@ -46,8 +47,6 @@ struct AlarmContainer_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
             AlarmContainer()
-                .navigationTitle("알람")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
