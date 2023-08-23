@@ -9,28 +9,30 @@ import SwiftUI
 
 struct RecommendDetailView: View {
     
+    var idStore: IdStore
     
     var body: some View {
         HStack {
-            Image("Chan")
+            Image("\(idStore.profileImgString)")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .clipShape(Circle())
                 .frame(width: 40)
             VStack(alignment: .leading) {
-                Text("이름")
+                Text("\(idStore.name)")
                     .font(.system(size: 16))
                     .fontWeight(.heavy)
-                Text("간단한 자기소개")
+                Text("\(idStore.profileMessage)")
                     .font(.system(size: 14))
                     .fontWeight(.light)
             }
+            Spacer()
         }
     }
 }
 
 struct RecommendDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecommendDetailView()
+        RecommendDetailView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.", isFollow: false))
     }
 }

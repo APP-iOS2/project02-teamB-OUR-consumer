@@ -7,7 +7,7 @@
 
 import Foundation
 
-class IdStore: ObservableObject, Identifiable {
+struct IdStore: Identifiable {
     var id: UUID = UUID()
     var name: String
     var profileImgString: String
@@ -17,16 +17,18 @@ class IdStore: ObservableObject, Identifiable {
     var numberOfFollowing: Int
     var numberOfComments: Int
     var profileMessage: String
+    var isFollow: Bool
     
-    init(id: UUID, name: String, profileImgString: String, userID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, numberOfComments: Int, profileMessage: String) {
-        self.id = id
-        self.name = name
-        self.profileImgString = profileImgString
-        self.userID = userID
-        self.numberOfPosts = numberOfPosts
-        self.numberOfFollowrs = numberOfFollowrs
-        self.numberOfFollowing = numberOfFollowing
-        self.numberOfComments = numberOfComments
-        self.profileMessage = profileMessage
-    }
+//    init(id: UUID, name: String, profileImgString: String, userID: String, numberOfPosts: Int, numberOfFollowrs: Int, numberOfFollowing: Int, numberOfComments: Int, profileMessage: String, isFollow: Bool) {
+//        self.id = id
+//        self.name = name
+//        self.profileImgString = profileImgString
+//        self.userID = userID
+//        self.numberOfPosts = numberOfPosts
+//        self.numberOfFollowrs = numberOfFollowrs
+//        self.numberOfFollowing = numberOfFollowing
+//        self.numberOfComments = numberOfComments
+//        self.profileMessage = profileMessage
+//        self.isFollow = isFollow
+//    }
 }
