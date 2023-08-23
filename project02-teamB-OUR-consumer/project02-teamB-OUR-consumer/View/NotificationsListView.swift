@@ -111,18 +111,21 @@ struct NotificationRow: View {
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
                         // 팔로우 버튼만 오른쪽으로 밀기
-                        //Spacer()
+                        Spacer()
                         Button(action: {
                             isFollowing.toggle()
                             followTapped(tap: isFollowing)
                         }) {
                             Text(isFollowing ? "팔로잉" : "팔로우")
                                 .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
-                                .foregroundColor(Color.white)
-                                .padding(.horizontal, 18)
-                                .padding(.vertical, 5)
-                                .background(isFollowing ? AColor.defalut.color : AColor.main.color) // 팔로잉 상태에 따른 배경색
+                                .foregroundColor(isFollowing ? AColor.main.color : Color.white)
+                                .frame(width: 90.05, height: 27.85)
+//                                .padding(.horizontal, 18)
+//                                .padding(.vertical, 5)
+                                .background(isFollowing ? Color.white : AColor.main.color) // 팔로잉 상태에 따른 배경색
                                 .cornerRadius(5)
+                                .overlay(RoundedRectangle(cornerRadius: 5)
+                                    .stroke(AColor.main.color, lineWidth: 2))
                         }
                     }
                     
