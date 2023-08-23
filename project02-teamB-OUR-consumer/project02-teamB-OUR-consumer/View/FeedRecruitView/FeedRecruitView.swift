@@ -83,7 +83,7 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
-                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting)
+                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0)
                         
                         feedStoreViewModel.addFeed(newFeed)
                         

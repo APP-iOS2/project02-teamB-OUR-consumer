@@ -34,8 +34,9 @@ class FeedRecruitStore: ObservableObject {
                     let location: String = docData["location"] as? String ?? ""
                     let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
                     let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
+                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
                     
-                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, imageURL: imageURL, location: location, privateSetting: privateSetting , createdAt: createdAt)
+                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, imageURL: imageURL, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt)
                     
                     tempFeeds.append(feeds)
                 }
@@ -54,7 +55,8 @@ class FeedRecruitStore: ObservableObject {
                       "imageURL": feed.imageURL,
                       "location": feed.location,
                       "privateSetting": feed.privateSetting,
-                      "createdAt": feed.createdDate])
+                      "createdAt": feed.createdDate,
+                      "reportCount": feed.reportCount])
         
         fetchFeeds()
     }
