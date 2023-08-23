@@ -81,7 +81,6 @@
 				960CCEE72A9459910044F279 /* NotificationItem.swift */,
 				9650868A2A94D35900CDA0FC /* NotificationDTO.swift */,
 				965086862A94C86A00CDA0FC /* Color.swift */,
-				B0398A7C2A958EC500DDD880 /* SoundEffect.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,7 +247,6 @@
 				960CCEE52A94598A0044F279 /* String.swift in Sources */,
 				960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */,
 				9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */,
-				B0398A7D2A958EC500DDD880 /* SoundEffect.swift in Sources */,
 				9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */,
 				B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */,
 				960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */,
