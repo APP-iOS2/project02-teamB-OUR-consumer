@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedRecruitPhotoAddView: View {
     
-    @State private var selectedImages: [UIImage] = []
+    @Binding var selectedImages: [UIImage]
     @State private var isImagePickerPresented: Bool = false
     
     var body: some View {
@@ -63,8 +63,9 @@ struct FeedRecruitPhotoAddView: View {
     }
 }
 
-struct FeedRecruitPhotoAddView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedRecruitPhotoAddView()
-    }
-}
+//struct FeedRecruitPhotoAddView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedRecruitPhotoAddView()
+//    }
+//}
+

@@ -12,12 +12,19 @@ import CoreLocation
 
 struct FeedRecruitView: View {
     
+    @StateObject var feedStoreViewModel: FeedRecruitStore = FeedRecruitStore()
     @StateObject var locationManager = LocationManager.shared
     @State var toolbarToogle: Bool = false
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
     @State var contentText: String = ""
     @State var placeholder: String = "Share Your Idea In OUR."
-    @State var address: String = ""
+    @State var locationAddress: String = ""
+    @State var selectedImages: [UIImage] = []
+//    var toString: String {
+//
+//        UIImage.toString(selectedImages)
+//    }
+    
     
     var body: some View {
         
@@ -33,12 +40,7 @@ struct FeedRecruitView: View {
                         Spacer()
                     }
                     HStack{
-                        //현재위치설정 버튼
-//                        LocationButton(.currentLocation) {
-//                            locationManager.requestLocation()
-//
-//                        }
-//                        .labelStyle(.iconOnly)
+
                         
                         //현재 위치설정 버튼
                         Button {
@@ -48,7 +50,7 @@ struct FeedRecruitView: View {
                             }
                         } label: {
                             Image(systemName: "location")
-                            address.isEmpty ? Text("위치설정") : Text("\(address)")
+                            locationAddress.isEmpty ? Text("위치설정") : Text("\(locationAddress)")
                         }
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
@@ -70,7 +72,7 @@ struct FeedRecruitView: View {
                 }
                 
                 //사진추가 View
-                FeedRecruitPhotoAddView()
+                FeedRecruitPhotoAddView(selectedImages: $selectedImages)
 
             }
             .toolbar {
@@ -81,8 +83,14 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
+                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting)
+                        
+                        feedStoreViewModel.addFeed(newFeed)
+                        
+                        contentText = ""
+                   
                         toolbarToogle.toggle()
-                    }
+                    }.disabled(contentText.isEmpty)
                 }
                 
             }
@@ -100,15 +108,15 @@ struct FeedRecruitView: View {
             }
             guard let placemark = placemarks?.first else {return}
             
-            self.address = "\(placemark.country ?? "") \(placemark.locality ?? "") \(placemark.name ?? "")"
+            self.locationAddress = "\(placemark.country ?? "") \(placemark.locality ?? "") \(placemark.name ?? "")"
         }
     }
     
     
 }
 
-struct FeedRecruitView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedRecruitView()
-    }
-}
+//struct FeedRecruitView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedRecruitView()
+//    }
+//}
