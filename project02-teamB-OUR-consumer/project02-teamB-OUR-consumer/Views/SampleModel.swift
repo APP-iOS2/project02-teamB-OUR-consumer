@@ -32,13 +32,8 @@ struct Study: Identifiable {
 
 class StudyStore: ObservableObject {
     @Published var studyArray: [Study] = []
-    @Published var searchTerm: String = ""
     
-    var searchedResult: [Study] {
-        studyArray.filter {
-            searchTerm.isEmpty || $0.title.contains(searchTerm)
-        }
-    }
+
     
     func sortedStudy() -> [Study] {
         let sortedArray = studyArray.sorted { $0.createdAt > $1.createdAt }

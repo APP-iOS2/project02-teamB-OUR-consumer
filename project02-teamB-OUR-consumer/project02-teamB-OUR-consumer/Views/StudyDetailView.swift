@@ -64,22 +64,41 @@ struct StudyDetailView: View {
                         Divider()
                         
                         VStack(alignment: .leading) {
-                            Button {
-                                isShowingLocationSheet = true
-                            } label: {
+                            HStack {
                                 Text("📍 위치 : 종각역 할리스")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
+                                Button {
+                                    isShowingLocationSheet = true
+                                } label: {
+                                    Text("위치보기")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundColor(.black)
+                                        .padding(3)
+                                        .border(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                        .cornerRadius(10)
+                                }
                             }
-                            .padding(.bottom, 1)
-                            Button {
-                                isShowingStudyMemberSheet.toggle()
-                            } label: {
-                                Text("👥 인원 : 최대 5명 (1/5)")
+                            
+                            HStack {
+                                Text("👥 인원 : 최대 5명 (3/5)")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
+                                Button {
+                                    isShowingStudyMemberSheet.toggle()
+                                } label: {
+                                    Text("멤버보기")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundColor(.black)
+                                        .padding(3)
+                                        .border(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                        .cornerRadius(10)
+                                }
                             }
-                            .padding(.bottom, 1)
+                            .padding(.bottom, 5)
+                            
                             Text("🗓️ 9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.black)
@@ -111,6 +130,7 @@ struct StudyDetailView: View {
                         .padding(15)
                         
                         Divider()
+                        StudyReplyView()
                     }
                 }
                 .padding(.top, 25)
@@ -131,7 +151,7 @@ struct StudyDetailView: View {
             }
             .sheet(isPresented: $isShowingLocationSheet) {
                 LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
-                .presentationDetents([.medium])
+                    .presentationDetents([.medium])
             }
         }
     }

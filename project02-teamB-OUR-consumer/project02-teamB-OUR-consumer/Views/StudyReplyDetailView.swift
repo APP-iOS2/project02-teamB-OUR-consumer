@@ -17,7 +17,7 @@ struct StudyReplyDetailView: View {
     var comment: StudyGroupComment
     
     var body: some View {
-        VStack {
+        LazyVStack {
             HStack {
                 Button {
                     //해당 프로필 시트 올려주는 ~

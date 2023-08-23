@@ -18,23 +18,6 @@ struct StudyMemberSheetView: View {
                         print("")
                     } label: {
                         HStack {
-                            AsyncImage(url: URL(string: "https://i.ibb.co/phFSp0s/2023-08-23-9-52-55.png")) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40, height: 40)
-                                    .cornerRadius(50)
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            Text("선아라")
-                                .font(.system(size: 14, weight: .semibold))
-                        }
-                    }
-                    Button {
-                        print("")
-                    } label: {
-                        HStack {
                             AsyncImage(url: URL(string: "https://i.ibb.co/B3zSTgy/2023-08-23-9-52-35.png")) { image in
                                 image
                                     .resizable()

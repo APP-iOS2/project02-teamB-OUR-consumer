@@ -46,15 +46,16 @@ struct StudyReplyView: View {
     
     var body: some View {
         VStack{
-            List {
+            //List {
                 ForEach($studyGroupComments) { $comment in
                     StudyReplyDetailView(userId: "성은", comment: comment)
                 }
-            }
+           // }
             .listStyle(.plain)
             .refreshable {
                 //새로고침
             }
+            .padding([.horizontal, .bottom], 10)
             
             
             HStack {
