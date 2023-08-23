@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
+    @State private var isShowingLocationSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -63,7 +65,7 @@ struct StudyDetailView: View {
                         
                         VStack(alignment: .leading) {
                             Button {
-                                print("")
+                                isShowingLocationSheet = true
                             } label: {
                                 Text("📍 위치 : 종각역 할리스")
                                     .font(.system(size: 14, weight: .semibold))
@@ -81,7 +83,7 @@ struct StudyDetailView: View {
                             Text("🗓️ 9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.black)
-
+                            
                             
                             HStack {
                                 Button {
@@ -126,6 +128,10 @@ struct StudyDetailView: View {
             .sheet(isPresented: $isShowingStudyMemberSheet) {
                 StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet)
                     .presentationDetents([.medium, .large])
+            }
+            .sheet(isPresented: $isShowingLocationSheet) {
+                LocationSheetView(locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+                .presentationDetents([.medium])
             }
         }
     }

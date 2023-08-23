@@ -17,9 +17,7 @@ struct LocationSheetView: View {
     
     var locationName: String = "광화문역 사거리"
     
-    var locationCoordinate: CLLocationCoordinate2D =
-    CLLocationCoordinate2D(latitude: 37.5718,
-    longitude: 126.9769)
+    var locationCoordinate: CLLocationCoordinate2D
     
     //locationCoordinate 여기서 안받아오면 region에 바로 쓸 수 있으려나!?
     @State private var region = MKCoordinateRegion(
@@ -50,6 +48,6 @@ struct LocationSheetView: View {
 
 struct LocationSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSheetView()
+        LocationSheetView(locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
     }
 }

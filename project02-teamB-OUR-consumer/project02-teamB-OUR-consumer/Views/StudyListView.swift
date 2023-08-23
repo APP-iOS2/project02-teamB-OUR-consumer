@@ -38,7 +38,7 @@ struct StudyListView: View {
             }
             
             NavigationLink {
-                Text("넘어갑니다")
+                StudyDetailView()
             } label: {
                 ScrollView {
                     if selectedArray == .allList {
