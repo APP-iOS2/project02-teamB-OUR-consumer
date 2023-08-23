@@ -41,7 +41,7 @@ struct NotificationsListView: View {
         { key in
             Section(header:
                         Text("\(key)")
-                .font(.system(size: 20, weight: .bold))
+                .font(.system(size: 16, weight: .bold))
                 .foregroundColor(Color.black),
                     content:  {
                 ForEach(items[key]!, id: \.id) { notification in
@@ -97,13 +97,13 @@ struct NotificationRow: View {
                         
                         HStack{
                             styledText(content: notification.content)
-                                .font(.system(size: 14))
+                                .font(.system(size: 12, weight: .medium))
                             
                             Spacer()
                         }
                         
                         Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
-                            .font(.system(size: 12))
+                            .font(.system(size: 12, weight: .medium))
                             .foregroundColor(Color.gray)
                         
                     }
