@@ -20,7 +20,7 @@ import Foundation
 
 typealias ID = String
 
-struct NotificationItem: Identifiable,Codable{
+struct NotificationItem: Identifiable{
     let id: ID
     let user: User
     let type: NotificationType

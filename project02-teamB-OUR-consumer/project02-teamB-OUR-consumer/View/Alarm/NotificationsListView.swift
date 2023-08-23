@@ -31,7 +31,7 @@ struct NotificationsListView: View {
         }
         .listStyle(PlainListStyle()) // 하얀색 배경
         .onAppear{
-            viewModel.fetchAlarm(access: access)
+            viewModel.fetchNotificationItem()
         }
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum NotificationType: String,Codable {
+enum NotificationType: String {
     case follow
     case like
     case comment
@@ -22,13 +22,14 @@ enum NotificationType: String,Codable {
     func getAccessLevel() -> Access{
         switch self {
         case .follow,.like,.comment:
-            return .public
-        case .studyJoinRequest,.studyJoinApproval, .studyReply, .studyAutoJoin:
             return .personal
+        case .studyJoinRequest,.studyJoinApproval, .studyReply, .studyAutoJoin:
+            return .public
         case .none:
             return .none
         }
     }
+
     
     enum Access{
         case `public`
