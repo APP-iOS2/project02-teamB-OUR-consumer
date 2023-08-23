@@ -94,11 +94,12 @@ struct NotificationRow: View {
                             .foregroundColor(Color.gray)
                         
                     }
-
+                    
+                    Spacer()
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
                          // 팔로우 버튼만 오른쪽으로 밀기
-                        Spacer()
+                      
                         Button(action: {
                             isFollowing.toggle()
                             
