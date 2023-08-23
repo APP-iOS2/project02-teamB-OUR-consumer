@@ -16,6 +16,7 @@ struct FeedRecruitModel {
     var imageURL: [String]
     var location: String
     var privateSetting: Bool
+    var reportCount: Int
     var createdAt: Double = Date().timeIntervalSince1970
     
     var createdDate: String {
