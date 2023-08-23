@@ -39,15 +39,15 @@ struct NotificationsListView: View {
         ForEach(items.keys.sorted(by: >),
                 id: \.self)
         { key in
-           Section(header:
-               Text("\(key)")
-                   .font(.system(size: 20, weight: .bold))
-                   .foregroundColor(Color.black),
-                   content:  {
-               ForEach(items[key]!, id: \.id) { notification in
-                   NotificationRow(notification: notification)
-               }
-           })
+            Section(header:
+                        Text("\(key)")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(Color.black),
+                    content:  {
+                ForEach(items[key]!, id: \.id) { notification in
+                    NotificationRow(notification: notification)
+                }
+            })
         }
     }
 }
@@ -61,6 +61,19 @@ struct NotificationRow: View {
         HStack {
             ZStack {
                 if notification.type == .like || notification.type == .comment {
+                    NavigationLink(destination:
+                                    TestView()
+                    ) {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                    }
+                }
+                
+                if notification.type == .studyReply || notification.type == .studyAutoJoin {
                     NavigationLink(destination:
                                     TestView()
                     ) {
@@ -94,15 +107,13 @@ struct NotificationRow: View {
                             .foregroundColor(Color.gray)
                         
                     }
-
+                    
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
-                         // 팔로우 버튼만 오른쪽으로 밀기
-                        Spacer()
+                        // 팔로우 버튼만 오른쪽으로 밀기
+                        //Spacer()
                         Button(action: {
                             isFollowing.toggle()
-                            
-                            
                             followTapped(tap: isFollowing)
                         }) {
                             Text(isFollowing ? "팔로잉" : "팔로우")
@@ -114,7 +125,6 @@ struct NotificationRow: View {
                                 .cornerRadius(5)
                         }
                     }
-
                     
                     // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
                     if notification.type == .like || notification.type == .comment,
@@ -151,7 +161,7 @@ struct NotificationRow: View {
         return output
     }
     
-           
+    
     func styledText(text: String) -> some View {
         var output = AnyView(Text(""))
         let components = text.tokenize("@#. ")
