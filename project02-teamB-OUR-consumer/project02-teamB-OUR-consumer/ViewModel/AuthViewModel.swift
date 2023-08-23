@@ -93,7 +93,9 @@ class AuthViewModel: ObservableObject {
 
                  let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                                 accessToken: user.accessToken.tokenString)
-                 
+                 Auth.auth().signIn(with: credential) { result, error in
+                     
+                 }
                  self.isAlreadyUser(loginType: "google", userId: userId, email: email) {
                      completion()
                  }
