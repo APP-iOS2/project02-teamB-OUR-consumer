@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyExperienceEditView: View {
+struct MyProjectEditView: View {
     @State var projectTitle: String = ""
     @State var jobTitle: String = ""
     @State var startDate = Date()
@@ -116,6 +116,6 @@ struct MyExperienceEditView: View {
 
 struct MyExperienceEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyExperienceEditView()
+        MyProjectEditView()
     }
 }

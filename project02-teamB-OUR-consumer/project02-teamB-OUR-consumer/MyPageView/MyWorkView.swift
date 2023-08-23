@@ -59,7 +59,7 @@ struct MyWorkView: View {
                     Spacer()
                     
                     NavigationLink {
-                        // 경력 추가
+                        MyWorkEditView()
                     } label: {
                         Image(systemName: "plus")
                     }

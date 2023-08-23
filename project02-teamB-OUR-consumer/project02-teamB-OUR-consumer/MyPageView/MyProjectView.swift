@@ -51,7 +51,7 @@ struct MyProjectView: View {
                     Spacer()
                     
                     NavigationLink {
-                        // 프로젝트 추가
+                        MyProjectEditView()
                     } label: {
                         Image(systemName: "plus")
                     }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9682A95099F006946C3 /* MyEduEditView.swift */; };
+		118AA96E2A95099F006946C3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9692A95099F006946C3 /* SettingView.swift */; };
+		118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96A2A95099F006946C3 /* MyProjectEditView.swift */; };
+		118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96B2A95099F006946C3 /* MySkillEditView.swift */; };
+		118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96C2A95099F006946C3 /* MyWorkEditView.swift */; };
 		960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDA2A9491970036CEC1 /* MyResumeView.swift */; };
 		960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDDF2A9497040036CEC1 /* MyIntroView.swift */; };
 		960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE12A94971D0036CEC1 /* MyWorkView.swift */; };
@@ -15,20 +20,14 @@
 		960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE72A9497530036CEC1 /* MySkillView.swift */; };
 		960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDE92A94A9C40036CEC1 /* ResumeData.swift */; };
 		960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */; };
-		118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9682A95099F006946C3 /* MyEduEditView.swift */; };
-		118AA96E2A95099F006946C3 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9692A95099F006946C3 /* SettingView.swift */; };
-		118AA96F2A95099F006946C3 /* MyExperienceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96A2A95099F006946C3 /* MyExperienceEditView.swift */; };
-		118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96B2A95099F006946C3 /* MySkillEditView.swift */; };
-		118AA9712A95099F006946C3 /* MyCarreerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96C2A95099F006946C3 /* MyCarreerEditView.swift */; };
 		9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */; };
 		9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99CCEF2A944A5700699B6A /* ContentView.swift */; };
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
-		A09ED4BB2A9490D200E6A626 /* MyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMain.swift */; };
+		A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
 		A09ED4BD2A9494B100E6A626 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A09ED4BC2A9494B100E6A626 /* GoogleService-Info.plist */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
-
 		F485B74D2A94574200A2F5FF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74C2A94574200A2F5FF /* FirebaseAuth */; };
 		F485B74F2A94574200A2F5FF /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F485B74E2A94574200A2F5FF /* FirebaseFirestore */; };
 		F485B7512A94574200A2F5FF /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F485B7502A94574200A2F5FF /* FirebaseFirestoreCombine-Community */; };
@@ -38,6 +37,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		118AA9682A95099F006946C3 /* MyEduEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEduEditView.swift; sourceTree = "<group>"; };
+		118AA9692A95099F006946C3 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		118AA96A2A95099F006946C3 /* MyProjectEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProjectEditView.swift; sourceTree = "<group>"; };
+		118AA96B2A95099F006946C3 /* MySkillEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySkillEditView.swift; sourceTree = "<group>"; };
+		118AA96C2A95099F006946C3 /* MyWorkEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWorkEditView.swift; sourceTree = "<group>"; };
 		960EFDDA2A9491970036CEC1 /* MyResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyResumeView.swift; sourceTree = "<group>"; };
 		960EFDDF2A9497040036CEC1 /* MyIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroView.swift; sourceTree = "<group>"; };
 		960EFDE12A94971D0036CEC1 /* MyWorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkView.swift; sourceTree = "<group>"; };
@@ -46,17 +50,12 @@
 		960EFDE72A9497530036CEC1 /* MySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillView.swift; sourceTree = "<group>"; };
 		960EFDE92A94A9C40036CEC1 /* ResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeData.swift; sourceTree = "<group>"; };
 		960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeStore.swift; sourceTree = "<group>"; };
-		118AA9682A95099F006946C3 /* MyEduEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEduEditView.swift; sourceTree = "<group>"; };
-		118AA9692A95099F006946C3 /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		118AA96A2A95099F006946C3 /* MyExperienceEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyExperienceEditView.swift; sourceTree = "<group>"; };
-		118AA96B2A95099F006946C3 /* MySkillEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySkillEditView.swift; sourceTree = "<group>"; };
-		118AA96C2A95099F006946C3 /* MyCarreerEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarreerEditView.swift; sourceTree = "<group>"; };
 		9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project02-teamB-OUR-consumer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = project02_teamB_OUR_consumerApp.swift; sourceTree = "<group>"; };
 		9E99CCEF2A944A5700699B6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A09ED4BA2A9490D200E6A626 /* MyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMain.swift; sourceTree = "<group>"; };
+		A09ED4BA2A9490D200E6A626 /* MyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainView.swift; sourceTree = "<group>"; };
 		A09ED4BC2A9494B100E6A626 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainTabBar.swift; sourceTree = "<group>"; };
 		A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainProfileEditView.swift; sourceTree = "<group>"; };
@@ -82,16 +81,32 @@
 		960EFDDC2A9491B20036CEC1 /* MyPageView */ = {
 			isa = PBXGroup;
 			children = (
+				962B7E192A95901600083790 /* MyPageViewModel */,
+				A09ED4BA2A9490D200E6A626 /* MyMainView.swift */,
+				A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */,
+				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
 				960EFDDA2A9491970036CEC1 /* MyResumeView.swift */,
 				960EFDDF2A9497040036CEC1 /* MyIntroView.swift */,
 				960EFDE12A94971D0036CEC1 /* MyWorkView.swift */,
+				118AA96C2A95099F006946C3 /* MyWorkEditView.swift */,
 				960EFDE32A9497330036CEC1 /* MyProjectView.swift */,
+				118AA96A2A95099F006946C3 /* MyProjectEditView.swift */,
 				960EFDE52A9497430036CEC1 /* MyEduView.swift */,
+				118AA9682A95099F006946C3 /* MyEduEditView.swift */,
 				960EFDE72A9497530036CEC1 /* MySkillView.swift */,
+				118AA96B2A95099F006946C3 /* MySkillEditView.swift */,
+				118AA9692A95099F006946C3 /* SettingView.swift */,
+			);
+			path = MyPageView;
+			sourceTree = "<group>";
+		};
+		962B7E192A95901600083790 /* MyPageViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				960EFDE92A94A9C40036CEC1 /* ResumeData.swift */,
 				960EFDEB2A94FEAC0036CEC1 /* ResumeStore.swift */,
 			);
-			path = MyPageView;
+			path = MyPageViewModel;
 			sourceTree = "<group>";
 		};
 		9E99CCE12A944A5700699B6A = {
@@ -116,18 +131,8 @@
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				9E99CCEF2A944A5700699B6A /* ContentView.swift */,
 				960EFDDC2A9491B20036CEC1 /* MyPageView */,
-				A09ED4BA2A9490D200E6A626 /* MyMain.swift */,
-				A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */,
-				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
-				F485B7562A94584800A2F5FF /* ViewModel */,
-				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				A09ED4BC2A9494B100E6A626 /* GoogleService-Info.plist */,
 				FAA6FC212A949FF2005E31DC /* Extension.swift */,
-				118AA96C2A95099F006946C3 /* MyCarreerEditView.swift */,
-				118AA9682A95099F006946C3 /* MyEduEditView.swift */,
-				118AA96A2A95099F006946C3 /* MyExperienceEditView.swift */,
-				118AA96B2A95099F006946C3 /* MySkillEditView.swift */,
-				118AA9692A95099F006946C3 /* SettingView.swift */,
 				F485B7562A94584800A2F5FF /* ViewModel */,
 				9E99CCF12A944A5A00699B6A /* Assets.xcassets */,
 				9E99CCF32A944A5A00699B6A /* Preview Content */,
@@ -220,7 +225,6 @@
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
-
 				A09ED4BD2A9494B100E6A626 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,15 +248,15 @@
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */,
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
-				A09ED4BB2A9490D200E6A626 /* MyMain.swift in Sources */,
+				A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */,
 				A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */,
 				118AA96E2A95099F006946C3 /* SettingView.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
-				118AA96F2A95099F006946C3 /* MyExperienceEditView.swift in Sources */,
+				118AA96F2A95099F006946C3 /* MyProjectEditView.swift in Sources */,
 				118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */,
-				118AA9712A95099F006946C3 /* MyCarreerEditView.swift in Sources */,
+				118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

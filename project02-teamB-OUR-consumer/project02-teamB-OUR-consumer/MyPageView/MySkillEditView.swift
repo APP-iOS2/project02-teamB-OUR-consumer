@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct Skill: Identifiable {
-    var id: String = UUID().uuidString
-    var skillname: String
-    var description: String
-    
-}
+//struct Skill: Identifiable {
+//    var id: String = UUID().uuidString
+//    var skillname: String
+//    var description: String
+//
+//}
 
 struct MySkillEditView: View {
     @State var skillName: String = ""
@@ -20,8 +20,8 @@ struct MySkillEditView: View {
     
     @State var isShowingAlert: Bool = false
     
-    @State var skill: [Skill] = [Skill(skillname: "uikit", description: "uikit no jam"),
-                                 Skill(skillname: "swiftUi", description: "swiftUI zzang jam")
+    @State var skill: [Skill] = [Skill(skillName: "uikit", description: "uikit no jam"),
+                                 Skill(skillName: "swiftUi", description: "swiftUI zzang jam")
     ]
     
     var body: some View {
@@ -42,7 +42,7 @@ struct MySkillEditView: View {
                                     .frame(height: 50))
                             
                             Button {
-                                skill.append(Skill(skillname: skillName, description: description))
+                                skill.append(Skill(skillName: skillName, description: description))
                                 skillName = ""
                                 description = ""
                             } label: {

@@ -47,7 +47,7 @@ struct MySkillView: View {
                     Spacer()
                     
                     NavigationLink {
-                        // 스킬 추가
+                        MySkillEditView()
                     } label: {
                         Image(systemName: "plus")
                     }

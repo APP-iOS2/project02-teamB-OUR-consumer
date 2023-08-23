@@ -51,7 +51,7 @@ struct MyEduView: View {
                     Spacer()
                     
                     NavigationLink {
-                        // 교육 추가
+                        MyEduEditView()
                     } label: {
                         Image(systemName: "plus")
                     }

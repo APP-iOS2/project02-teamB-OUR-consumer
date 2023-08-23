@@ -1,5 +1,5 @@
 //
-//  MyMain.swift
+//  MyMainView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by 김성훈 on 2023/08/22.
@@ -15,7 +15,7 @@ struct MyMain: View {
     
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
-    
+    //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     
     var body: some View {
         
@@ -122,14 +122,7 @@ struct MyMain: View {
                     // 탭바들 자리 (index 값 따라서 다른뷰 보여주면 될 듯)
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section {
-                            Text("아아아")
-                            Text("아아아")
-                            Text("아아아")
-                            Text("아아아")
-                            Text("아아아")
-                            Text("아아아아아아아아아\n\n\n\n\n\n\n\n\n아아아만ㅇ람ㄴ아람ㄴ알\n\n\n\n\n\n\\n\n\n\nndkdkdkasdkfaksdf앎낭람ㄴ아람ㄴ앎ㄴ알\n\n\n\n")
-                            Text("아아아아아아아아아\n\n\n\n\n\n\n\n\n아아아만ㅇ람ㄴ아람ㄴ알\n\n\n\n\n\n\\n\n\n\nndkdkdkasdkfaksdf앎낭람ㄴ아람ㄴ앎ㄴ알\n\n\n\n")
-                            Text("아아아아아아아아아\n\n\n\n\n\n\n\n\n아아아만ㅇ람ㄴ아람ㄴ알\n\n\n\n\n\n\\n\n\n\nndkdkdkasdkfaksdf앎낭람ㄴ아람ㄴ앎ㄴ알\n\n\n\n")
+                            MyResumeView()
                         } header: {
                             MyMainTabBar(currentTab: $currentTab, namespace: Namespace())
                         }
@@ -148,7 +141,7 @@ struct MyMain: View {
     }
 }
 
-struct MyMain_Previews: PreviewProvider {
+struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
         MyMain()
     }

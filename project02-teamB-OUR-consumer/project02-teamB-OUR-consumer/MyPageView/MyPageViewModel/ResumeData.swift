@@ -8,7 +8,7 @@
 import Foundation
 
 struct User: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let name: String
     let email: String
     let profileImage: String?
@@ -16,7 +16,7 @@ struct User: Identifiable {
 }
 
 struct Resume: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let userId: UUID
     let introduction: String?
     let workExperience: [WorkExperience]
@@ -26,7 +26,7 @@ struct Resume: Identifiable {
 }
 
 struct WorkExperience: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let jobTitle: String
     let company: Company
     //    let startDate: Date
@@ -60,7 +60,7 @@ struct WorkExperience: Identifiable {
 }
 
 struct Education: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let schoolName: String
     let degree: String
     let fieldOfStudy: String
@@ -70,7 +70,7 @@ struct Education: Identifiable {
 }
 
 struct Project: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let projectTitle: String
     let jobTitle: String
     let startDate: Date
@@ -79,7 +79,7 @@ struct Project: Identifiable {
 }
 
 struct Skill: Identifiable {
-    let id: UUID = UUID()
+    let id: String = UUID().uuidString
     let skillName: String
     let description: String?
 }

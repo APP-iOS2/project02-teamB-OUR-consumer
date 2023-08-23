@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyCarreerEditView: View {
+struct MyWorkEditView: View {
     @State var companyName: String = ""
     @State var jobTitle: String = ""
     
@@ -117,15 +117,16 @@ struct MyCarreerEditView: View {
                     .buttonStyle(.bordered)
                     
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        // 뒤로가기
-                    } label: {
-                        Image(systemName: "arrow.backward")
-                    }
-                    
-                    
-                }
+                //MARK: Back 버튼 다른 팀이랑 통일
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button {
+//                        // 뒤로가기
+//                    } label: {
+//                        Image(systemName: "arrow.backward")
+//                    }
+//
+//
+//                }
             }
         }
     }
@@ -134,6 +135,6 @@ struct MyCarreerEditView: View {
 
 struct MyCarreerEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyCarreerEditView()
+        MyWorkEditView()
     }
 }
