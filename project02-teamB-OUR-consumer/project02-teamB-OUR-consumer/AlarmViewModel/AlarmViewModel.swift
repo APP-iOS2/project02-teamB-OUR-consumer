@@ -46,17 +46,16 @@ class AlarmViewModel: ObservableObject{
     #endif
     
     
-//
-//    func fetchNotificationItem(limit: Int = 10){
-//        service.read{ [weak self] ids, notifiationDTO in
-//            guard let self else { return }
-//            let items = notifiationDTO.map{ $0.toDomain(user: self.getUser(user: $0.userId) )  }
-//            personalNotiItem = mapToDictionary(items: items).0
-//            publicNotiItem = mapToDictionary(items: items).1
-//        }
-//    }
-//
     
+    func fetchNotificationItem(limit: Int = 10){
+        service.read{ [weak self] ids, notifiationDTO in
+            guard let self else { return }
+            let items = notifiationDTO.compactMap{ $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "") )  }
+            personalNotiItem = mapToDictionary(items: items).0
+            publicNotiItem = mapToDictionary(items: items).1
+        }
+    }
+        
     func delete(notification id: ID){
     }
     
@@ -70,12 +69,18 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-//    private func getUser(user id: ID) -> User{
-//        // find user
-//        return ["박형환","박찬호","장수지"].randomElement().map{ User(id: id, name: $0) }!
-//        //firebase find user
-//    }
-//
+
+    private func getUser(user id: ID) -> User?{
+        guard
+            let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
+        else {return nil}
+        
+        return User(name: sampleUserName,
+                    email: "",
+                    profileImage: "",
+                    profileMessage: "")
+    }
+    
     
     /// Mapping To View Model
     /// - Parameter items: notification Item
