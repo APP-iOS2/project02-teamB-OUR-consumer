@@ -55,8 +55,7 @@ class AlarmViewModel: ObservableObject{
             publicNotiItem = mapToDictionary(items: items).1
         }
     }
-    
-    
+        
     func delete(notification id: ID){
     }
     
@@ -70,6 +69,7 @@ class AlarmViewModel: ObservableObject{
     }
     
     
+
     private func getUser(user id: ID) -> User?{
         guard
             let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
