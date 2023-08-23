@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedRecruitPhotoAddView: View {
     
-    @State var selectedImages: [UIImage] = []
+    @Binding var selectedImages: [UIImage]
     @State private var isImagePickerPresented: Bool = false
     
     var body: some View {

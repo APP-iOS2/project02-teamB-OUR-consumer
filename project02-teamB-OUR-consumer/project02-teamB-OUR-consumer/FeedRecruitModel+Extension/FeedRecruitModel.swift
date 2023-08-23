@@ -30,3 +30,20 @@ struct FeedRecruitModel {
     }
 
 }
+
+
+enum PrivacySetting {
+    
+    case Public
+    case Private
+    
+    // 각 case에 맞게 가격을 화면에 보여주기 위해
+    var setting: Bool {
+        switch self {
+        case .Public:
+            return false
+        case .Private:
+            return true
+        }
+    }
+}

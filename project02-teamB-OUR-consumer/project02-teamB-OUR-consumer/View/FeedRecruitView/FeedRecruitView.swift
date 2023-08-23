@@ -19,7 +19,7 @@ struct FeedRecruitView: View {
     @State var contentText: String = ""
     @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
-//    @State var selectedImages: [UIImage] = []
+    @State var selectedImages: [UIImage] = []
 //    var toString: String {
 //
 //        UIImage.toString(selectedImages)
@@ -72,7 +72,7 @@ struct FeedRecruitView: View {
                 }
                 
                 //사진추가 View
-                FeedRecruitPhotoAddView()
+                FeedRecruitPhotoAddView(selectedImages: $selectedImages)
 
             }
             .toolbar {
@@ -83,10 +83,14 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
-//                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting)
+                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting)
+                        
+                        feedStoreViewModel.addFeed(newFeed)
+                        
+                        contentText = ""
                    
                         toolbarToogle.toggle()
-                    }
+                    }.disabled(contentText.isEmpty)
                 }
                 
             }
@@ -113,6 +117,6 @@ struct FeedRecruitView: View {
 
 //struct FeedRecruitView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FeedRecruitView(, selectedImages: <#Binding<[UIImage]>#>)
+//        FeedRecruitView()
 //    }
 //}
