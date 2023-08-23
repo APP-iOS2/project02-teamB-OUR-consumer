@@ -37,9 +37,7 @@ struct MyWorkCellView: View {
                                 .foregroundColor(.black)
                         }
                     }
-                    .onTapGesture {
-                        isChangeItem = true
-                    }
+                    
                 }
                 
                 Text("\(work.startDateString) - \(work.endDateString)")
@@ -77,9 +75,7 @@ struct MyWorkView: View {
                         }
 
                     }
-                    .onTapGesture {
-                        isChangeItem = false
-                    }
+                    
   
                 }
                 .padding(.vertical, 5)
@@ -103,7 +99,7 @@ struct MyWorkView: View {
                 // 경력 3개 넘으면 더보기
                 if resumeStore.resume.workExperience.count > 3 {
                     NavigationLink {
-                        MyWorkMoreView(isMyProfile: $isMyProfile)
+                        MyWorkMoreView(isMyProfile: $isMyProfile, isChangeItem: $isChangeItem)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)

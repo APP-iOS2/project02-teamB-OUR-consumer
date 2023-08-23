@@ -30,9 +30,6 @@ struct MyProjectCellView: View {
                             .foregroundColor(.black)
                     }
                 }
-                .onTapGesture {
-                    isChangeItem.toggle()
-                }
 
             }
             
@@ -94,7 +91,7 @@ struct MyProjectView: View {
                 // 프로젝트 3개 넘으면 더보기
                 if resumeStore.resume.projects.count > 3 {
                     NavigationLink {
-                        MyProjectMoreView(isMyProfile: $isMyProfile)
+                        MyProjectMoreView(isMyProfile: $isMyProfile, isChangeItem: $isChangeItem)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)

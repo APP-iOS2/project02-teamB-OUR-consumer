@@ -11,6 +11,7 @@ struct MyProjectMoreView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Binding var isChangeItem: Bool
     
     var body: some View {
         NavigationStack {
@@ -18,7 +19,7 @@ struct MyProjectMoreView: View {
             List {
                 ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
                     VStack {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index])
+                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index], isChangeItem: $isChangeItem)
                             .padding(.bottom, 8)
                         Divider()
                     }
@@ -39,7 +40,7 @@ struct MyProjectMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView()
+                        MyWorkEditView(isChangeItem: $isChangeItem)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -52,7 +53,7 @@ struct MyProjectMoreView: View {
 struct MyProjectMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyProjectMoreView(isMyProfile: .constant(true))
+            MyProjectMoreView(isMyProfile: .constant(true), isChangeItem: .constant(true))
         }
     }
 }

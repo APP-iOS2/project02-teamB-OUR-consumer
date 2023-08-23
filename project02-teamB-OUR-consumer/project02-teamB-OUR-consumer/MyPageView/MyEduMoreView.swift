@@ -18,8 +18,8 @@ struct MyEduMoreView: View {
             List {
                 ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
                     VStack {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
-                            .padding(.bottom, 8)
+//                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
+//                            .padding(.bottom, 8)
                         Divider()
                     }
                     .listRowSeparator(.hidden)
@@ -39,7 +39,7 @@ struct MyEduMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView()
+//                        MyWorkEditView()
                     } label: {
                         Image(systemName: "plus")
                     }
