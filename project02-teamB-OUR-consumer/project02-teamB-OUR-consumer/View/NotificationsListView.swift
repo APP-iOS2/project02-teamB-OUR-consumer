@@ -102,8 +102,8 @@ struct NotificationRow: View {
                         Button(action: {
                             isFollowing.toggle()
                             
-                            // (숫자)바꾸면 기본 제공 효과음
-                            AudioServicesPlaySystemSound(1101)
+                            
+                            followTapped(tap: isFollowing)
                         }) {
                             Text(isFollowing ? "팔로잉" : "팔로우")
                                 .font(.system(size: 14, weight: .bold)) // 볼드 폰트 적용
@@ -126,6 +126,15 @@ struct NotificationRow: View {
                 }
             }
             
+        }
+    }
+    
+    func followTapped(tap: Bool) {
+        // (숫자)바꾸면 기본 제공 효과음
+        if tap {
+            AudioServicesPlaySystemSound(1004)
+        } else {
+            AudioServicesPlaySystemSound(1003)
         }
     }
     

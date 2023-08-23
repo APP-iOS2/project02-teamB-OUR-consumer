@@ -25,7 +25,6 @@
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
 		B0398A7B2A95884800DDD880 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0398A7A2A95884800DDD880 /* GoogleService-Info.plist */; };
-		B0398A7D2A958EC500DDD880 /* SoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0398A7C2A958EC500DDD880 /* SoundEffect.swift */; };
 		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +48,6 @@
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B0398A7A2A95884800DDD880 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B0398A7C2A958EC500DDD880 /* SoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffect.swift; sourceTree = "<group>"; };
 		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +69,6 @@
 				960CCEE72A9459910044F279 /* NotificationItem.swift */,
 				9650868A2A94D35900CDA0FC /* NotificationDTO.swift */,
 				965086862A94C86A00CDA0FC /* Color.swift */,
-				B0398A7C2A958EC500DDD880 /* SoundEffect.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,7 +224,6 @@
 				960CCEE52A94598A0044F279 /* String.swift in Sources */,
 				960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */,
 				9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */,
-				B0398A7D2A958EC500DDD880 /* SoundEffect.swift in Sources */,
 				9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */,
 				B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */,
 				960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */,
