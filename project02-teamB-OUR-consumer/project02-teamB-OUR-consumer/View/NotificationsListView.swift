@@ -97,12 +97,9 @@ struct NotificationRow: View {
 
                     // 팔로우/팔로잉 버튼 (해당되는 경우)
                     if notification.type == .follow {
-                         // 팔로우 버튼만 오른쪽으로 밀기
                         Spacer()
                         Button(action: {
                             isFollowing.toggle()
-                            
-                            
                             followTapped(tap: isFollowing)
                         }) {
                             Text(isFollowing ? "팔로잉" : "팔로우")
@@ -112,7 +109,7 @@ struct NotificationRow: View {
                                 .padding(.vertical, 5)
                                 .background(isFollowing ? AColor.defalut.color : AColor.main.color) // 팔로잉 상태에 따른 배경색
                                 .cornerRadius(5)
-                        }
+                        }.buttonStyle(PlainButtonStyle())
                     }
 
                     
@@ -150,28 +147,7 @@ struct NotificationRow: View {
         }
         return output
     }
-    
-           
-    func styledText(text: String) -> some View {
-        var output = AnyView(Text(""))
-        let components = text.tokenize("@#. ")
-        for component in components {
-            if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
-                output = output + AnyView(Text(component).foregroundColor(.accentColor).onTapGesture {
-                    //                    requestAuthNoti()
-                    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    //                        requestSendNoti(seconds: 1)
-                    //                    })
-                })
-            } else {
-                output = output + AnyView(Text(component))
-            }
-        }
-        return output
-    }
-    
 }
-
 
 struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
