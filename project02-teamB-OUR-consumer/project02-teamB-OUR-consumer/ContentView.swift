@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             TabView {
-                //FeedView 팀에서 넣어주시면 됩니다.
+                FeedTabView()
                 Image(systemName: "house.fill")
                     .tabItem {
                         Image(systemName: "house.fill")

@@ -24,17 +24,20 @@ struct PostUserView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .clipShape(Circle())
-                                .frame(width: 80, height: 80)
+                                .frame(width: 40, height: 40)
                             VStack(alignment: .leading) {
                                 HStack {
                                     Text("\(user.name)")
+                                        .font(.system(size: 16))
                                         .foregroundColor(.black)
                                         .bold()
                                     Text("following")
+                                        .font(.system(size: 12))
                                         .font(.footnote)
                                         .foregroundColor(.gray)
                                 }
                                 Text("5일 전")
+                                    .font(.system(size: 12))
                                     .font(.footnote)
                                     .foregroundColor(.gray)
                             }
