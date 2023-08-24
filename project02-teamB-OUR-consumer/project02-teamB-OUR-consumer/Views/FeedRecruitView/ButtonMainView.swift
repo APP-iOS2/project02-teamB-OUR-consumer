@@ -32,8 +32,8 @@ struct ButtonMainView: View {
                     VStack {
                         Text("기간 설정")
                             .padding().frame(width: 100)
-                            .foregroundColor(Color.black)
-                            .background(Color(hex: "#FB3741"))
+                            .foregroundColor(Color.white)
+                            .background(Color(hex: "#090580"))
                             .cornerRadius(8)
                     }
                 }
@@ -57,8 +57,8 @@ struct ButtonMainView: View {
                 } label: {
                     Text("인원 설정")
                         .padding().frame(width: 100)
-                        .foregroundColor(Color.black)
-                        .background(Color(hex: "#FB3741"))
+                        .foregroundColor(Color.white)
+                        .background(Color(hex: "#090580"))
                         .cornerRadius(8)
                     
                     
