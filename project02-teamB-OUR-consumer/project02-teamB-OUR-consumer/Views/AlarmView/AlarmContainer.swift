@@ -37,7 +37,8 @@ struct AlarmContainer: View {
                 Spacer()
             }
         }
-        .navigationTitle("")
+        .navigationTitle("알림")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
