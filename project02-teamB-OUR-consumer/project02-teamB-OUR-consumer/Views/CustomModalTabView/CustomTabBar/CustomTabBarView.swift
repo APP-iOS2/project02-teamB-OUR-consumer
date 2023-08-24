@@ -77,7 +77,7 @@ struct CustomTabBarView: View {
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 
