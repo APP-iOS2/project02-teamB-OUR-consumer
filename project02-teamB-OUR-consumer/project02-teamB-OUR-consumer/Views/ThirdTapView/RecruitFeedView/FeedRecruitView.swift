@@ -22,10 +22,15 @@ struct FeedRecruitView: View {
     @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-//    var toString: String {
+
+    
+//    이와 같은 에러로 인하여 String 변환 포기 ㅠ (Request payload size exceeds the limit: 11534336 bytes.)
+//    var toString:String {
 //
-//        UIImage.toString(selectedImages)
+//        selectedImages.first?.toString() ?? ""
+//
 //    }
+ 
     
     
     var body: some View {
@@ -42,7 +47,7 @@ struct FeedRecruitView: View {
                         Spacer()
                     }
                     HStack{
-
+                        
                         
                         //현재 위치설정 버튼
                         Button {
@@ -75,23 +80,23 @@ struct FeedRecruitView: View {
                 
                 //사진추가 View
                 FeedRecruitPhotoAddView(selectedImages: $selectedImages)
-
+                
             }
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
                     Button("취소") {
                         toolbarToogle.toggle()
                         dismiss()
+                        
                     }
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
                         let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0)
-                        
+                        print("등록성공")
                         feedStoreViewModel.addFeed(newFeed)
-                        
                         contentText = ""
-                   
+                        selectedImages = []
                         toolbarToogle.toggle()
                     }.disabled(contentText.isEmpty)
                 }

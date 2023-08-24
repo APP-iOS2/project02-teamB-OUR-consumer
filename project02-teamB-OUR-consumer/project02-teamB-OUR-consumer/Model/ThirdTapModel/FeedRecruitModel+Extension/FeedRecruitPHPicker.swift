@@ -53,11 +53,23 @@ struct FeedRecruitPHPickerViewControllerWrapper: UIViewControllerRepresentable {
     }
 }
 
+//UIImage를 String으로 변환(파이어베이스)
 extension UIImage {
     func toString() -> String? {
 
         let pngData = self.pngData()
 
         return pngData?.base64EncodedString(options: .lineLength64Characters)
+    }
+}
+
+//String을 UIImage로 변환(파이어베이스)
+//yourString.toImage() <- it will convert String  to UIImage
+extension String {
+    func toImage() -> UIImage? {
+        if let data = Data(base64Encoded: self, options: .ignoreUnknownCharacters){
+            return UIImage(data: data)
+        }
+        return nil
     }
 }
