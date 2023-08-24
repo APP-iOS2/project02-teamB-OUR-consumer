@@ -13,10 +13,13 @@ struct ButtonMainView: View {
     @State var isShowingDateSheet: Bool = false
     @State var isShowingPersonSheet: Bool = false
     
-    @State var startDate: Date
-    @State var endDate: Date
+//    @State var startDate: Date
+//    @State var endDate: Date
+    @Binding var startDate: Date
+    @Binding var endDate: Date
+    @Binding var number: Int
     
-    @State var number: Int = 1
+//    @State var number: Int = 1
     
     var body: some View {
             VStack {
@@ -71,8 +74,8 @@ struct ButtonMainView: View {
     }
 
 
-struct ButtonMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonMainView(startDate: Date(), endDate: Date())
-    }
-}
+//struct ButtonMainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ButtonMainView(startDate: Date(), endDate: Date())
+//    }
+//}

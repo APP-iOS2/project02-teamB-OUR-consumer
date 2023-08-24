@@ -91,10 +91,13 @@
 		B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */; };
 		B7C4A51E2A95C3DB00CB05C8 /* FeedRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */; };
 		D55D36612A95E16200A7BE14 /* AddStudyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36602A95E16200A7BE14 /* AddStudyMain.swift */; };
-		D55D36632A95E17100A7BE14 /* MeetingFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36622A95E17100A7BE14 /* MeetingFormView.swift */; };
+		D55D36632A95E17100A7BE14 /* StudyMeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36622A95E17100A7BE14 /* StudyMeetingView.swift */; };
 		D55D36652A95E17800A7BE14 /* StudyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36642A95E17800A7BE14 /* StudyImageView.swift */; };
 		D55D36692A95E19200A7BE14 /* StudyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36682A95E19200A7BE14 /* StudyMapView.swift */; };
 		D55D366D2A95E1CD00A7BE14 /* StudyLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */; };
+		D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */; };
+		D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */; };
+		D5755B172A974E8B000BC8E2 /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -215,10 +218,13 @@
 		B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitModel.swift; sourceTree = "<group>"; };
 		B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitStore.swift; sourceTree = "<group>"; };
 		D55D36602A95E16200A7BE14 /* AddStudyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyMain.swift; sourceTree = "<group>"; };
-		D55D36622A95E17100A7BE14 /* MeetingFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingFormView.swift; sourceTree = "<group>"; };
+		D55D36622A95E17100A7BE14 /* StudyMeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMeetingView.swift; sourceTree = "<group>"; };
 		D55D36642A95E17800A7BE14 /* StudyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyImageView.swift; sourceTree = "<group>"; };
 		D55D36682A95E19200A7BE14 /* StudyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMapView.swift; sourceTree = "<group>"; };
 		D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLocationManager.swift; sourceTree = "<group>"; };
+		D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitModel.swift; sourceTree = "<group>"; };
+		D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitStore.swift; sourceTree = "<group>"; };
+		D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
@@ -525,12 +531,23 @@
 			isa = PBXGroup;
 			children = (
 				D55D36602A95E16200A7BE14 /* AddStudyMain.swift */,
-				D55D36622A95E17100A7BE14 /* MeetingFormView.swift */,
+				D55D36622A95E17100A7BE14 /* StudyMeetingView.swift */,
 				D55D36642A95E17800A7BE14 /* StudyImageView.swift */,
 				D55D36682A95E19200A7BE14 /* StudyMapView.swift */,
 				D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */,
+				D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */,
+				D5755B0D2A97165C000BC8E2 /* RecruitStudyModel */,
 			);
 			path = RecruitStudyView;
+			sourceTree = "<group>";
+		};
+		D5755B0D2A97165C000BC8E2 /* RecruitStudyModel */ = {
+			isa = PBXGroup;
+			children = (
+				D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */,
+				D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */,
+			);
+			path = RecruitStudyModel;
 			sourceTree = "<group>";
 		};
 		FAB51C0F2A9655590047A725 /* Login */ = {
@@ -649,7 +666,7 @@
 				FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */,
 				54FEB27F2A9694070083A33F /* Inquiry.swift in Sources */,
 				B7610BA72A951A6E0074F78C /* FeedRecruitViewModel.swift in Sources */,
-				D55D36632A95E17100A7BE14 /* MeetingFormView.swift in Sources */,
+				D55D36632A95E17100A7BE14 /* StudyMeetingView.swift in Sources */,
 				FAB51C8A2A9678870047A725 /* UIImage.swift in Sources */,
 				B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */,
 				D55D36612A95E16200A7BE14 /* AddStudyMain.swift in Sources */,
@@ -678,10 +695,12 @@
 				FAB51C8D2A9678870047A725 /* String.swift in Sources */,
 				965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */,
 				54FEB27C2A9693940083A33F /* InquiryView.swift in Sources */,
+				D5755B172A974E8B000BC8E2 /* SharedViewModel.swift in Sources */,
 				965086872A94C86A00CDA0FC /* Color.swift in Sources */,
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
+				D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */,
 				118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */,
 				960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */,
 				960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */,
@@ -689,6 +708,7 @@
 				FAB51C8C2A9678870047A725 /* AnyViewExtension.swift in Sources */,
 				A09ED4C62A95D5B200E6A626 /* CameraORImageModalView.swift in Sources */,
 				960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */,
+				D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */,
 				FAB51C832A9677F00047A725 /* PersonnelSheet.swift in Sources */,
 				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
 				960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */,
@@ -889,7 +909,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
+				DEVELOPMENT_TEAM = H996FSG2V2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "project02-teamB-OUR-consumer/Info.plist";
@@ -905,7 +925,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jade.com.project02-teamB-OUR-consumer";
+				PRODUCT_BUNDLE_IDENTIFIER = "linda.lionproject.project02-teamB-OUR-consumer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -921,7 +941,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"project02-teamB-OUR-consumer/Preview Content\"";
-				DEVELOPMENT_TEAM = 2JZ8QNS5D4;
+				DEVELOPMENT_TEAM = H996FSG2V2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "project02-teamB-OUR-consumer/Info.plist";
@@ -937,7 +957,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jade.com.project02-teamB-OUR-consumer";
+				PRODUCT_BUNDLE_IDENTIFIER = "linda.lionproject.project02-teamB-OUR-consumer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -10,6 +10,7 @@ import SwiftUI
 struct AddStudyMain: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
+    @StateObject var studyStoreViewModel: StudyRecruitStore = StudyRecruitStore()
     
     @State var studyTitle: String = ""
     @State var addStudy: Bool = false
@@ -19,6 +20,11 @@ struct AddStudyMain: View {
     @State var offlineToggle: Bool = false
     @State var studyText: String = ""
     @State var placeholder: String = "스터디 내용을 입력해주세요."
+    
+    @State var number: Int = 1
+    @State var startDate: Date = Date()
+    @State var dueDate: Date = Date()
+    
     
     var body: some View {
         NavigationView {
@@ -33,16 +39,16 @@ struct AddStudyMain: View {
                         .padding(.bottom, 20)
                     
                     // MARK: - 온/오프라인 선택
-                    MeetingFormView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
+                    StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
                         .padding(.bottom, 20)
                     
                     // MARK: - 날짜
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
                         .padding(.bottom, 20)
-                    VStack {
-                        ButtonMainView(startDate: Date(), endDate: Date())
-                    }
+//                    VStack {
+                    ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $number)
+//                    }
                     
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")
@@ -51,10 +57,6 @@ struct AddStudyMain: View {
                         TextEditor(text: $studyText)
                             .frame(minHeight:350, maxHeight:350)
                             .border(.gray)
-                        
-
-                        
-                        
                         if studyText.isEmpty {
                             Text(placeholder)
                                 .foregroundColor(.secondary)
@@ -73,11 +75,15 @@ struct AddStudyMain: View {
                 .padding(20)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("추가") {
+                        Button("등록") {
+                            print("등록 버튼 tapped")
+//                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
+                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
+                            
+                            studyStoreViewModel.addFeed(newStudy)
+                            
                             addStudy.toggle()
-                            print(addStudy)
-                            print("추가 버튼 tapped")
-                        }
+                        }.disabled(studyTitle.isEmpty || studyText.isEmpty)
                     }
                 }
                 .toolbar {
