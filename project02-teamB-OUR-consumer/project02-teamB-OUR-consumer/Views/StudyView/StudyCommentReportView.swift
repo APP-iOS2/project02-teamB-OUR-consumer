@@ -21,6 +21,7 @@ struct StudyCommentReportView: View {
     @State var showAlert: Bool = false
     @State var reportCategory: String = ""
     
+    @Binding var isEditing: Bool
     
     var body: some View {
         NavigationStack {
@@ -28,7 +29,7 @@ struct StudyCommentReportView: View {
             VStack(alignment: .leading) {
                 Text("신고하는 댓글")
                     .fontWeight(.heavy)
-                StudyReplyDetailView(userId: "성은", comment: comment)
+                StudyReplyDetailView(isEditing: $isEditing, userId: "성은", comment: comment)
                     .padding(10)
                     .overlay(
                             RoundedRectangle(cornerRadius: 20)
@@ -90,7 +91,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
+            StudyCommentReportView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"), isEditing: .constant(true))
         }
     }
 }

@@ -32,7 +32,7 @@ struct StudyGroupComment: Identifiable {
 
 struct StudyReplyView: View {
     
-    @State var isEditing: Bool = false
+    @State var isEditing: Bool = true
     
     @State var studyGroupComments: [StudyGroupComment] = [
         StudyGroupComment(userId: "유리", profileString: "yuriProfile", content: "1빠"),
@@ -47,15 +47,16 @@ struct StudyReplyView: View {
     var body: some View {
         VStack{
             //List {
-                ForEach($studyGroupComments) { $comment in
-                    StudyReplyDetailView(userId: "성은", comment: comment)
-                }
-           // }
+            ForEach($studyGroupComments) { $comment in
+                StudyReplyDetailView(isEditing: $isEditing, userId: "성은", comment: comment)
+            }
+            // }
             .listStyle(.plain)
             .refreshable {
                 //새로고침
             }
             .padding([.horizontal, .bottom], 10)
+            .padding([.leading,.trailing], 8)
             
             
             HStack {
@@ -94,11 +95,7 @@ struct StudyReplyView: View {
 struct StudyReplyView_Previews: PreviewProvider {
     @State var studyReplies: [String] = ["1빠", "2빠"]
     static var previews: some View {
-        Form{
-            Section("댓글") {
-                StudyReplyView()
-            }
-        }
-        .formStyle(.columns)
+        StudyReplyView()
+
     }
 }
