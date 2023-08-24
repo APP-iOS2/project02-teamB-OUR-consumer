@@ -135,6 +135,19 @@ class AuthViewModel: ObservableObject {
          }
      }
     
+    // 자동로그인
+    func autoLogin(completion: @escaping (Bool) -> Void) {
+        guard let uid = UserDefaults.standard.value(forKey: Keys.userId.rawValue) else {
+            completion(false)
+            return
+        }
+        
+        self.state = .signedIn
+        completion(true)
+    }
+    
+    
+    // 회원가입
     func signUp(name: String, completion: @escaping () -> Void) {
         dbRef.collection("users").document(signUpData.userId)
             .setData([

@@ -97,7 +97,13 @@ struct LoginView: View {
                         .background(Color.black)
                         .cornerRadius(10)
                     }.disabled(true)
-                }
+                }.onAppear(perform: {
+                    viewModel.autoLogin() { isLogin in
+                        if isLogin {
+                            navigate = true
+                        }
+                    }
+                })
             }.navigationDestination(isPresented: $navigate) {
                 if viewModel.state == .signUp {
                     LoginSecondView(viewModel: viewModel)
