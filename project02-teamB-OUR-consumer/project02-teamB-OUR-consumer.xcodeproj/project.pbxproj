@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		969A05622A97366100DC0DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 969A05612A97366000DC0DFA /* GoogleService-Info.plist */; };
+		969A05662A973FF000DC0DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 969A05652A973FF000DC0DFA /* GoogleService-Info.plist */; };
+		969A05692A97407200DC0DFA /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A05682A97407200DC0DFA /* CustomTabBarView.swift */; };
+		969A056B2A97409900DC0DFA /* PostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A056A2A97409900DC0DFA /* PostButton.swift */; };
+		969A056D2A9740B900DC0DFA /* RecruitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A056C2A9740B900DC0DFA /* RecruitButton.swift */; };
+		969A05712A97411500DC0DFA /* RecruitMainSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A05702A97411500DC0DFA /* RecruitMainSheet.swift */; };
 		96C54BB72A95F2CA00BE0F1F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BB62A95F2CA00BE0F1F /* Date.swift */; };
 		96C54BB92A95F2D700BE0F1F /* DateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BB82A95F2D700BE0F1F /* DateStore.swift */; };
 		96C54BBB2A95F30000BE0F1F /* ButtonMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BBA2A95F30000BE0F1F /* ButtonMainView.swift */; };
@@ -38,7 +42,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		969A05612A97366000DC0DFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		969A05652A973FF000DC0DFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		969A05682A97407200DC0DFA /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		969A056A2A97409900DC0DFA /* PostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButton.swift; sourceTree = "<group>"; };
+		969A056C2A9740B900DC0DFA /* RecruitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitButton.swift; sourceTree = "<group>"; };
+		969A05702A97411500DC0DFA /* RecruitMainSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitMainSheet.swift; sourceTree = "<group>"; };
 		96C54BB62A95F2CA00BE0F1F /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		96C54BB82A95F2D700BE0F1F /* DateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStore.swift; sourceTree = "<group>"; };
 		96C54BBA2A95F30000BE0F1F /* ButtonMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonMainView.swift; sourceTree = "<group>"; };
@@ -80,6 +88,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		969A05672A97404800DC0DFA /* CustomModelTabView */ = {
+			isa = PBXGroup;
+			children = (
+				969A056F2A9740F000DC0DFA /* Screen */,
+				969A056E2A9740D100DC0DFA /* CustomTabBar */,
+			);
+			path = CustomModelTabView;
+			sourceTree = "<group>";
+		};
+		969A056E2A9740D100DC0DFA /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				969A05682A97407200DC0DFA /* CustomTabBarView.swift */,
+				969A056A2A97409900DC0DFA /* PostButton.swift */,
+				969A056C2A9740B900DC0DFA /* RecruitButton.swift */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		969A056F2A9740F000DC0DFA /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				969A05702A97411500DC0DFA /* RecruitMainSheet.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		96C54BB22A95F23400BE0F1F /* Date + Personnel */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,7 +162,7 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
-				969A05612A97366000DC0DFA /* GoogleService-Info.plist */,
+				969A05652A973FF000DC0DFA /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				FA63F0452A9513870010B0FE /* View */,
 				FAA6FC212A949FF2005E31DC /* Extension.swift */,
@@ -183,6 +218,7 @@
 		F485B7562A94584800A2F5FF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				969A05672A97404800DC0DFA /* CustomModelTabView */,
 				F485B7542A94584400A2F5FF /* AuthViewModel.swift */,
 				96C54BB22A95F23400BE0F1F /* Date + Personnel */,
 			);
@@ -267,8 +303,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
+				969A05662A973FF000DC0DFA /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
-				969A05622A97366100DC0DFA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969A056D2A9740B900DC0DFA /* RecruitButton.swift in Sources */,
 				9E99CCF02A944A5700699B6A /* ContentView.swift in Sources */,
 				FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */,
 				D55D366D2A95E1CD00A7BE14 /* StudyLocationManager.swift in Sources */,
@@ -294,12 +331,15 @@
 				9E99CCEE2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift in Sources */,
 				F485B7552A94584400A2F5FF /* AuthViewModel.swift in Sources */,
 				96C54BBD2A95F31C00BE0F1F /* DatePickerSheet.swift in Sources */,
+				969A05712A97411500DC0DFA /* RecruitMainSheet.swift in Sources */,
 				D55D36652A95E17800A7BE14 /* StudyImageView.swift in Sources */,
 				96C54BB92A95F2D700BE0F1F /* DateStore.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
 				B7C4A51E2A95C3DB00CB05C8 /* FeedRecruitStore.swift in Sources */,
 				FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */,
+				969A056B2A97409900DC0DFA /* PostButton.swift in Sources */,
 				D55D36692A95E19200A7BE14 /* StudyMapView.swift in Sources */,
+				969A05692A97407200DC0DFA /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
