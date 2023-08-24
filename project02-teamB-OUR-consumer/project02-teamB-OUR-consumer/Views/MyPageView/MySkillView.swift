@@ -22,7 +22,7 @@ struct MySkillCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MySkillEditView()
+                        MySkillEditView(isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -53,7 +53,7 @@ struct MySkillView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MySkillEditView()
+                            MySkillEditView(isShowingDeleteButton: false)
                         } label: {
                             Image(systemName: "plus")
                         }

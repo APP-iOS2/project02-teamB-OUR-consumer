@@ -23,7 +23,7 @@ struct MyEduEditView: View {
     @State var isSelectedToggle: Bool = false
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
-    
+    var isShowingDeleteButton: Bool
     
     var body: some View {
 //        NavigationStack {
@@ -173,7 +173,7 @@ struct MyEduEditView: View {
                                     Image(systemName: "chevron.backward")
                                 })
                 
-                    
+                    if isShowingDeleteButton {
                         HStack{
                             Spacer()
                             Button {
@@ -193,7 +193,8 @@ struct MyEduEditView: View {
                             }
                             Spacer()
                         }
-                    Spacer()
+                        Spacer()
+                    }
                     
                 }
                 .padding()
@@ -208,9 +209,14 @@ struct MyEduEditView: View {
                         }
                     } label: {
                         Text("완료")
+                            .font(.system(size: 14))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(mainColor)
+                            .cornerRadius(5)
                     }
-                    .buttonStyle(.bordered)
-                    
+                    .disabled(schoolNameTextField.isEmpty)
                 }
 
             }
@@ -223,7 +229,7 @@ struct MyEduEditView: View {
 struct MyEduEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyEduEditView()
+            MyEduEditView(isShowingDeleteButton: false)
         }
     }
 }

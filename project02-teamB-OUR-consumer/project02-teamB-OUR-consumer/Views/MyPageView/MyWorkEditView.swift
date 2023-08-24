@@ -22,8 +22,8 @@ struct MyWorkEditView: View {
     @State var isEmptyJobTitle: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
+    var isShowingDeleteButton: Bool
     
-
     var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {
@@ -143,6 +143,7 @@ struct MyWorkEditView: View {
                             })
             
                 //MARK: 편집일때 삭제하기 뜨도록
+                if isShowingDeleteButton {
                     HStack{
                         Spacer()
                         Button {
@@ -162,6 +163,7 @@ struct MyWorkEditView: View {
                         }
                         Spacer()
                     }
+                }
             }
             .navigationTitle("경력")
             .navigationBarTitleDisplayMode(.inline)
@@ -174,11 +176,17 @@ struct MyWorkEditView: View {
                         if jobTitle.isEmpty {
                             isEmptyJobTitle.toggle()
                         }
+                        dismiss()
                     } label: {
                         Text("완료")
+                            .font(.system(size: 14))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(mainColor)
+                            .cornerRadius(5)
                     }
-                    .buttonStyle(.bordered)
-                    
+                    .disabled(companyName.isEmpty || jobTitle.isEmpty)
                 }
                 //MARK: Back 버튼 다른 팀이랑 통일
 //                ToolbarItem(placement: .navigationBarLeading) {
@@ -191,14 +199,12 @@ struct MyWorkEditView: View {
 //
 //                }
             }
-        
-        
     }
     
 }
 
 struct MyCarreerEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkEditView()
+        MyWorkEditView(isShowingDeleteButton: true)
     }
 }

@@ -22,7 +22,7 @@ struct MyProjectCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyProjectEditView()
+                        MyProjectEditView(isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -60,7 +60,7 @@ struct MyProjectView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyProjectEditView()
+                            MyProjectEditView(isShowingDeleteButton: false)
                         } label: {
                             Image(systemName: "plus")
                         }

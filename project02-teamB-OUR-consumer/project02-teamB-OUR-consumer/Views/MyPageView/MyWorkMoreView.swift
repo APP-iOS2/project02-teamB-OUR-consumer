@@ -40,7 +40,7 @@ struct MyWorkMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView()
+                        MyWorkEditView(isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
