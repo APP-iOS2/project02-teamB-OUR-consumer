@@ -39,7 +39,7 @@ struct AddStudyMain: View {
                         .font(.title2)
                         .padding(.bottom, 20)
                     ZStack {
-                        ButtonMainView(startDate: Date(), endDate: Date())
+                        ButtonMainView(startDate: Date(), endDate: Date(), startTime: Date())
                     }
                     
                     // MARK: - 스터디 내용

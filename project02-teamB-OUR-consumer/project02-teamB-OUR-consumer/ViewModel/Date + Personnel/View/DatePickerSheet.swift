@@ -13,7 +13,7 @@ struct DatePickerSheet: View {
     @Binding var isShowingDateSheet: Bool
     @Binding var startDate: Date
     @Binding var endDate: Date
-    
+    @Binding var startTime: Date
     
     var body: some View {
         VStack(alignment: .center) {
@@ -32,11 +32,11 @@ struct DatePickerSheet: View {
             Divider()
             Spacer().frame(height: 30)
             
-            DatePicker(selection: $startDate, displayedComponents: .date) {
+            DatePicker(selection: $startDate) {
                 Text("시작일자")
             }
             .environment(\.locale, Locale(identifier: "ko_KR"))
-            
+           
             Divider()
             Spacer().frame(height: 30)
             DatePicker(selection: $endDate, displayedComponents: .date) {
@@ -61,6 +61,6 @@ struct DatePickerSheet: View {
 
 struct DatePickerSheet_Previews: PreviewProvider {
     static var previews: some View {
-        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()))
+        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()))
     }
 }

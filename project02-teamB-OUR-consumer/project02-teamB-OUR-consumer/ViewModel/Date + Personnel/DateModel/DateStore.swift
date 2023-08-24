@@ -22,4 +22,11 @@ class DateStore: ObservableObject {
         formatter.dateFormat = "yy년 M월 dd일 HH:mm"
         return formatter.string(from: date)
     }
+    
+    func immobilizeEndTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yy년 M월 dd일 23:59"
+        return formatter.string(from: date)
+    }
 }

@@ -15,6 +15,7 @@ struct ButtonMainView: View {
     
     @State var startDate: Date
     @State var endDate: Date
+    @State var startTime: Date
     
     @State var number: Int = 1
     
@@ -31,20 +32,17 @@ struct ButtonMainView: View {
                                 .foregroundColor(Color.black)
                                 .background(Color(hex: "#FB3741"))
                                 .cornerRadius(8)
-                                
-                                
-                                
                         }
                     }
                     
                     .sheet(isPresented: $isShowingDateSheet) {
-                        DatePickerSheet(dateStore: DateStore(), isShowingDateSheet: $isShowingDateSheet, startDate: $startDate, endDate: $endDate)
+                        DatePickerSheet(dateStore: DateStore(), isShowingDateSheet: $isShowingDateSheet, startDate: $startDate, endDate: $endDate, startTime: $startTime)
                             .presentationDetents([.fraction(0.45)])
                         
                     }
                     VStack {
                         Text("시작: \(dateStore.formattedDate(startDate))")
-                        Text("마감: \(dateStore.formattedDate(endDate ))")
+                        Text("마감: \(dateStore.immobilizeEndTime(endDate))")
                     }
                     
                 
@@ -76,6 +74,6 @@ struct ButtonMainView: View {
 
 struct ButtonMainView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonMainView(startDate: Date(), endDate: Date())
+        ButtonMainView(startDate: Date(), endDate: Date(), startTime: Date())
     }
 }
