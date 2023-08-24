@@ -302,6 +302,7 @@
 				FAB51C8E2A9679090047A725 /* ContentView.swift */,
 				FAB51C0F2A9655590047A725 /* Login */,
 				6332A6012A95C5CB0047E2DD /* FeedView */,
+				A06ED3492A971514004462EB /* StudyView */,
 				9620C5092A95FC86000C21BC /* CustomModalTabView */,
 				960EFDDC2A9491B20036CEC1 /* MyPageView */,
 				960CCEDE2A9459790044F279 /* AlarmView */,
@@ -313,14 +314,6 @@
 				649085B92A96068600506F46 /* RecommendDetailView.swift */,
 				649085B72A96067A00506F46 /* RecommendFriendView.swift */,
 				9B35B27B2A94595900AD72D7 /* TitleView.swift */,
-				84BC2B362A94910900B0E270 /* StudyListView.swift */,
-				84BC2B382A94916A00B0E270 /* StudyListItemView.swift */,
-				46C816AD2A949593003B2944 /* StudyDetailView.swift */,
-				4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */,
-				A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */,
-				A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */,
-				A0CE323C2A952C110019300F /* StudyCommentReportView.swift */,
-				A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -496,6 +489,21 @@
 				9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A06ED3492A971514004462EB /* StudyView */ = {
+			isa = PBXGroup;
+			children = (
+				84BC2B362A94910900B0E270 /* StudyListView.swift */,
+				84BC2B382A94916A00B0E270 /* StudyListItemView.swift */,
+				46C816AD2A949593003B2944 /* StudyDetailView.swift */,
+				4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */,
+				A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */,
+				A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */,
+				A0CE323C2A952C110019300F /* StudyCommentReportView.swift */,
+				A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */,
+			);
+			path = StudyView;
 			sourceTree = "<group>";
 		};
 		B77A48712A95AA93002BA95F /* FeedRecruitView */ = {
