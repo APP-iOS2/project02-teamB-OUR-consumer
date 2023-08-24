@@ -11,19 +11,47 @@ import FirebaseFirestore
 struct Study2: Identifiable {
     // 디비에 올라갈 내용
     var id: UUID = UUID()
-    var imageURL: String
+    var imageString: String
     var creatorId: String
     var title: String
     var description: String
     var studyDate: String
     var deadline: String
-    var location: String
+    var locationName: String?
+    var locationCoordinate: String?
     var isOnline: Bool
+    var urlString: String?
     var currentMemberIds: [String]
     var totalMemberCount: Int
+    var createdAt: Double = Date().timeIntervalSince1970
+   // var reportCount: Int
+   // var reportContent: String
+    
+    var createdDate: String {
+        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
+        
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.dateFormat = "MM월 dd일 HH시 mm분"
+        
+        return dateFormatter.string(from: dateCreatedAt)
+    }
+    
     
     // 뷰에서 추가적으로 더 쓰일 내용
     var isSaved: Bool = false
+}
+
+struct StudyGroupComment: Identifiable {
+    var id: UUID = UUID()
+    var profileImage: String
+    var studyPostID: String // 다시 확인하기!
+    var userID: String
+    var content: String
+    var createdDate: Date
+   // var reportCount: Int
+  //  var reportContent: String
 }
 
 class StudyViewModel: ObservableObject {
@@ -40,28 +68,32 @@ class StudyViewModel: ObservableObject {
                 for document in snapshot.documents {
                     let id: UUID = document.documentID.stringToUUID() ?? UUID()
                     let docData: [String: Any] = document.data()
-                    let imageURL: String = docData["imageURL"] as? String ?? ""
+                    let imageString: String = docData["imageString"] as? String ?? ""
                     let creatorId: String = docData["creatorId"] as? String ?? ""
                     let title: String = docData["title"] as? String ?? ""
                     let description: String = docData["description"] as? String ?? ""
                     let studyDate: String = docData["studyDate"] as? String ?? Date().toString()
                     let deadline: String = docData["deadline"] as? String ?? Date().toString()
-                    let location: String = docData["location"] as? String ?? ""
+                    let locationName: String = docData["locationName"] as? String ?? ""
+                    let locationCoordinate: String = docData["locationCoordinate"] as? String ?? ""
                     let isOnline: Bool = docData["isOnline"] as? Bool ?? false
+                    let urlString: String = String = docData["urlString"] as? String ?? ""
                     let currentMemberIds: [String] = docData["currentMemberIds"] as? [String] ?? []
                     let totalMemberCount: Int = docData["totalMemberCount"] as? Int ?? 0
+                    let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                    let isSaved: Bool = docData["isSaved"] as? Bool ?? false
                     
                     if self.filterWithDeadline(deadline: deadline) {
                         continue
                     }
                     
-                    // 저장한 스터디인지 체크하기
+                    // 저장한 파일인지 가져오기
                     self.isSavedStudy(id.uuidString) { isSaved in
                         if isSaved {
-                            let study = Study2(id: id, imageURL: imageURL, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, location: location, isOnline: isOnline, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, isSaved: true)
+                            let study = Study2(id: id, imageString: imageString, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, locationName: locationName, locationCoordinate: locationCoordinate, isOnline: isOnline, urlString: urlString, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt, isSaved: true)
                             temp.append(study)
                         } else {
-                            let study = Study2(id: id, imageURL: imageURL, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, location: location, isOnline: isOnline, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, isSaved: false)
+                            let study = Study2(id: id, imageString: imageString, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, locationName: locationName, locationCoordinate: locationCoordinate, isOnline: isOnline, urlString: urlString, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt, isSaved: false)
                             temp.append(study)
                         }
                     }
@@ -99,7 +131,7 @@ class StudyViewModel: ObservableObject {
                     savedStudyArray += temp
                 }
             }
-
+        
         dbRef.collection("users").document(userId)
             .setData([
                 "savedStudyId": savedStudyArray
@@ -150,12 +182,12 @@ class StudyViewModel: ObservableObject {
         
     }
     
-//    // 내가 이미 참여한 스터디인지 check하기
-//    func isAlreadyJoinStudy(_ study: Study2) -> Bool {
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-//            return false
-//        }
-//
-//        if study.currentMemberIds.contains
-//    }
+    //    // 내가 이미 참여한 스터디인지 check하기
+    //    func isAlreadyJoinStudy(_ study: Study2) -> Bool {
+    //        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+    //            return false
+    //        }
+    //
+    //        if study.currentMemberIds.contains
+    //    }
 }
