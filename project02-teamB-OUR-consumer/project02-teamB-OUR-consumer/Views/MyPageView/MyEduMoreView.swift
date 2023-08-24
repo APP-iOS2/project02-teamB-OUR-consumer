@@ -14,18 +14,17 @@ struct MyEduMoreView: View {
     
     var body: some View {
         NavigationStack {
-            // 전체 보이도록
-            List {
+            ScrollView {
                 ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
                     VStack {
                         MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
-                            .padding(.bottom, 8)
+                            .padding(.vertical, 8)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    .padding(.horizontal)
                 }
+                .padding(.top, 8)
             }
-            .listStyle(.plain)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action : {
                 self.mode.wrappedValue.dismiss()

@@ -11,22 +11,21 @@ struct MyWorkMoreView: View {
     @ObservedObject var resumeStore: ResumeStore = ResumeStore()
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-
+    
     
     var body: some View {
         NavigationStack {
-            // 전체 보이도록
-            List {
+            ScrollView {
                 ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
                     VStack {
                         MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index])
-                            .padding(.bottom, 8)
+                            .padding(.vertical, 8)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    .padding(.horizontal)
                 }
+                .padding(.top, 8)
             }
-            .listStyle(.plain)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action : {
                 self.mode.wrappedValue.dismiss()

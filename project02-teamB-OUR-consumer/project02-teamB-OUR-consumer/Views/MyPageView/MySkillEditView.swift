@@ -27,9 +27,7 @@ struct MySkillEditView: View {
     
     var isShowingDeleteButton: Bool
     
-    @State var skill: [Skill] = [Skill(skillName: "uikit", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
-                                 Skill(skillName: "swiftUi", description: "swiftUI zzang jam")
-    ]
+
     
     var body: some View {
         ScrollView {
@@ -55,7 +53,7 @@ struct MySkillEditView: View {
                                 .frame(height: 50)
                             
                             Button {
-                                skill.append(Skill(skillName: skillName, description: description))
+                                //스킬추가
                                 skillName = ""
                                 description = ""
                                 isShowingAlert.toggle()
@@ -92,29 +90,6 @@ struct MySkillEditView: View {
                         .padding(.top)
                     }
                     
-//                    Divider()
-//                        .padding(.vertical)
-                    
-                    //TODO: 스킬목록 만들기
-//                    Text("스킬 목록")
-//                        .font(.system(size: 16))
-//                        .bold()
-//
-//                    ForEach(skill) { skill in
-//                        VStack(alignment: .leading) {
-//                            Divider()
-//                            Text(skill.skillName)
-//                                .font(.system(size: 14))
-//                                .fontWeight(.semibold)
-//                                .padding(.vertical, 5)
-//
-//                            Text(skill.description!)
-//                                .font(.system(size: 12))
-//                                .fontWeight(.semibold)
-//
-//                        }
-//                    }
-//                    .padding(.bottom)
                      
                 
                     //MARK: 편집일 때 삭제하기 뜨도록
