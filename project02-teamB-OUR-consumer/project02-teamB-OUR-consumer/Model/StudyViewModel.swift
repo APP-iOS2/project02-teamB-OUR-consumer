@@ -77,7 +77,7 @@ class StudyViewModel: ObservableObject {
                     let locationName: String = docData["locationName"] as? String ?? ""
                     let locationCoordinate: String = docData["locationCoordinate"] as? String ?? ""
                     let isOnline: Bool = docData["isOnline"] as? Bool ?? false
-                    let urlString: String = String = docData["urlString"] as? String ?? ""
+                    let urlString: String = docData["urlString"] as? String ?? ""
                     let currentMemberIds: [String] = docData["currentMemberIds"] as? [String] ?? []
                     let totalMemberCount: Int = docData["totalMemberCount"] as? Int ?? 0
                     let createdAt: Double = docData["createdAt"] as? Double ?? 0
