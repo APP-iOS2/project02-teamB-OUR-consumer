@@ -33,7 +33,7 @@ struct CustomTabBarView: View {
             Spacer()
             ZStack {
                 Rectangle()
-                    .frame(width: 350, height: 80)
+                    .frame(width: 350, height: 45)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
@@ -61,7 +61,7 @@ struct CustomTabBarView: View {
                                 
                             } else {
                                 Image(systemName: tabBarImageNames[image])
-                                    .font(.system(size: 30, weight: .light))
+                                    .font(.system(size: 20, weight: .light))
                                     .foregroundColor(selectedIndex == image ? Color(.black) : Color(.tertiaryLabel))
                             }
                         }
