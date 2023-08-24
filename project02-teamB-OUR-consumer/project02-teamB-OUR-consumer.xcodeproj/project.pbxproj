@@ -15,9 +15,10 @@
 		118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9722A95A24E006946C3 /* MyIntroEditView.swift */; };
 		1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */; };
 		3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF70F3A2A951C2E008E9CAB /* Keys.swift */; };
+		3AF70F532A96DB9A008E9CAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AF70F522A96DB9A008E9CAB /* GoogleService-Info.plist */; };
+		3AF70F552A96DEAF008E9CAB /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF70F542A96DEAF008E9CAB /* StudyViewModel.swift */; };
 		4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */; };
 		46C816AE2A949593003B2944 /* StudyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C816AD2A949593003B2944 /* StudyDetailView.swift */; };
-		54FEB2782A9691860083A33F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54FEB2772A9691860083A33F /* GoogleService-Info.plist */; };
 		54FEB27C2A9693940083A33F /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FEB27A2A9693940083A33F /* InquiryView.swift */; };
 		54FEB27D2A9693940083A33F /* InquiryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FEB27B2A9693940083A33F /* InquiryRow.swift */; };
 		54FEB27F2A9694070083A33F /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FEB27E2A9694070083A33F /* Inquiry.swift */; };
@@ -138,9 +139,10 @@
 		1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		3AF70F382A95199B008E9CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF70F3A2A951C2E008E9CAB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		3AF70F522A96DB9A008E9CAB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3AF70F542A96DEAF008E9CAB /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
 		4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMemberSheetView.swift; sourceTree = "<group>"; };
 		46C816AD2A949593003B2944 /* StudyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDetailView.swift; sourceTree = "<group>"; };
-		54FEB2772A9691860083A33F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54FEB27A2A9693940083A33F /* InquiryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryView.swift; sourceTree = "<group>"; };
 		54FEB27B2A9693940083A33F /* InquiryRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryRow.swift; sourceTree = "<group>"; };
 		54FEB27E2A9694070083A33F /* Inquiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			children = (
 				8421920A2A95E11C007224EE /* StudyGroup.swift */,
 				8421920C2A95E9B4007224EE /* StudyGroupStore.swift */,
+				3AF70F542A96DEAF008E9CAB /* StudyViewModel.swift */,
 				9B35B27F2A94598400AD72D7 /* IdStore.swift */,
 				FAB51C942A96794B0047A725 /* AuthViewModel.swift */,
 				9B6B9B2F2A94A2AA004609AF /* FeedStore.swift */,
@@ -477,7 +480,7 @@
 			children = (
 				3AF70F382A95199B008E9CAB /* Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
-				54FEB2772A9691860083A33F /* GoogleService-Info.plist */,
+				3AF70F522A96DB9A008E9CAB /* GoogleService-Info.plist */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
 				FAB51C772A9676720047A725 /* Extension */,
 				842192092A95DB3C007224EE /* Views */,
@@ -630,7 +633,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
-				54FEB2782A9691860083A33F /* GoogleService-Info.plist in Resources */,
+				3AF70F532A96DB9A008E9CAB /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				FAB51C1B2A96568D0047A725 /* (null) in Resources */,
 			);
@@ -659,6 +662,7 @@
 				9620C5132A95FE05000C21BC /* RecruitMainSheet.swift in Sources */,
 				D55D36652A95E17800A7BE14 /* StudyImageView.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
+				3AF70F552A96DEAF008E9CAB /* StudyViewModel.swift in Sources */,
 				B7C4A51E2A95C3DB00CB05C8 /* FeedRecruitStore.swift in Sources */,
 				FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */,
 				FAB51C892A9678870047A725 /* Encodable.swift in Sources */,

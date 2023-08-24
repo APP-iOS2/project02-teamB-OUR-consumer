@@ -25,11 +25,22 @@ extension String {
     }
     
     
-    func toDate() -> Date{
+    func toDate() -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         guard let date: Date = dateFormatter.date(from: self) else {return Date()}
         return date
+    }
+    
+    func toDateWithSlash() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm a"
+        guard let date: Date = dateFormatter.date(from: self) else { return Date() }
+        return date
+    }
+    
+    func stringToUUID() -> UUID? {
+        return UUID(uuidString: self)
     }
 }
