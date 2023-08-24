@@ -13,35 +13,14 @@ struct ScrapView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                
+                // 퍼가기 기능 실행
             } label: {
-                HStack {
-                    Image(systemName: "square.and.pencil")
-                        .font(.title2)
-                    VStack(alignment: .leading) {
-                        Text("생각을 덧붙여 퍼가기")
-                            .font(.headline)
-                        Text("\(post.postId) 님의 업데이트에 덧붙여서 새 업데이트를 씁니다.")
-                            .font(.subheadline)
-                    }
+                VStack(alignment: .leading) {
+                    Label("퍼가기", systemImage: "arrow.2.squarepath")
+                        .font(.headline)
+                    Text("\(post.postId) 님의 업데이트가 다른 사람들의 홈에 표시되게 합니다.")
+                        .font(.subheadline)
                 }
-                .padding()
-                .foregroundColor(Color.gray)
-            }
-            Button {
-                
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.2.squarepath")
-                        .font(.title2)
-                    VStack(alignment: .leading) {
-                        Text("퍼가기")
-                            .font(.headline)
-                        Text("\(post.postId) 님의 업데이트가 다른 사람들의 홈에 표시되게 합니다.")
-                            .font(.subheadline)
-                    }
-                }
-                .padding()
                 .foregroundColor(Color.gray)
             }
         }

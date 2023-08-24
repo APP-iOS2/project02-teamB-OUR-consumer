@@ -23,6 +23,7 @@ struct PostUserView: View {
                             Image("\(user.profileImgString)")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .background(Color.gray)
                                 .clipShape(Circle())
                                 .frame(width: 40, height: 40)
                             VStack(alignment: .leading) {

@@ -17,12 +17,12 @@ struct FeedView: View {
             VStack {
                 PostUserView(post: post, isShowingSheet: $isShowingSheet)
                 PostView(post: post)
-                CommentView(comment: postData.postCommentStore[0])
                 PostButtonView(post: post, postData: postData)
-                
+                Divider()
+                    .frame(height: 4)
+                    .overlay((Color(hex: 0x090580)))
             }
             .padding()
-            
         }
     }
 }

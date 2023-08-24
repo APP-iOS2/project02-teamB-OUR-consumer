@@ -2,35 +2,19 @@
 //  ShareView.swift
 //  project02-teamB-OUR-consumer
 //
-//  Created by 이승준 on 2023/08/23.
+//  Created by 이승준 on 2023/08/24.
 //
 
-import Foundation
 import SwiftUI
-import UIKit
 
-struct ActivityViewController: UIViewControllerRepresentable {
-    
-    var activityItems: [Any]
-    var applicationActivities: [UIActivity]? = nil
-    @Environment(\.presentationMode) var presentationMode
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>
-    ) -> UIActivityViewController {
-        let controller = UIActivityViewController(
-            activityItems: activityItems,
-            applicationActivities: applicationActivities
-        )
-        controller.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
-            self.presentationMode.wrappedValue.dismiss()
-        }
-        return controller
+struct ShareView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
-    
-    func updateUIViewController(
-        _ uiViewController: UIActivityViewController,
-        context: UIViewControllerRepresentableContext<ActivityViewController>
-    ) {}
 }
 
-
+struct ShareView_Previews: PreviewProvider {
+    static var previews: some View {
+        ShareView()
+    }
+}
