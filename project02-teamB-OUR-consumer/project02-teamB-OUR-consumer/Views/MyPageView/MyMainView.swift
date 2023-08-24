@@ -16,7 +16,7 @@ struct MyMain: View {
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
-    
+    @StateObject private var studyStore = StudyStore()
     var body: some View {
         
         NavigationStack {
@@ -149,7 +149,7 @@ struct MyMain: View {
                             case 1:
                                 MyBoardView()
                             case 2:
-                                MyStudyView()
+                                MyStudyView(studyArray: studyStore.studyArray)
                             default:
                                 EmptyView()
                             }

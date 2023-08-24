@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct MyStudyView: View {
-    var study: Study = Study(imageURL: URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "강남역에서 2시간 빡코딩해요!", date: "8월 25일 금 19:00", location: "강남역 스타벅스", isOnline: false, currentMemberCount: 1, totalMemberCount: 10)
+    @StateObject private var studyStore = StudyStore()
+    var studyArray: [Study] 
     
     var body: some View {
         NavigationStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.gray, lineWidth: 3)
-                            .frame(width: 160, height: 300)
-                            .background(.white)
-                            .shadow(radius: 6)
+                ForEach(studyStore.studyArray) { study in
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 160, height: 300)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                                .foregroundColor(.white)
+                                .padding(2)
+                                .shadow(radius: 3)
+
                             VStack {
                                 AsyncImage(url: study.imageURL) { image in
                                     image
@@ -32,7 +39,7 @@ struct MyStudyView: View {
                                 }
                                 VStack(alignment: .leading) {
                                     Text("\(study.title)")
-                                        .frame(width: 150, height: 50)
+                                        .frame(width: 130, height: 50)
                                         .bold()
                                 }
                                 .fixedSize(horizontal: false, vertical: true)
@@ -43,7 +50,14 @@ struct MyStudyView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 15, height: 15)
-                                        Text("\(study.date)")
+                                        VStack {
+                                            VStack {
+                                                Text("\(study.date)")
+                                                    .frame(width: 110)
+                                                        .lineLimit(1) //3줄까지만 제한을 둔다. ()안에 nil을 쓰면 무제한
+                                            }
+                                            .fixedSize(horizontal: false, vertical: true)
+                                        }
                                     }
                                     .font(.footnote)
                                     .foregroundColor(.gray)
@@ -72,7 +86,8 @@ struct MyStudyView: View {
                             }
                         }
                     }
-                    .padding(.leading)
+                }
+                .padding(.leading)
             }
         }
     }
@@ -80,6 +95,8 @@ struct MyStudyView: View {
 
 struct MyStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        MyStudyView(study: Study(imageURL: URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "강남역에서 2시간 빡코딩해요!", date: "8월 25일 금 19:00", location: "강남역 스타벅스", isOnline: false, currentMemberCount: 1, totalMemberCount: 10))
+        let studyStore = StudyStore()
+        
+        MyStudyView(studyArray: studyStore.studyArray)
     }
 }
