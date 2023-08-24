@@ -28,4 +28,6 @@ struct DateModel: Identifiable {
     var formattedEndDate: String {
         return DateModel.dateFormatter.string(from: endDate)
     }
+    
+   
 }

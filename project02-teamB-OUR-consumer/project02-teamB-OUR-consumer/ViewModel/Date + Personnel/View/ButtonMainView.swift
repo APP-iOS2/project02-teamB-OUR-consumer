@@ -43,9 +43,10 @@ struct ButtonMainView: View {
                         
                     }
                     VStack {
-                        Text("시작: \(startDate.formatted(.dateTime))")
-                        Text("마감: \(endDate.formatted(.dateTime))")
+                        Text("시작: \(dateStore.formattedDate(startDate))")
+                        Text("마감: \(dateStore.formattedDate(endDate ))")
                     }
+                    
                 
                 }
                 

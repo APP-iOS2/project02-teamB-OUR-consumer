@@ -15,4 +15,11 @@ class DateStore: ObservableObject {
     func removeDate(index: DateModel) {
         times.removeAll { $0.id == index.id }
     }
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yy년 M월 dd일 HH:mm"
+        return formatter.string(from: date)
+    }
 }

@@ -35,7 +35,6 @@ struct DatePickerSheet: View {
             DatePicker(selection: $startDate, displayedComponents: .date) {
                 Text("시작일자")
             }
-            
             .environment(\.locale, Locale(identifier: "ko_KR"))
             
             Divider()
