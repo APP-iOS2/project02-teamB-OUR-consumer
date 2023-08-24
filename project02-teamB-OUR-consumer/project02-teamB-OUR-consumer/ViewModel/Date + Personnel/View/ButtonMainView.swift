@@ -19,55 +19,59 @@ struct ButtonMainView: View {
     @State var number: Int = 1
     
     var body: some View {
-        VStack{
-            HStack {
-                VStack {
+         
+        VStack(alignment: .leading) {
+                HStack {
                     Button {
                         isShowingDateSheet.toggle()
                     } label: {
                         VStack {
-                            Text("기간")
-                                .padding().frame(width: 150)
+                            Text("기간 설정")
+                                .padding().frame(width: 100)
                                 .foregroundColor(Color.black)
-                            
+                                .background(Color(hex: "#FB3741"))
+                                .cornerRadius(8)
+                                
+                                
+                                
                         }
-                       
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle(radius: 8))
-                    .shadow(radius: 8)
+                    
                     .sheet(isPresented: $isShowingDateSheet) {
                         DatePickerSheet(dateStore: DateStore(), isShowingDateSheet: $isShowingDateSheet, startDate: $startDate, endDate: $endDate)
                             .presentationDetents([.fraction(0.45)])
-                       
+                        
                     }
-                    Text("시작: \(startDate.formatted(.dateTime))")
-                    Text("마감: \(endDate.formatted(.dateTime))")
+                    VStack {
+                        Text("시작: \(startDate.formatted(.dateTime))")
+                        Text("마감: \(endDate.formatted(.dateTime))")
+                    }
+                
                 }
                 
-                VStack {
+                HStack {
                     Button {
                         isShowingPersonSheet.toggle()
                     } label: {
-                        Text("인원수")
-                            .padding().frame(width: 150)
+                        Text("인원 설정")
+                            .padding().frame(width: 100)
                             .foregroundColor(Color.black)
+                            .background(Color(hex: "#FB3741"))
+                            .cornerRadius(8)
+                           
+                            
                     }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle(radius: 8))
-                    .shadow(radius: 8)
+                    
                     .sheet(isPresented: $isShowingPersonSheet) {
                         PersonnelSheet(isShowingPersonSheet: $isShowingPersonSheet, number: $number)
                             .presentationDetents([.fraction(0.45)])
                     }
-                    Spacer().frame(height: 30)
-                    Text("\(number) 명")
                     
+                    Text("인원:  \(number) 명")
                 }
             }
         }
     }
-}
 
 struct ButtonMainView_Previews: PreviewProvider {
     static var previews: some View {

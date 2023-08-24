@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96C54BB12A95F1C300BE0F1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96C54BB02A95F1C300BE0F1F /* GoogleService-Info.plist */; };
+		969A05622A97366100DC0DFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 969A05612A97366000DC0DFA /* GoogleService-Info.plist */; };
 		96C54BB72A95F2CA00BE0F1F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BB62A95F2CA00BE0F1F /* Date.swift */; };
 		96C54BB92A95F2D700BE0F1F /* DateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BB82A95F2D700BE0F1F /* DateStore.swift */; };
 		96C54BBB2A95F30000BE0F1F /* ButtonMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C54BBA2A95F30000BE0F1F /* ButtonMainView.swift */; };
@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		96C54BB02A95F1C300BE0F1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		969A05612A97366000DC0DFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		96C54BB62A95F2CA00BE0F1F /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		96C54BB82A95F2D700BE0F1F /* DateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStore.swift; sourceTree = "<group>"; };
 		96C54BBA2A95F30000BE0F1F /* ButtonMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonMainView.swift; sourceTree = "<group>"; };
@@ -127,8 +127,8 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
+				969A05612A97366000DC0DFA /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
-				96C54BB02A95F1C300BE0F1F /* GoogleService-Info.plist */,
 				FA63F0452A9513870010B0FE /* View */,
 				FAA6FC212A949FF2005E31DC /* Extension.swift */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
@@ -268,7 +268,7 @@
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
-				96C54BB12A95F1C300BE0F1F /* GoogleService-Info.plist in Resources */,
+				969A05622A97366100DC0DFA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
