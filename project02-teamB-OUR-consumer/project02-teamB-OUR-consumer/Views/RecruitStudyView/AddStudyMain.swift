@@ -22,9 +22,10 @@ struct AddStudyMain: View {
     @State var placeholder: String = "스터디 내용을 입력해주세요."
     
     @State var number: Int = 1
-    @State var startDate: Date = Date()
-    @State var dueDate: Date = Date()
-    
+   
+    @State var startDate: Date
+    @State var endDate: Date
+    @State var startTime: Date
     
     var body: some View {
         NavigationView {
@@ -47,7 +48,7 @@ struct AddStudyMain: View {
                         .font(.title2)
                         .padding(.bottom, 20)
 //                    VStack {
-                    ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $number)
+                    ButtonMainView(startDate: $startDate, endDate: $endDate, startTime: $startTime, number: number)
 //                    }
                     
                     // MARK: - 스터디 내용
@@ -78,7 +79,7 @@ struct AddStudyMain: View {
                         Button("등록") {
                             print("등록 버튼 tapped")
 //                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
-                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
+                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: endDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
                             
                             studyStoreViewModel.addFeed(newStudy)
                             
@@ -103,6 +104,6 @@ struct AddStudyMain: View {
 
 struct AddStudyMain_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyMain()
+        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
     }
 }
