@@ -39,6 +39,8 @@ struct CustomTabButton: View {
                     .foregroundColor(selectedTab == index ? AColor.main.color : AColor.defalut.color) // 선택된 탭은 메인컬러 , 그 외는 회색
                 if selectedTab == index {
                     AColor.main.color.frame(height: 2) // 강조선
+                } else {
+                    AColor.defalut.color.frame(height: 2)
                 }
                 
             }
