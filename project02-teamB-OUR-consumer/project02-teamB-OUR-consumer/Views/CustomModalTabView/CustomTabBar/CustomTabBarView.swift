@@ -33,14 +33,15 @@ struct CustomTabBarView: View {
             Spacer()
             ZStack {
                 Rectangle()
-                    .frame(width: 350, height: 80)
+                    .frame(width: 350, height: 60)
+//                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
                 HStack {
                     Spacer()
-                    //                    0 ..< tabBarImageNames.count
-                    ForEach(0 ..< tabBarImageNames.endIndex) { image in
+//                    0 ..< tabBarImageNames.count
+                    ForEach(0 ..< tabBarImageNames.endIndex, id:\.self) { image in
                         VStack {
                             if image == 2 {
                                 VStack {
@@ -62,7 +63,7 @@ struct CustomTabBarView: View {
                             } else {
                                 Image(systemName: tabBarImageNames[image])
                                     .font(.system(size: 30, weight: .light))
-                                    .foregroundColor(selectedIndex == image ? Color(.black) : Color(.tertiaryLabel))
+                                    .foregroundColor(selectedIndex == image ? Color(hex: "#090580") : Color(.tertiaryLabel))
                             }
                         }
                         

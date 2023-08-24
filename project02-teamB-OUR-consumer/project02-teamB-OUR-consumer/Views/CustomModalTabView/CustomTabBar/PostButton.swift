@@ -13,9 +13,9 @@ struct PostButton: View {
     var body: some View {
         ZStack {
             Circle()
-                .frame(width: 55)
-                .foregroundColor(Color.gray)
-                .shadow(radius: 6)
+                .frame(width: 40)
+                .foregroundColor(Color.white)
+                .shadow(radius: 3)
                 
             Image(systemName: "plus")
                 .foregroundColor(selectedIndex == 2 ? Color(.black) : Color(.tertiaryLabel))
