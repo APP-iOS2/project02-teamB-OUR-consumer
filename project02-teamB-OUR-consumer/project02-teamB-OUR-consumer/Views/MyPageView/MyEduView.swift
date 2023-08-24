@@ -22,7 +22,7 @@ struct MyEduCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyEduEditView()
+                        MyEduEditView(isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -57,7 +57,7 @@ struct MyEduView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyEduEditView()
+                            MyEduEditView(isShowingDeleteButton: false)
                         } label: {
                             Image(systemName: "plus")
                         }

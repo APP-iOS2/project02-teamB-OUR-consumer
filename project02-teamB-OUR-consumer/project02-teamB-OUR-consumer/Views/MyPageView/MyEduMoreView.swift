@@ -39,7 +39,7 @@ struct MyEduMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyEduEditView()
+                        MyEduEditView(isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
