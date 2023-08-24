@@ -10,6 +10,7 @@ import SwiftUI
 struct StudyCommentReportView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var userId: String
     var comment: StudyGroupComment
@@ -19,6 +20,7 @@ struct StudyCommentReportView: View {
     
     @State var showAlert: Bool = false
     @State var reportCategory: String = ""
+    
     
     var body: some View {
         NavigationStack {
@@ -42,16 +44,17 @@ struct StudyCommentReportView: View {
                     .fontWeight(.heavy)
                     .padding([.bottom, .top], 5)
                 ForEach(reports, id: \.self) { report in
+                    
                     Button {
                         reportCategory = report
                         showAlert = true
                     } label: {
                         Text("\(report)")
                             .padding(.bottom, 5)
+                        
                     }
                     .foregroundColor(.black)
                     Divider()
-                    
                     
                 }
             }
@@ -64,6 +67,12 @@ struct StudyCommentReportView: View {
         }
         .navigationTitle("신고하기")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+            self.mode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "chevron.backward")
+        })
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(title: Text("신고하시겠습니까?"),
