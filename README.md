@@ -1,28 +1,43 @@
-# OUR App
+# OUR Consumer App ##
+---
+우리들의 취업/스터디 플랫폼 (사용자 앱)
 
-## 향후 이 설명은 삭제예정입니다.
+## 1. App Define Statement
+---
+- 우리 앱은 취직에 필요한 활동들과 정보를 공유할 수 있는 취업 특화 SNS이다.
 
-1. Fireabase 초대 수락 후 콘솔로 이동
-<img width="676" alt="image" src="https://github.com/APPSCHOOL3-iOS/project02-teamB-OUR-consumer/assets/37550637/e11cbe63-7bf2-46d5-9b3a-52dcfe13bab8">
+- 우리 앱은 스터디 모집 글을 작성하고 참여 신청을 할 수 있다.
 
-2. OUR App Server 프로젝트 선택
+- 우리 앱은 사용자끼리 친구를 맺고 이력서, CV를 공유할 수 있다.
 
+- 우리 앱은 서로 취업에 대한 정보 공유글을 게시하고 이를 피드에서 확인할 수 있다.
 
-3. consumer, admin 중 맞는 앱빌드 선택
+## 2. 설치 및 실행에 필요한 부가정보
+---
+- GoogleService-Info.plist 파일
 
-<img width="117" alt="image" src="https://github.com/APPSCHOOL3-iOS/project02-teamB-OUR-consumer/assets/37550637/38a7e66a-edde-4f2f-a376-85c9f6592fbc">
+## 3. 현재 적용된 내용
+---
+- 각 탭별 뷰 디자인 구현
+- 로그인 뷰 FireStore와 연결
+- 등록 뷰 FireStore와 연결
 
-↓
+## 4. 앞으로 적용할 내용
+---
+- FireStore에 연결
+- 디자인 수정
+- 코드 리펙토링
 
-<img width="413" alt="image" src="https://github.com/APPSCHOOL3-iOS/project02-teamB-OUR-consumer/assets/37550637/f71df0c0-60c0-46f0-95b7-b3f0e9a54f7e">
+## 5. 개발에 참여한 사람들
+---
+- **홈 뷰** : 김종찬, 이승준, 정한두
 
-↓
+- **스터디 뷰** : 노유리, 안지영, 여성은
 
-<img width="518" alt="image" src="https://github.com/APPSCHOOL3-iOS/project02-teamB-OUR-consumer/assets/37550637/88d415e3-ef68-4db9-95cb-e4df5bb0e1e5">
+- **등록 뷰** : 김형준, 박서연, 송성욱, 윤해수
 
-4. 아래로 끝까지 스크롤하여 이동 후 보이는 GoogleService-Info.plist 파일 다운 후 적용
-<img width="701" alt="image" src="https://github.com/APPSCHOOL3-iOS/project02-teamB-OUR-consumer/assets/37550637/d37a7ecd-d434-470a-8f8b-13c881e8af04">
+- **알림 뷰** : 박찬호, 장수지, 박형환
 
+- **마이페이지 뷰** : 최소정, 김성훈, 변상필, 봉주헌
 
-# p.s
-아직 인증 ViewModel은 구현이 안되었습니다.
+- **백엔드** : 신우진, 마경미, 이희찬, 손윤호

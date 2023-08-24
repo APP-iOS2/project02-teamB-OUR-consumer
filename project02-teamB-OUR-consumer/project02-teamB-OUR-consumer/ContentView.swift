@@ -10,31 +10,29 @@ import SwiftUI
 struct ContentView: View {
     
     enum TabItem {
-            case feed, studyFeed, recruitAdd, alarm, myPage
-        }
-
-        @State private var selectedTab: TabItem = .feed
-        @State private var mainLogoToggle: Bool = true
+        case feed, studyFeed, recruitAdd, alarm, myPage
+    }
+    
+    @State private var selectedTab: TabItem = .feed
+    @State private var mainLogoToggle: Bool = true
     
     let hexColor: String = "#090580" //메인컬러로 변경
     
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
-                //FeedView
-                Image(systemName: "house.fill")
+                FeedTabView()
                     .tag(TabItem.feed)
                     .tabItem {
                         Label("피드", systemImage: "house.fill")
                     }
-                //StudyFeedView
-                Image(systemName: "book.fill")
+                StudyListView()
                     .tag(TabItem.studyFeed)
                     .tabItem {
                         Label("스터디모집", systemImage: "book.fill")
                     }
-                //RecruitAddView
-                Image(systemName: "plus.app.fill")
+                Image(systemName: "love")
+//                RecruitMainSheet(isShowingSheet: <#Binding<Bool>#>)
                     .tag(TabItem.recruitAdd)
                     .tabItem {
                         Label("작성하기", systemImage: "plus.app.fill")
@@ -45,18 +43,25 @@ struct ContentView: View {
                     .tabItem {
                         Label("알림", systemImage: "bell.fill")
                     }
-                //MyPageView
-                Image(systemName: "person.fill")
+                MyMain()
                     .tag(TabItem.myPage)
                     .tabItem {
                         Label("마이페이지", systemImage: "person.fill")
                     }
             }
             .tint(AColor.main.color) // 메인컬러로 변경
+            .navigationBarBackButtonHidden()
             .navigationBarItems(leading: leadingBarItem)
+//            .navigationBarItems(leading: Button(action: {
+//                //FeedView로 돌아가기
+//            }, label: {
+//                Image("OUR_Logo")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//            }))
         }
     }
-
+    
     @ViewBuilder
     var leadingBarItem: some View {
         if mainLogoToggle && selectedTab != .alarm && selectedTab != .myPage  {
@@ -67,7 +72,7 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Preview: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
