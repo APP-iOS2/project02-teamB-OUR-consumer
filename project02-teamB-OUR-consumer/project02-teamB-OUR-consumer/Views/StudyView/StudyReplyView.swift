@@ -7,38 +7,38 @@
 
 import SwiftUI
 
-struct StudyGroupComment: Identifiable {
+struct StudyComment: Identifiable {
     var id: UUID = UUID()
     var userId: String // 이것도 포스트아이디처럼 따로 받아와야되나?!
     var profileString: String?
     var content: String
     var createdAt: Double = Date().timeIntervalSince1970
-    
+
     var profileImage: Image {
         Image(profileString ?? "OUR_Logo")
     }
     var createdDate: String {
         let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
-        
+
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
         dateFormatter.timeZone = TimeZone(abbreviation: "KST")
         dateFormatter.dateFormat = "MM월 dd일 HH시 mm분"
-        
+
         return dateFormatter.string(from: dateCreatedAt)
     }
-    
+
 }
 
 struct StudyReplyView: View {
     
     @State var isEditing: Bool = true
     
-    @State var studyGroupComments: [StudyGroupComment] = [
-        StudyGroupComment(userId: "유리", profileString: "yuriProfile", content: "1빠"),
-        StudyGroupComment(userId: "지영", content: "최고의 스터디네요~"),
-        StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"),
-        StudyGroupComment(userId: "소정", profileString: "sojungProfile", content: "오 안녕하세요")
+    @State var studyGroupComments: [StudyComment] = [
+        StudyComment(userId: "유리", profileString: "yuriProfile", content: "1빠"),
+        StudyComment(userId: "지영", content: "최고의 스터디네요~"),
+        StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"),
+        StudyComment(userId: "소정", profileString: "sojungProfile", content: "오 안녕하세요")
     ]
     
     var userId: String = "성은"
@@ -80,7 +80,7 @@ struct StudyReplyView: View {
                 } else {
                     TextField("Add reply", text: $content, axis: .vertical)
                     Button("Add") {
-                        let comment: StudyGroupComment = StudyGroupComment(userId: "로그인된 유저아이디", content: content)
+                        let comment: StudyComment = StudyComment(userId: "로그인된 유저아이디", content: content)
                         studyGroupComments.append(comment)
                         content = ""
                     }

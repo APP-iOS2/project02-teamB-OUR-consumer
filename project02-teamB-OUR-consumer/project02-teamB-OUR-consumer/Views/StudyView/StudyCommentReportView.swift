@@ -13,7 +13,7 @@ struct StudyCommentReportView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var userId: String
-    var comment: StudyGroupComment
+    var comment: StudyComment
     
     //신고유형들 쭈루룩
     let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
@@ -91,7 +91,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"), isEditing: .constant(true))
+            StudyCommentReportView(userId: "성은", comment: StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"), isEditing: .constant(true))
         }
     }
 }

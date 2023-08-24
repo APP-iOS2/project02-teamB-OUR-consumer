@@ -14,7 +14,7 @@ struct StudyReplyDetailView: View {
     @Binding var isEditing: Bool
     
     var userId: String
-    var comment: StudyGroupComment
+    var comment: StudyComment
     
     var body: some View {
         LazyVStack {
@@ -97,6 +97,6 @@ struct StudyReplyDetailView: View {
 
 struct StudyReplyDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyDetailView(isEditing: .constant(true), userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
+        StudyReplyDetailView(isEditing: .constant(true), userId: "성은", comment: StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
     }
 }
