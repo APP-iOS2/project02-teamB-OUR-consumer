@@ -74,8 +74,8 @@ struct ButtonMainView: View {
     }
 
 
-//struct ButtonMainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ButtonMainView(startDate: Date(), endDate: Date())
-//    }
-//}
+struct ButtonMainView_Previews: PreviewProvider {
+    static var previews: some View {
+        ButtonMainView(startDate: .constant(Date()), endDate: .constant(Date()), number: .constant(1))
+    }
+}
