@@ -22,10 +22,18 @@ struct AlarmContainer: View {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 
-                Button {
-                    UNNotificationService.shared.requestSendNoti(seconds: 0.1)
-                } label: {
-                    Text("푸쉬 알림")
+                HStack {
+                    Button {
+                        UNNotificationService.shared.requestSendNoti(seconds: 0.1)
+                    } label: {
+                        Text("푸쉬 알림")
+                    }
+
+                    Button {
+                        UNNotificationService.shared.requestAuthNoti()
+                    } label: {
+                        Text("권한 설정")
+                    }
                 }
 
                 
