@@ -165,6 +165,9 @@ class AuthViewModel: ObservableObject {
      // 로그아웃
      func signOut() {
          GIDSignIn.sharedInstance.signOut()
+         UserDefaults.standard.removeObject(forKey: Keys.userId.rawValue)
+         UserDefaults.standard.removeObject(forKey: Keys.email.rawValue)
+         UserDefaults.standard.removeObject(forKey: Keys.loginType.rawValue)
          
          do {
              try Auth.auth().signOut()
