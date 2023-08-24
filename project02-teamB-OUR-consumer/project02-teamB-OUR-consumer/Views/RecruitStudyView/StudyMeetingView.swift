@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MeetingFormView: View {
+struct StudyMeetingView: View {
     
     @Binding var onlineToggle: Bool
     @Binding var offlineToggle: Bool
@@ -33,9 +33,9 @@ struct MeetingFormView: View {
                             .padding()
                             .frame(maxWidth: .infinity, maxHeight: 40)
                             .foregroundColor(.white)
-                            .background(.blue)
+                            .background(mainColor)
                             .cornerRadius(10)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(mainColor, lineWidth: 1))
                     }
                 }
                 
@@ -48,16 +48,16 @@ struct MeetingFormView: View {
                             .padding()
                             .frame(maxWidth: .infinity, maxHeight: 40)
                             .foregroundColor(.gray)
-                            .cornerRadius(10)
+//                            .cornerRadius(10)
                             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                     } else {
                         Text("오프라인")
                             .padding()
                             .frame(maxWidth: .infinity, maxHeight: 40)
                             .foregroundColor(.white)
-                            .background(.blue)
+                            .background(mainColor)
                             .cornerRadius(10)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(mainColor, lineWidth: 1))
                     }
                 }
                 
@@ -66,8 +66,8 @@ struct MeetingFormView: View {
     }
 }
 
-struct MeetingFormView_Previews: PreviewProvider {
+struct StudyMeetingView_Previews: PreviewProvider {
     static var previews: some View {
-        MeetingFormView(onlineToggle: .constant(true), offlineToggle: .constant(true))
+        StudyMeetingView(onlineToggle: .constant(true), offlineToggle: .constant(true))
     }
 }
