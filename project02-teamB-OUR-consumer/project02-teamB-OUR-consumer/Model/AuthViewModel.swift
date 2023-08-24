@@ -63,9 +63,9 @@ class AuthViewModel: ObservableObject {
          // 이전에 로그인 했으면 그 기억을 복구하고, 없으면 로그인을 시도한다.
          if GIDSignIn.sharedInstance.hasPreviousSignIn() {
              GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
-                 // 복구하면서 user 정보를 받아온다.
-                 state = .signedIn
-                 authenticateUser(for: user, with: error)
+                 authenticateUser(for: user, with: error) {
+                     completion()
+                 }
              }
          } else {
              // google service info.plist에서 clientId 값을 가져온다.
@@ -81,54 +81,61 @@ class AuthViewModel: ObservableObject {
              GIDSignIn.sharedInstance.signIn(withPresenting: self.getRootViewController()) { result, error in
                  guard error == nil else {
                      print(error?.localizedDescription)
+                     completion()
                      return
                  }
 
                  guard let user = result?.user,
                        let idToken = user.idToken?.tokenString,
-                       let userId = user.userID,
                         let email = user.profile?.email else {
                      return
                  }
 
                  let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                                 accessToken: user.accessToken.tokenString)
-                 Auth.auth().signIn(with: credential) { result, error in
-                     
-                 }
-                 self.isAlreadyUser(loginType: "google", userId: userId, email: email) {
-                     completion()
+                 let firebaseAuth = Auth.auth()
+                 firebaseAuth.signIn(with: credential) { [unowned self] (result, error) in
+                     if let error = error {
+                         print(error.localizedDescription)
+                     } else {
+                         guard let result = result else { return }
+                         self.isAlreadyUser(loginType: "google", userId: result.user.uid, email: email) {
+                             completion()
+                         }
+                     }
                  }
              }
          }
      }
      
-     private func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
+    private func authenticateUser(for user: GIDGoogleUser?, with error: Error?, completion: @escaping () -> Void) {
          if let error = error {
              print(error.localizedDescription)
              return
          }
-         
-         // user 객체로부터 idToken과 accessToken을 가져온다.
+
          guard let accessToken = user?.accessToken.tokenString,
                let idToken = user?.idToken?.tokenString else {
              return
          }
-         
-//         print(user?.profile?.email)
-         
+
          let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-         
-         Auth.auth().signIn(with: credential) { [unowned self] (_, error) in
+
+         let firebaseAuth = Auth.auth()
+         Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
              if let error = error {
                  print(error.localizedDescription)
              } else {
+                 guard let result = result else { return }
                  self.state = .signedIn
+                 UserDefaults.standard.set("google", forKey: Keys.loginType.rawValue)
+                 UserDefaults.standard.set(result.user.uid, forKey: Keys.userId.rawValue)
+                 UserDefaults.standard.set(result.user.email, forKey: Keys.email.rawValue)
              }
          }
      }
     
-    func signUp(name: String) {
+    func signUp(name: String, completion: @escaping () -> Void) {
         dbRef.collection("users").document(signUpData.userId)
             .setData([
                 "name": name,
@@ -138,8 +145,8 @@ class AuthViewModel: ObservableObject {
         UserDefaults.standard.set("google", forKey: Keys.loginType.rawValue)
         UserDefaults.standard.set(signUpData.userId, forKey: Keys.userId.rawValue)
         UserDefaults.standard.set(signUpData.email, forKey: Keys.email.rawValue)
-        
 //        state = .signedIn
+        completion()
     }
      
      // 로그아웃

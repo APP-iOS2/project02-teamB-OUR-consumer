@@ -39,7 +39,7 @@ struct CustomTabBarView: View {
                     .shadow(radius: 15)
                 HStack {
                     Spacer()
-//                    0 ..< tabBarImageNames.count
+                    //                    0 ..< tabBarImageNames.count
                     ForEach(0 ..< tabBarImageNames.endIndex) { image in
                         VStack {
                             if image == 2 {
@@ -76,7 +76,7 @@ struct CustomTabBarView: View {
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 
