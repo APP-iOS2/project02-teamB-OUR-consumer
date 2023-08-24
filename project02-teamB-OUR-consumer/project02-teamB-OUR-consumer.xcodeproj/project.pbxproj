@@ -82,6 +82,7 @@
 		A09ED4C82A95F45900E6A626 /* MyBookMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */; };
 		A09ED4CA2A95F62E00E6A626 /* MyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */; };
 		A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4CB2A95F63700E6A626 /* MyStudyView.swift */; };
+		A09ED4D02A97402D00E6A626 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4CF2A97402D00E6A626 /* CameraView.swift */; };
 		A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */; };
 		A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */; };
 		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
@@ -206,6 +207,7 @@
 		A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookMarkView.swift; sourceTree = "<group>"; };
 		A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBoardView.swift; sourceTree = "<group>"; };
 		A09ED4CB2A95F63700E6A626 /* MyStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStudyView.swift; sourceTree = "<group>"; };
+		A09ED4CF2A97402D00E6A626 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyView.swift; sourceTree = "<group>"; };
 		A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSheetView.swift; sourceTree = "<group>"; };
 		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				A09ED4BA2A9490D200E6A626 /* MyMainView.swift */,
 				A09ED4C72A95F45900E6A626 /* MyBookMarkView.swift */,
 				A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */,
+				A09ED4CF2A97402D00E6A626 /* CameraView.swift */,
 				A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */,
 				A09ED4C52A95D5B100E6A626 /* CameraORImageModalView.swift */,
 				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
@@ -694,6 +697,7 @@
 				960EFDEC2A94FEAC0036CEC1 /* ResumeStore.swift in Sources */,
 				A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
+				A09ED4D02A97402D00E6A626 /* CameraView.swift in Sources */,
 				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				FAB51C792A96771F0047A725 /* IdClassStore.swift in Sources */,
