@@ -13,6 +13,7 @@
 		118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96B2A95099F006946C3 /* MySkillEditView.swift */; };
 		118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96C2A95099F006946C3 /* MyWorkEditView.swift */; };
 		118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9722A95A24E006946C3 /* MyIntroEditView.swift */; };
+		1D20FD3B2A9733EC007790FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D20FD3A2A9733EC007790FB /* GoogleService-Info.plist */; };
 		1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */; };
 		3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF70F3A2A951C2E008E9CAB /* Keys.swift */; };
 		4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */; };
@@ -135,6 +136,7 @@
 		118AA96B2A95099F006946C3 /* MySkillEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySkillEditView.swift; sourceTree = "<group>"; };
 		118AA96C2A95099F006946C3 /* MyWorkEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWorkEditView.swift; sourceTree = "<group>"; };
 		118AA9722A95A24E006946C3 /* MyIntroEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroEditView.swift; sourceTree = "<group>"; };
+		1D20FD3A2A9733EC007790FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		3AF70F382A95199B008E9CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF70F3A2A951C2E008E9CAB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
