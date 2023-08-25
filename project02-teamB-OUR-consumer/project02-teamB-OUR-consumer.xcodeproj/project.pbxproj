@@ -185,6 +185,7 @@
 		9650868A2A94D35900CDA0FC /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		965086912A95D29B00CDA0FC /* AlarmFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFireService.swift; sourceTree = "<group>"; };
+		9686F8A02A97A49400A5AE7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B35B2752A94590F00AD72D7 /* FeedTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTabView.swift; sourceTree = "<group>"; };
 		9B35B2772A94593E00AD72D7 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		9B35B2792A94594C00AD72D7 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SheetView.swift; path = ../SheetView.swift; sourceTree = "<group>"; };
@@ -221,7 +222,6 @@
 		D55D36642A95E17800A7BE14 /* StudyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyImageView.swift; sourceTree = "<group>"; };
 		D55D36682A95E19200A7BE14 /* StudyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMapView.swift; sourceTree = "<group>"; };
 		D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLocationManager.swift; sourceTree = "<group>"; };
-        9686F8A02A97A49400A5AE7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
