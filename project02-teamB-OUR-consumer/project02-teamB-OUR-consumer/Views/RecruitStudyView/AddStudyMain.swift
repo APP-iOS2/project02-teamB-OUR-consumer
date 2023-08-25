@@ -29,7 +29,7 @@ struct AddStudyMain: View {
     @State var selectedItem: PhotosPickerItem? = nil
     
     @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
-    
+  
     var body: some View {
         NavigationView {
             ScrollView {
@@ -50,8 +50,9 @@ struct AddStudyMain: View {
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
                         .padding(.bottom, 20)
+
                     ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
-                    
+
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")
                         .font(.system(.title2))
@@ -79,11 +80,9 @@ struct AddStudyMain: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("등록") {
                             print("등록 버튼 tapped")
-                            
+
                             guard let test = selectedItem else {
-                                
                                 let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
-                                
                                 studyStoreViewModel.addFeed(newStudy)
                                 return
                             }
@@ -118,6 +117,6 @@ struct AddStudyMain: View {
 
 struct AddStudyMain_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyMain()
+        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
     }
 }
