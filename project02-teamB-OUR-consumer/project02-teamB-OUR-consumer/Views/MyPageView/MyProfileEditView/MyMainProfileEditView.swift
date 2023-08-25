@@ -16,6 +16,7 @@ struct MyMainProfileEditView: View {
 //    @State var profileMessage: String
     @State var showModal: Bool = false
     @State var showImagePicker: Bool = false
+    @State var showCamera: Bool = false
     
     var body: some View {
         VStack {
@@ -108,7 +109,10 @@ struct MyMainProfileEditView: View {
             CameraORImageModalView(showModal: $showModal) { form in
                 switch form {
                 case .camera:
-                    break
+                    showModal = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showCamera = true
+                    }
                 case .picker:
                     showModal = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -120,6 +124,12 @@ struct MyMainProfileEditView: View {
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(isPresented: $showImagePicker) { uiImage in
+                let convertedImage = Image(uiImage: uiImage)
+                image = convertedImage
+            }
+        }
+        .sheet(isPresented: $showCamera) {
+            CameraView(isPresented: $showImagePicker) { uiImage in
                 let convertedImage = Image(uiImage: uiImage)
                 image = convertedImage
             }

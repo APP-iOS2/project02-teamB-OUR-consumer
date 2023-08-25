@@ -42,7 +42,7 @@ struct MyProjectCellView: View {
 }
 
 struct MyProjectView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    var myProjects: [Project]
     @Binding var isMyProfile: Bool
     
     @State var isDeleteItemAlert: Bool = false
@@ -76,9 +76,9 @@ struct MyProjectView: View {
             
             VStack {
                 // 최대 3개 보이도록
-                ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
+                ForEach(0..<myProjects.count, id: \.self) { index in
                     if index < 3 {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index])
+                        MyProjectCellView(isMyProfile: $isMyProfile, project: myProjects[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -86,9 +86,9 @@ struct MyProjectView: View {
                 .padding(.horizontal)
                 
                 // 프로젝트 3개 넘으면 더보기
-                if resumeStore.resume.projects.count > 3 {
+                if myProjects.count > 3 {
                     NavigationLink {
-                        MyProjectMoreView(isMyProfile: $isMyProfile)
+                        MyProjectMoreView(myProjects: myProjects, isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -105,6 +105,6 @@ struct MyProjectView: View {
 
 struct MyProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectView(isMyProfile: .constant(true))
+        MyProjectView(myProjects: [], isMyProfile: .constant(true))
     }
 }

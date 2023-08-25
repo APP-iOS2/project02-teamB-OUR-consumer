@@ -1,5 +1,5 @@
 //
-//  MyWorkMoreView.swift
+//  MyEduMoreView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by 최소정 on 2023/08/23.
@@ -7,26 +7,24 @@
 
 import SwiftUI
 
-struct MyWorkMoreView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+struct MyEduMoreView: View {
+    var myEdu: [Education]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-
     
     var body: some View {
         NavigationStack {
-            // 전체 보이도록
-            List {
-                ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
+            ScrollView {
+                ForEach(0..<myEdu.count, id: \.self) { index in
                     VStack {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index])
-                            .padding(.bottom, 8)
+                        MyEduCellView(isMyProfile: $isMyProfile, education: myEdu[index])
+                            .padding(.vertical, 8)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    .padding(.horizontal)
                 }
+                .padding(.top, 8)
             }
-            .listStyle(.plain)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action : {
                 self.mode.wrappedValue.dismiss()
@@ -34,13 +32,13 @@ struct MyWorkMoreView: View {
                 Image(systemName: "chevron.backward")
             })
         }
-        .navigationTitle("경력")
+        .navigationTitle("교육")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView(isShowingDeleteButton: false)
+                        MyEduEditView(isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -50,10 +48,10 @@ struct MyWorkMoreView: View {
     }
 }
 
-struct MyWorkMoreView_Previews: PreviewProvider {
+struct MyEduMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyWorkMoreView(isMyProfile: .constant(true))
+            MyEduMoreView(myEdu: [], isMyProfile: .constant(true))
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyIntroView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    var myIntro: String?
     @Binding var isMyProfile: Bool
 
     var body: some View {
@@ -30,7 +30,7 @@ struct MyIntroView: View {
             }
             .padding(.vertical, 5)
             
-            Text(resumeStore.resume.introduction ?? "자기소개를 입력하세요")
+            Text(myIntro ?? "자기소개를 입력하세요")
                 .font(.system(size: 14))
         }
         .padding()

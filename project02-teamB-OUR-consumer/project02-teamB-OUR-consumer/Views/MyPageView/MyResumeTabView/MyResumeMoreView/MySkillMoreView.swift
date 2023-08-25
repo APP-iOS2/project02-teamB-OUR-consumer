@@ -8,24 +8,23 @@
 import SwiftUI
 
 struct MySkillMoreView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    var mySkills: [Skill]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         NavigationStack {
-            // 전체 보이도록
-            List {
-                ForEach(0..<resumeStore.resume.skills.count, id: \.self) { index in
+            ScrollView {
+                ForEach(0..<mySkills.count, id: \.self) { index in
                     VStack {
-                        MySkillCellView(isMyProfile: $isMyProfile, skill: resumeStore.resume.skills[index])
-                            .padding(.bottom, 8)
+                        MySkillCellView(isMyProfile: $isMyProfile, skill: mySkills[index])
+                            .padding(.vertical, 8)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    .padding(.horizontal)
                 }
+                .padding(.top, 8)
             }
-            .listStyle(.plain)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action : {
                 self.mode.wrappedValue.dismiss()
@@ -52,7 +51,7 @@ struct MySkillMoreView: View {
 struct MySkillMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MySkillMoreView(isMyProfile: .constant(true))
+            MySkillMoreView(mySkills: [], isMyProfile: .constant(true))
         }
     }
 }

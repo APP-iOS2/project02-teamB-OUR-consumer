@@ -1,5 +1,5 @@
 //
-//  MyEduView.swift
+//  MySkillView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by 최소정 on 2023/08/22.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct MyEduCellView: View {
+struct MySkillCellView: View {
     @Binding var isMyProfile: Bool
-    var education: Education
-        
+    var skill: Skill
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
-                Text("\(education.schoolName) - \(education.fieldOfStudy)")
+                Text(skill.skillName)
                     .font(.system(size: 14))
                     .fontWeight(.semibold)
                 
@@ -22,34 +22,30 @@ struct MyEduCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyEduEditView(isShowingDeleteButton: true)
+                        MySkillEditView(isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
                     }
+
                 }
             }
             
-            Text("2023.05 - 현재 | \(education.degree)")
-                .font(.system(size: 12))
-                .foregroundColor(.gray)
-            
-            Text(education.description ?? "")
+            Text(skill.description ?? "")
                 .font(.system(size: 14))
         }
     }
 }
 
-struct MyEduView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+struct MySkillView: View {
+    var mySkills: [Skill]
     @Binding var isMyProfile: Bool
 
-    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Text("교육")
+                    Text("스킬")
                         .font(.system(size: 16))
                         .bold()
                     
@@ -57,7 +53,7 @@ struct MyEduView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyEduEditView(isShowingDeleteButton: false)
+                            MySkillEditView(isShowingDeleteButton: false)
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -68,21 +64,22 @@ struct MyEduView: View {
             .padding(.top, 11)
             .padding(.horizontal)
             .foregroundColor(.black)
+            
             VStack {
                 // 최대 3개 보이도록
-                ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
+                ForEach(0..<mySkills.count, id: \.self) { index in
                     if index < 3 {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
+                        MySkillCellView(isMyProfile: $isMyProfile, skill: mySkills[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
                 }
                 .padding(.horizontal)
                 
-                // 교육 3개 넘으면 더보기
-                if resumeStore.resume.education.count > 3 {
+                // 스킬 3개 넘으면 더보기
+                if mySkills.count > 3 {
                     NavigationLink {
-                        MyEduMoreView(isMyProfile: $isMyProfile)
+                        MySkillMoreView(mySkills: mySkills, isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -97,8 +94,8 @@ struct MyEduView: View {
     }
 }
 
-struct MyEduView_Previews: PreviewProvider {
+struct MySkillView_Previews: PreviewProvider {
     static var previews: some View {
-        MyEduView(isMyProfile: .constant(true))
+        MySkillView(mySkills: [], isMyProfile: .constant(true))
     }
 }
