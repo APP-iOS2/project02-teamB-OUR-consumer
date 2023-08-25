@@ -18,7 +18,7 @@ struct RecommendFriendView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Text("추천 친구")
                     .font(.system(size: 16))
                     .fontWeight(.bold)
@@ -38,7 +38,7 @@ struct RecommendFriendView: View {
                         if !isFollow1 {
                             FollowButtonView()
                         } else {
-                            FollowBtnView()
+                            FollowingButtonView()
                                 .foregroundColor(Color(hex: 0x090580))
                         }
                     }
@@ -59,13 +59,14 @@ struct RecommendFriendView: View {
                         if !isFollow2 {
                             FollowButtonView()
                         } else {
-                            FollowBtnView()
+                            FollowingButtonView()
                                 .foregroundColor(Color(hex: 0x090580))
                         }
                     }
                     .padding(.leading, 50)
                 }
             }
+            .padding()
         }
     }
 }

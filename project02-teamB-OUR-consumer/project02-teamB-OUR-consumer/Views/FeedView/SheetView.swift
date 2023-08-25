@@ -78,7 +78,7 @@ struct SheetView: View {
                             
                         } label: {
                             ZStack {
-                                FollowBtnView()
+                                FollowingButtonView()
                                     .foregroundColor(Color(hex: 0x090580))
                                     .padding(.trailing, 10)
                             }

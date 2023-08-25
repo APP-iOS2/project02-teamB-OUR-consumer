@@ -15,15 +15,23 @@ struct LoginSecondView: View {
     @State private var isAgree1: Bool = false
     @State private var isAgree2: Bool = false
     @State private var navigate: Bool = false
+    private var isVaildButton: Bool {
+        if nameField.isEmpty || !isAgree1 || !isAgree2 {
+            return false
+        } else {
+            return true
+        }
+    }
     
     @State private var isShowingAlert: Bool = false
     @State private var alertText: String = ""
     
     var body: some View {
         NavigationStack {
+            Spacer()
             Group {
                 HStack {
-                    Image("Logo")
+                    Image("OUR_Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40)
@@ -59,6 +67,8 @@ struct LoginSecondView: View {
                         .disabled(true)
                 }
             }
+            
+            Spacer()
             
             Group {
                 HStack {
@@ -132,7 +142,7 @@ struct LoginSecondView: View {
                 Text("회원가입")
                     .fontWeight(.bold)
                     .frame(width: 360, height: 50)
-                    .background(Color(hex: 0x090580))
+                    .background(isVaildButton ? Color(hex: 0x090580) : Color.gray)
                     .cornerRadius(5)
                     .foregroundColor(.white)
                     .padding(.bottom, 50)
@@ -140,23 +150,19 @@ struct LoginSecondView: View {
             .navigationDestination(isPresented: $navigate) {
                 CustomTabBarView()
             }
+            Spacer()
         }
         .alert(isPresented: $isShowingAlert){
             Alert(title: Text("경고"),
                   message: Text(alertText),
                   dismissButton: .default(Text("OK")))
         }
-        .alert(isPresented: $isShowingAlert){
-            Alert(title: Text("경고"),
-                  message: Text(alertText),
-                  dismissButton: .default(Text("OK")))
-        }
-        .navigationBarBackButtonHidden()
+//        .navigationBarBackButtonHidden()
     }
 }
 
 struct LoginSecondView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginSecondView(viewModel: AuthViewModel())
+            LoginSecondView(viewModel: AuthViewModel())
     }
 }
