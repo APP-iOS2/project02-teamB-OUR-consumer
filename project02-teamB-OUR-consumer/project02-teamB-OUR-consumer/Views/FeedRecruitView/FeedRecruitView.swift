@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 import CoreLocationUI
 import CoreLocation
+import PhotosUI
 
 struct FeedRecruitView: View {
     
@@ -18,14 +19,18 @@ struct FeedRecruitView: View {
     @StateObject var locationManager = LocationManager.shared
     @State var toolbarToogle: Bool = false
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
-    @State var contentText: String = ""
+    @State var content: String = ""
     @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-//    var toString: String {
-//
-//        UIImage.toString(selectedImages)
-//    }
+    
+    
+    @State var feedImagePath: String = ""
+    @State var selectedItem: PhotosPickerItem? = nil
+    //    var toString: String {
+    //
+    //        UIImage.toString(selectedImages)
+    //    }
     
     
     var body: some View {
@@ -42,7 +47,7 @@ struct FeedRecruitView: View {
                         Spacer()
                     }
                     HStack{
-
+                        
                         
                         //현재 위치설정 버튼
                         Button {
@@ -62,20 +67,21 @@ struct FeedRecruitView: View {
                 .padding()
                 
                 ZStack{
-                    TextEditor(text: $contentText)
+                    TextEditor(text: $content)
                         .frame(minHeight:350, maxHeight:350)
                         .buttonBorderShape(.roundedRectangle)
                         .border(Color.secondary)
                     
-                    if contentText.isEmpty {
+                    if content.isEmpty {
                         Text(placeholder)
                             .foregroundColor(.secondary)
                     }
                 }
                 
                 //사진추가 View
-                FeedRecruitPhotoAddView(selectedImages: $selectedImages)
-
+                
+                FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
+                
             }
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
@@ -86,14 +92,40 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
-                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0)
                         
-                        feedStoreViewModel.addFeed(newFeed)
+                        guard let test = selectedItem else {
+                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            print("첫번째\(newFeed.content)")
+                            feedStoreViewModel.addFeed(newFeed)
+                            
                         
-                        contentText = ""
-                   
+                            return
+                        }
+                        
+                        feedStoreViewModel.returnImagePath(item: test) { urlString in
+                            guard let test = urlString else {return}
+                            
+                            feedImagePath = test
+                            
+                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            
+                            feedStoreViewModel.addFeed(newFeed2)
+                            
+                          
+                            print(newFeed2.content)
+                            
+                        }
+
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            feedStoreViewModel.addFeed(FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath))
+//
+//                        }
+
+                        //content = ""
+                        
                         toolbarToogle.toggle()
-                    }.disabled(contentText.isEmpty)
+                    }
+                    .disabled(content.isEmpty)
                 }
                 
             }
@@ -118,8 +150,8 @@ struct FeedRecruitView: View {
     
 }
 
-//struct FeedRecruitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedRecruitView()
-//    }
-//}
+struct FeedRecruitView_Previews: PreviewProvider {
+    static var previews: some View {
+        FeedRecruitView()
+    }
+}
