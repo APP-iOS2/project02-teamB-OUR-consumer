@@ -1,5 +1,5 @@
 //
-//  MyProjectMoreView.swift
+//  MyWorkMoreView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by 최소정 on 2023/08/23.
@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-struct MyProjectMoreView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+struct MyWorkMoreView: View {
+    var myWorks: [WorkExperience]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    
     var body: some View {
         NavigationStack {
-            // 전체 보이도록
-            List {
-                ForEach(0..<resumeStore.resume.projects.count, id: \.self) { index in
+            ScrollView {
+                ForEach(0..<myWorks.count, id: \.self) { index in
                     VStack {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: resumeStore.resume.projects[index])
-                            .padding(.bottom, 8)
+                        MyWorkCellView(isMyProfile: $isMyProfile, work: myWorks[index])
+                            .padding(.vertical, 8)
                         Divider()
                     }
-                    .listRowSeparator(.hidden)
+                    .padding(.horizontal)
                 }
+                .padding(.top, 8)
             }
-            .listStyle(.plain)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: Button(action : {
                 self.mode.wrappedValue.dismiss()
@@ -33,13 +33,13 @@ struct MyProjectMoreView: View {
                 Image(systemName: "chevron.backward")
             })
         }
-        .navigationTitle("프로젝트")
+        .navigationTitle("경력")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView(isShowingDeleteButton: true)
+                        MyWorkEditView(isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -49,10 +49,10 @@ struct MyProjectMoreView: View {
     }
 }
 
-struct MyProjectMoreView_Previews: PreviewProvider {
+struct MyWorkMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyProjectMoreView(isMyProfile: .constant(true))
+            MyWorkMoreView(myWorks: [], isMyProfile: .constant(true))
         }
     }
 }

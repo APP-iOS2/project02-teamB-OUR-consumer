@@ -51,7 +51,7 @@ struct MyWorkCellView: View {
 }
 
 struct MyWorkView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    var myWorks: [WorkExperience]
     @Binding var isMyProfile: Bool
     
     
@@ -84,9 +84,9 @@ struct MyWorkView: View {
             
             VStack {
                 // 최대 3개 보이도록
-                ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
+                ForEach(0..<myWorks.count, id: \.self) { index in
                     if index < 3 {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index])
+                        MyWorkCellView(isMyProfile: $isMyProfile, work: myWorks[index])
 
                             .padding(.vertical, 8)
                         Divider()
@@ -95,9 +95,9 @@ struct MyWorkView: View {
                 .padding(.horizontal)
                 
                 // 경력 3개 넘으면 더보기
-                if resumeStore.resume.workExperience.count > 3 {
+                if myWorks.count > 3 {
                     NavigationLink {
-                        MyWorkMoreView(isMyProfile: $isMyProfile)
+                        MyWorkMoreView(myWorks: myWorks, isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -115,6 +115,6 @@ struct MyWorkView: View {
 
 struct MyWorkView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkView(isMyProfile: .constant(true))
+        MyWorkView(myWorks: [], isMyProfile: .constant(true))
     }
 }

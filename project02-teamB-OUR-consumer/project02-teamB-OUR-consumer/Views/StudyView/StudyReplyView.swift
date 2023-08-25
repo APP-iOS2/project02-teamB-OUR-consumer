@@ -13,42 +13,89 @@ struct StudyComment: Identifiable {
     var profileString: String?
     var content: String
     var createdAt: Double = Date().timeIntervalSince1970
-
+    
     var profileImage: Image {
         Image(profileString ?? "OUR_Logo")
     }
     var createdDate: String {
         let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
-
+        
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
         dateFormatter.timeZone = TimeZone(abbreviation: "KST")
         dateFormatter.dateFormat = "MM월 dd일 HH시 mm분"
-
+        
         return dateFormatter.string(from: dateCreatedAt)
     }
+    
+}
 
+class StudyCommentStore: ObservableObject {
+    @Published var comments: [StudyComment] = []
+    
+    
+    func fetchComments() {
+        comments = [
+            StudyComment(userId: "유리", profileString: "yuriProfile", content: "1빠"),
+            StudyComment(userId: "지영", content: "최고의 스터디네요~"),
+            StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"),
+            StudyComment(userId: "소정", profileString: "sojungProfile", content: "오 안녕하세요")
+        ]
+    }
+    
+    func addComments(_ comment: StudyComment) {
+        comments.append(comment)
+        
+        fetchComments()
+    }
+    
+    func deleteComments(_ comment: StudyComment) {
+        let commentId = comment.id
+         
+        var index: Int = 0
+        
+        for tempComment in comments {
+            if tempComment.id == commentId {
+                comments.remove(at: index)
+                break
+            }
+            
+            index += 1
+        }
+        
+        fetchComments()
+    }
 }
 
 struct StudyReplyView: View {
     
-    @State var isEditing: Bool = true
+    @ObservedObject var studyCommentStore = StudyCommentStore()
     
-    @State var studyGroupComments: [StudyComment] = [
-        StudyComment(userId: "유리", profileString: "yuriProfile", content: "1빠"),
-        StudyComment(userId: "지영", content: "최고의 스터디네요~"),
-        StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"),
-        StudyComment(userId: "소정", profileString: "sojungProfile", content: "오 안녕하세요")
-    ]
+    @State var editComment: String = ""
+    @State var isEditing: Bool = false
     
-    var userId: String = "성은"
     @State var content: String = ""
+    @State var commentUserId: String = "성은"
     
     var body: some View {
         VStack{
+            
+            
+            HStack() {
+                Spacer()
+                
+                Text("댓글 \(studyCommentStore.comments.count)")
+                    .font(.system(size: 14))
+            }
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .padding(.trailing, 20)
+            
+            Divider()
+            
             //List {
-            ForEach($studyGroupComments) { $comment in
-                StudyReplyDetailView(isEditing: $isEditing, userId: "성은", comment: comment)
+            ForEach(studyCommentStore.comments) { comment in
+                StudyReplyDetailView(commentUserId: commentUserId, studyCommentStore: studyCommentStore, comment: comment, isEditing: $isEditing)
             }
             // }
             .listStyle(.plain)
@@ -68,20 +115,21 @@ struct StudyReplyView: View {
                     .clipShape(Circle())
                 //댓글입력창
                 if isEditing {
-                    TextField("Edit reply",text: $studyGroupComments[2].content)
-                        .onTapGesture {
-                            studyGroupComments[2].content = ""
-                        }
+                    
+                    TextField("Edit reply",text: $content)
+                    //                        .onTapGesture {
+                    //                            studyGroupComments[2].content = ""
+                    //                        }
                     Button("Edit") {
-                        studyGroupComments[2].content = content
-                        //나중에 패치같은거하면 될듯 ~. .....아님... 뭐... 추후생각
+                        
                         isEditing = false
                     }
                 } else {
-                    TextField("Add reply", text: $content, axis: .vertical)
-                    Button("Add") {
-                        let comment: StudyComment = StudyComment(userId: "로그인된 유저아이디", content: content)
-                        studyGroupComments.append(comment)
+                    TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+                    Button("등록") {
+                        let comment = StudyComment(userId: commentUserId, content: content)
+                        studyCommentStore.comments.append(comment)
+                        print("\(studyCommentStore.comments)")
                         content = ""
                     }
                 }
@@ -89,13 +137,17 @@ struct StudyReplyView: View {
             .padding()
             
         }
+        .onAppear {
+            studyCommentStore.fetchComments()
+        }
+        
     }
 }
 
 struct StudyReplyView_Previews: PreviewProvider {
     @State var studyReplies: [String] = ["1빠", "2빠"]
     static var previews: some View {
-        StudyReplyView()
-
+        StudyReplyView(studyCommentStore: StudyCommentStore())
+        
     }
 }

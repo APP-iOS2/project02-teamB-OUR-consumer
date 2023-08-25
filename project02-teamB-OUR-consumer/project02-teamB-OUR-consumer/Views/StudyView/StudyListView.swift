@@ -16,8 +16,9 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @ObservedObject var studyStore = StudyStore()
+    @ObservedObject var studyViewModel = StudyViewModel()
     
+    @State var navigate: Bool = false
     @State var searchText: String = ""
     @State var isOnline: Bool = false
     @State private var selectedArray: StudyList = .allList
@@ -37,25 +38,34 @@ struct StudyListView: View {
                 .accentColor(.gray)
             }
             
-            NavigationLink {
-                StudyDetailView()
-            } label: {
-                ScrollView {
-                    if selectedArray == .allList {
-                        ForEach(studyStore.sortedStudy()) { study in
-                            StudyListItemView(study: study)
-                        }
-                    } else if selectedArray == .onlineList {
-                        ForEach(studyStore.sortedOnlineStudy()) { study in
-                            StudyListItemView(study: study)
-                        }
-                    } else {
-                        ForEach(studyStore.sortedOfflineStudy()) { study in
-                            StudyListItemView(study: study)
-                        }
+            List {
+                ForEach(studyViewModel.studyArray) { study in
+                    NavigationLink {
+                        StudyDetailView(studyViewModel: studyViewModel, study: study)
+                    } label: {
+                        StudyListItemView(study: study)
                     }
                 }
             }
+//            NavigationLink {
+//                StudyDetailView(studyViewModel: studyViewModel)
+//            } label: {
+//                ScrollView {
+//                    if selectedArray == .allList {
+//                        ForEach(studyViewModel.sortedStudy()) { study in
+//                            StudyListItemView(study: study)
+//                        }
+//                    } else if selectedArray == .onlineList {
+//                        ForEach(studyViewModel.sortedOnlineStudy()) { study in
+//                            StudyListItemView(study: study)
+//                        }
+//                    } else {
+//                        ForEach(studyViewModel.sortedOfflineStudy()) { study in
+//                            StudyListItemView(study: study)
+//                        }
+//                    }
+//                }
+//            }
             .listStyle(.plain)
             .navigationTitle("스터디 모임")
             .toolbar {
@@ -68,6 +78,9 @@ struct StudyListView: View {
                     }
 
                 }
+            }
+            .onAppear {
+                studyViewModel.fetchStudy()
             }
         }
     }
