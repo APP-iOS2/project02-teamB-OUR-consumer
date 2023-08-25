@@ -28,11 +28,10 @@ struct NotificationsListView: View {
         }
         .refreshable {
             // 새로고침 로직
-        }
-        .listStyle(PlainListStyle()) // 하얀색 배경
-        .onAppear{
             viewModel.fetchNotificationItem()
         }
+//        .onDelete(perform: viewModel.)
+        .listStyle(PlainListStyle()) // 하얀색 배경
     }
     
     func makeListAlarmView(items: NotiItem) -> some View{
@@ -136,7 +135,7 @@ struct NotificationRow: View {
                     }
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
+            .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
         }
         
     
