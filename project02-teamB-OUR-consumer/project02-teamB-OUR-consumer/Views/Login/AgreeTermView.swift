@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AgreeTermView: View {
     var body: some View {
-        Text("맘대로 하고싶은거 다 하세요")
+        VStack {
+            Text("맘대로 하고싶은거 다 하세요")
+                .font(.system(size: 30))
+        }
     }
 }
 

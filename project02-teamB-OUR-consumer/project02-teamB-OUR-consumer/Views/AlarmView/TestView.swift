@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TestView: View {
     var body: some View {
-        Text("구현 중")
+        Text("뷰 이동 성공")
     }
 }
 

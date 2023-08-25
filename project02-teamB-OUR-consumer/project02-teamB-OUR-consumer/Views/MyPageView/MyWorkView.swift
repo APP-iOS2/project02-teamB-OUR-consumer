@@ -30,7 +30,7 @@ struct MyWorkCellView: View {
                   
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView()
+                            MyWorkEditView(isShowingDeleteButton: true)
                         } label: {
                             Image(systemName: "pencil")
                                 .foregroundColor(.black)
@@ -67,7 +67,7 @@ struct MyWorkView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView()
+                            MyWorkEditView(isShowingDeleteButton: false)
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -104,6 +104,7 @@ struct MyWorkView: View {
                             .foregroundColor(.black)
                     }
                     .padding(.vertical, 8)
+                    
                     
                     Divider()
                 }
