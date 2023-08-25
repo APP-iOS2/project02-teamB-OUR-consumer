@@ -27,7 +27,7 @@ struct AddStudyMain: View {
     @State var dueDate: Date = Date()
     @State var studyImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
-    
+
     @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
   
     var body: some View {
@@ -115,8 +115,8 @@ struct AddStudyMain: View {
     }
 }
 
-struct AddStudyMain_Previews: PreviewProvider {
-    static var previews: some View {
-        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
-    }
-}
+//struct AddStudyMain_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
+//    }
+//}

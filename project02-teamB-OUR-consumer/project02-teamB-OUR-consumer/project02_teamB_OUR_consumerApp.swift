@@ -35,6 +35,7 @@ struct project02_teamB_OUR_consumerApp: App {
         WindowGroup {
 //            NavigationStack {
 //                LoginView()
+            AddStudyMain()
         }
     }
 }
