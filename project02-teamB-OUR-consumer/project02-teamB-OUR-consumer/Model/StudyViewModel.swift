@@ -14,18 +14,18 @@ struct Study: Identifiable {
     //var imageString: String
     var creatorId: String
     var title: String
-    //var description: String
+    var description: String
     var studyDate: String
     var deadline: String
     var locationName: String?
-    //var locationCoordinate: String?
+    var locationCoordinate: String?
     var isOnline: Bool
-    //var urlString: String?
+    var urlString: String?
     var currentMemberIds: [String]
     var totalMemberCount: Int
     var createdAt: Double = Date().timeIntervalSince1970
-    // var reportCount: Int
-    // var reportContent: String
+//     var reportCount: Int
+//     var reportContent: String
     
     var createdDate: String {
         let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
@@ -74,20 +74,21 @@ class StudyViewModel: ObservableObject {
                     //let imageString: String = docData["imageString"] as? String ?? ""
                     let creatorId: String = docData["creatorId"] as? String ?? ""
                     let title: String = docData["title"] as? String ?? ""
-                    //let description: String = docData["description"] as? String ?? ""
+                    let description: String = docData["description"] as? String ?? ""
                     let studyDate: String = docData["studyDate"] as? String ?? Date().toString()
+                    //시간 추가
                     let deadline: String = docData["deadline"] as? String ?? Date().toString()
                     let locationName: String = docData["locationName"] as? String ?? ""
-                    //let locationCoordinate: String = docData["locationCoordinate"] as? String ?? ""
+                    let locationCoordinate: String = docData["locationCoordinate"] as? String ?? ""
                     let isOnline: Bool = docData["isOnline"] as? Bool ?? false
-                    //let urlString: String = docData["urlString"] as? String ?? ""
+                    let urlString: String = docData["urlString"] as? String ?? ""
                     let currentMemberIds: [String] = docData["currentMemberIds"] as? [String] ?? []
                     let totalMemberCount: Int = docData["totalMemberCount"] as? Int ?? 0
-                    //let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                    let createdAt: Double = docData["createdAt"] as? Double ?? 0
                     //let isSaved: Bool = docData["isSaved"] as? Bool ?? false
                     //let comments: StudyGroupComment = docData["studyGroupComment"] as? StudyGroupComment ?? StudyGroupComment(profileImage: "이미지 없음", studyPostID: "studyPost ID fetch 실패", userID: "user ID fetch 실패", content: "없음", createdDate: Date())
                     
-                    let study = Study(id: id, creatorId: creatorId, title: title, studyDate: studyDate, deadline: deadline, isOnline: false, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount)
+                    let study = Study(id: id, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, isOnline: false, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount)
                     temp.append(study)
                     
                     if self.filterWithDeadline(deadline: deadline) {

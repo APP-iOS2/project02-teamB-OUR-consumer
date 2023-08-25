@@ -12,6 +12,8 @@ struct StudyDetailView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    @ObservedObject var studyViewModel: StudyViewModel
+    var study: Study
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
@@ -20,48 +22,36 @@ struct StudyDetailView: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
-                    AsyncImage(url: URL(string: "https://imgnews.pstatic.net/image/076/2023/08/22/2023082301001627800208041_20230822162503835.jpg?type=w647")) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 200)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .overlay(alignment:.bottom) {
-                        VStack(alignment: .center, spacing: 10) {
-                            Text("여성은")
-                                .font(.system(size: 14, weight: .semibold))
-                            Text("iOS 개발자 면접 스터디 모집")
-                                .font(.system(size: 16, weight: .bold))
-                        }
-                        .padding(15)
+                    Image("OUR_Logo")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
                         .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
-                        .padding(.horizontal, 20)
-                        .offset(y:30)
-                    }
+                        .clipped()
+                        .overlay(alignment:.bottom) {
+                            VStack(alignment: .center, spacing: 10) {
+                                Text("여성은")
+                                    .font(.system(size: 14, weight: .semibold))
+                                Text(study.title)
+                                    .font(.system(size: 16, weight: .bold))
+                            }
+                            .padding(15)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(15)
+                            .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
+                            .padding(.horizontal, 20)
+                            .offset(y:30)
+                        }
                     
                     VStack {
                         
                         VStack {
                             Spacer(minLength: 20)
-                            Text("""
-       안녕하세용?
-       함께 ios 개발자 면접을 준비하실 분을 찾습니다!!
-       같이 손흥민(31)을 향한 걱정은 '기우'였다.
-       자신에게 놓인 '위기론'을 직접 해결했다.손흥민은 지난 20일(한국시간) 영국 런던의 토트넘 핫스퍼 스타디움에서 열린 맨체스터 유나이티드와의 '2023~2024시즌 잉글리시 프리미어리그(EPL)' 2라운드 홈 경기에서 풀타임을 뛰며 맹활약했다.
-       이날 토트넘은 파페 사르와 벤 데이비스의 연속골로 난적 맨유를 2-0으로 꺾었다.
-       경기 후 손흥민을 향한 찬사가 쏟아졌다.
-       영국 '90MIN'은 "오랜 시간 스포츠 탈장으로 고생한 손흥민이 회복 후 다른 모습을 보였다. 이전보다
-       """)
-                            .font(.system(size: 14))
-                            .multilineTextAlignment(.leading)
-                            .lineSpacing(3)
+                            Text(study.description)
+                                .font(.system(size: 14))
+                                .multilineTextAlignment(.leading)
+                                .lineSpacing(3)
                         }
                         .padding(.horizontal, 20)
                         
@@ -71,7 +61,7 @@ struct StudyDetailView: View {
                             HStack {
                                 Image(systemName: "mappin" )
                                     .frame(width: 15)
-                                Text("위치 : 종각역 할리스")
+                                Text("위치 : \(study.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -92,7 +82,7 @@ struct StudyDetailView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 15)
-                                Text("인원 : 최대 5명 (3/5)")
+                                Text("인원 : 최대 \(study.totalMemberCount)명 (\(study.currentMemberIds.count)/\(study.totalMemberCount))")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -112,7 +102,7 @@ struct StudyDetailView: View {
                             HStack{
                                 Image(systemName: "calendar" )
                                     .frame(width: 15)
-                                Text("9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
+                                Text(study.studyDate)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
@@ -180,8 +170,8 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView()
+            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0))
         }
     }
-        
+    
 }

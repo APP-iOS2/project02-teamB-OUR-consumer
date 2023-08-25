@@ -75,6 +75,6 @@ struct StudyListItemView: View {
 
 struct StudyListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyListItemView(study: Study( creatorId: "", title: "iOS 개발자 면접", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5))
+        StudyListItemView(study: Study( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5))
     }
 }
