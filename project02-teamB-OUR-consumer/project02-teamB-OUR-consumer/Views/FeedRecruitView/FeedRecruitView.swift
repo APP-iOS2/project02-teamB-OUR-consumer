@@ -103,37 +103,15 @@ struct FeedRecruitView: View {
                         }
                         
                         feedStoreViewModel.returnImagePath(item: test) { urlString in
-                            guard let test = urlString else { return }
+                            guard let test = urlString else {return}
                             
                             feedImagePath = test
-                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-                            print("두번째\(newFeed.content)")
-                            feedStoreViewModel.addFeed(newFeed)
+                            
+                            let newFeed2 = FeedRecruitModel(creator: "", content: self.content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            feedStoreViewModel.addFeed(newFeed2)
                         }
-                        
-//                        
-//                        
-//                            guard let addedImage = selectedItem else { return }
-//                        
-//                            feedStoreViewModel.saveFeedImage(item: addedImage)
-//                            
-//                            feedStoreViewModel.returnImagePath(item: addedImage) {  urlString in
-//                                guard let imageString = urlString else {return}
-//                                self.feedImagePath = imageString
-//                                
-//                                print("첫번째 ---- \(feedImagePath)")
-//                                
-//                                DispatchQueue.main.async {
-//                                    let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-//                                    
-//                                    feedStoreViewModel.addFeed(newFeed)
-//                                }
-//                        
-//                            }
-//    
-                            
 
-                            
+
                         content = ""
                         
                         toolbarToogle.toggle()
