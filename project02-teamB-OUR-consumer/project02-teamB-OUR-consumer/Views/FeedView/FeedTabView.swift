@@ -17,7 +17,6 @@ struct FeedTabView: View {
                 VStack {
                     TitleView()
                     FeedView()
-                    RecommendFriendView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.", isFollow: false), idData: idData)
                 }
             }
         }
