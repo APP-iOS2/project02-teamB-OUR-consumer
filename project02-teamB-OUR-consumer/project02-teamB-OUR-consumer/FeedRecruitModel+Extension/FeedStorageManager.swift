@@ -12,9 +12,9 @@ import Firebase
 
 
 
-final class FeedStorageManger {
+final class FeedStorageManager {
     
-    static let shared = FeedStorageManger()
+    static let shared = FeedStorageManager()
     private init() { }
     
     private let storage = Storage.storage().reference()

@@ -81,7 +81,7 @@ class FeedRecruitStore: ObservableObject {
                 completion(nil)
                 return
             }
-            let (_, _, url) = try await FeedStorageManger.shared.saveImage(data: data, id: dbRef.document().documentID)
+            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
             completion(url.absoluteString)
         }
     }
@@ -90,7 +90,7 @@ class FeedRecruitStore: ObservableObject {
     func saveStudyImage(item: PhotosPickerItem) {
         Task {
             guard let data = try await item.loadTransferable(type: Data.self) else { return }
-            let (path, name, url) = try await FeedStorageManger.shared.saveImage(data: data, id: dbRef.document().documentID)
+            let (path, name, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
             print("SUCCESS!!!!")
             print("path : \(path)")
             print("name : \(name)")
