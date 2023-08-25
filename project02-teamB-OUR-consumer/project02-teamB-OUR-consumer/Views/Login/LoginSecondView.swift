@@ -148,7 +148,7 @@ struct LoginSecondView: View {
                     .padding(.bottom, 50)
             }
             .navigationDestination(isPresented: $navigate) {
-                CustomTabBarView()
+                ContentView()
             }
             Spacer()
         }
