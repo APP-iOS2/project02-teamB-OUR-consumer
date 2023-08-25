@@ -13,15 +13,10 @@ struct ButtonMainView: View {
     @State var isShowingDateSheet: Bool = false
     @State var isShowingPersonSheet: Bool = false
     
-    //    @State var startDate: Date
-    //    @State var endDate: Date
     @Binding var startDate: Date
     @Binding var endDate: Date
-    @Binding var startTime: Date
-    
-    @State var number: Int
-    
-    //    @State var number: Int = 1
+//    @Binding var startTime: Date
+    @Binding var number: Int
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -39,7 +34,7 @@ struct ButtonMainView: View {
                 }
                 
                 .sheet(isPresented: $isShowingDateSheet) {
-                    DatePickerSheet(dateStore: DateStore(), isShowingDateSheet: $isShowingDateSheet, startDate: $startDate, endDate: $endDate, startTime: $startTime)
+                    DatePickerSheet(dateStore: DateStore(), isShowingDateSheet: $isShowingDateSheet, startDate: $startDate, endDate: $endDate)
                         .presentationDetents([.fraction(0.45)])
                     
                 }
@@ -76,8 +71,8 @@ struct ButtonMainView: View {
 }
 
 
-struct ButtonMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonMainView(startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()), number: 0)
-    }
-}
+//struct ButtonMainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ButtonMainView(startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()), number: 0)
+//    }
+//}

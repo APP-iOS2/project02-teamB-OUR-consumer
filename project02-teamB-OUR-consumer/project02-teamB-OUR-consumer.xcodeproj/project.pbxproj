@@ -99,7 +99,8 @@
 		D55D366D2A95E1CD00A7BE14 /* StudyLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */; };
 		D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */; };
 		D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */; };
-		D5755B172A974E8B000BC8E2 /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */; };
+		D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B182A97B0B7000BC8E2 /* StorageManager.swift */; };
+		D5755B1C2A97B11F000BC8E2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D5755B1B2A97B11F000BC8E2 /* FirebaseStorage */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -227,7 +228,7 @@
 		D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLocationManager.swift; sourceTree = "<group>"; };
 		D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitModel.swift; sourceTree = "<group>"; };
 		D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitStore.swift; sourceTree = "<group>"; };
-		D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
+		D5755B182A97B0B7000BC8E2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
@@ -259,7 +260,9 @@
 			files = (
 				FAB51C5E2A9661740047A725 /* FirebaseDatabaseSwift in Frameworks */,
 				FAB51C602A9661740047A725 /* FirebaseFirestore in Frameworks */,
+
 				B786FC192A987B0F00E3C1E9 /* FirebaseStorage in Frameworks */,
+
 				FAB51C5C2A9661740047A725 /* FirebaseDatabase in Frameworks */,
 				FAB51C692A9661800047A725 /* GoogleSignInSwift in Frameworks */,
 				FAB51C622A9661740047A725 /* FirebaseFirestoreCombine-Community in Frameworks */,
@@ -472,6 +475,7 @@
 				9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */,
 				9E99CCEB2A944A5700699B6A /* Products */,
 				B786FC172A987B0F00E3C1E9 /* Frameworks */,
+
 			);
 			sourceTree = "<group>";
 		};
@@ -548,7 +552,6 @@
 				D55D36642A95E17800A7BE14 /* StudyImageView.swift */,
 				D55D36682A95E19200A7BE14 /* StudyMapView.swift */,
 				D55D366C2A95E1CD00A7BE14 /* StudyLocationManager.swift */,
-				D5755B162A974E8B000BC8E2 /* SharedViewModel.swift */,
 				D5755B0D2A97165C000BC8E2 /* RecruitStudyModel */,
 			);
 			path = RecruitStudyView;
@@ -559,8 +562,16 @@
 			children = (
 				D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */,
 				D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */,
+				D5755B182A97B0B7000BC8E2 /* StorageManager.swift */,
 			);
 			path = RecruitStudyModel;
+			sourceTree = "<group>";
+		};
+		D5755B1A2A97B11F000BC8E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FAB51C0F2A9655590047A725 /* Login */ = {
@@ -613,6 +624,7 @@
 				FAB51C662A9661800047A725 /* GoogleSignIn */,
 				FAB51C682A9661800047A725 /* GoogleSignInSwift */,
 				B786FC182A987B0F00E3C1E9 /* FirebaseStorage */,
+
 			);
 			productName = "project02-teamB-OUR-consumer";
 			productReference = 9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */;
@@ -709,7 +721,6 @@
 				FAB51C8D2A9678870047A725 /* String.swift in Sources */,
 				965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */,
 				54FEB27C2A9693940083A33F /* InquiryView.swift in Sources */,
-				D5755B172A974E8B000BC8E2 /* SharedViewModel.swift in Sources */,
 				965086872A94C86A00CDA0FC /* Color.swift in Sources */,
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
@@ -738,6 +749,7 @@
 				A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */,
 				3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */,
 				FAB51C142A9655590047A725 /* AgreeTermView.swift in Sources */,
+				D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */,
 				6332A5FE2A95979A0047E2DD /* PostUserView.swift in Sources */,
 				632883782A94F57C004DC84E /* CommentView.swift in Sources */,
 				6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */,
@@ -1024,6 +1036,7 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		B786FC182A987B0F00E3C1E9 /* FirebaseStorage */ = {
+
 			isa = XCSwiftPackageProductDependency;
 			package = FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;

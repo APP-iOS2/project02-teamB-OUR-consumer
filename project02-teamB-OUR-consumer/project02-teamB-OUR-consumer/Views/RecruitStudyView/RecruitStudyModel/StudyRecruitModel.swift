@@ -12,18 +12,15 @@ struct StudyRecruitModel {
     var id: String = UUID().uuidString
     var creator: String
     var studyTitle: String
-    
     var startAt: Date
     var dueAt: Date
-    
     var description: String
     var isOnline: Bool
     var isOffline: Bool
-    
-    var imageURL: [String]
     var locationName: String // 이름
     var reportCount: Int // 신고 횟수
-    
+    var studyImagePath: String
+    var studyCount: Int
     
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

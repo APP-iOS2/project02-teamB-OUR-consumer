@@ -8,11 +8,14 @@
 import SwiftUI
 import MapKit
 
+class SharedViewModel: ObservableObject {
+    @Published var selectedLocality: String = ""
+}
+
 struct StudyMapView: View {
     @StateObject var locationManger: StudyLocationManager = .init()
     @State var navigationTage: String?
-    @State private var selectedLocality: String?
-    @State private var selectedName: String?
+    @ObservedObject var sharedViewModel: SharedViewModel
     
     var body: some View {
         NavigationView {
@@ -29,8 +32,6 @@ struct StudyMapView: View {
                             
                             navigationTage = "MAPVIEW"
                         }
-                        
-                        
                     } label: {
                         Label {
                             Text("현재 위치 사용")
@@ -38,15 +39,13 @@ struct StudyMapView: View {
                         } icon: {
                             Image(systemName: "location.north.circle.fill")
                         }
-                        
-                        .foregroundColor(.blue)
+                        .foregroundColor(mainColor)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 10)
-                    
+//
                     HStack {
-                        Text(selectedLocality ?? "")
-                        Text(selectedName ?? "")
+                        Text(sharedViewModel.selectedLocality)
                     }
                     .font(.system(size: 16, weight: .semibold))
                     
@@ -73,6 +72,7 @@ struct StudyMapView: View {
                                         locationManger.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
                                         
                                         navigationTage = "MAPVIEW"
+
                                     }
                                 } label: {
                                     HStack(spacing: 15) {
@@ -105,11 +105,7 @@ struct StudyMapView: View {
                 
                 .background {
                     NavigationLink(tag: "MAPVIEW", selection: $navigationTage) {
-                        MapViewSelection(
-                            selectedLocality: $selectedLocality,
-                            selectedName: $selectedName
-                        )
-                            .environmentObject(locationManger)
+                        MapViewSelection(sharedViewModel: sharedViewModel).environmentObject(locationManger)
                     } label: {}
                         .labelsHidden()
                 }
@@ -122,18 +118,16 @@ struct StudyMapView: View {
     }
 }
 
-struct StudyMapView_Previews: PreviewProvider {
-    static var previews: some View {
-        StudyMapView()
-    }
-}
+//struct StudyMapView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StudyMapView(sharedViewModel: sharedViewModel)
+//    }
+//}
 
 struct MapViewSelection: View {
-    
+    @ObservedObject var sharedViewModel: SharedViewModel
     @EnvironmentObject var locationManager: StudyLocationManager
     @Environment(\.dismiss) private var dismiss
-    @Binding var selectedLocality: String?
-    @Binding var selectedName: String?
 
     var body: some View {
         ZStack {
@@ -166,9 +160,13 @@ struct MapViewSelection: View {
                     Button {
                         print(place.locality!)
                         print(type(of: place.name)) // Optional String
-                        selectedLocality = place.locality
-                        selectedName = place.name
-                                                
+//                        selectedLocality = place.locality
+//                        selectedName = place.name
+                        if let locality = place.locality, let name = place.name {
+                            sharedViewModel.selectedLocality = locality + ", " + name
+                        }
+//                        sharedViewModel.selectedLocality = place.locality ?? ""
+                        print("sharedViewModel.selectedLocality : \(sharedViewModel.selectedLocality)")
                         dismiss()
                     } label: {
                         Text("Confirm location")
