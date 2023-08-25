@@ -38,7 +38,7 @@ struct RecruitButton: View {
                     
                 }
                 .fullScreenCover(isPresented: $isShowToggle, content: {
-                    AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
+                    AddStudyMain(startDate: Date(), dueDate: Date())
                 })
 //                .navigationDestination(isPresented: $isShowToggle) {
 //                    AddStudyMain()

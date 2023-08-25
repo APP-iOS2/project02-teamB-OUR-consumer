@@ -13,7 +13,7 @@ struct DatePickerSheet: View {
     @Binding var isShowingDateSheet: Bool
     @Binding var startDate: Date
     @Binding var endDate: Date
-    @Binding var startTime: Date
+//    @Binding var startTime: Date
        
        var body: some View {
            VStack(alignment: .center) {
@@ -59,8 +59,8 @@ struct DatePickerSheet: View {
     }
 }
 
-struct DatePickerSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()))
-    }
-}
+//struct DatePickerSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()))
+//    }
+//}
