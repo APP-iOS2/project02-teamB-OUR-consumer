@@ -94,8 +94,8 @@ struct NotificationRow: View {
                         
                         // 텍스트
                         VStack(alignment: .leading) {
-                            
                             HStack{
+                                
                                 styledText(content: notification.content)
                                     .font(.system(size: 12, weight: .medium))
                                 
@@ -103,9 +103,8 @@ struct NotificationRow: View {
                             }
                             
                             Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
-                                .font(.system(size: 12, weight: .medium))
+                                .font(.system(size: 11, weight: .medium))
                                 .foregroundColor(Color.gray)
-                            
                         }
                         
                         // 팔로우/팔로잉 버튼 (해당되는 경우)
@@ -133,7 +132,6 @@ struct NotificationRow: View {
                            let imageUrl = notification.imageURL {
                             RemoteImage(url: imageUrl)
                                 .frame(width: 40, height: 40)
-                            
                         }
                     }
                 }
@@ -171,12 +169,7 @@ struct NotificationRow: View {
         let components = text.tokenize("@#. ")
         for component in components {
             if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
-                output = output + AnyView(Text(component).foregroundColor(.accentColor).onTapGesture {
-                    //                    requestAuthNoti()
-                    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                    //                        requestSendNoti(seconds: 1)
-                    //                    })
-                })
+                output = output + AnyView(Text(component))//.foregroundColor(.accentColor)
             } else {
                 output = output + AnyView(Text(component))
             }
