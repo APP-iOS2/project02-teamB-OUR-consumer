@@ -93,31 +93,46 @@ struct FeedRecruitView: View {
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
                         
-                            guard let addedImage = selectedItem else { return }
-                        
-                            feedStoreViewModel.saveFeedImage(item: addedImage)
-                            
-                            feedStoreViewModel.returnImagePath(item: addedImage) {  urlString in
-                                guard let imageString = urlString else {return}
-                                self.feedImagePath = imageString
-                                
-                                print("첫번째 ---- \(feedImagePath)")
-                                
-                                DispatchQueue.main.async {
-                                    let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-                                    
-                                    feedStoreViewModel.addFeed(newFeed)
-                                }
-                        
-                            }
-              
-            
-                    
+                        guard let test = selectedItem else {
+                            let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            print("첫번째\(newFeed.content)")
+                            feedStoreViewModel.addFeed(newFeed)
                             
                         
-//                        let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-//
-//                        feedStoreViewModel.addFeed(newFeed)
+                            return
+                        }
+                        
+                        feedStoreViewModel.returnImagePath(item: test) { urlString in
+                            guard let test = urlString else { return }
+                            
+                            feedImagePath = test
+                            let newFeed = FeedRecruitModel(creator: "", content: self.contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            print("두번째\(newFeed.content)")
+                            feedStoreViewModel.addFeed(newFeed)
+                        }
+                        
+//                        
+//                        
+//                            guard let addedImage = selectedItem else { return }
+//                        
+//                            feedStoreViewModel.saveFeedImage(item: addedImage)
+//                            
+//                            feedStoreViewModel.returnImagePath(item: addedImage) {  urlString in
+//                                guard let imageString = urlString else {return}
+//                                self.feedImagePath = imageString
+//                                
+//                                print("첫번째 ---- \(feedImagePath)")
+//                                
+//                                DispatchQueue.main.async {
+//                                    let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+//                                    
+//                                    feedStoreViewModel.addFeed(newFeed)
+//                                }
+//                        
+//                            }
+//    
+                            
+
                             
                         contentText = ""
                         
