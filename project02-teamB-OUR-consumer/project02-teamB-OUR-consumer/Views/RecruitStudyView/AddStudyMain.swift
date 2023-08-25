@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddStudyMain: View {
     
@@ -21,10 +22,13 @@ struct AddStudyMain: View {
     @State var studyText: String = ""
     @State var placeholder: String = "스터디 내용을 입력해주세요."
     
-    @State var number: Int = 1
+    @State var studyCount: Int = 1
     @State var startDate: Date = Date()
     @State var dueDate: Date = Date()
+    @State var studyImagePath: String = ""
+    @State var selectedItem: PhotosPickerItem? = nil
     
+    @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
     
     var body: some View {
         NavigationView {
@@ -46,9 +50,7 @@ struct AddStudyMain: View {
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
                         .padding(.bottom, 20)
-//                    VStack {
-                    ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $number)
-//                    }
+                    ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
                     
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")
@@ -65,25 +67,37 @@ struct AddStudyMain: View {
                     .padding(.bottom, 20)
                     
                     // MARK: - 사진 선택
-                    StudyImageView()
-                        .padding(.bottom, 20)
+                    StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
+                        
                     
                     // MARK: - 위치 선택
-                    StudyMapView()
-    
+                    StudyMapView(sharedViewModel: sharedViewModel)
+
                 }
                 .padding(20)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("등록") {
                             print("등록 버튼 tapped")
-//                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
-                            let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, imageURL: [""], locationName: "", reportCount: 0)
                             
-                            studyStoreViewModel.addFeed(newStudy)
+                            guard let test = selectedItem else {
+                                
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                
+                                studyStoreViewModel.addFeed(newStudy)
+                                return
+                            }
                             
-                            addStudy.toggle()
-                        }.disabled(studyTitle.isEmpty || studyText.isEmpty)
+                            studyStoreViewModel.returnImagePath(item: test) { urlString in
+                                guard let test = urlString else { return }
+                                print("test : \(test)")
+                                studyImagePath = test
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                
+                                studyStoreViewModel.addFeed(newStudy)
+                            }
+                        }
+                        .disabled(studyTitle.isEmpty || studyText.isEmpty)
                     }
                 }
                 .toolbar {
@@ -96,6 +110,7 @@ struct AddStudyMain: View {
                         }
                     }
                 }
+                
             }.navigationTitle("스터디 등록")
         }
     }
