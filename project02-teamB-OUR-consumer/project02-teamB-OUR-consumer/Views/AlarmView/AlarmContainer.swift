@@ -14,7 +14,7 @@ struct AlarmContainer: View {
     @State private var selectedTab = 0
     // 개인 및 공개 알림 샘플 데이터
     @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
-    @StateObject var alarmFireService: AlarmFireService = AlarmFireService()
+//    @StateObject var alarmFireService: AlarmFireService = AlarmFireService()
 
     // 본문 뷰
     var body: some View {
