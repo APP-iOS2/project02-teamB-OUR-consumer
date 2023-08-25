@@ -34,8 +34,8 @@ struct project02_teamB_OUR_consumerApp: App {
     var body: some Scene {
         WindowGroup {
 //            NavigationStack {
-//                LoginView()
-            AddStudyMain()
+                LoginView()
+//            AddStudyMain()
         }
     }
 }
