@@ -35,7 +35,8 @@ struct project02_teamB_OUR_consumerApp: App {
         WindowGroup {
             NavigationStack {
 //                LoginView()
-                AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
+               FeedRecruitView()
+//                AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
             }
         }
     }

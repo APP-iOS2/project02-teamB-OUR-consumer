@@ -13,11 +13,11 @@ struct FeedRecruitModel {
     var id: String = UUID().uuidString
     var creator: String
     var content: String
-    var imageURL: [String]
     var location: String
     var privateSetting: Bool
     var reportCount: Int
     var createdAt: Double = Date().timeIntervalSince1970
+    var feedImagePath: String
     
     var createdDate: String {
         let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)

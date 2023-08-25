@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 import CoreLocationUI
 import CoreLocation
+import PhotosUI
 
 struct FeedRecruitView: View {
     
@@ -22,6 +23,10 @@ struct FeedRecruitView: View {
     @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
+    
+    
+    @State var feedImagePath: String = ""
+    @State var selectedItem: PhotosPickerItem? = nil
 //    var toString: String {
 //
 //        UIImage.toString(selectedImages)
@@ -74,7 +79,8 @@ struct FeedRecruitView: View {
                 }
                 
                 //사진추가 View
-                FeedRecruitPhotoAddView(selectedImages: $selectedImages)
+   
+                FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
 
             }
             .toolbar {
@@ -86,8 +92,24 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
-                        let newFeed = FeedRecruitModel(creator: "", content: contentText, imageURL: [""], location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0)
                         
+                        
+                        guard let addedImage = selectedItem else { return}
+                        feedStoreViewModel.saveFeedImage(item: addedImage)
+                        
+                        feedStoreViewModel.returnImagePath(item: addedImage) { urlString in
+                            guard let imageString = urlString else {return}
+                            feedImagePath = imageString
+                            print("\(feedImagePath)")
+//                            
+//                            let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+//                            
+//                            feedStoreViewModel.addFeed(newFeed)
+                        }
+                        
+                        
+                        let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+
                         feedStoreViewModel.addFeed(newFeed)
                         
                         contentText = ""

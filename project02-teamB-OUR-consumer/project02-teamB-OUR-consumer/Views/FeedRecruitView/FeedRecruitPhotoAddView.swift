@@ -6,60 +6,86 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct FeedRecruitPhotoAddView: View {
     
+    @Binding var selectedItem: PhotosPickerItem?
+    
     @Binding var selectedImages: [UIImage]
     @State private var isImagePickerPresented: Bool = false
+    @State var imageData : Data? = nil
     
     var body: some View {
         VStack {
-            HStack {
-                
-                Button("사진 추가") {
-                    isImagePickerPresented = true
-                }
-                Spacer()
-            }
-            .padding()
             
-            if selectedImages.isEmpty {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(1..<4) { _ in
-                            ZStack {
-                                Rectangle()
-                                    .stroke(lineWidth: 2)
-                                    .foregroundColor(.black)
-                                    .frame(width: 100, height: 100)
-                                    .border(.black)
-                                Image(systemName: "plus")
-                                    .font(.system(size: 80, weight: .thin))
-                                    .padding(.horizontal)
-                            }
-                        }
-                    }.padding(.horizontal)
+            if imageData == nil {
+                HStack {
+                    
+                    Text("사진추가")
+                    Spacer()
+                }
+                .padding()
+                
+                
+                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 40, weight: .thin))
+                        .padding(40)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    
                 }
             } else {
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(selectedImages, id: \.self) { image in
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .aspectRatio(contentMode: .fit)
-                                .overlay {
-                                    Rectangle().stroke(.black, lineWidth: 2)
-                                }
-                                
-                        }
+                HStack {
+                    
+                    Text("사진추가")
+                    Spacer()
+                }
+                .padding()
+                
+                ZStack{
+                    PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 40, weight: .thin))
+                            .padding(40)
+                            .frame(maxWidth: .infinity, maxHeight: 150)
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        
                     }
+                    
+                    
+                    if let imageData,
+                       let image = UIImage(data: imageData) {
+                        
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 150, alignment: .center)
+                        
+                    }
+                    
+                }
+                    
+                    
+                }
+                
+            }
+
+        
+        
+        .onChange(of: selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    self.imageData = data
                 }
             }
         }
-        .sheet(isPresented: $isImagePickerPresented) {
-            FeedRecruitPHPickerViewControllerWrapper(selectedImages: $selectedImages)
-        }
+        //        .sheet(isPresented: $isImagePickerPresented) {
+        //            FeedRecruitPHPickerViewControllerWrapper(selectedImages: $selectedImages)
+        //        }
     }
 }
 
@@ -68,4 +94,14 @@ struct FeedRecruitPhotoAddView: View {
 //        FeedRecruitPhotoAddView()
 //    }
 //}
+
+//
+//
+//    .onChange(of: selectedItem) { newItem in
+//                Task {
+//                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+//                        self.imageData = data
+//                    }
+//                }
+//            }
 
