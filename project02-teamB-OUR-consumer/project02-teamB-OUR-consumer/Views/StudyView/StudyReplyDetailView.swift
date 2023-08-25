@@ -92,7 +92,10 @@ struct StudyReplyDetailView: View {
 }
 
 struct StudyReplyDetailView_Previews: PreviewProvider {
+    
+    
     static var previews: some View {
-        StudyReplyDetailView(commentUserId: "성은", studyCommentStore: StudyCommentStore(), comment: StudyCommentStore().comments[0], isEditing: .constant(true))
+        StudyReplyDetailView(commentUserId: "성은", studyCommentStore: StudyCommentStore(), comment: StudyComment(userId: "성은", content: "아몰랑"), isEditing: .constant(true))
+        
     }
 }

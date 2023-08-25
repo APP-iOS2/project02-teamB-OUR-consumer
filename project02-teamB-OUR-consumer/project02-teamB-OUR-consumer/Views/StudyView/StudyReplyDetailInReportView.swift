@@ -12,7 +12,7 @@ struct StudyReplyDetailInReportView: View {
     var comment: StudyComment
     
     var body: some View {
-        LazyVStack {
+        VStack {
             HStack {
                 Button {
                     //해당 프로필 시트 올려주는 ~
@@ -53,6 +53,6 @@ struct StudyReplyDetailInReportView: View {
 
 struct StudyReplyDetailInReportView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyDetailInReportView(comment: StudyCommentStore().comments[0])
+        StudyReplyDetailInReportView(comment: StudyComment(userId: "성은", content: "어쩌구"))
     }
 }

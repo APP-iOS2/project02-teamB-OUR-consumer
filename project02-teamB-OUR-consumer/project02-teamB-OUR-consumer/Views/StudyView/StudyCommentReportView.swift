@@ -90,7 +90,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(comment: StudyCommentStore().comments[0])
+            StudyCommentReportView(comment: StudyComment(userId: "경미", content: "개발천재"))
         }
     }
 }
