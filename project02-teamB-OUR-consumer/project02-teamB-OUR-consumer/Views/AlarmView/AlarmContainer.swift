@@ -15,7 +15,7 @@ struct AlarmContainer: View {
     // 개인 및 공개 알림 샘플 데이터
     @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
 
-    // 본문 뷰    
+    // 본문 뷰
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {  
