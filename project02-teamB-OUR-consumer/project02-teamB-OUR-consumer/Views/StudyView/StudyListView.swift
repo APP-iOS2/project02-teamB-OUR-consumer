@@ -16,7 +16,7 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @ObservedObject var studyStore = StudyStore()
+    @ObservedObject var studyViewModel = StudyViewModel()
     
     @State var searchText: String = ""
     @State var isOnline: Bool = false
@@ -42,15 +42,15 @@ struct StudyListView: View {
             } label: {
                 ScrollView {
                     if selectedArray == .allList {
-                        ForEach(studyStore.sortedStudy()) { study in
+                        ForEach(studyViewModel.sortedStudy()) { study in
                             StudyListItemView(study: study)
                         }
                     } else if selectedArray == .onlineList {
-                        ForEach(studyStore.sortedOnlineStudy()) { study in
+                        ForEach(studyViewModel.sortedOnlineStudy()) { study in
                             StudyListItemView(study: study)
                         }
                     } else {
-                        ForEach(studyStore.sortedOfflineStudy()) { study in
+                        ForEach(studyViewModel.sortedOfflineStudy()) { study in
                             StudyListItemView(study: study)
                         }
                     }
@@ -68,6 +68,9 @@ struct StudyListView: View {
                     }
 
                 }
+            }
+            .onAppear {
+                studyViewModel.fetchStudy()
             }
         }
     }
