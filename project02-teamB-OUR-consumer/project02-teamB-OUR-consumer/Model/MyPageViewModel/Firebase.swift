@@ -18,8 +18,21 @@ class DatabaseService {
         }
     }
     
-    func fetchUser(for userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        fetchDocument(from: "users", withField: "userId", equalTo: userId, completion: completion)
+    func fetchUser(for documentId: String, completion: @escaping (Result<User, Error>) -> Void) {
+        let docRef = Firestore.firestore().collection("users").document(documentId)
+        
+        docRef.getDocument { (document, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            if let document = document, document.exists, let user = try? document.data(as: User.self) {
+                completion(.success(user))
+            } else {
+                completion(.failure(NSError(domain: "AppErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document doesn't exist"])))
+            }
+        }
     }
     
     /*

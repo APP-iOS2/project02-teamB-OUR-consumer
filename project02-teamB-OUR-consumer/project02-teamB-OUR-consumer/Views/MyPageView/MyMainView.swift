@@ -14,6 +14,7 @@ let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
     @ObservedObject var myPageViewModel: MypageViewModel = MypageViewModel(db: DatabaseService(), userId: Auth.auth().currentUser?.uid ?? "0RPDyJNyzxSViwBvMw573KU0jKv1")
+    @StateObject private var studyStore = StudyStore()
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
@@ -25,11 +26,10 @@ struct MyMain: View {
                 HStack {
                     if isMyProfile {
                         Text("내 프로필")
-                            .font(.system(size: 16))
+                            .font(.system(size: 20))
                             .bold()
                     } else {
                         Text("프로필")
-                            .font(.system(size: 16))
                             .bold()
                     }
                     Spacer()
@@ -38,12 +38,14 @@ struct MyMain: View {
                             MyBookMarkView()
                         } label: {
                             Image(systemName: "bookmark")
+                                .font(.system(size: 24))
                                 .foregroundColor(.black)
                         }
                         NavigationLink {
                             SettingView()
                         } label: {
                             Image(systemName: "gearshape")
+                                .font(.system(size: 24))
                                 .foregroundColor(.black)
                         }
                     }
@@ -150,7 +152,7 @@ struct MyMain: View {
                             case 1:
                                 MyBoardView()
                             case 2:
-                                MyStudyView()
+                                MyStudyView(studyArray: studyStore.studyArray)
                             default:
                                 EmptyView()
                             }
