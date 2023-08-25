@@ -11,18 +11,32 @@ struct FeedView: View {
     
     @ObservedObject var postData: PostData = PostData()
     @State private var isShowingSheet: Bool = false
-    
+    @State private var isShowingPostModifySheet: Bool = false
     var body: some View {
         ForEach(postData.postStore) { post in
             VStack {
-                PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                HStack {
+                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                    Button {
+                        isShowingPostModifySheet.toggle()
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .padding(2)
+                    }
+                    .foregroundColor(.gray)
+
+                }
                 PostView(post: post)
                 PostButtonView(post: post, postData: postData)
                 Divider()
                     .frame(height: 4)
-                    .overlay((Color(hex: 0x090580)))
+                    .overlay((Color("FeedViewDividerColor")))
+                    
             }
             .padding()
+            .sheet(isPresented: $isShowingPostModifySheet) {
+                PostModifyView(isShowingPostModifySheet: $isShowingPostModifySheet)
+            }
         }
     }
 }

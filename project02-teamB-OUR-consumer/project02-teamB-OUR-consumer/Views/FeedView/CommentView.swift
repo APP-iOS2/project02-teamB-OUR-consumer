@@ -14,28 +14,32 @@ struct CommentView: View {
     @ObservedObject var idData: IdData
     
     @State var commentString: String = ""
-    @Binding var isLikeButton: Bool
+    @State var isReviseComment: Bool = false
     
     var body: some View {
         ForEach(idData.idStore) { user in
             if post.postId == user.userID {
                 VStack {
+                    Text("댓글")
+                        .padding()
+                        .font(.headline)
                     Divider()
                     ScrollView {
                         ForEach(postData.postCommentStore) { comment in
                             if user.userID == comment.postId {
-                                CommentDetailView(comment: comment, userId: user.userID)
+                                CommentDetailView(comment: comment, userId: user.userID, isModifyComment: $isReviseComment)
                             }
                         }
                     }
                     Spacer()
                     HStack {
-                        Image(user.profileImgString)
+                        // 로그인된 사용자 임시로 "leeseungjun"
+                        Image(idData.idStore[0].profileImgString)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
                             .frame(width: 45, height: 45)
-                        TextField("\(user.userID) (으)로 댓글 달기", text: $commentString, axis: .vertical)
+                        TextField("\(idData.idStore[0].userID) (으)로 댓글 달기", text: $commentString, axis: .vertical)
                             .padding()
                             .background {
                                 RoundedRectangle(cornerRadius: 15, style: .continuous)
@@ -44,26 +48,28 @@ struct CommentView: View {
                         
                         Button {
                             // 댓글 정보 전송
-                            // 일단 본인 게시물에 댓글 달면 본인 아이디로 들어가게 해놓음
-                            postData.addComment(postId: post.postId, userId: user.userID, content: commentString)
-                            commentString = ""
+                                if isReviseComment == true {
+                                    postData.modifyComment(postId: post.postId, userId: idData.idStore[0].userID, content: commentString)
+                                    commentString = ""
+                                } else {
+                                    postData.addComment(postId: post.postId, userId: idData.idStore[0].userID, content: commentString)
+                                    commentString = ""
+                                }
                         } label: {
-                            Text("게시")
+                            isReviseComment ? Text("수정") : Text("게시")
                         }
                     }
                     .padding()
                 }
             }
         }
-        .navigationTitle("댓글")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CommentView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), idData: IdData(), isLikeButton: .constant(false))
+            CommentView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), idData: IdData(), isReviseComment: false)
         }
     }
 }

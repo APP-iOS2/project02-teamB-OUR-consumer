@@ -25,13 +25,20 @@ class PostData: ObservableObject {
 
     ]
     
-    func pressLikeButton(post: FeedStore) {
-//        if postStore.contains(post)
-    }
     
     // 댓글 추가!
     func addComment(postId: String, userId: String, content: String) {
-        var commentNewData: PostCommentStore =  PostCommentStore(id: UUID(), postId: postId, userId: userId, content: content, createdAt: Date().timeIntervalSince1970)
+        let commentNewData: PostCommentStore =  PostCommentStore(id: UUID(), postId: postId, userId: userId, content: content, createdAt: Date().timeIntervalSince1970)
         postCommentStore.append(commentNewData)
+    }
+    // 댓글 수정
+    func modifyComment(postId: String, userId: String, content: String) {
+        let modifiedData: PostCommentStore = PostCommentStore(id: UUID(), postId: postId, userId: userId, content: content, createdAt: Date().timeIntervalSince1970)
+        
+       
+    }
+    
+    func removeComment() {
+        
     }
 }

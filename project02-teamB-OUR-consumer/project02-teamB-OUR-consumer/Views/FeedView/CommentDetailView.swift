@@ -9,8 +9,10 @@ import SwiftUI
 
 struct CommentDetailView: View {
     var comment: PostCommentStore
-    var userId: String = ""
+    var userId: String = "leeseungjun"
+    
     @State var isShowingAlert: Bool = false
+    @Binding var isModifyComment: Bool
     
     var body: some View {
         HStack {
@@ -41,7 +43,7 @@ struct CommentDetailView: View {
             Menu {
                 if comment.userId == userId {
                     Button {
-                        //수정하기
+                        isModifyComment.toggle()
                     } label: {
                         Text("수정하기")
                     }
@@ -67,13 +69,14 @@ struct CommentDetailView: View {
             .foregroundColor(.gray)
         }
         .padding()
-        .background(Color("FeedViewBackgroundColor"))
+//        .background(Color("FeedViewBackgroundColor"))
         // 댓글 삭제 버튼
         .alert(isPresented: $isShowingAlert) {
             Alert(title: Text("정말 삭제하겠습니까?"),
                       message: Text("댓글을 삭제합니다"),
                       primaryButton: .destructive(Text("삭제")) {
                             //댓글삭제하는 함수 넣기
+                
                         },
                       secondaryButton: .cancel(Text("취소")))
             }
@@ -82,6 +85,6 @@ struct CommentDetailView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentDetailView(comment: PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "kimtuna", content: "축구가 어렵나?", createdAt: Date().timeIntervalSince1970))
+        CommentDetailView(comment: PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "leeseungjun", content: "축구가 어렵나?", createdAt: Date().timeIntervalSince1970), isModifyComment: .constant(false))
     }
 }

@@ -9,11 +9,14 @@ import SwiftUI
 
 struct ScrapView: View {
     var post: FeedStore
+    @Binding var isShowingScrapSheet: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
                 // 퍼가기 기능 실행
+                isShowingScrapSheet.toggle()
+                
             } label: {
                 VStack(alignment: .leading) {
                     Label("퍼가기", systemImage: "arrow.2.squarepath")
@@ -29,6 +32,6 @@ struct ScrapView: View {
 
 struct ScrapView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrapView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."))
+        ScrapView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), isShowingScrapSheet: .constant(false))
     }
 }
