@@ -27,10 +27,10 @@ struct FeedRecruitView: View {
     
     @State var feedImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
-//    var toString: String {
-//
-//        UIImage.toString(selectedImages)
-//    }
+    //    var toString: String {
+    //
+    //        UIImage.toString(selectedImages)
+    //    }
     
     
     var body: some View {
@@ -47,7 +47,7 @@ struct FeedRecruitView: View {
                         Spacer()
                     }
                     HStack{
-
+                        
                         
                         //현재 위치설정 버튼
                         Button {
@@ -79,9 +79,9 @@ struct FeedRecruitView: View {
                 }
                 
                 //사진추가 View
-   
+                
                 FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
-
+                
             }
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
@@ -93,27 +93,34 @@ struct FeedRecruitView: View {
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
                         
+                            guard let addedImage = selectedItem else { return }
                         
-                        guard let addedImage = selectedItem else { return}
-                        feedStoreViewModel.saveFeedImage(item: addedImage)
+                            feedStoreViewModel.saveFeedImage(item: addedImage)
+                            
+                            feedStoreViewModel.returnImagePath(item: addedImage) {  urlString in
+                                guard let imageString = urlString else {return}
+                                self.feedImagePath = imageString
+                                
+                                print("첫번째 ---- \(feedImagePath)")
+                                
+                                DispatchQueue.main.async {
+                                    let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                                    
+                                    feedStoreViewModel.addFeed(newFeed)
+                                }
                         
-                        feedStoreViewModel.returnImagePath(item: addedImage) { urlString in
-                            guard let imageString = urlString else {return}
-                            feedImagePath = imageString
-                            print("\(feedImagePath)")
-//                            
-//                            let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-//                            
-//                            feedStoreViewModel.addFeed(newFeed)
-                        }
+                            }
+              
+            
+                    
+                            
                         
-                        
-                        let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-
-                        feedStoreViewModel.addFeed(newFeed)
-                        
+//                        let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+//
+//                        feedStoreViewModel.addFeed(newFeed)
+                            
                         contentText = ""
-                   
+                        
                         toolbarToogle.toggle()
                     }.disabled(contentText.isEmpty)
                 }
@@ -140,8 +147,8 @@ struct FeedRecruitView: View {
     
 }
 
-//struct FeedRecruitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedRecruitView()
-//    }
-//}
+struct FeedRecruitView_Previews: PreviewProvider {
+    static var previews: some View {
+        FeedRecruitView()
+    }
+}
