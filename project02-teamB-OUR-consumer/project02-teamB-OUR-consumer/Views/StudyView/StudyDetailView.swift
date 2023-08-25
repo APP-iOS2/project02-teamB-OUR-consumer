@@ -12,6 +12,7 @@ struct StudyDetailView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
     
@@ -141,7 +142,6 @@ struct StudyDetailView: View {
                         }
                         .padding(15)
                         
-                        Divider()
                         StudyReplyView()
                         
                     }
@@ -172,6 +172,7 @@ struct StudyDetailView: View {
                 LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                     .presentationDetents([.medium])
             }
+            
         }
     }
 }

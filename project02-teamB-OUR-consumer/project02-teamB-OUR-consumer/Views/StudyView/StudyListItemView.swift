@@ -10,20 +10,17 @@ import SwiftUI
 struct StudyListItemView: View {
     
     var study: Study
+    @ObservedObject var studyViewModel: StudyViewModel = StudyViewModel()
     
     @State var addBookmark: Bool = false
     
     var body: some View {
         HStack(spacing: 20) {
-            AsyncImage(url: study.imageURL) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(10)
-            } placeholder: {
-                ProgressView()
-            }
+//            Image(study.imageString)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width: 100, height: 100)
+//                    .cornerRadius(10)
             
             
             VStack(alignment: .leading) {
@@ -33,8 +30,8 @@ struct StudyListItemView: View {
                     .foregroundColor(.black)
                     .lineLimit(2)
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(study.date)
-                    Label(study.location, systemImage: "mappin.and.ellipse")
+                    Text(study.studyDate)
+                    Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
                 }
                 .font(.system(size: 12))
                 .bold()
@@ -43,7 +40,7 @@ struct StudyListItemView: View {
                 HStack {
                     HStack {
                         Image(systemName: "person.3.fill")
-                        Text("\(study.currentMemberCount)/\(study.totalMemberCount)")
+                        Text("\(study.currentMemberIds.count)/\(study.totalMemberCount)")
                     }
                     .font(.system(size: 12))
                     .bold()
@@ -70,11 +67,14 @@ struct StudyListItemView: View {
                .opacity(0.3)
            )
         .padding([.leading, .trailing])
+        .onAppear {
+            studyViewModel.fetchStudy()
+        }
     }
 }
 
 struct StudyListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyListItemView(study: Study(imageURL: URL(string: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuIT6b%2FbtrpDLcBnAW%2FFX4WsB9SKTiCxZlreaDjM0%2Fimg.png")!, title: "강남역에서 2시간 빡코딩해요!", date: "8월 25일 금 19:00", location: "강남역 스타벅스", isOnline: false, currentMemberCount: 1, totalMemberCount: 10))
+        StudyListItemView(study: Study( creatorId: "", title: "iOS 개발자 면접", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5))
     }
 }
