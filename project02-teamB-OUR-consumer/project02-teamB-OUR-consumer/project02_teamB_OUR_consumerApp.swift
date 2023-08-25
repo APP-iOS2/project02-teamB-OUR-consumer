@@ -30,13 +30,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+    @StateObject var sharedViewModel = SharedViewModel()
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
+//            NavigationStack {
 //                LoginView()
-                AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
-            }
         }
     }
 }
