@@ -10,6 +10,7 @@ import PhotosUI
 
 struct FeedRecruitPHPickerViewControllerWrapper: UIViewControllerRepresentable {
     @Binding var selectedImages: [UIImage]
+//    @Binding var selectedItem: PhotosPickerItem?
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
