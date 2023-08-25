@@ -1,16 +1,7 @@
-//
-//  FeedStorageManager.swift
-//  project02-teamB-OUR-consumer
-//
-//  Created by kaikim on 2023/08/25.
-//
-
 import Foundation
 import FirebaseStorage
 import FirebaseAuth
 import Firebase
-
-
 
 final class FeedStorageManager {
     

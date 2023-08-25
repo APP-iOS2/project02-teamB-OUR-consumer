@@ -19,7 +19,7 @@ struct FeedRecruitView: View {
     @StateObject var locationManager = LocationManager.shared
     @State var toolbarToogle: Bool = false
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
-    @State var contentText: String = ""
+    @State var content: String = ""
     @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
@@ -67,12 +67,12 @@ struct FeedRecruitView: View {
                 .padding()
                 
                 ZStack{
-                    TextEditor(text: $contentText)
+                    TextEditor(text: $content)
                         .frame(minHeight:350, maxHeight:350)
                         .buttonBorderShape(.roundedRectangle)
                         .border(Color.secondary)
                     
-                    if contentText.isEmpty {
+                    if content.isEmpty {
                         Text(placeholder)
                             .foregroundColor(.secondary)
                     }
@@ -94,7 +94,7 @@ struct FeedRecruitView: View {
                     Button("등록") {
                         
                         guard let test = selectedItem else {
-                            let newFeed = FeedRecruitModel(creator: "", content: contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             print("첫번째\(newFeed.content)")
                             feedStoreViewModel.addFeed(newFeed)
                             
@@ -106,7 +106,7 @@ struct FeedRecruitView: View {
                             guard let test = urlString else { return }
                             
                             feedImagePath = test
-                            let newFeed = FeedRecruitModel(creator: "", content: self.contentText, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             print("두번째\(newFeed.content)")
                             feedStoreViewModel.addFeed(newFeed)
                         }
@@ -134,10 +134,10 @@ struct FeedRecruitView: View {
                             
 
                             
-                        contentText = ""
+                        content = ""
                         
                         toolbarToogle.toggle()
-                    }.disabled(contentText.isEmpty)
+                    }.disabled(content.isEmpty)
                 }
                 
             }
