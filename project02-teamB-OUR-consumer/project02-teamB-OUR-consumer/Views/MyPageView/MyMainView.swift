@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 // MARK: 추후 통합후 삭제 예정 Color
 
 let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
-    
+    @ObservedObject var myPageViewModel: MypageViewModel = MypageViewModel(db: DatabaseService(), userId: Auth.auth().currentUser?.uid ?? "0RPDyJNyzxSViwBvMw573KU0jKv1")
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
@@ -58,7 +59,7 @@ struct MyMain: View {
                                 .cornerRadius(50)
                             
                             VStack(alignment: .leading, spacing: 8) {
-                                Text("김멋사")
+                                Text(myPageViewModel.user?.name ?? "")
                                     .bold()
                                     .font(.system(size: 16))
                                 HStack(spacing: 20) {
@@ -145,7 +146,7 @@ struct MyMain: View {
                         Section {
                             switch currentTab {
                             case 0:
-                                MyResumeView(isMyProfile: $isMyProfile)
+                                MyResumeView(myResume: myPageViewModel.resume, isMyProfile: $isMyProfile)
                             case 1:
                                 MyBoardView()
                             case 2:
@@ -172,5 +173,6 @@ struct MyMain: View {
 struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
         MyMain()
+            
     }
 }

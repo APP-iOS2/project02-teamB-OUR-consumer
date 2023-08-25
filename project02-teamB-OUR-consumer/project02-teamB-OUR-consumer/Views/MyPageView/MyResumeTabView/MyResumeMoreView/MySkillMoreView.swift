@@ -1,5 +1,5 @@
 //
-//  MyEduMoreView.swift
+//  MySkillMoreView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by 최소정 on 2023/08/23.
@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct MyEduMoreView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+struct MySkillMoreView: View {
+    var mySkills: [Skill]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(0..<resumeStore.resume.education.count, id: \.self) { index in
+                ForEach(0..<mySkills.count, id: \.self) { index in
                     VStack {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: resumeStore.resume.education[index])
+                        MySkillCellView(isMyProfile: $isMyProfile, skill: mySkills[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -32,13 +32,13 @@ struct MyEduMoreView: View {
                 Image(systemName: "chevron.backward")
             })
         }
-        .navigationTitle("교육")
+        .navigationTitle("스킬")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyEduEditView(isShowingDeleteButton: false)
+                        MySkillEditView(isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -48,10 +48,10 @@ struct MyEduMoreView: View {
     }
 }
 
-struct MyEduMoreView_Previews: PreviewProvider {
+struct MySkillMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyEduMoreView(isMyProfile: .constant(true))
+            MySkillMoreView(mySkills: [], isMyProfile: .constant(true))
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyWorkMoreView: View {
-    @ObservedObject var resumeStore: ResumeStore = ResumeStore()
+    var myWorks: [WorkExperience]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
@@ -16,9 +16,9 @@ struct MyWorkMoreView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(0..<resumeStore.resume.workExperience.count, id: \.self) { index in
+                ForEach(0..<myWorks.count, id: \.self) { index in
                     VStack {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: resumeStore.resume.workExperience[index])
+                        MyWorkCellView(isMyProfile: $isMyProfile, work: myWorks[index])
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -52,7 +52,7 @@ struct MyWorkMoreView: View {
 struct MyWorkMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyWorkMoreView(isMyProfile: .constant(true))
+            MyWorkMoreView(myWorks: [], isMyProfile: .constant(true))
         }
     }
 }
