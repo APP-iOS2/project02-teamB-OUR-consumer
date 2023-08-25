@@ -13,6 +13,7 @@ struct PostButtonView: View {
     @ObservedObject var postData: PostData
     
     @State var isLikeButton: Bool = false
+    @State var isShowingCommentSheet: Bool = false
     @State var isShowingScrapSheet: Bool = false
     @State var isShowingShareSheet: Bool = false
     
@@ -30,33 +31,35 @@ struct PostButtonView: View {
             } label: {
                 isLikeButton ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
             }
-            NavigationLink {
-                PostDetailView(post: post, idData: idData, isLikeButton: $isLikeButton)
+            Button {
+                isShowingCommentSheet.toggle()
             } label: {
                 Image(systemName: "bubble.left")
             }
             Button {
                 isShowingScrapSheet.toggle()
             } label: {
-                Image(systemName: "square.and.arrow.down")
+                Image(systemName: "arrow.2.squarepath")
             }
-            Button {
-                isShowingShareSheet.toggle()
-            } label: {
-                Image(systemName: "arrowshape.turn.up.right")
+            // 쉐어링크 수정
+            ShareLink(item: post.content) {
+                Label("", systemImage: "arrowshape.turn.up.right")
             }
         }
         .font(.title2)
         .bold()
         .foregroundColor(Color(hex: 0x090580))
         .padding()
+        // 댓글 시트
+        .sheet(isPresented: $isShowingCommentSheet) {
+            CommentView(post: post, idData: idData)
+        }
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {
-            ScrapView(post: post)
-                .presentationDetents([.height(200), .height(200)])
+            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet)
+                .presentationDetents([.height(180), .height(180)])
         }
         .sheet(isPresented: $isShowingShareSheet) {
-            ActivityViewController(activityItems: [post])
         }
 
     }

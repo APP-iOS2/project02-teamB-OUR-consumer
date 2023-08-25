@@ -10,7 +10,8 @@ import SwiftUI
 struct CustomTabBarView: View {
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
-    let tabBarImageNames = ["house",  "book", "plus.app", "bell", "person"]
+    let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
+    let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
     
     var body: some View {
         VStack {
@@ -31,18 +32,20 @@ struct CustomTabBarView: View {
             }
             
             Spacer()
+            
             ZStack {
                 Rectangle()
                     .frame(width: 350, height: 45)
+                //                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
                 HStack {
                     Spacer()
-//                    0 ..< tabBarImageNames.count
-                    ForEach(0 ..< tabBarImageNames.endIndex) { image in
+                    //                    0 ..< tabBarImageNames.count
+                    ForEach(0 ..< tabBarImageNames.endIndex, id:\.self) { index in
                         VStack {
-                            if image == 2 {
+                            if index == 2 {
                                 VStack {
                                     Button {
                                         isShowingSheet.toggle()
@@ -50,7 +53,6 @@ struct CustomTabBarView: View {
                                         PostButton()
                                     }
                                 }
-                                
                                 .sheet(isPresented: $isShowingSheet) {
                                     print("dismissed")
                                 } content: {
@@ -58,25 +60,34 @@ struct CustomTabBarView: View {
                                         .presentationDetents([.fraction(0.45)])
                                         .presentationDragIndicator(.visible)
                                 }
-                                
                             } else {
-                                Image(systemName: tabBarImageNames[image])
-                                    .font(.system(size: 20, weight: .light))
-                                    .foregroundColor(selectedIndex == image ? Color(.black) : Color(.tertiaryLabel))
+                                VStack {
+                                    if tabBarImageNames[index] == "bell.fill"{
+                                        AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
+                                            .frame(width: 30, height: 45, alignment: .bottom)
+                                    }else{
+                                        Image(systemName: tabBarImageNames[image])
+                                            .font(.system(size: 20, weight: .light))
+                                            .foregroundColor(selectedIndex == image ? Color(.black) : Color(.tertiaryLabel))
+                                        
+                                        Text("\(tabBarTextNames[index])")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                    }
+                                }
                             }
                         }
-                        
                         .gesture(
                             TapGesture()
                                 .onEnded { _ in
-                                    selectedIndex = image
+                                    selectedIndex = index
                                 }
                         )
                         Spacer()
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 

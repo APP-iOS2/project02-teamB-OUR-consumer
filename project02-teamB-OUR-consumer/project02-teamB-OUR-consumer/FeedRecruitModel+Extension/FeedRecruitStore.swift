@@ -32,6 +32,7 @@ class FeedRecruitStore: ObservableObject {
                     let docData: [String: Any] = document.data()
                     let creator: String = docData["creator"] as? String ?? ""
                     let content: String = docData["content"] as? String ?? ""
+                    let imageURL: [String] = docData["imageString"] as? [String] ?? []
                     let location: String = docData["location"] as? String ?? ""
                     let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
                     let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
@@ -54,6 +55,7 @@ class FeedRecruitStore: ObservableObject {
         dbRef.document(feed.id)
             .setData(["creator": feed.creator,
                       "content": feed.content,
+                      "imageString": feed.imageURL,
                       "location": feed.location,
                       "privateSetting": feed.privateSetting,
                       "createdAt": feed.createdDate,

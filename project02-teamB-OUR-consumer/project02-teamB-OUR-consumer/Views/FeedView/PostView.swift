@@ -19,7 +19,6 @@ struct PostView: View {
     @State var rePostCount: Int = 0
     
     var body: some View {
-        
         VStack {
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
@@ -32,33 +31,18 @@ struct PostView: View {
                     } label: {
                         Text("\(isSpreadBtn ? "접기" : "더보기")")
                             .font(.system(size: 12))
-                            .font(.footnote)
                             .foregroundColor(.gray)
                     }
                 }
                 .padding()
                 HStack() {
                     Spacer()
-                    Button {
-                        // 좋아요 카운트
-                    } label: {
-                        Text("좋아요 \(post.numberOfLike)")
-                            .font(.system(size: 14))
-                    }
-                    Button {
-                        // 댓글 카운트
-                    } label: {
-                        Text("댓글 \(post.numberOfComments)")
-                            .font(.system(size: 14))
-                    }
-                    Button {
-                        // 퍼감 카운트
-                    } label: {
-                        Text("퍼감 \(post.numberOfRepost)")
-                            .font(.system(size: 14))
-                    }
+                    Text("좋아요 \(post.numberOfLike)")
+                        
+                    Text("댓글 \(post.numberOfComments)")
+                    Text("퍼감 \(post.numberOfRepost)")
                 }
-                .font(.footnote)
+                .font(.system(size: 14))
                 .foregroundColor(.gray)
                 .padding()
             }

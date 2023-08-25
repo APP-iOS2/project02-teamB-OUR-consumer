@@ -22,7 +22,7 @@ enum REF: String{
 }
 
 
-class AlarmFireService{
+class AlarmFireService {
     
     let db = Firestore.firestore()
 

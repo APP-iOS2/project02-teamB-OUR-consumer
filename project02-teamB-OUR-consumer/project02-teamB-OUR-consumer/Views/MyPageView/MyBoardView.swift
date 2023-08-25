@@ -9,7 +9,26 @@ import SwiftUI
 
 struct MyBoardView: View {
     var body: some View {
-        Text("마이 보드 뷰")
+        NavigationStack {
+            ScrollView {
+                ForEach(0..<5) { _ in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("\n게시물\n")
+                                .font(.system(size: 16))
+                                .bold()
+                            Spacer()
+                        }
+                    }
+                    .padding(.top, 11)
+                    .padding(.horizontal)
+                    .foregroundColor(.black)
+                    Rectangle()
+                        .fill(Color("DefaultGray"))
+                }
+                
+            }
+        }
     }
 }
 
