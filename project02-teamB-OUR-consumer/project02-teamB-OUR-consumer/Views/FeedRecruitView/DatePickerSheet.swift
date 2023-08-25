@@ -13,55 +13,54 @@ struct DatePickerSheet: View {
     @Binding var isShowingDateSheet: Bool
     @Binding var startDate: Date
     @Binding var endDate: Date
-    
-    
-    var body: some View {
-        VStack(alignment: .center) {
-            HStack {
-                Text("날짜 설정하기")
-                Spacer()
-                
-                Button {
-                    isShowingDateSheet = false
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundColor(Color.black)
-                }
-                
-            }
-            Divider()
-            Spacer().frame(height: 30)
-            
-            DatePicker(selection: $startDate, displayedComponents: .date) {
-                Text("시작일자")
-            }
-            
-            .environment(\.locale, Locale(identifier: "ko_KR"))
-            
-            Divider()
-            Spacer().frame(height: 30)
-            DatePicker(selection: $endDate, displayedComponents: .date) {
-                Text("마감일자")
-            }
-            
-            .environment(\.locale, Locale(identifier: "ko_KR"))
-            Divider()
-            Button {
-                dateStore.addDate(id: UUID(), startDate: startDate, endDate: endDate)
-                isShowingDateSheet = false
-            } label: {
-                Text("설정하기")
-                    .foregroundColor(Color.black)
-            }
-            
-        }
-        .padding()
-        .font(.title2)
+//    @Binding var startTime: Date
+       
+       var body: some View {
+           VStack(alignment: .center) {
+               HStack {
+                   Text("날짜 설정하기")
+                   Spacer()
+                   
+                   Button {
+                       isShowingDateSheet = false
+                   } label: {
+                       Image(systemName: "xmark")
+                           .foregroundColor(Color.black)
+                   }
+                   
+               }
+               Divider()
+               Spacer().frame(height: 30)
+               
+               DatePicker(selection: $startDate) {
+                   Text("시작일자")
+               }
+               .environment(\.locale, Locale(identifier: "ko_KR"))
+              
+               Divider()
+               Spacer().frame(height: 30)
+               DatePicker(selection: $endDate, displayedComponents: .date) {
+                   Text("마감일자")
+               }
+               
+               .environment(\.locale, Locale(identifier: "ko_KR"))
+               Divider()
+               Button {
+                   dateStore.addDate(id: UUID(), startDate: startDate, endDate: endDate)
+                   isShowingDateSheet = false
+               } label: {
+                   Text("설정하기")
+                       .foregroundColor(Color.black)
+               }
+               
+           }
+           .padding()
+           .font(.title2)
     }
 }
 
-struct DatePickerSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()))
-    }
-}
+//struct DatePickerSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DatePickerSheet(isShowingDateSheet: .constant(true), startDate: .constant(Date()), endDate: .constant(Date()), startTime: .constant(Date()))
+//    }
+//}

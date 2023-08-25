@@ -8,25 +8,33 @@
 import SwiftUI
 
 struct LoginSecondView: View {
-    
+    let viewModel: AuthViewModel
     @State private var nameField: String = ""
     @State private var emailField: String = ""
     
     @State private var isAgree1: Bool = false
     @State private var isAgree2: Bool = false
     @State private var navigate: Bool = false
+    private var isVaildButton: Bool {
+        if nameField.isEmpty || !isAgree1 || !isAgree2 {
+            return false
+        } else {
+            return true
+        }
+    }
     
-    @State private var isAgreeAlert: Bool = false
+    @State private var isShowingAlert: Bool = false
+    @State private var alertText: String = ""
     
     var body: some View {
         NavigationStack {
+            Spacer()
             Group {
                 HStack {
-                    Image("Logo")
+                    Image("OUR_Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40)
-                    //                    .padding(.trailing, 10)
                     Text("OUR")
                         .font(.system(size: 25))
                         .fontWeight(.black)
@@ -51,13 +59,16 @@ struct LoginSecondView: View {
                     Text("E-Mail")
                         .fontWeight(.bold)
                         .padding(.leading, 50)
-                    TextField("E-mail", text: $emailField, axis: .horizontal)
+                    TextField(viewModel.signUpData.email, text: $emailField, axis: .horizontal)
                         .frame(width: 360, height: 50, alignment: .center)
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
                         .padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50))
+                        .disabled(true)
                 }
             }
+            
+            Spacer()
             
             Group {
                 HStack {
@@ -116,35 +127,42 @@ struct LoginSecondView: View {
             Spacer()
             
             Button {
-                if isAgree1 && isAgree2 {
-                    navigate = true
+                if nameField.isEmpty {
+                    isShowingAlert = true
+                    alertText = "이름을 입력하여주세요"
+                } else if !isAgree1 || !isAgree2 {
+                    isShowingAlert = true
+                    alertText = "약관에 모두 동의해주세요"
                 } else {
-                    isAgreeAlert.toggle()
+                    viewModel.signUp(name: nameField) {
+                        navigate = true
+                    }
                 }
             } label: {
                 Text("회원가입")
                     .fontWeight(.bold)
                     .frame(width: 360, height: 50)
-                    .background(Color(hex: 0x090580))
+                    .background(isVaildButton ? Color(hex: 0x090580) : Color.gray)
                     .cornerRadius(5)
                     .foregroundColor(.white)
                     .padding(.bottom, 50)
             }
             .navigationDestination(isPresented: $navigate) {
-                CustomTabBarView()
+                ContentView()
             }
+            Spacer()
         }
-        .alert(isPresented: $isAgreeAlert){
+        .alert(isPresented: $isShowingAlert){
             Alert(title: Text("경고"),
-                  message: Text("약관에 모두 동의해주세요"),
+                  message: Text(alertText),
                   dismissButton: .default(Text("OK")))
         }
-        .navigationBarBackButtonHidden()
+//        .navigationBarBackButtonHidden()
     }
 }
 
 struct LoginSecondView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginSecondView()
+            LoginSecondView(viewModel: AuthViewModel())
     }
 }

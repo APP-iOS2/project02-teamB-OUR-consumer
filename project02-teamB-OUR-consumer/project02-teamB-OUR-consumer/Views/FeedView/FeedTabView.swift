@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FeedTabView: View {
-    
     @StateObject private var idData: IdData = IdData()
     
     var body: some View {
@@ -16,7 +15,10 @@ struct FeedTabView: View {
             ScrollView {
                 VStack {
                     TitleView()
+                        .padding(.top, -100)
+                    Divider()
                     FeedView()
+                    Divider()
                     RecommendFriendView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.", isFollow: false), idData: idData)
                 }
             }

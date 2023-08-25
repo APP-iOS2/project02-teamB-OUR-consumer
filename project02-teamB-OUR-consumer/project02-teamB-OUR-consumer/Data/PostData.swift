@@ -18,13 +18,27 @@ class PostData: ObservableObject {
         PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "kimtuna", content: "축구가 어렵나?", createdAt: Date().timeIntervalSince1970),
         PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "jeonghandoo", content: "그럼 쉽냐?", createdAt: Date().timeIntervalSince1970),
         PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "kimjongchan", content: "쉽지않지", createdAt: Date().timeIntervalSince1970),
+        PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "leeseungjun", content: "다들 조용!!!!!", createdAt: Date().timeIntervalSince1970),
         
         PostCommentStore(id: UUID(), postId: "kimjongchan", userId: "jeonghandoo", content: "왜 웃어?", createdAt: Date().timeIntervalSince1970),
         PostCommentStore(id: UUID(), postId: "kimjongchan", userId: "leeseungjun", content: "?", createdAt: Date().timeIntervalSince1970),
 
     ]
     
-    func pressLikeButton(post: FeedStore) {
-//        if postStore.contains(post)
+    
+    // 댓글 추가!
+    func addComment(postId: String, userId: String, content: String) {
+        let commentNewData: PostCommentStore =  PostCommentStore(id: UUID(), postId: postId, userId: userId, content: content, createdAt: Date().timeIntervalSince1970)
+        postCommentStore.append(commentNewData)
+    }
+    // 댓글 수정
+    func modifyComment(postId: String, userId: String, content: String) {
+        let modifiedData: PostCommentStore = PostCommentStore(id: UUID(), postId: postId, userId: userId, content: content, createdAt: Date().timeIntervalSince1970)
+        
+       
+    }
+    
+    func removeComment() {
+        
     }
 }

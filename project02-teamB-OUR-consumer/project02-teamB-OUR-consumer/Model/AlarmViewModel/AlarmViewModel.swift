@@ -16,10 +16,12 @@ class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
     
-    
+//    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
+    var personalIds: [String] = []
+    var publicIds: [String] = []
     
     init(dependency: AlarmFireService = AlarmFireService()){
         self.service = dependency
@@ -47,20 +49,68 @@ class AlarmViewModel: ObservableObject{
     
     
     
-    func fetchNotificationItem(limit: Int = 10){
-        service.read{ [weak self] ids, notifiationDTO in
-            guard let self else { return }
-            let items = notifiationDTO.compactMap{ $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "") )  }
-            personalNotiItem = mapToDictionary(items: items).0
-            publicNotiItem = mapToDictionary(items: items).1
+    func fetchNotificationItem(limit: Int = 10) {
+        service.read { [weak self] ids, notifiationDTO in
+            guard let self = self else { return }
+            
+            let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
+            
+            personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
+            publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
+//            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+//            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
         }
     }
+    
+//    func removeRows(at offsets: IndexSet) {
+//        personalNotiItem.remove(atOffsets: offsets)
+//    }
         
-    func delete(notification id: ID){
+    func delete(notification set: IndexSet?, access: NotificationType.Access){
+        if let set{
+            var willDeleteIds: [ID] = []
+            
+            switch access {
+            case .public:
+                for index in set{
+                    willDeleteIds.append(publicIds[index])
+                }
+            case .personal:
+                for index in set{
+                    willDeleteIds.append(personalIds[index])
+                }
+            case .none:
+                return
+            }
+            
+            service.delete(ids: willDeleteIds, completion: { string in
+                print("Delete Success \(string)")
+            })
+        }else{
+            switch access {
+            case .public:
+                service.delete(ids: publicIds, completion: { string in
+                    print("Delete Success \(string)")
+                })
+            case .personal:
+                service.delete(ids: personalIds, completion: { string in
+                    print("Delete Success \(string)")
+                })
+            case .none:
+                return
+            }
+        }
+    }
+    
+    func delete(ids: [ID]){
+        service.delete(ids: ids, completion: { string in
+            print("Delete Success \(string)")
+        })
     }
     
     
     func update(isRead item: NotificationItem){
+        
     }
     
     
@@ -85,23 +135,29 @@ class AlarmViewModel: ObservableObject{
     /// Mapping To View Model
     /// - Parameter items: notification Item
     /// - Returns: public , personal
-    private func mapToDictionary(items: [NotificationItem]) -> (NotiItem,NotiItem){
-        return items.reduce(into: (NotiItem(),NotiItem()), { original, item in
+    private func mapToDictionary(items: [NotificationItem],ids: [ID]) -> (NotiItem,NotiItem){
+        return zip(items, ids).reduce(into: (NotiItem(),NotiItem()), { original, models in
+            
+            let (item, id) = models
+            
             if item.type.getAccessLevel() == .personal{
                 let dotDate = item.createdDate.dotString()
                 if let items = original.0[dotDate]{
                     original.0[dotDate] = items + [item]
+                    personalIds.append(id)
                 }else{
                     original.0[dotDate] = [item]
+                    personalIds = [id]
                 }
             }else {
                 let dotDate = item.createdDate.dotString()
                 if let items = original.1[dotDate]{
                     original.1[dotDate] = items + [item]
+                    publicIds.append(id)
                 }else{
                     original.1[dotDate] = [item]
+                    publicIds = [id]
                 }
-                
             }
         })
     }
