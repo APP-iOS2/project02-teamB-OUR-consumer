@@ -12,6 +12,8 @@ struct StudyDetailView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    @ObservedObject var studyViewModel: StudyViewModel
+    var study: Study
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
@@ -34,7 +36,7 @@ struct StudyDetailView: View {
                         VStack(alignment: .center, spacing: 10) {
                             Text("여성은")
                                 .font(.system(size: 14, weight: .semibold))
-                            Text("iOS 개발자 면접 스터디 모집")
+                            Text(study.title)
                                 .font(.system(size: 16, weight: .bold))
                         }
                         .padding(15)
@@ -71,7 +73,7 @@ struct StudyDetailView: View {
                             HStack {
                                 Image(systemName: "mappin" )
                                     .frame(width: 15)
-                                Text("위치 : 종각역 할리스")
+                                Text("위치 : \(study.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -92,7 +94,7 @@ struct StudyDetailView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 15)
-                                Text("인원 : 최대 5명 (3/5)")
+                                Text("인원 : 최대 \(study.totalMemberCount)명 (\(study.currentMemberIds.count)/\(study.totalMemberCount))")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -112,7 +114,7 @@ struct StudyDetailView: View {
                             HStack{
                                 Image(systemName: "calendar" )
                                     .frame(width: 15)
-                                Text("9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
+                                Text(study.studyDate)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
@@ -180,7 +182,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView()
+            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0))
         }
     }
         
