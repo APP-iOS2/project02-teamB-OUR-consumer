@@ -11,10 +11,10 @@ struct StudyReplyDetailView: View {
     
     
     @State private var showAlert: Bool = false
-    
+    @Binding var isEditing: Bool
     
     var userId: String
-    var comment: StudyGroupComment
+    var comment: StudyComment
     
     var body: some View {
         LazyVStack {
@@ -56,7 +56,7 @@ struct StudyReplyDetailView: View {
                 Menu {
                     if comment.userId == userId {
                         Button {
-                            //수정하기
+                            isEditing = true
                         } label: {
                             Text("수정하기")
                         }
@@ -69,7 +69,7 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         NavigationLink {
-                            StudyCommentReportView(userId: userId, comment: comment)
+                            StudyCommentReportView(userId: userId, comment: comment, isEditing: $isEditing)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
@@ -77,6 +77,7 @@ struct StudyReplyDetailView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
+                        .padding()
                 }
                 .foregroundColor(.gray)
             }
@@ -96,6 +97,6 @@ struct StudyReplyDetailView: View {
 
 struct StudyReplyDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyDetailView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
+        StudyReplyDetailView(isEditing: .constant(true), userId: "성은", comment: StudyComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
     }
 }
