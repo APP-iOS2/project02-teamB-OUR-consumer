@@ -11,8 +11,26 @@ import SwiftUI
 
 struct SettingView: View {
     @State var notificationsEnabled: Bool = false
+    let notificationCenter = UNUserNotificationCenter.current()
+       
+       private func toggleUserNotification() {
+           notificationsEnabled.toggle()
+           if notificationsEnabled {
+               notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                   if let error = error {
+                       print(error)
+                   } else {
+                       if !granted {
+                           print("Not Granted")
+                       }
+                   }
+               }
+           }
+       }
+       
+       @Environment(\.presentationMode) var presentationMode
     @State var privacySetting: Bool = false // 스프레드 시트 보기
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     
     var body: some View {
         NavigationStack {
@@ -83,7 +101,6 @@ struct SettingView: View {
                         .padding(.vertical)
                         Divider()
                     }
-                    
                     Group {
                         Button {
                             // 로그아웃
@@ -113,11 +130,11 @@ struct SettingView: View {
             .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action : {
-                self.mode.wrappedValue.dismiss()
-            }){
-                Image(systemName: "chevron.backward")
-            })
+//            .navigationBarItems(leading: Button(action : {
+//                self.mode.wrappedValue.dismiss()
+//            }){
+//                Image(systemName: "chevron.backward")
+//            })
         }
     }
 }
