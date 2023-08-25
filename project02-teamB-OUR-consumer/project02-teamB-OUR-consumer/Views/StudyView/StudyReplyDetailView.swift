@@ -9,13 +9,15 @@ import SwiftUI
 
 struct StudyReplyDetailView: View {
     
+    var commentUserId: String
+    
+    var studyCommentStore: StudyCommentStore
+    var comment: StudyComment
+    
+    @Binding var isEditing: Bool
     
     @State private var showAlert: Bool = false
-    
-    
-    var userId: String
-    var comment: StudyGroupComment
-    
+
     var body: some View {
         LazyVStack {
             HStack {
@@ -38,13 +40,6 @@ struct StudyReplyDetailView: View {
                         Text(comment.createdDate)
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
-//                        Button {
-//                            //대댓글
-//                        } label: {
-//                            Text("Reply")
-//                                .font(.system(size: 12))
-//                                .foregroundColor(.gray)
-//                        }
 
                     }
                     Text(comment.content)
@@ -54,9 +49,9 @@ struct StudyReplyDetailView: View {
                 Spacer()
                 
                 Menu {
-                    if comment.userId == userId {
+                    if comment.userId == commentUserId {
                         Button {
-                            //수정하기
+                            isEditing = true
                         } label: {
                             Text("수정하기")
                         }
@@ -69,7 +64,7 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         NavigationLink {
-                            StudyCommentReportView(userId: userId, comment: comment)
+                            StudyCommentReportView(comment: comment)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
@@ -77,15 +72,17 @@ struct StudyReplyDetailView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
+                        .padding()
                 }
                 .foregroundColor(.gray)
             }
+            
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("정말 삭제하겠습니까?"),
                       message: Text("댓글을 삭제합니다"),
                       primaryButton: .destructive(Text("삭제")) {
-                            //댓글삭제하는 함수 넣기
+                studyCommentStore.deleteComments(comment)
                         },
                       secondaryButton: .cancel(Text("취소")))
             }
@@ -95,7 +92,10 @@ struct StudyReplyDetailView: View {
 }
 
 struct StudyReplyDetailView_Previews: PreviewProvider {
+    
+    
     static var previews: some View {
-        StudyReplyDetailView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
+        StudyReplyDetailView(commentUserId: "성은", studyCommentStore: StudyCommentStore(), comment: StudyComment(userId: "성은", content: "아몰랑"), isEditing: .constant(true))
+        
     }
 }

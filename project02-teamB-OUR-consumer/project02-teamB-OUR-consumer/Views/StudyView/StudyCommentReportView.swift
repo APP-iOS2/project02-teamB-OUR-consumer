@@ -10,15 +10,17 @@ import SwiftUI
 struct StudyCommentReportView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    var userId: String
-    var comment: StudyGroupComment
+//    var commentUserId: String // 신고하는 사람..?
+    var comment: StudyComment
     
     //신고유형들 쭈루룩
     let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
     
     @State var showAlert: Bool = false
     @State var reportCategory: String = ""
+  
     
     var body: some View {
         NavigationStack {
@@ -26,13 +28,13 @@ struct StudyCommentReportView: View {
             VStack(alignment: .leading) {
                 Text("신고하는 댓글")
                     .fontWeight(.heavy)
-                StudyReplyDetailView(userId: "성은", comment: comment)
+                
+                StudyReplyDetailInReportView(comment: comment)
                     .padding(10)
                     .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray, lineWidth: 0.5)
                         )
-
             }
             
             Divider()
@@ -42,16 +44,17 @@ struct StudyCommentReportView: View {
                     .fontWeight(.heavy)
                     .padding([.bottom, .top], 5)
                 ForEach(reports, id: \.self) { report in
+                    
                     Button {
                         reportCategory = report
                         showAlert = true
                     } label: {
                         Text("\(report)")
                             .padding(.bottom, 5)
+                        
                     }
                     .foregroundColor(.black)
                     Divider()
-                    
                     
                 }
             }
@@ -64,6 +67,12 @@ struct StudyCommentReportView: View {
         }
         .navigationTitle("신고하기")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+            self.mode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "chevron.backward")
+        })
         .padding()
         .alert(isPresented: $showAlert) {
             Alert(title: Text("신고하시겠습니까?"),
@@ -81,7 +90,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(userId: "성은", comment: StudyGroupComment(userId: "성은", content: "최악의 스터디 소개글이네여 ;;"))
+            StudyCommentReportView(comment: StudyComment(userId: "경미", content: "개발천재"))
         }
     }
 }

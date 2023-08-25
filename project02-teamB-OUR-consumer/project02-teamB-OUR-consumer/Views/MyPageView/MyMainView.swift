@@ -14,7 +14,7 @@ let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
     @ObservedObject var myPageViewModel: MypageViewModel = MypageViewModel(db: DatabaseService(), userId: Auth.auth().currentUser?.uid ?? "0RPDyJNyzxSViwBvMw573KU0jKv1")
-    @StateObject private var studyStore = StudyStore()
+    @StateObject private var studyViewModel = StudyViewModel()
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
@@ -152,7 +152,7 @@ struct MyMain: View {
                             case 1:
                                 MyBoardView()
                             case 2:
-                                MyStudyView(studyArray: studyStore.studyArray)
+                                MyStudyView(studyArray: studyViewModel.studyArray)
                             default:
                                 EmptyView()
                             }

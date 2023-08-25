@@ -10,40 +10,44 @@ import CoreLocation
 
 struct StudyDetailView: View {
     
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
     
     var body: some View {
         NavigationStack {
-            VStack {
-                AsyncImage(url: URL(string: "https://imgnews.pstatic.net/image/076/2023/08/22/2023082301001627800208041_20230822162503835.jpg?type=w647")) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
-                        .clipped()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(maxWidth: .infinity)
-                .overlay(alignment:.bottom) {
-                    VStack(alignment: .center, spacing: 10) {
-                        Text("여성은")
-                            .font(.system(size: 14, weight: .semibold))
-                        Text("iOS 개발자 면접 스터디 모집")
-                            .font(.system(size: 16, weight: .bold))
-                    }
-                    .padding(15)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
-                    .padding(.horizontal, 20)
-                    .offset(y:30)
-                }
-                
+            ScrollView(.vertical) {
                 VStack {
-                    ScrollView(.vertical) {
+                    AsyncImage(url: URL(string: "https://imgnews.pstatic.net/image/076/2023/08/22/2023082301001627800208041_20230822162503835.jpg?type=w647")) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .overlay(alignment:.bottom) {
+                        VStack(alignment: .center, spacing: 10) {
+                            Text("여성은")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text("iOS 개발자 면접 스터디 모집")
+                                .font(.system(size: 16, weight: .bold))
+                        }
+                        .padding(15)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
+                        .padding(.horizontal, 20)
+                        .offset(y:30)
+                    }
+                    
+                    VStack {
+                        
                         VStack {
                             Spacer(minLength: 20)
                             Text("""
@@ -65,7 +69,9 @@ struct StudyDetailView: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("📍 위치 : 종각역 할리스")
+                                Image(systemName: "mappin" )
+                                    .frame(width: 15)
+                                Text("위치 : 종각역 할리스")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -82,7 +88,11 @@ struct StudyDetailView: View {
                             }
                             
                             HStack {
-                                Text("👥 인원 : 최대 5명 (3/5)")
+                                Image(systemName: "person.3.fill" )
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 15)
+                                Text("인원 : 최대 5명 (3/5)")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -99,10 +109,13 @@ struct StudyDetailView: View {
                             }
                             .padding(.bottom, 5)
                             
-                            Text("🗓️ 9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.black)
-                            
+                            HStack{
+                                Image(systemName: "calendar" )
+                                    .frame(width: 15)
+                                Text("9월 1일 ~ 9월 30일 매주 토요일 14:00 ~ 16:00")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.black)
+                            }
                             
                             HStack {
                                 Button {
@@ -129,12 +142,18 @@ struct StudyDetailView: View {
                         }
                         .padding(15)
                         
-                        Divider()
                         StudyReplyView()
+                        
                     }
+                    .padding(.top, 25)
                 }
-                .padding(.top, 25)
             }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action : {
+                self.mode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "chevron.backward")
+            })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -153,12 +172,16 @@ struct StudyDetailView: View {
                 LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                     .presentationDetents([.medium])
             }
+            
         }
     }
 }
 
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyDetailView()
+        NavigationStack{
+            StudyDetailView()
+        }
     }
+        
 }
