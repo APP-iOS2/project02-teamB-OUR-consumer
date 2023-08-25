@@ -58,6 +58,10 @@ class AlarmViewModel: ObservableObject{
 //            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
         }
     }
+    
+//    func removeRows(at offsets: IndexSet) {
+//        personalNotiItem.remove(atOffsets: offsets)
+//    }
         
     func delete(notification id: ID){
     }
