@@ -107,15 +107,25 @@ struct FeedRecruitView: View {
                             
                             feedImagePath = test
                             
-                            let newFeed2 = FeedRecruitModel(creator: "", content: self.content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            
                             feedStoreViewModel.addFeed(newFeed2)
+                            
+                          
+                            print(newFeed2.content)
+                            
                         }
 
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            feedStoreViewModel.addFeed(FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath))
+//
+//                        }
 
-                        content = ""
+                        //content = ""
                         
                         toolbarToogle.toggle()
-                    }.disabled(content.isEmpty)
+                    }
+                    .disabled(content.isEmpty)
                 }
                 
             }
