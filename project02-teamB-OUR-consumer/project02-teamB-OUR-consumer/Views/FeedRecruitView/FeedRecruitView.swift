@@ -98,7 +98,7 @@ struct FeedRecruitView: View {
                             print("첫번째\(newFeed.content)")
                             feedStoreViewModel.addFeed(newFeed)
                             
-                        
+                            dismiss()
                             return
                         }
                         
@@ -116,14 +116,9 @@ struct FeedRecruitView: View {
                             
                         }
 
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                            feedStoreViewModel.addFeed(FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath))
-//
-//                        }
-
-                        //content = ""
                         
                         toolbarToogle.toggle()
+                        dismiss()
                     }
                     .disabled(content.isEmpty)
                 }
