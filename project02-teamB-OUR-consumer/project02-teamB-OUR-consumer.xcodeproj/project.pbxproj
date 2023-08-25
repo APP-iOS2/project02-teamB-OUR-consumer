@@ -33,6 +33,11 @@
 		649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B92A96068600506F46 /* RecommendDetailView.swift */; };
 		84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC2B362A94910900B0E270 /* StudyListView.swift */; };
 		84BC2B392A94916A00B0E270 /* StudyListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC2B382A94916A00B0E270 /* StudyListItemView.swift */; };
+		960358992A98601300C14D68 /* AlarmTabBarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960358982A98601300C14D68 /* AlarmTabBarImage.swift */; };
+		9603589B2A98607E00C14D68 /* AlarmImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603589A2A98607E00C14D68 /* AlarmImageContainer.swift */; };
+		9603589E2A9860B600C14D68 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9603589D2A9860B600C14D68 /* SnapKit */; };
+		960358A12A987E7200C14D68 /* AlarmImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960358A02A987E7200C14D68 /* AlarmImageView.swift */; };
+		960358A32A987ED300C14D68 /* Round-View-Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960358A22A987ED300C14D68 /* Round-View-Image.swift */; };
 		960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEDF2A9459840044F279 /* NotificationsListView.swift */; };
 		960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE02A9459840044F279 /* CustomTabView.swift */; };
 		960CCEE82A9459910044F279 /* NotificationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CCEE72A9459910044F279 /* NotificationItem.swift */; };
@@ -88,6 +93,7 @@
 		A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */; };
 		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
 		A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyCommentReportView.swift */; };
+		B0B1E8592A983D5E002EF3B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0B1E8582A983D5E002EF3B0 /* GoogleService-Info.plist */; };
 		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
 		B7610BA72A951A6E0074F78C /* FeedRecruitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */; };
 		B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */; };
@@ -157,6 +163,10 @@
 		649085B92A96068600506F46 /* RecommendDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommendDetailView.swift; path = ../RecommendDetailView.swift; sourceTree = "<group>"; };
 		84BC2B362A94910900B0E270 /* StudyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListView.swift; sourceTree = "<group>"; };
 		84BC2B382A94916A00B0E270 /* StudyListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListItemView.swift; sourceTree = "<group>"; };
+		960358982A98601300C14D68 /* AlarmTabBarImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTabBarImage.swift; sourceTree = "<group>"; };
+		9603589A2A98607E00C14D68 /* AlarmImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmImageContainer.swift; sourceTree = "<group>"; };
+		960358A02A987E7200C14D68 /* AlarmImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmImageView.swift; sourceTree = "<group>"; };
+		960358A22A987ED300C14D68 /* Round-View-Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Round-View-Image.swift"; sourceTree = "<group>"; };
 		960CCEDF2A9459840044F279 /* NotificationsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsListView.swift; sourceTree = "<group>"; };
 		960CCEE02A9459840044F279 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		960CCEE72A9459910044F279 /* NotificationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationItem.swift; sourceTree = "<group>"; };
@@ -213,6 +223,7 @@
 		A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSheetView.swift; sourceTree = "<group>"; };
 		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
 		A0CE323C2A952C110019300F /* StudyCommentReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCommentReportView.swift; sourceTree = "<group>"; };
+		B0B1E8582A983D5E002EF3B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitViewModel.swift; sourceTree = "<group>"; };
 		B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitModel.swift; sourceTree = "<group>"; };
@@ -256,6 +267,7 @@
 				FAB51C692A9661800047A725 /* GoogleSignInSwift in Frameworks */,
 				FAB51C622A9661740047A725 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				FAB51C5A2A9661740047A725 /* FirebaseAuth in Frameworks */,
+				9603589E2A9860B600C14D68 /* SnapKit in Frameworks */,
 				FAB51C642A9661740047A725 /* FirebaseFirestoreSwift in Frameworks */,
 				FAB51C672A9661800047A725 /* GoogleSignIn in Frameworks */,
 			);
@@ -320,6 +332,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		9603589F2A987E6000C14D68 /* AlarmImage-UIkit */ = {
+			isa = PBXGroup;
+			children = (
+				9603589A2A98607E00C14D68 /* AlarmImageContainer.swift */,
+				960358A02A987E7200C14D68 /* AlarmImageView.swift */,
+				960358A22A987ED300C14D68 /* Round-View-Image.swift */,
+			);
+			path = "AlarmImage-UIkit";
+			sourceTree = "<group>";
+		};
 		960CCEDE2A9459790044F279 /* AlarmView */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +350,8 @@
 				960CCEE02A9459840044F279 /* CustomTabView.swift */,
 				960CCEDF2A9459840044F279 /* NotificationsListView.swift */,
 				B0F67D592A948B3300B2A138 /* TestView.swift */,
+				960358982A98601300C14D68 /* AlarmTabBarImage.swift */,
+				9603589F2A987E6000C14D68 /* AlarmImage-UIkit */,
 			);
 			path = AlarmView;
 			sourceTree = "<group>";
@@ -511,7 +535,11 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				B0B1E8582A983D5E002EF3B0 /* GoogleService-Info.plist */,
+=======
 				9656D3352A9867DA00BFA3EF /* GoogleService-Info.plist */,
+>>>>>>> e114a115195ed5b61f9bd4cecc0ada22b8117b0b
 				3AF70F382A95199B008E9CAB /* Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
@@ -641,6 +669,7 @@
 				FAB51C632A9661740047A725 /* FirebaseFirestoreSwift */,
 				FAB51C662A9661800047A725 /* GoogleSignIn */,
 				FAB51C682A9661800047A725 /* GoogleSignInSwift */,
+				9603589D2A9860B600C14D68 /* SnapKit */,
 			);
 			productName = "project02-teamB-OUR-consumer";
 			productReference = 9E99CCEA2A944A5700699B6A /* project02-teamB-OUR-consumer.app */;
@@ -673,6 +702,7 @@
 			packageReferences = (
 				FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FAB51C652A9661800047A725 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				9603589C2A9860B600C14D68 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 9E99CCEB2A944A5700699B6A /* Products */;
 			projectDirPath = "";
@@ -732,6 +762,7 @@
 				960CCEEE2A945A7C0044F279 /* AlarmContainer.swift in Sources */,
 				960CCEE12A9459840044F279 /* NotificationsListView.swift in Sources */,
 				9650867F2A948A9200CDA0FC /* AlarmViewModel.swift in Sources */,
+				960358A32A987ED300C14D68 /* Round-View-Image.swift in Sources */,
 				9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */,
 				B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */,
 				960CCEE22A9459840044F279 /* CustomTabView.swift in Sources */,
@@ -780,6 +811,8 @@
 				84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */,
 				46C816AE2A949593003B2944 /* StudyDetailView.swift in Sources */,
 				4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */,
+				960358A12A987E7200C14D68 /* AlarmImageView.swift in Sources */,
+				9603589B2A98607E00C14D68 /* AlarmImageContainer.swift in Sources */,
 				A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */,
 				FAB51C8B2A9678870047A725 /* Date.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
@@ -798,6 +831,7 @@
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				FAB51C762A96755C0047A725 /* RecruitImagePicker.swift in Sources */,
 				FAB51C7C2A9677E40047A725 /* DateModel.swift in Sources */,
+				960358992A98601300C14D68 /* AlarmTabBarImage.swift in Sources */,
 				632883742A94DD31004DC84E /* PostView.swift in Sources */,
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */,
@@ -1033,6 +1067,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9603589C2A9860B600C14D68 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1052,6 +1094,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9603589D2A9860B600C14D68 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9603589C2A9860B600C14D68 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		FAB51C592A9661740047A725 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

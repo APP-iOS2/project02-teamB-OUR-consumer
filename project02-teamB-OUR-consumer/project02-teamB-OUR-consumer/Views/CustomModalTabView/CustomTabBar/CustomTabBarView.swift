@@ -62,12 +62,18 @@ struct CustomTabBarView: View {
                                 }
                             } else {
                                 VStack {
-                                    Image(systemName: tabBarImageNames[index])
-                                        .font(.system(size: 30, weight: .light))
-                                        .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
-                                    Text("\(tabBarTextNames[index])")
-                                        .font(.system(size: 14))
-                                        .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                    if tabBarImageNames[index] == "bell.fill"{
+                                        AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
+                                            .frame(width: 30, height: 45, alignment: .bottom)
+                                    }else{
+                                        Image(systemName: tabBarImageNames[index])
+                                            .font(.system(size: 30, weight: .light))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
+                                        
+                                        Text("\(tabBarTextNames[index])")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                    }
                                 }
                             }
                         }
