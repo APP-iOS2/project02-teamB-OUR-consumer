@@ -27,7 +27,7 @@ extension String {
     
     func toDate() -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         guard let date: Date = dateFormatter.date(from: self) else {return Date()}
         return date
