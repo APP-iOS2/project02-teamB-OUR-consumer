@@ -38,7 +38,7 @@ struct RecommendFriendView: View {
                         if !isFollow1 {
                             FollowButtonView()
                         } else {
-                            FollowBtnView()
+                            FollowingButtonView()
                                 .foregroundColor(Color(hex: 0x090580))
                         }
                     }
@@ -59,13 +59,14 @@ struct RecommendFriendView: View {
                         if !isFollow2 {
                             FollowButtonView()
                         } else {
-                            FollowBtnView()
+                            FollowingButtonView()
                                 .foregroundColor(Color(hex: 0x090580))
                         }
                     }
                     .padding(.leading, 50)
                 }
             }
+            .padding()
         }
     }
 }
