@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FeedTabView: View {
-    
     @StateObject private var idData: IdData = IdData()
     
     var body: some View {
@@ -16,6 +15,8 @@ struct FeedTabView: View {
             ScrollView {
                 VStack {
                     TitleView()
+                        .padding(.top, -100)
+                    Divider()
                     FeedView()
                 }
             }
