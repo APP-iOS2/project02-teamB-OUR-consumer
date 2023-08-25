@@ -84,6 +84,7 @@ struct AddStudyMain: View {
                             guard let test = selectedItem else {
                                 let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
                                 studyStoreViewModel.addFeed(newStudy)
+                                dismiss()
                                 return
                             }
                             
@@ -95,6 +96,9 @@ struct AddStudyMain: View {
                                 
                                 studyStoreViewModel.addFeed(newStudy)
                             }
+                            
+                            addStudy.toggle()
+                            dismiss()
                         }
                         .disabled(studyTitle.isEmpty || studyText.isEmpty)
                     }
