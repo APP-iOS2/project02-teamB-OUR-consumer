@@ -26,11 +26,18 @@ struct AddStudyMain: View {
     @State var startDate: Date = Date()
     @State var dueDate: Date = Date()
     @State var studyImagePath: [String] = []
+<<<<<<< refs/remotes/origin/addRecruitView
     @State var selectedItem: [PhotosPickerItem] = []
     @State var imageDataArray: [Data] = []
     
     
     
+=======
+
+    @State var selectedItem: [PhotosPickerItem] = []
+    @State var imageDataArray: [Data] = []
+
+>>>>>>> feature: 사진 여러장 추가 기능 구현
     @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
     
     var body: some View {
@@ -85,11 +92,15 @@ struct AddStudyMain: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("등록") {
                             print("등록 버튼 tapped")
+<<<<<<< refs/remotes/origin/addRecruitView
                             
+=======
+>>>>>>> feature: 사진 여러장 추가 기능 구현
                             if selectedItem.isEmpty {
                                 let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
+<<<<<<< refs/remotes/origin/addRecruitView
                                 
                             } else {
                                 studyImagePath.removeAll()  // 이미지경로 배열 초기화
@@ -112,6 +123,23 @@ struct AddStudyMain: View {
                                 
                             }
                             
+=======
+                                dismiss()
+                            } else {
+                                for item in selectedItem {
+                                    studyStoreViewModel.returnImagePath(item: item) { urlString in
+                                        guard let url = urlString else { return }
+                                        print("url : \(url)")
+                                        studyImagePath.append(url)
+                                        
+                                        let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                        
+                                        studyStoreViewModel.addFeed(newStudy)
+                                        dismiss()
+                                    }
+                                }
+                            }
+>>>>>>> feature: 사진 여러장 추가 기능 구현
                             dismiss()
                             
                         }

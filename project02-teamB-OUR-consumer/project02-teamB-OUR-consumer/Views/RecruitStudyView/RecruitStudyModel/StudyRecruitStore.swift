@@ -27,8 +27,39 @@ class StudyRecruitStore: ObservableObject {
     
     
     func fetchFeeds() {
+<<<<<<< refs/remotes/origin/addRecruitView
         service.fetchAll(collection: .studypost) { results in
             self.studyStores = results
+=======
+        dbRef.getDocuments { (snapshot, error) in
+            self.studyStores.removeAll()
+            
+            if let snapshot {
+                var tempStudys: [StudyRecruitModel] = []
+                
+                for document in snapshot.documents {
+                    let id: String = document.documentID
+                    let docData: [String: Any] = document.data()
+                    let creator: String = docData["creator"] as? String ?? ""
+                    let studyTitle: String = docData["studyTitle"] as? String ?? ""
+                    let description: String = docData["description"] as? String ?? ""
+                    let isOnline: Bool = docData["isOnline"] as? Bool ?? false
+                    let isOffline: Bool = docData["isOffline"] as? Bool ?? false
+                    let locationName: String = docData["locationName"] as? String ?? ""
+                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
+                    let startAt: String = docData["startAt"] as? String ?? ""
+                    let dueAt: String = docData["dueAt"] as? String ?? ""
+                    let studyImagePath: [String] = docData["studyImagePath"] as? [String] ?? []
+                    let studyCount: Int = docData["studyCount"] as? Int ?? 1
+                    let studyCoordinates: [Double] = docData["studyCoordinates"] as? [Double] ?? []
+                    
+                    let studys = StudyRecruitModel(id: id, creator: creator, studyTitle: studyTitle, startAt: startAt, dueAt: dueAt, description: description, isOnline: isOnline, isOffline: isOffline, locationName: locationName, reportCount: reportCount, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: studyCoordinates)
+                    
+                    tempStudys.append(studys)
+                }
+                self.studyStores  = tempStudys
+            }
+>>>>>>> feature: 사진 여러장 추가 기능 구현
         }
     }
     
