@@ -107,7 +107,6 @@
 		D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */; };
 		D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */; };
 		D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B182A97B0B7000BC8E2 /* StorageManager.swift */; };
-		D5755B1C2A97B11F000BC8E2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D5755B1B2A97B11F000BC8E2 /* FirebaseStorage */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -271,9 +270,7 @@
 			files = (
 				FAB51C5E2A9661740047A725 /* FirebaseDatabaseSwift in Frameworks */,
 				FAB51C602A9661740047A725 /* FirebaseFirestore in Frameworks */,
-
 				B786FC192A987B0F00E3C1E9 /* FirebaseStorage in Frameworks */,
-
 				FAB51C5C2A9661740047A725 /* FirebaseDatabase in Frameworks */,
 				FAB51C692A9661800047A725 /* GoogleSignInSwift in Frameworks */,
 				FAB51C622A9661740047A725 /* FirebaseFirestoreCombine-Community in Frameworks */,
@@ -640,12 +637,6 @@
 			path = RecruitStudyModel;
 			sourceTree = "<group>";
 		};
-		D5755B1A2A97B11F000BC8E2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-    };
-			name = Frameworks;
 		FA435A742A9746C8000A2A11 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -816,7 +807,6 @@
 				FAB51C812A9677F00047A725 /* ButtonMainView.swift in Sources */,
 				FAB51C8C2A9678870047A725 /* AnyViewExtension.swift in Sources */,
 				A09ED4C62A95D5B200E6A626 /* CameraORImageModalView.swift in Sources */,
-				960EFDEA2A94A9C40036CEC1 /* ResumeData.swift in Sources */,
 				D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */,
 				FAB51C832A9677F00047A725 /* PersonnelSheet.swift in Sources */,
 				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
@@ -1133,15 +1123,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B786FC182A987B0F00E3C1E9 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-    };
 		9603589D2A9860B600C14D68 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9603589C2A9860B600C14D68 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B786FC182A987B0F00E3C1E9 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB51C582A9661740047A725 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		FAB51C592A9661740047A725 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
