@@ -15,7 +15,7 @@ import PhotosUI
 
 
 class StudyRecruitStore: ObservableObject {
-
+    
     private let userCollection = Firestore.firestore().collection("StudyPosts")
     
     @Published var studyStores: [StudyRecruitModel] = []
@@ -39,13 +39,14 @@ class StudyRecruitStore: ObservableObject {
                     let isOffline: Bool = docData["isOffline"] as? Bool ?? false
                     let locationName: String = docData["locationName"] as? String ?? ""
                     let reportCount: Int  = docData["reportCount"] as? Int ?? 0
-                    let startAt: Date = docData["startAt"] as? Date ?? Date()
-                    let dueAt: Date = docData["dueAt"] as? Date ?? Date()
+                    let startAt: String = docData["startAt"] as? String ?? ""
+                    let dueAt: String = docData["dueAt"] as? String ?? ""
                     let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
                     let studyCount: Int = docData["studyCount"] as? Int ?? 1
+                    let studyCoordinates: [Double] = docData["studyCoordinates"] as? [Double] ?? []
                     
-                    let studys = StudyRecruitModel(id: id, creator: creator, studyTitle: studyTitle, startAt: startAt, dueAt: dueAt, description: description, isOnline: isOnline, isOffline: isOffline, locationName: locationName, reportCount: reportCount, studyImagePath: studyImagePath, studyCount: studyCount)
-
+                    let studys = StudyRecruitModel(id: id, creator: creator, studyTitle: studyTitle, startAt: startAt, dueAt: dueAt, description: description, isOnline: isOnline, isOffline: isOffline, locationName: locationName, reportCount: reportCount, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: studyCoordinates)
+                    
                     tempStudys.append(studys)
                 }
                 self.studyStores  = tempStudys
@@ -54,23 +55,26 @@ class StudyRecruitStore: ObservableObject {
     }
     
     func addFeed(_ study: StudyRecruitModel) {
-
+        
         dbRef.document(study.id)
-            .setData(["creator": study.creator,
-                      "description": study.description,
-                      "locationName": study.locationName,
-                      "isOnline": study.isOnline,
-                      "isOffline": study.isOffline,
-                      "startAt": study.startAt,
-                      "dueAt": study.dueAt,
-                      "studyTitle": study.studyTitle,
-                      "reportCount": study.reportCount,
-                      "studyImagePath": study.studyImagePath,
-                      "studyCount" : study.studyCount])
+            .setData([
+                "id": study.id,
+                "creator": study.creator,
+                "description": study.description,
+                "locationName": study.locationName,
+                "isOnline": study.isOnline,
+                "isOffline": study.isOffline,
+                "startAt": study.startAt,
+                "dueAt": study.dueAt,
+                "studyTitle": study.studyTitle,
+                "reportCount": study.reportCount,
+                "studyImagePath": study.studyImagePath,
+                "studyCount" : study.studyCount,
+                "studyCoordinates": study.studyCoordinates])
         
         fetchFeeds()
     }
-
+    
     
     func removeFeed(_ study: StudyRecruitModel) {
         dbRef.document(study.id).delete()
@@ -87,7 +91,7 @@ class StudyRecruitStore: ObservableObject {
             completion(url.absoluteString)
         }
     }
-
+    
     
     func saveStudyImage(item: PhotosPickerItem) {
         Task {

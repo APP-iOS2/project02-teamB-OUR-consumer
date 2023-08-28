@@ -50,20 +50,21 @@ class FeedRecruitStore: ObservableObject {
     
     
     func addFeed(_ feed: FeedRecruitModel) {
-
+        
         dbRef.document(feed.id)
-            .setData(["creator": feed.creator,
-                      "content": feed.content,
-                  //    "imageString": feed.imageURL,
-                      "location": feed.location,
-                      "privateSetting": feed.privateSetting,
-                      "createdAt": feed.createdDate,
-                      "reportCount": feed.reportCount,
-                      "studyImagePath": feed.feedImagePath])
+            .setData([
+                "id": feed.id,
+                "creator": feed.creator,
+                "content": feed.content,
+                "location": feed.location,
+                "privateSetting": feed.privateSetting,
+                "createdAt": feed.createdDate,
+                "reportCount": feed.reportCount,
+                "studyImagePath": feed.feedImagePath])
         
         fetchFeeds()
     }
-
+    
     
     func removeFeed(_ feed: FeedRecruitModel) {
         
@@ -86,7 +87,7 @@ class FeedRecruitStore: ObservableObject {
             completion(url.absoluteString)
         }
     }
-
+    
     
     func saveStudyImage(item: PhotosPickerItem) {
         Task {
@@ -99,7 +100,7 @@ class FeedRecruitStore: ObservableObject {
         }
     }
     
-  
+    
     
     
     
