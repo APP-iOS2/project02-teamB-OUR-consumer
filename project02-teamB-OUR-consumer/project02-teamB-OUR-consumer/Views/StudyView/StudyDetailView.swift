@@ -56,7 +56,6 @@ struct StudyDetailView: View {
                                 .multilineTextAlignment(.leading)
                                 .lineSpacing(3)
                         }
-                        .padding(.horizontal, 20)
                         
                         Divider()
                         
@@ -79,6 +78,7 @@ struct StudyDetailView: View {
                                         .cornerRadius(10)
                                 }
                             }
+                            .padding(.vertical, 5)
                             
                             HStack {
                                 Image(systemName: "person.3.fill" )
@@ -109,6 +109,7 @@ struct StudyDetailView: View {
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
+                            .padding(.bottom, 10)
                             
                             HStack {
                                 
@@ -161,9 +162,7 @@ struct StudyDetailView: View {
                     .padding(15)
                     
                     StudyReplyView(studyViewModel: studyViewModel, study: study)
-                    
                 }
-                .padding(.top, 25)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -190,7 +189,6 @@ struct StudyDetailView: View {
             LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                 .presentationDetents([.medium])
         }
-        
     }
 }
 
