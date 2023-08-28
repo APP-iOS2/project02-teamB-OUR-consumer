@@ -44,11 +44,12 @@ class AlarmImageContainer: UIView{
         self.addSubview(titleLabel)
         
         testView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(28)
+            make.top.equalToSuperview().offset(-1)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(20)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(testView.snp.bottom).offset(3)
+            make.top.equalTo(testView.snp.bottom).offset(1)
             make.centerX.equalTo(testView.snp.centerX)
             make.bottom.equalToSuperview()
         }

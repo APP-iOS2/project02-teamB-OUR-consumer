@@ -30,9 +30,6 @@ struct NotificationsListView: View {
             // 새로고침 로직
             viewModel.fetchNotificationItem()
         }
-//        .onDelete { indexSet in
-//            viewModel.personalNotiItem.remove(atOffsets: indexSet)
-//        }
         .listStyle(PlainListStyle()) // 하얀색 배경
     }
     
