@@ -39,8 +39,8 @@ class StudyRecruitStore: ObservableObject {
                     let isOffline: Bool = docData["isOffline"] as? Bool ?? false
                     let locationName: String = docData["locationName"] as? String ?? ""
                     let reportCount: Int  = docData["reportCount"] as? Int ?? 0
-                    let startAt: Date = docData["startAt"] as? Date ?? Date()
-                    let dueAt: Date = docData["dueAt"] as? Date ?? Date()
+                    let startAt: String = docData["startAt"] as? String ?? ""
+                    let dueAt: String = docData["dueAt"] as? String ?? ""
                     let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
                     let studyCount: Int = docData["studyCount"] as? Int ?? 1
                     

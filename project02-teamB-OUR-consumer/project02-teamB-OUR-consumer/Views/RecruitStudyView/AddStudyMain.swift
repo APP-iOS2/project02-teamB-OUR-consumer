@@ -8,15 +8,15 @@
 import SwiftUI
 import PhotosUI
 
+
+
+
 struct AddStudyMain: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
     @StateObject var studyStoreViewModel: StudyRecruitStore = StudyRecruitStore()
     
     @State var studyTitle: String = ""
-    @State var addStudy: Bool = false
-    @State var cancel: Bool = false
-    
     @State var onlineToggle: Bool = false
     @State var offlineToggle: Bool = false
     @State var studyText: String = ""
@@ -82,7 +82,7 @@ struct AddStudyMain: View {
                             print("등록 버튼 tapped")
 
                             guard let test = selectedItem else {
-                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.DateToString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
                                 studyStoreViewModel.addFeed(newStudy)
                                 dismiss()
                                 return
@@ -92,12 +92,10 @@ struct AddStudyMain: View {
                                 guard let test = urlString else { return }
                                 print("test : \(test)")
                                 studyImagePath = test
-                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
                             }
-                            
-                            addStudy.toggle()
                             dismiss()
                         }
                         .disabled(studyTitle.isEmpty || studyText.isEmpty)
@@ -106,8 +104,6 @@ struct AddStudyMain: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("취소") {
-                            cancel.toggle()
-                            print(cancel)
                             print("취소 버튼 tapped")
                             dismiss()
                         }
