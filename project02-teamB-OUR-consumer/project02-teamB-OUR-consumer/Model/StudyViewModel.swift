@@ -8,44 +8,6 @@
 import Foundation
 import FirebaseFirestore
 
-/*
-struct Study: Identifiable {
-    // 디비에 올라갈 내용
-    var id: UUID = UUID()
-    //var imageString: String
-    var creatorId: String
-    var title: String
-    var description: String
-    var studyDate: String
-    var deadline: String
-    var locationName: String?
-    var locationCoordinate: String?
-    var isOnline: Bool
-    var urlString: String?
-    var currentMemberIds: [String]
-    var totalMemberCount: Int
-    var createdAt: Double = Date().timeIntervalSince1970
-//     var reportCount: Int
-//     var reportContent: String
-    
-    var createdDate: String {
-        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
-        
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "MM월 dd일 HH시 mm분"
-        
-        return dateFormatter.string(from: dateCreatedAt)
-    }
-    
-    
-    // 뷰에서 추가적으로 더 쓰일 내용
-    //var isSaved: Bool = false
-    //var comment: [StudyGroupComment]
-}
-*/
-
 struct Study: Identifiable, Codable {
     // 디비에 올라갈 내용
     var id: String = UUID().uuidString
@@ -64,17 +26,25 @@ struct Study: Identifiable, Codable {
     var totalMemberCount: Int
     // timestamp => coable 안되어서 string으로 줘야 함
     var createdAt: String
+    
+    var comments: [StudyGroupComment] = []
 }
 
-struct StudyGroupComment: Identifiable {
-    var id: UUID = UUID()
-    var profileImage: String?
-    var studyPostID: String // 다시 확인하기!
-    var userID: String
+struct StudyGroupComment: Identifiable, Codable {
+    var id: String = UUID().uuidString
+//    var profileImage: String?
+////    var studyPostID: String // 다시 확인하기!
+    var userId: String
     var content: String
-    var createdDate: Date
-    // var reportCount: Int
-    //  var reportContent: String
+    var createdAt: String
+   // var reportCount: Int
+  //  var reportContent: String
+    
+    enum CodingKeys: String, CodingKey {
+        case userId = "userId"
+        case content = "content"
+        case createdAt = "createdAt"
+    }
 }
 
 
@@ -130,6 +100,23 @@ class StudyViewModel: ObservableObject {
 //                    }
                 }
                 self.studyArray = temp
+            }
+        }
+    }
+    
+    func fetchComments(index: Int, documentId: String) {
+        dbRef.collection("studyGroup").document(documentId).collection("comments").getDocuments { [self] (snapshot, error) in
+            if let snapshot {
+                for document in snapshot.documents {
+                    do {
+                        var item = try document.data(as: StudyGroupComment.self)
+                        item.id = document.documentID
+                        self.studyArray[index].comments.append(item)
+                    } catch let error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                }
             }
         }
     }

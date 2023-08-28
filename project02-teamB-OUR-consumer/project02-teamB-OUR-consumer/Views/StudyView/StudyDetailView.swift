@@ -132,7 +132,7 @@ struct StudyDetailView: View {
                         }
                         .padding(15)
                         
-                        StudyReplyView()
+                        StudyReplyView(studyViewModel: studyViewModel, study: study)
                         
                     }
                     .padding(.top, 25)

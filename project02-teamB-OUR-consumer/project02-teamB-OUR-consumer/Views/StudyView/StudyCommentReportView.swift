@@ -13,7 +13,7 @@ struct StudyCommentReportView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
 //    var commentUserId: String // 신고하는 사람..?
-    var comment: StudyComment
+    var comment: StudyGroupComment
     
     //신고유형들 쭈루룩
     let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
@@ -29,7 +29,7 @@ struct StudyCommentReportView: View {
                 Text("신고하는 댓글")
                     .fontWeight(.heavy)
                 
-                StudyReplyDetailInReportView(comment: comment)
+                StudyReplyDetailInReportView(comment:comment)
                     .padding(10)
                     .overlay(
                             RoundedRectangle(cornerRadius: 20)
@@ -90,7 +90,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(comment: StudyComment(userId: "경미", content: "개발천재"))
+            StudyCommentReportView(comment: StudyGroupComment(userId: "1", content: "diudididi", createdAt: "2022-11"))
         }
     }
 }
