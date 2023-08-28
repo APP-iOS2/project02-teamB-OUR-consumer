@@ -25,8 +25,10 @@ struct AddStudyMain: View {
     @State var studyCount: Int = 1
     @State var startDate: Date = Date()
     @State var dueDate: Date = Date()
-    @State var studyImagePath: String = ""
-    @State var selectedItem: PhotosPickerItem? = nil
+    @State var studyImagePath: [String] = []
+
+    @State var selectedItem: [PhotosPickerItem] = []
+    @State var imageDataArray: [Data] = []
 
     @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
   
@@ -49,10 +51,10 @@ struct AddStudyMain: View {
                     // MARK: - 날짜
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
-                        .padding(.bottom, 20)
-
                     ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
-
+                        .padding(.bottom, 20)
+                    
+                    
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")
                         .font(.system(.title2))
@@ -69,7 +71,7 @@ struct AddStudyMain: View {
                     
                     // MARK: - 사진 선택
                     StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
-                        
+                        .padding(.bottom, 20)
                     
                     // MARK: - 위치 선택
                     StudyMapView(sharedViewModel: sharedViewModel)
@@ -80,24 +82,25 @@ struct AddStudyMain: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("등록") {
                             print("등록 버튼 tapped")
-
-                            guard let test = selectedItem else {
-                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
-                                studyStoreViewModel.addFeed(newStudy)
-                                dismiss()
-                                return
-                            }
-                            
-                            studyStoreViewModel.returnImagePath(item: test) { urlString in
-                                guard let test = urlString else { return }
-                                print("test : \(test)")
-                                studyImagePath = test
+                            if selectedItem.isEmpty {
                                 let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
+                                dismiss()
+                            } else {
+                                for item in selectedItem {
+                                    studyStoreViewModel.returnImagePath(item: item) { urlString in
+                                        guard let url = urlString else { return }
+                                        print("url : \(url)")
+                                        studyImagePath.append(url)
+                                        
+                                        let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                        
+                                        studyStoreViewModel.addFeed(newStudy)
+                                        dismiss()
+                                    }
+                                }
                             }
-                            
-                            addStudy.toggle()
                             dismiss()
                         }
                         .disabled(studyTitle.isEmpty || studyText.isEmpty)
