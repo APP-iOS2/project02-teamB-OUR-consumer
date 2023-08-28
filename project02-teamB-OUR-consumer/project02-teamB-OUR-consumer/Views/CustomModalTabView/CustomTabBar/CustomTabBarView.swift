@@ -66,9 +66,9 @@ struct CustomTabBarView: View {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
                                             .frame(width: 30, height: 45, alignment: .bottom)
                                     }else{
-                                        Image(systemName: tabBarImageNames[image])
+                                        Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 20, weight: .light))
-                                            .foregroundColor(selectedIndex == image ? Color(.black) : Color(.tertiaryLabel))
+                                            .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
