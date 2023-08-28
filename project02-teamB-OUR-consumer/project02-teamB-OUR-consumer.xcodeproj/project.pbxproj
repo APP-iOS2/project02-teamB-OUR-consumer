@@ -107,6 +107,8 @@
 		D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */; };
 		D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */; };
 		D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B182A97B0B7000BC8E2 /* StorageManager.swift */; };
+		F43988242A98C9E600436844 /* RecruitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43988232A98C9E600436844 /* RecruitService.swift */; };
+		F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -240,6 +242,8 @@
 		D5755B0E2A9716E5000BC8E2 /* StudyRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitModel.swift; sourceTree = "<group>"; };
 		D5755B102A9716FB000BC8E2 /* StudyRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyRecruitStore.swift; sourceTree = "<group>"; };
 		D5755B182A97B0B7000BC8E2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		F43988232A98C9E600436844 /* RecruitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitService.swift; sourceTree = "<group>"; };
+		F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitServiceExample.swift; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
@@ -603,6 +607,8 @@
 				B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */,
 				B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */,
 				B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */,
+				F43988232A98C9E600436844 /* RecruitService.swift */,
+				F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */,
 			);
 			path = "FeedRecruitModel+Extension";
 			sourceTree = "<group>";
@@ -810,6 +816,7 @@
 				D5755B0F2A9716E5000BC8E2 /* StudyRecruitModel.swift in Sources */,
 				FAB51C832A9677F00047A725 /* PersonnelSheet.swift in Sources */,
 				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
+				F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */,
 				A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
 				A09ED4D02A97402D00E6A626 /* CameraView.swift in Sources */,
@@ -860,6 +867,7 @@
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				FAB51C762A96755C0047A725 /* RecruitImagePicker.swift in Sources */,
 				FAB51C7C2A9677E40047A725 /* DateModel.swift in Sources */,
+				F43988242A98C9E600436844 /* RecruitService.swift in Sources */,
 				960358992A98601300C14D68 /* AlarmTabBarImage.swift in Sources */,
 				632883742A94DD31004DC84E /* PostView.swift in Sources */,
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
