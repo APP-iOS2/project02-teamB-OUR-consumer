@@ -35,7 +35,7 @@ struct CustomTabBarView: View {
             
             ZStack {
                 Rectangle()
-                    .frame(width: 350, height: 60)
+                    .frame(width: 350, height: 45)
                 //                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
@@ -67,8 +67,8 @@ struct CustomTabBarView: View {
                                             .frame(width: 30, height: 45, alignment: .bottom)
                                     }else{
                                         Image(systemName: tabBarImageNames[index])
-                                            .font(.system(size: 30, weight: .light))
-                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
+                                            .font(.system(size: 20, weight: .light))
+                                            .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
