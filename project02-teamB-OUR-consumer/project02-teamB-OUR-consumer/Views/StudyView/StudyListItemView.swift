@@ -16,11 +16,25 @@ struct StudyListItemView: View {
     
     var body: some View {
         HStack(spacing: 20) {
-//            Image(study.imageString)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 100, height: 100)
-//                    .cornerRadius(10)
+            
+            if study.imageString == nil {
+                Image("OUR_Logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(10)
+            } else {
+                AsyncImage(url: URL(string: study.imageString!)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
+                } placeholder: {
+                    ProgressView()
+                }
+
+            }
             
             
             VStack(alignment: .leading) {
