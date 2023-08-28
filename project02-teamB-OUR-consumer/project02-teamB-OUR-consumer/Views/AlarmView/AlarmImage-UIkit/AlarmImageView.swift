@@ -13,8 +13,8 @@ private enum Const {
     static let borderWidth: Double = 1
     static let imageOuterSpacing = Self.borderWidth + 4.0
     static let greenDotOuterSpacing = 1
-    static let greenDotViewInset = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 3)
-    static let greenDotViewSize = CGSize(width: 10, height: 10)
+    static let greenDotViewInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 2)
+    static let greenDotViewSize = CGSize(width: 6, height: 6)
     
     // shapeLayer
     static let gradationWidth = 2.0
@@ -54,6 +54,7 @@ class AlarmImageView: UIView {
         greenDotView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(Const.greenDotOuterSpacing)
         }
+        
         return roundView
     }()
     
@@ -62,9 +63,29 @@ class AlarmImageView: UIView {
         alarmImageView.tintColor = color
     }
     
+    
+//    1. 처음에 데이터가 있는지 없는지 확인 , ViewModel, UserDefaults
+//    2 - 1. 초기 앱 로딩시 알람이 있으면 addDot호출
+//    2 - 2. 초1기 앱 로딩시 알람이 없으면 아무것도 호출하지 않는다.
+//    3. 알람의 존재여부에 따라 0이 되면 removeDot 호출
+//    4. 알람의 존재여부에 따라 1이상이 되면 addDot 호출
+    
+    func removeDot(){
+        greenDotContainerView.removeFromSuperview()
+    }
+    
+    func addDot(){
+        self.addSubview(self.greenDotContainerView)
+        self.greenDotContainerView.snp.makeConstraints {
+            $0.right.top.equalToSuperview().inset(Const.greenDotViewInset)
+            $0.size.equalTo(Const.greenDotViewSize)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
