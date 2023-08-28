@@ -17,6 +17,7 @@ struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
+    @State var isSavedBookmark: Bool = false
     
     // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
     var loginId = ""
@@ -33,7 +34,7 @@ struct StudyDetailView: View {
                         .clipped()
                         .overlay(alignment:.bottom) {
                             VStack(alignment: .center, spacing: 10) {
-                                Text("여성은")
+                                Text(study.creatorId)
                                     .font(.system(size: 14, weight: .semibold))
                                 Text(study.title)
                                     .font(.system(size: 16, weight: .bold))
@@ -146,15 +147,18 @@ struct StudyDetailView: View {
                                             .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
                                             .cornerRadius(20)
                                     }
-                                    
-                                    ShareLink(item: study.title) {
-                                        Label("공유하기", systemImage: "square.and.arrow.up")
+                                    Button {
+                                        isSavedBookmark.toggle()
+                                    } label: {
+                                        Label("북마크", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
+                                            .bold()
+                                            .frame(width: 180, height: 40)
+                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                                            .cornerRadius(20)
+                                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255), lineWidth: 2)
+                                                  )
                                     }
-                                    .bold()
-                                    .frame(width: 180, height: 40)
-                                    .foregroundColor(.black)
-                                    .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                    .cornerRadius(20)
                                 }
                             }
                         }
@@ -173,11 +177,15 @@ struct StudyDetailView: View {
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                ShareLink(item: study.title) {
+                    Label("공유하기", systemImage: "square.and.arrow.up")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     print("")
                 } label: {
-                    Image(systemName: "bookmark")
-                        .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                    Image(systemName: "ellipsis")
                 }
             }
         }
