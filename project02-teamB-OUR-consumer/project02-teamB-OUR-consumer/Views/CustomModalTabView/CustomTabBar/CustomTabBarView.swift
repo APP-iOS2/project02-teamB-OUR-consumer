@@ -16,6 +16,7 @@ struct CustomTabBarView: View {
     var body: some View {
         VStack {
             ZStack {
+                Image()
                 if selectedIndex == 0 {
                     FeedTabView()
                 } else if selectedIndex == 1 {
