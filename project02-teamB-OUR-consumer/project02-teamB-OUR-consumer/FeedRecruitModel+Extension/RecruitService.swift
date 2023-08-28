@@ -57,21 +57,18 @@ extension Encodable {
 
 //Data객체 예시  전부 옵셔널 처리
 struct FeedRecruitModelTemp: Codable, Identifiable {
-
-//    var id: String = UUID().uuidString
-//    @DocumentID var id: String?   //안써도 될듯
-    var id: String?     //키값 문서 추가할때 자동으로 따서 넣어줌.
+    
+    @DocumentID var id: String?
     var creator: String?
     var content: String?
-    var imageURL: String?
     var location: String?
     var privateSetting: Bool?
     var reportCount: Int?
-    var createdAt: String?
-//    var geoPoint: GeoPoint?     // 위도 90도 경도 90도 이상으로 하면 오류남
-//    @ServerTimestamp var timeData: Timestamp? //현재 getDocument 했을때 Codable 오류 남.  NSDate 로 변환해줘야 에러가 안남.
+    var createdAt: Double = Date().timeIntervalSince1970
+    var feedImagePath: String?
+    
     var createdDate: String {
-        let dateCreatedAt: Date = Date(timeIntervalSince1970: Double(createdAt ?? "0") ?? 0)
+        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
         
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
@@ -81,7 +78,36 @@ struct FeedRecruitModelTemp: Codable, Identifiable {
         return dateFormatter.string(from: dateCreatedAt)
     }
 
+    //    var id: String?     //키값 문서 추가할때 자동으로 따서 넣어줌.
+    //    var geoPoint: GeoPoint?     // 위도 90도 경도 90도 이상으로 하면 오류남
+    //    @ServerTimestamp var timeData: Timestamp? //현재 getDocument 했을때 Codable 오류 남.  NSDate 로 변환해줘야 에러가 안남.
+    
 }
+
+//만약에 이게 등록쪽에서 쓰는 구조
+//struct FeedRecruitModelTest: Codable, Identifiable {
+//
+//    @DocumentID var id: String?
+//    var creator: String?
+//    var content: String?
+//    var location: String?
+//    var privateSetting: Bool?
+//    var reportCount: Int?
+//    var createdAt: Double = Date().timeIntervalSince1970
+//    var feedImagePath: String?
+//
+//    var createdDate: String {
+//        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
+//
+//        let dateFormatter: DateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "ko-KR")
+//        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+//        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+//
+//        return dateFormatter.string(from: dateCreatedAt)
+//    }
+//
+//}
 
 
 
@@ -90,37 +116,37 @@ struct FeedRecruitModelTemp: Codable, Identifiable {
 final class FeedViewModelTemp: ObservableObject {
     let service = RecruitService()
     
-    @Published var feedTable: FeedRecruitModelTemp
-    @Published var feedTables: [FeedRecruitModelTemp]
-    @Published var feedDics: [[String : Any]]
+    @Published var feedTable = FeedRecruitModelTemp()
+    @Published var feedTables = [FeedRecruitModelTemp]()
+    @Published var feedDics = [[String : Any]]()
     @Published var feedDic = [String : Any]()
     @Published var limit: Int = 0
     @Published var whereContentData: String = ""
     
     
-    init() {
-//        feedTable = FeedRecruitModelTemp(creator: "", content: "", imageURL: "", location: "", privateSetting: false, reportCount: 2, createdAt: "")
-        feedTable = FeedRecruitModelTemp()
-        feedTables = []
-        feedDics = []
-    }
+    init() { }
     
     
-    func fetchAll() async {
+    func fetchAll() {
+        self.feedTables.removeAll() //있는 데이터 삭제
+        
         if self.whereContentData != "" {
-            await service.fetchAll(collection: .posts, whereField: "content", whereType: .equal, whereData: whereContentData, limitCount: limit) { results in
-                self.feedDics = results
+            service.fetchAll(collection: .posts, whereField: "content", whereType: .equal, whereData: whereContentData, limitCount: limit) { results in
+//                self.feedDics = results
+                self.feedTables = results
             }
         } else {
-            await service.fetchAll(collection: .posts, limitCount: limit) { results in
-                self.feedDics = results
+            service.fetchAll(collection: .posts, limitCount: limit) { results in
+//                self.feedDics = results
+                self.feedTables = results
             }
         }
     }
     
     func fetchOneData( documentID: String ) {
         service.fetchOneData( collection: .posts, documentID: documentID ) { result in
-            self.feedDic = result
+//            self.feedDic = result
+            self.feedTable = result
         }
     }
 
@@ -230,7 +256,7 @@ final class RecruitService {
     ///가져오려는 값의 데이터객체의 필드가 일치하지 않으면 디코딩에러 //
     ///   onAppear()에서 호출바랍니다.
     ///서버에서 가져올 데이터를 담을 구조체( 데이터 객체 )의 배열을 클로저 매개변수로 반환
-    ///Data의 필드명이 데이터객체의 프로퍼티명과 일치하지 않거나 없을 경우 런타임 에러가 나기때문에 사용을 비추천
+    ///Data의 필드명이 데이터객체의 프로퍼티명과 일치하지 않거나 없을 경우 런타임 에러가 나기때문에 사용을 비추천 ->> 프로퍼티를 옵셔널로 처리하면 에러 안남.
     /// - collection: 컬렉션명 Enum
     /// - whereField: 조건을 입력할 Field명 ( String? )
     /// - whereType: 조건 타입 ex) equalTo( == ), lessThan( < ) etc...
@@ -275,6 +301,7 @@ final class RecruitService {
             colRef = db.collection("\(col.rawValue)")
         }
         
+        
         //정렬
         if let orderby {
             switch orderType {
@@ -286,12 +313,13 @@ final class RecruitService {
             
         }
         
+        
         if limitCount != 0 {
             colRef = colRef.limit(to: limitCount)
         }
         
         
-        colRef.getDocuments { snapShot, error in            
+        colRef.getDocuments() { [self] snapShot, error in
             if let error {
                 print("문서번호 못가져옴 : \(error)")
                 completion([])
@@ -302,24 +330,39 @@ final class RecruitService {
                 if let snapShot {
                     for document in snapShot.documents {
                         
-                        let documentData = document.data()
-                        print("문서 :  \(documentData)")
+                        let docID = document.documentID
+ 
+//                        print("문서ID :  \(document)")
                         
-                        do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: documentData, options: [])
-//                            print("Json데이터 : \(jsonData)")
-                            let decoder = JSONDecoder()
-                            let decodedData = try decoder.decode(T.self, from: jsonData)
-                            
-                            fetchedDatas.append(decodedData)
-                            
-                        } catch {
-                            print("Data가져와서 Decoding중 오류: \(error.localizedDescription)")
+                        db.collection("\(col.rawValue)").document(docID).getDocument(as: T.self) { result in
+                            switch result {
+                            case .success(let success):
+//                                print("Fetch 성공 : \(success)")
+                                fetchedDatas.append(success)
+                                
+                                completion(fetchedDatas)
+                                
+                            case .failure(let error):
+                                print("Fetch중 에러 : \(error.localizedDescription)")
+                                
+                            }
                         }
                         
+//                        do {
+//                            let jsonData = try JSONSerialization.data(withJSONObject: documentData, options: [])
+////                            print("Json데이터 : \(jsonData)")
+//                            let decoder = JSONDecoder()
+//                            let decodedData = try decoder.decode(T.self, from: jsonData)
+//
+//                            fetchedDatas.append(decodedData)
+//
+//                        } catch {
+//                            print("Data가져와서 Decoding중 오류: \(error.localizedDescription)")
+//                        }
+                        
                     }
-                    print("데이터 개수 \(fetchedDatas.count)")
-                    completion(fetchedDatas)
+//                    print("데이터 개수 \(fetchedDatas.count)")
+                    
                     
                 }
                 
@@ -471,34 +514,41 @@ final class RecruitService {
     func add<T: Encodable>( collection col: Recruit.collection, data: T ) {
         let colRef: CollectionReference = db.collection("\(col.rawValue)")
         
-        var dicData = [String : Any]()
-        
-        print("data :\n \(data)")
-        
-        dicData = data.toDictionary()   //Dictionary형태로 변환
-
-        print("dicData =\n \(dicData)")
+//        var dicData = [String : Any]()
+//
+//        print("data :\n \(data)")
+//
+//        dicData = data.toDictionary()   //Dictionary형태로 변환
+//
+//        print("dicData =\n \(dicData)")
         
         var newDocRef: DocumentReference?
         
-        newDocRef = colRef.addDocument( data: dicData ) { error in
-            if let error = error {
-                print("신규추가 중 에러 : \(error.localizedDescription)")
-                
-            } else {
-                if let newDocRef {
-                    let UID = newDocRef.documentID
-                    colRef.document("\(UID)").updateData( ["id" : UID] ) { err in
-                        if let err {
-                            print("Error updating : \(err.localizedDescription)")
-                        } else {
-                            print("ADD: UID Update 완료 UID = \(UID)")
-                        }
-                    }
+        do {
+            newDocRef = try colRef.addDocument( from: data ) { error in
+                if let error = error {
+                    print("신규추가 중 에러 : \(error.localizedDescription)")
                     
+                } else {
+                    print("추가완료 \(newDocRef)")
+//                    if let newDocRef {
+//                        let UID = newDocRef.documentID
+//                        colRef.document("\(UID)").updateData( ["id" : UID] ) { err in
+//                            if let err {
+//                                print("Error updating : \(err.localizedDescription)")
+//                            } else {
+//                                print("ADD: UID Update 완료 UID = \(UID)")
+//                            }
+//                        }
+//
+//                    }
                 }
             }
+        } catch {
+            print("신규추가 중 에러2 : \(error.localizedDescription)")
         }
+        
+        
     }
 
     
