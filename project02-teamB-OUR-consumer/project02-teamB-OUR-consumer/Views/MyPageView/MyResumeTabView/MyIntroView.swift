@@ -22,7 +22,7 @@ struct MyIntroView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyIntroEditView()
+                        MyIntroEditView(intro: myIntro ?? "")
                     } label: {
                         Image(systemName: "pencil")
                     }

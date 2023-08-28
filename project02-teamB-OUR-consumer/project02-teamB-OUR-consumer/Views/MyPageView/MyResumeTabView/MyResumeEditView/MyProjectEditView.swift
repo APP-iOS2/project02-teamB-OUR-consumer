@@ -160,7 +160,6 @@ struct MyProjectEditView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(mainColor)
                         .cornerRadius(5)
                 }
                 .disabled(projectTitle.isEmpty)

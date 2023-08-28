@@ -81,7 +81,6 @@ struct MyStudyView: View {
                                             .bold()
                                             .foregroundColor(.white)
                                             .padding()
-                                            .background(mainColor)
                                             .cornerRadius(10)
                                     }
                                 }

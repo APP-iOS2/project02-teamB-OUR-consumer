@@ -1,148 +1,84 @@
-//
-//  MyMainProfileEditView.swift
-//  project02-teamB-OUR-consumer
-//
-//  Created by 김성훈 on 2023/08/22.
-//
-
 import SwiftUI
+import Firebase
 
-struct MyMainProfileEditView: View {
-    
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
-    @State var image: Image = Image("OUR_Logo")
-    @State var username: String
-//    @State var profileMessage: String
-    @State var showModal: Bool = false
-    @State var showImagePicker: Bool = false
-    @State var showCamera: Bool = false
+struct ProfileEditView: View {
+    @ObservedObject var userViewModel: UserViewModel
+    @State private var name: String = ""
+    @State private var email: String = ""
+    @State private var profileMessage: String = ""
+    @State private var profileImage: UIImage?
+    @State private var isImagePickerPresented: Bool = false
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Button {
-                            showModal = true
-                        } label: {
-                            ZStack(alignment: .bottomTrailing) {
-                                image
-                                    .resizable()
-                                    .frame(width: 120, height: 120)
-                                    .cornerRadius(60)
-                            
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(mainColor) // 이미지 색상 설정
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white, lineWidth: 2) // 원형 보더 설정
-                                    )
-                            }
-                            .padding(.vertical)
-                        }
-                        Spacer()
-                    }
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("이름")
-                            .font(.system(size: 16))
-                            .bold()
-                            .padding(.vertical, 4)
-                            
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.gray, lineWidth: 2)
-                            .overlay {
-                                TextField("이름을 입력해주세요.", text: $username)
-                                    .padding()
-                                
-                                    
-                            }
-                            .frame(height: 50)
-                    }
-                    .padding(.vertical)
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("자기소개")
-                            .font(.system(size: 16))
-                            .bold()
-                            .padding(.vertical, 4)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.gray, lineWidth: 2)
-                            .overlay {
-                                TextEditor(text: $username)
-                                    .padding()
-                            }
-                            .frame(minHeight: 300)
-                    }
-                    .padding(.vertical)
-                }
-                .padding(.horizontal)
-                Spacer()
+        VStack(spacing: 20) {
+            if let profileImage = profileImage {
+                Image(uiImage: profileImage)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            } else {
+                Image("defaultProfileImage") // Default profile image placeholder
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            }
+            
+            Button("사진 선택") {
+                isImagePickerPresented = true
+            }
+            .sheet(isPresented: $isImagePickerPresented, content: {
+                ImagePicker(image: $profileImage)
+            })
+            
+            TextField("이름", text: $name)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+            
+            TextField("이메일", text: $email)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+            
+            TextEditor(text: $profileMessage)
+                .frame(height: 150)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+            
+            Button("저장") {
+                saveProfileChanges()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            
+            Spacer()
+        }
+        .onAppear {
+            if let user = userViewModel.user {
+                name = user.name
+                email = user.email
+                profileMessage = user.profileMessage ?? ""
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action : {
-            self.mode.wrappedValue.dismiss()
-        }){
-            Image(systemName: "chevron.backward")
-        })
-        .toolbar(content: {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    // TODO: 프로필 편집
-                } label: {
-                    Text("완료")
-                        .font(.system(size: 14))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(mainColor)
-                        .cornerRadius(5)
-                }
-                .buttonStyle(.plain)
-            }
-        })
-        .sheet(isPresented: $showModal) {
-            CameraORImageModalView(showModal: $showModal) { form in
-                switch form {
-                case .camera:
-                    showModal = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        showCamera = true
-                    }
-                case .picker:
-                    showModal = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        showImagePicker = true
-                    }
-                }
-            }
-            .presentationDetents([.height(120), .height(120)])
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(isPresented: $showImagePicker) { uiImage in
-                let convertedImage = Image(uiImage: uiImage)
-                image = convertedImage
-            }
-        }
-        .sheet(isPresented: $showCamera) {
-            CameraView(isPresented: $showImagePicker) { uiImage in
-                let convertedImage = Image(uiImage: uiImage)
-                image = convertedImage
-            }
-        }
-        .navigationTitle("프로필 편집")
-        .navigationBarTitleDisplayMode(.inline)
+        .padding()
     }
+    
+    func saveProfileChanges() {
+        if var updatedUser = userViewModel.user {
+            updatedUser.name = name
+            updatedUser.email = email
+            updatedUser.profileMessage = profileMessage
+            userViewModel.updateUser(user: updatedUser)
+        }
+    }
+    
 }
 
-struct MyMainProfileEditView_Previews: PreviewProvider {
+struct ProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            MyMainProfileEditView(username: "하이")
-        }
+        ProfileEditView(userViewModel: UserViewModel())
     }
 }

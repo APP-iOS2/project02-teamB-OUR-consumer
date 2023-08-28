@@ -11,7 +11,7 @@ struct MyIntroEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    @State var intro: String = ""
+    @State var intro: String
     
     @State var isDeleteItemAlert: Bool = false
     
@@ -53,7 +53,6 @@ struct MyIntroEditView: View {
                             .foregroundColor(.white)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(mainColor)
                             .cornerRadius(5)
                     }
                 }
@@ -65,6 +64,6 @@ struct MyIntroEditView: View {
 
 struct MyIntroEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyIntroEditView()
+        MyIntroEditView(intro: "")
     }
 }

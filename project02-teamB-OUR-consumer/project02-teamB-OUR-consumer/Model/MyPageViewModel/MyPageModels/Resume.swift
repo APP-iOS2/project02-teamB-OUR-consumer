@@ -2,16 +2,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct User: Identifiable, Codable {
-    @DocumentID var id: String?
-    var name: String
-    var email: String
-    var profileImage: String?
-    var profileMessage: String?
-    var follower: [String]?
-    var following: [String]?
-}
-
 struct Resume: Identifiable, Codable {
     @DocumentID var id: String?
     var userId: String
