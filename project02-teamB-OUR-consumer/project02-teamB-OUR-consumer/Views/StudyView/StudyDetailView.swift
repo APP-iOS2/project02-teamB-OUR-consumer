@@ -17,6 +17,10 @@ struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
+    @State var isSavedBookmark: Bool = false
+    
+    // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
+    var loginId = ""
     
     var body: some View {
         NavigationStack {
@@ -30,7 +34,7 @@ struct StudyDetailView: View {
                         .clipped()
                         .overlay(alignment:.bottom) {
                             VStack(alignment: .center, spacing: 10) {
-                                Text("여성은")
+                                Text(study.creatorId)
                                     .font(.system(size: 14, weight: .semibold))
                                 Text(study.title)
                                     .font(.system(size: 16, weight: .bold))
@@ -53,7 +57,6 @@ struct StudyDetailView: View {
                                 .multilineTextAlignment(.leading)
                                 .lineSpacing(3)
                         }
-                        .padding(.horizontal, 20)
                         
                         Divider()
                         
@@ -76,6 +79,7 @@ struct StudyDetailView: View {
                                         .cornerRadius(10)
                                 }
                             }
+                            .padding(.vertical, 5)
                             
                             HStack {
                                 Image(systemName: "person.3.fill" )
@@ -106,63 +110,92 @@ struct StudyDetailView: View {
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
+                            .padding(.bottom, 10)
                             
                             HStack {
-                                Button {
-                                    print("")
-                                } label: {
-                                    Text("참석")
-                                        .bold()
-                                        .frame(width: 180, height: 40)
-                                        .foregroundColor(.white)
-                                        .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                        .cornerRadius(20)
-                                }
-                                Button {
-                                    print("")
-                                } label: {
-                                    Text("공유")
-                                        .bold()
-                                        .frame(width: 180, height: 40)
-                                        .foregroundColor(.black)
-                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                        .cornerRadius(20)
+                                
+                                if study.creatorId == loginId {
+                                    Button {
+                                        print("")
+                                    } label: {
+                                        Text("수정")
+                                            .bold()
+                                            .frame(width: 180, height: 40)
+                                            .foregroundColor(.white)
+                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                            .cornerRadius(20)
+                                    }
+                                    Button {
+                                        print("")
+                                    } label: {
+                                        Text("삭제")
+                                            .bold()
+                                            .frame(width: 180, height: 40)
+                                            .foregroundColor(.black)
+                                            .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                            .cornerRadius(20)
+                                    }
+                                    
+                                } else {
+                                    Button {
+                                        print("")
+                                    } label: {
+                                        Text("참석")
+                                            .bold()
+                                            .frame(width: 180, height: 40)
+                                            .foregroundColor(.white)
+                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                            .cornerRadius(20)
+                                    }
+                                    Button {
+                                        isSavedBookmark.toggle()
+                                    } label: {
+                                        Label("북마크", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
+                                            .bold()
+                                            .frame(width: 180, height: 40)
+                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                                            .cornerRadius(20)
+                                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255), lineWidth: 2)
+                                                  )
+                                    }
                                 }
                             }
                         }
-                        .padding(15)
-                        
-                        StudyReplyView(studyViewModel: studyViewModel, study: study)
-                        
                     }
-                    .padding(.top, 25)
+                    .padding(15)
+                    
+                    StudyReplyView(studyViewModel: studyViewModel, study: study)
                 }
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action : {
-                self.mode.wrappedValue.dismiss()
-            }){
-                Image(systemName: "chevron.backward")
-            })
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        print("")
-                    } label: {
-                        Image(systemName: "bookmark")
-                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
-                    }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+            self.mode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "chevron.backward")
+        })
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ShareLink(item: study.title) {
+                    Label("공유하기", systemImage: "square.and.arrow.up")
                 }
             }
-            .sheet(isPresented: $isShowingStudyMemberSheet) {
-                StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet)
-                    .presentationDetents([.medium, .large])
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    print("")
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
             }
-            .sheet(isPresented: $isShowingLocationSheet) {
-                LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
-                    .presentationDetents([.medium])
-            }
-            
+        }
+        .sheet(isPresented: $isShowingStudyMemberSheet) {
+            StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet)
+                .presentationDetents([.medium, .large])
+        }
+        .sheet(isPresented: $isShowingLocationSheet) {
+            LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+                .presentationDetents([.medium])
         }
     }
 }
