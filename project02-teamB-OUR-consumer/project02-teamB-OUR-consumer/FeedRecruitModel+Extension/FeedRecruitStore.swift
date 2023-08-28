@@ -54,6 +54,7 @@ class FeedRecruitStore: ObservableObject {
         dbRef.document(feed.id)
             .setData(["creator": feed.creator,
                       "content": feed.content,
+                  //    "imageString": feed.imageURL,
                       "location": feed.location,
                       "privateSetting": feed.privateSetting,
                       "createdAt": feed.createdDate,

@@ -16,18 +16,19 @@ struct CustomTabBarView: View {
     var body: some View {
         VStack {
             ZStack {
-                if selectedIndex == 0 {
+                switch selectedIndex {
+                case 0:
                     FeedTabView()
-                } else if selectedIndex == 1 {
+                case 1:
                     StudyListView()
-                } else if selectedIndex == 2 {
+                case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
-                } else if selectedIndex == 3 {
+                case 3:
                     AlarmContainer()
-                } else if selectedIndex == 4 {
+                case 4:
                     MyMain()
-                } else {
-                    
+                default:
+                    EmptyView()
                 }
             }
             
@@ -35,15 +36,17 @@ struct CustomTabBarView: View {
             
             ZStack {
                 Rectangle()
-                    .frame(width: 350, height: 45)
+                    .frame(width: .infinity, height: 55)
                 //                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
+                    .padding(.horizontal, 10)
+                
                 HStack {
                     Spacer()
                     //                    0 ..< tabBarImageNames.count
-                    ForEach(0 ..< tabBarImageNames.endIndex, id:\.self) { index in
+                    ForEach( 0 ..< tabBarImageNames.endIndex, id:\.self) { index in
                         VStack {
                             if index == 2 {
                                 VStack {
@@ -71,7 +74,7 @@ struct CustomTabBarView: View {
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
-                                            .font(.system(size: 14))
+                                            .font(.system(size: 12))
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
                                     }
                                 }
