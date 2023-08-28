@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
+/*
 struct Study: Identifiable {
     // 디비에 올라갈 내용
     var id: UUID = UUID()
@@ -43,6 +44,27 @@ struct Study: Identifiable {
     //var isSaved: Bool = false
     //var comment: [StudyGroupComment]
 }
+*/
+
+struct Study: Identifiable, Codable {
+    // 디비에 올라갈 내용
+    var id: String = UUID().uuidString
+    var imageString: String?
+    var creatorId: String
+    var title: String
+    var description: String
+    var studyDate: String
+    var deadline: String
+    var locationName: String?
+    // geopoint => codable 안되어서 double,double로 줘야함
+    var locationCoordinate: [Double]?
+    var isOnline: Bool
+    var linkString: String?
+    var currentMemberIds: [String]
+    var totalMemberCount: Int
+    // timestamp => coable 안되어서 string으로 줘야 함
+    var createdAt: String
+}
 
 struct StudyGroupComment: Identifiable {
     var id: UUID = UUID()
@@ -54,6 +76,7 @@ struct StudyGroupComment: Identifiable {
     // var reportCount: Int
     //  var reportContent: String
 }
+
 
 class StudyViewModel: ObservableObject {
     
@@ -69,7 +92,7 @@ class StudyViewModel: ObservableObject {
             if let snapshot {
                 var temp: [Study] = []
                 for document in snapshot.documents {
-                    let id: UUID = document.documentID.stringToUUID() ?? UUID()
+                    let id: String = document.documentID as? String ?? ""
                     let docData: [String: Any] = document.data()
                     //let imageString: String = docData["imageString"] as? String ?? ""
                     let creatorId: String = docData["creatorId"] as? String ?? ""
@@ -84,11 +107,11 @@ class StudyViewModel: ObservableObject {
                     let urlString: String = docData["urlString"] as? String ?? ""
                     let currentMemberIds: [String] = docData["currentMemberIds"] as? [String] ?? []
                     let totalMemberCount: Int = docData["totalMemberCount"] as? Int ?? 0
-                    let createdAt: Double = docData["createdAt"] as? Double ?? 0
+                    let createdAt: String = docData["createdAt"] as? String ?? ""
                     //let isSaved: Bool = docData["isSaved"] as? Bool ?? false
                     //let comments: StudyGroupComment = docData["studyGroupComment"] as? StudyGroupComment ?? StudyGroupComment(profileImage: "이미지 없음", studyPostID: "studyPost ID fetch 실패", userID: "user ID fetch 실패", content: "없음", createdDate: Date())
                     
-                    let study = Study(id: id, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, isOnline: false, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount)
+                    let study = Study(id: id, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, isOnline: false, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt)
                     temp.append(study)
                     
                     if self.filterWithDeadline(deadline: deadline) {
@@ -127,7 +150,7 @@ class StudyViewModel: ObservableObject {
             return
         }
         
-        var savedStudyArray: [String] = [study.id.uuidString]
+        var savedStudyArray: [String] = [study.id]
         dbRef.collection("users").document(userId)
             .getDocument() { (snapshot, err) in
                 if let err = err {

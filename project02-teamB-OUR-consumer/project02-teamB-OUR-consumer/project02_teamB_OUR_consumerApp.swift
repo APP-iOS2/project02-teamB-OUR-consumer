@@ -61,6 +61,7 @@ struct project02_teamB_OUR_consumerApp: App {
 
 //            NavigationStack {
                 LoginView()
+//            CustomTabBarView()
 //            AddStudyMain()
 
         }

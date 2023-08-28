@@ -170,7 +170,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0))
+            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
         }
     }
     
