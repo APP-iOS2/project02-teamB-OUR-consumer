@@ -26,7 +26,7 @@ struct FeedRecruitPhotoAddView: View {
     
     var body: some View {
         VStack {
-            
+            //사진데이터가 없을경우
             if imageData == nil {
                 HStack {
                     
@@ -46,6 +46,7 @@ struct FeedRecruitPhotoAddView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                     
                 }
+                //사진 데이터가 있을경우
             } else {
                 HStack {
                     
