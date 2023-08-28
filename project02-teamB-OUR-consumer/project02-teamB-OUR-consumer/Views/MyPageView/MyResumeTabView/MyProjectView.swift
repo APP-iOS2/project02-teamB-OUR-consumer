@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MyProjectCellView: View {
+    @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
     var project: Project
+    var index: Int
         
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -22,7 +24,7 @@ struct MyProjectCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyProjectEditView(isShowingDeleteButton: true)
+                        MyProjectEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -42,7 +44,10 @@ struct MyProjectCellView: View {
 }
 
 struct MyProjectView: View {
-    var myProjects: [Project]
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    var myProjects: [Project] {
+        resumeViewModel.resume?.projects ?? []
+    }
     @Binding var isMyProfile: Bool
     
     @State var isDeleteItemAlert: Bool = false
@@ -58,14 +63,14 @@ struct MyProjectView: View {
                     
                     Spacer()
                     
-                    if isMyProfile {
-                        NavigationLink {
-                            MyProjectEditView(isShowingDeleteButton: false)
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-
-                    }
+//                    if isMyProfile {
+//                        NavigationLink {
+//                            MyProjectEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: false)
+//                        } label: {
+//                            Image(systemName: "plus")
+//                        }
+//
+//                    }
                     
                 }
                 .padding(.vertical, 5)
@@ -78,7 +83,7 @@ struct MyProjectView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<myProjects.count, id: \.self) { index in
                     if index < 3 {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: myProjects[index])
+                        MyProjectCellView(resumeViewModel:resumeViewModel, isMyProfile: $isMyProfile, project: myProjects[index], index: index)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -88,7 +93,7 @@ struct MyProjectView: View {
                 // 프로젝트 3개 넘으면 더보기
                 if myProjects.count > 3 {
                     NavigationLink {
-                        MyProjectMoreView(myProjects: myProjects, isMyProfile: $isMyProfile)
+                        MyProjectMoreView(resumeViewModel: resumeViewModel, myProjects: myProjects, isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -105,6 +110,6 @@ struct MyProjectView: View {
 
 struct MyProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectView(myProjects: [], isMyProfile: .constant(true))
+        MyProjectView(resumeViewModel: ResumeViewModel(), isMyProfile: .constant(true))
     }
 }
