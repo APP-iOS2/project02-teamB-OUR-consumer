@@ -21,6 +21,7 @@ struct StudyRecruitModel {
     var reportCount: Int // 신고 횟수
     var studyImagePath: String
     var studyCount: Int
+    var studyCoordinates: [Double]
     
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

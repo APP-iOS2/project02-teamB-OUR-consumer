@@ -10,6 +10,7 @@ import MapKit
 
 class SharedViewModel: ObservableObject {
     @Published var selectedLocality: String = ""
+    @Published var selectedCoordinates: [Double]  = []
 }
 
 struct StudyMapView: View {
@@ -46,6 +47,7 @@ struct StudyMapView: View {
 //
                     HStack {
                         Text(sharedViewModel.selectedLocality)
+                       
                     }
                     .font(.system(size: 16, weight: .semibold))
                     
@@ -158,14 +160,16 @@ struct MapViewSelection: View {
                     }
                     
                     Button {
-                        print(place.location!)
-                        
-                        print(place.locality!)
+                        print("테스트1 \(place.location?.coordinate)")
+                        print("테스트2 \(place.locality!)")
+               
                         print(type(of: place.name)) // Optional String
 //                        selectedLocality = place.locality
 //                        selectedName = place.name
-                        if let locality = place.locality, let name = place.name {
+                        if let locality = place.locality, let name = place.name, let locationLatitude = place.location?.coordinate.latitude, let locationLongitude = place.location?.coordinate.longitude  {
                             sharedViewModel.selectedLocality = locality + ", " + name
+                            sharedViewModel.selectedCoordinates.append(locationLatitude)
+                            sharedViewModel.selectedCoordinates.append(locationLongitude)
                             
                         }
 //                        sharedViewModel.selectedLocality = place.locality ?? ""

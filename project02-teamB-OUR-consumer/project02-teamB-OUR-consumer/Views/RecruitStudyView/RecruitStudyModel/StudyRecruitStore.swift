@@ -43,8 +43,9 @@ class StudyRecruitStore: ObservableObject {
                     let dueAt: Date = docData["dueAt"] as? Date ?? Date()
                     let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
                     let studyCount: Int = docData["studyCount"] as? Int ?? 1
+                    let studyCoordinates: [Double] = docData["studyCoordinates"] as? [Double] ?? []
                     
-                    let studys = StudyRecruitModel(id: id, creator: creator, studyTitle: studyTitle, startAt: startAt, dueAt: dueAt, description: description, isOnline: isOnline, isOffline: isOffline, locationName: locationName, reportCount: reportCount, studyImagePath: studyImagePath, studyCount: studyCount)
+                    let studys = StudyRecruitModel(id: id, creator: creator, studyTitle: studyTitle, startAt: startAt, dueAt: dueAt, description: description, isOnline: isOnline, isOffline: isOffline, locationName: locationName, reportCount: reportCount, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: studyCoordinates)
 
                     tempStudys.append(studys)
                 }
@@ -66,7 +67,8 @@ class StudyRecruitStore: ObservableObject {
                       "studyTitle": study.studyTitle,
                       "reportCount": study.reportCount,
                       "studyImagePath": study.studyImagePath,
-                      "studyCount" : study.studyCount])
+                      "studyCount" : study.studyCount,
+                      "studyCoordinates": study.studyCoordinates])
         
         fetchFeeds()
     }
