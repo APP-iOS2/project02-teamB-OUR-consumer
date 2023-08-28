@@ -81,6 +81,7 @@ struct StudyReplyView: View {
             
         }
         .onAppear {
+            // 이거를 사실은 detailview로 옮겼어야하는게 맞는거같아여
             studyViewModel.makeStudyDetail(study: study) { studyDetail in
                 self.studyDetail = studyDetail
                 print(self.studyDetail)

@@ -16,6 +16,8 @@ struct StudyReplyDetailView: View {
     
     var studyViewModel: StudyViewModel
     var comment: StudyComment
+    
+    // studycomment니까 실제로 댓글 달면 studygroupcomment로 달아줘야겠죠?? 다시 디비로 보낼때도 변환하는 과정ㅇ ㅣ필요합니다!!
     @State var index: Int
     
     @Binding var isEditing: Bool
