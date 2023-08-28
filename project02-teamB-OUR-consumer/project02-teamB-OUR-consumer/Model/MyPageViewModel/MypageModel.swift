@@ -12,6 +12,12 @@ struct User: Identifiable, Codable {
     var following: [String]?
 }
 
+extension User {
+    static var defaultUser: User {
+        return User(name: "test", email: "test@gamil.com")
+    }
+}
+
 struct Resume: Identifiable, Codable {
     @DocumentID var id: String?
     var userId: String
