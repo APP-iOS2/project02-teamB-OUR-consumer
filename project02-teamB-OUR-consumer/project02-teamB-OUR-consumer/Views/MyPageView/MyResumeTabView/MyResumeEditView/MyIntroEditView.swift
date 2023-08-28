@@ -10,8 +10,9 @@ import SwiftUI
 struct MyIntroEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
-    @State var intro: String = ""
+    @ObservedObject var resumeViewModel: ResumeViewModel
+
+    @State var introduction: String = ""
     
     @State var isDeleteItemAlert: Bool = false
     
@@ -27,7 +28,7 @@ struct MyIntroEditView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(.gray, lineWidth: 2)
                     .overlay {
-                        TextEditor(text: $intro)
+                        TextEditor(text: $introduction)
                             .padding()
                     }
                     .frame(minHeight: 300)
@@ -45,7 +46,7 @@ struct MyIntroEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // 완료 버튼
+                        saveIntroductionChanges()
                         dismiss()
                     } label: {
                         Text("완료")
@@ -58,13 +59,26 @@ struct MyIntroEditView: View {
                     }
                 }
             }
+            .onAppear {
+                if let resume = resumeViewModel.resume {
+                    introduction = resume.introduction ?? "자기소개를 입력하세요"
+                }
+            }
         }
-        
+    }
+    
+    func saveIntroductionChanges() {
+        if var updatedResume = resumeViewModel.resume {
+            updatedResume.introduction = introduction
+            resumeViewModel.updateResume(resume: updatedResume)
+        }
     }
 }
 
 struct MyIntroEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyIntroEditView()
+        NavigationStack {
+            MyIntroEditView(resumeViewModel: ResumeViewModel())
+        }
     }
 }

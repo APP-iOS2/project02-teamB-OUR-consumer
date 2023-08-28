@@ -126,7 +126,7 @@ struct MyMain: View {
                         Section {
                             switch currentTab {
                             case 0:
-                                MyResumeView(myResume: resumeViewModel.resume, isMyProfile: $isMyProfile)
+                                MyResumeView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
                             case 1:
                                 MyBoardView()
                             case 2:

@@ -8,30 +8,26 @@
 import SwiftUI
 
 struct MyResumeView: View {
-    var myResume: Resume?
+    @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                if let myResume = myResume {
-                    VStack(spacing: 0) {
-                        MyIntroView(myIntro: myResume.introduction, isMyProfile: $isMyProfile)
-                            Rectangle()
-                                .fill(Color("DefaultGray"))
-                        MyWorkView(myWorks: myResume.workExperience, isMyProfile: $isMyProfile)
-                            Rectangle()
-                                .fill(Color("DefaultGray"))
-                        MyProjectView(myProjects: myResume.projects, isMyProfile: $isMyProfile)
-                            Rectangle()
-                                .fill(Color("DefaultGray"))
-                        MyEduView(myEdu: myResume.education, isMyProfile: $isMyProfile)
-                            Rectangle()
-                                .fill(Color("DefaultGray"))
-                        MySkillView(mySkills: myResume.skills, isMyProfile: $isMyProfile)
-                    }
-                } else {
-                    Text("이력서를 찾을 수 없습니다")
+                VStack(spacing: 0) {
+                    MyIntroView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    Rectangle()
+                        .fill(Color("DefaultGray"))
+                    //                        MyWorkView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    Rectangle()
+                        .fill(Color("DefaultGray"))
+                    //                        MyProjectView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    Rectangle()
+                        .fill(Color("DefaultGray"))
+                    //                        MyEduView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    Rectangle()
+                        .fill(Color("DefaultGray"))
+                    //                        MySkillView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
                 }
             }
         }
@@ -40,6 +36,6 @@ struct MyResumeView: View {
 
 struct MyResumeView_Previews: PreviewProvider {
     static var previews: some View {
-        MyResumeView(myResume: nil, isMyProfile: .constant(true))
+        MyResumeView(resumeViewModel: ResumeViewModel(), isMyProfile: .constant(true))
     }
 }
