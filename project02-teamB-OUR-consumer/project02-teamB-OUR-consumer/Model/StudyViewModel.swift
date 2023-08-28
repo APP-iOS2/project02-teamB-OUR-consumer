@@ -8,14 +8,21 @@
 import Foundation
 import FirebaseFirestore
 
+// DB에 studygroup에 들어갈 study 전체 내용 (올라가고, 받고)
 struct Study: Identifiable, Codable {
-    // 디비에 올라갈 내용
+    // study Id => 추후 documentId로 바꿀 수도 있음
     var id: String = UUID().uuidString
+    // study 배경 Image
     var imageString: String?
+    // study를 만든 사람의 id
     var creatorId: String
+    // study 제목
     var title: String
+    // study 설명
     var description: String
+    // study 하는 날짜 (1회성)
     var studyDate: String
+    // study원 모집 마감하는 날
     var deadline: String
     var locationName: String?
     // geopoint => codable 안되어서 double,double로 줘야함
@@ -27,21 +34,21 @@ struct Study: Identifiable, Codable {
     // timestamp => coable 안되어서 string으로 줘야 함
     var createdAt: String
     
-    enum CodingKeys: String, CodingKey {
-        case imageString = "imageString"
-        case creatorId = "creatorId"
-        case title = "title"
-        case description = "description"
-        case studyDate = "studyDate"
-        case deadline = "deadline"
-        case locationName = "locationName"
-        case locationCoordinate = "locationCoordinate"
-        case isOnline = "isOnline"
-        case linkString = "linkString"
-        case currentMemberIds = "currentMemberIds"
-        case totalMemberCount = "totalMemberCount"
-        case createdAt = "createdAt"
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case imageString = "imageString"
+//        case creatorId = "creatorId"
+//        case title = "title"
+//        case description = "description"
+//        case studyDate = "studyDate"
+//        case deadline = "deadline"
+//        case locationName = "locationName"
+//        case locationCoordinate = "locationCoordinate"
+//        case isOnline = "isOnline"
+//        case linkString = "linkString"
+//        case currentMemberIds = "currentMemberIds"
+//        case totalMemberCount = "totalMemberCount"
+//        case createdAt = "createdAt"
+//    }
 }
 
 struct StudyDetail {
