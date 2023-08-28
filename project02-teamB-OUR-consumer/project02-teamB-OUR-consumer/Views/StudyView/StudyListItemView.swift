@@ -69,6 +69,8 @@ struct StudyListItemView: View {
                             .font(.title2)
                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                     }
+                    .buttonStyle(.plain)
+                    //이거 왜되는가..?
                 }
             }
         }
