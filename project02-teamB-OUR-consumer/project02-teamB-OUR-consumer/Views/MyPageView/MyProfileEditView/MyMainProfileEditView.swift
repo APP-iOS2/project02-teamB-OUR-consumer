@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MyMainProfileEditView: View {
-    
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    
-    @State var image: Image = Image("OUR_Logo")
-    @State var username: String
-//    @State var profileMessage: String
+    @State var image: UIImage = UIImage(named: "OUR_Logo")!
+    @State var name: String = ""
+    @State var profileMessage: String = ""
     @State var showModal: Bool = false
     @State var showImagePicker: Bool = false
     @State var showCamera: Bool = false
+    @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
         VStack {
@@ -27,7 +27,7 @@ struct MyMainProfileEditView: View {
                             showModal = true
                         } label: {
                             ZStack(alignment: .bottomTrailing) {
-                                image
+                                Image(uiImage: image)
                                     .resizable()
                                     .frame(width: 120, height: 120)
                                     .cornerRadius(60)
@@ -54,7 +54,7 @@ struct MyMainProfileEditView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.gray, lineWidth: 2)
                             .overlay {
-                                TextField("이름을 입력해주세요.", text: $username)
+                                TextField("이름을 입력해주세요.", text: $name)
                                     .padding()
                                 
                                     
@@ -72,7 +72,7 @@ struct MyMainProfileEditView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.gray, lineWidth: 2)
                             .overlay {
-                                TextEditor(text: $username)
+                                TextEditor(text: $profileMessage)
                                     .padding()
                             }
                             .frame(minHeight: 300)
@@ -93,6 +93,8 @@ struct MyMainProfileEditView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     // TODO: 프로필 편집
+                    saveProfileChanges()
+                    dismiss()
                 } label: {
                     Text("완료")
                         .font(.system(size: 14))
@@ -123,26 +125,36 @@ struct MyMainProfileEditView: View {
             .presentationDetents([.height(120), .height(120)])
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(isPresented: $showImagePicker) { uiImage in
-                let convertedImage = Image(uiImage: uiImage)
-                image = convertedImage
-            }
+            ImagePicker(image: $image)
         }
         .sheet(isPresented: $showCamera) {
             CameraView(isPresented: $showImagePicker) { uiImage in
-                let convertedImage = Image(uiImage: uiImage)
-                image = convertedImage
+                image = uiImage
             }
         }
         .navigationTitle("프로필 편집")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if let user = userViewModel.user {
+                name = user.name
+                profileMessage = user.profileMessage ?? ""
+            }
+        }
+    }
+    
+    func saveProfileChanges() {
+        if var updatedUser = userViewModel.user {
+            updatedUser.name = name
+            updatedUser.profileMessage = profileMessage
+            userViewModel.updateUser(user: updatedUser)
+        }
     }
 }
 
 struct MyMainProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyMainProfileEditView(username: "하이")
+            MyMainProfileEditView(userViewModel: UserViewModel())
         }
     }
 }

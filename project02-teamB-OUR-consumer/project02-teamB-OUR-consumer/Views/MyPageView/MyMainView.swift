@@ -13,80 +13,58 @@ import Firebase
 let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
-    @ObservedObject var myPageViewModel: MypageViewModel = MypageViewModel(db: DatabaseService(), userId: Auth.auth().currentUser?.uid ?? "0RPDyJNyzxSViwBvMw573KU0jKv1")
     @StateObject private var studyViewModel = StudyViewModel()
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
+    
+    @ObservedObject var userViewModel = UserViewModel()
+    @ObservedObject var resumeViewModel = ResumeViewModel()
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     
     var body: some View {
-        
         NavigationStack {
             ScrollView {
-                HStack {
-                    if isMyProfile {
-                        Text("내 프로필")
-                            .font(.system(size: 20))
-                            .bold()
-                    } else {
-                        Text("프로필")
-                            .bold()
-                    }
-                    Spacer()
-                    if isMyProfile == true {
-                        NavigationLink {
-                            MyBookMarkView()
-                        } label: {
-                            Image(systemName: "bookmark")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                        }
-                        NavigationLink {
-                            SettingView()
-                        } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                        }
-                    }
+                VStack {
+                    // 설정 및 북마크 아이콘
+                    ProfileBar(isMyProfile: $isMyProfile)
+                        .padding(.horizontal)
+                    
+                    // 프로필 헤더
+//                    ProfileHeaderView(isMyProfile: $isMyProfile, userViewModel: userViewModel)
                 }
-                .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading) {
                         HStack(spacing: 20) {
-                            Image("OUR_Logo")
+                            Image(userViewModel.user?.profileImage ?? "OUR_Logo")
                                 .resizable()
                                 .frame(width: 100, height: 100)
                                 .cornerRadius(50)
                             
                             VStack(alignment: .leading, spacing: 8) {
-                                Text(myPageViewModel.user?.name ?? "")
+                                Text(userViewModel.user?.name ?? "")
                                     .bold()
                                     .font(.system(size: 16))
                                 HStack(spacing: 20) {
                                     HStack(spacing: 2) {
                                         Text("팔로워")
-                                        Text("233").bold()
+                                        Text("\(userViewModel.user?.numberOfFollower ?? 0)").bold()
                                     }
                                     
                                     HStack(spacing: 2) {
                                         Text("팔로잉")
-                                        Text("214").bold()
+                                        Text("\(userViewModel.user?.numberOfFollowing ?? 0)").bold()
                                     }
                                     
                                     HStack(spacing: 2) {
                                         Text("게시물")
                                         Text("2").bold()
                                     }
-                                    
                                 }
                                 .font(.system(size: 12))
-                                
                             }
-                            
                         }
-                        Text("간단 자기소개")
+                        Text("\(userViewModel.user?.profileMessage ?? "자기소개")")
                             .font(.system(size: 14))
                             .padding(.vertical)
                         
@@ -94,7 +72,7 @@ struct MyMain: View {
                             if isMyProfile == true {
                                 NavigationLink {
                                     // TODO: 편집 페이지로 이동
-                                    MyMainProfileEditView(username: "회사")
+                                    MyMainProfileEditView(userViewModel: userViewModel)
                                 } label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 5)
@@ -148,7 +126,7 @@ struct MyMain: View {
                         Section {
                             switch currentTab {
                             case 0:
-                                MyResumeView(myResume: myPageViewModel.resume, isMyProfile: $isMyProfile)
+                                MyResumeView(myResume: resumeViewModel.resume, isMyProfile: $isMyProfile)
                             case 1:
                                 MyBoardView()
                             case 2:
@@ -168,7 +146,14 @@ struct MyMain: View {
             .padding(.top, 1)
             
         }
-        
+        .onAppear(){
+            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
+            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+        }
+        .refreshable {
+            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
+            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+        }
     }
 }
 

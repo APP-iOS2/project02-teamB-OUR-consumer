@@ -31,13 +31,6 @@ struct SettingView: View {
                             Text("lion@gmail.com")
                         }
                         .padding(.vertical, 5)
-                        
-                        Button {
-                            // 비밀번호 변경
-                        } label: {
-                            Text("비밀번호 변경")
-                        }
-                        .buttonStyle(.plain)
                         Divider()
                     }
                     

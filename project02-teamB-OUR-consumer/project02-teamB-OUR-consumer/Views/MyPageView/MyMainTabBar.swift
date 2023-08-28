@@ -24,10 +24,9 @@ struct MyMainTabBar: View {
                            tab: index)
             }
         }
-        
-    
     }
 }
+
 struct TabBarItem: View {
     @Binding var currentTab: Int
     let namespace: Namespace.ID
