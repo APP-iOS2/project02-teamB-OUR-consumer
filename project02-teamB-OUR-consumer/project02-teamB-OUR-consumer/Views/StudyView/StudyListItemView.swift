@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct StudyListItemView: View {
-    
-    var study: Study
+
     @ObservedObject var studyViewModel: StudyViewModel = StudyViewModel()
     
     @State var addBookmark: Bool = false
+    
+    var study: Study
     
     var body: some View {
         HStack(spacing: 20) {
@@ -74,7 +75,7 @@ struct StudyListItemView: View {
                 }
             }
         }
-        .frame(width: 330, height: 90)
+        .frame(width: 345, height: 90)
         .padding()
         .background(
            RoundedRectangle(cornerRadius: 20)
@@ -82,7 +83,7 @@ struct StudyListItemView: View {
                .shadow(color: .gray, radius: 3, x: 1, y: 1)
                .opacity(0.3)
            )
-        .padding([.leading, .trailing])
+        .padding(.leading)
         .onAppear {
             studyViewModel.fetchStudy()
         }
