@@ -158,12 +158,15 @@ struct MapViewSelection: View {
                     }
                     
                     Button {
+                        print(place.location!)
+                        
                         print(place.locality!)
                         print(type(of: place.name)) // Optional String
 //                        selectedLocality = place.locality
 //                        selectedName = place.name
                         if let locality = place.locality, let name = place.name {
                             sharedViewModel.selectedLocality = locality + ", " + name
+                            
                         }
 //                        sharedViewModel.selectedLocality = place.locality ?? ""
                         print("sharedViewModel.selectedLocality : \(sharedViewModel.selectedLocality)")
