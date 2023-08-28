@@ -60,8 +60,8 @@ struct project02_teamB_OUR_consumerApp: App {
         WindowGroup {
 
 //            NavigationStack {
-                LoginView()
-//            CustomTabBarView()
+//                LoginView()
+            CustomTabBarView()
 //            AddStudyMain()
 
         }

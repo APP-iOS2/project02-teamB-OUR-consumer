@@ -11,6 +11,7 @@ struct StudyReplyView: View {
     
     var studyViewModel: StudyViewModel
     var study: Study
+    @State var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     
     
     @State var editComment: String = ""
@@ -26,7 +27,7 @@ struct StudyReplyView: View {
             HStack() {
                 Spacer()
                 
-                Text("댓글 \(study.comments.count)")
+                Text("댓글 \(studyDetail.comments.count)")
                     .font(.system(size: 14))
             }
             .font(.footnote)
@@ -36,8 +37,8 @@ struct StudyReplyView: View {
             Divider()
             
             //List {
-            ForEach(study.comments) { comment in
-                StudyReplyDetailView(studyViewModel: studyViewModel, study: study, index: 0, isEditing: $isEditing)
+            ForEach(studyDetail.comments) { comment in
+                StudyReplyDetailView(studyViewModel: studyViewModel, comment: comment, index: 0, isEditing: $isEditing)
             }
             // }
             .listStyle(.plain)
@@ -80,7 +81,10 @@ struct StudyReplyView: View {
             
         }
         .onAppear {
-            studyViewModel.fetchComments(index: 0, documentId: study.id)
+            studyViewModel.makeStudyDetail(study: study) { studyDetail in
+                self.studyDetail = studyDetail
+                print(self.studyDetail)
+            }
         }
         
     }
