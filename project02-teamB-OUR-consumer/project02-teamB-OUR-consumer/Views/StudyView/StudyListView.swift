@@ -47,6 +47,7 @@ struct StudyListView: View {
                             StudyListItemView(study: study)
                         }
                     }
+                    .listRowSeparator(.hidden)
                 } else if selectedArray == .onlineList {
                     ForEach(studyViewModel.sortedOnlineStudy()) { study in
                         NavigationLink {
@@ -55,6 +56,7 @@ struct StudyListView: View {
                             StudyListItemView(study: study)
                         }
                     }
+                    .listRowSeparator(.hidden)
                 } else {
                     ForEach(studyViewModel.sortedOfflineStudy()) { study in
                         NavigationLink {
@@ -63,6 +65,7 @@ struct StudyListView: View {
                             StudyListItemView(study: study)
                         }
                     }
+                    .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
