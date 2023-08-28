@@ -21,17 +21,30 @@ struct LoginView: View {
                 Spacer()
                 
                 Group{
-                    Image("Logo")
+                    // 1번안
+                    Image("OUR_Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 110)
                         .padding(.bottom, 10)
                     
-                    Text("OUR")
-                        .font(.system(size: 25))
-                        .fontWeight(.black)
+                    // 2번안
+//                    Image("OurSimpleLogo")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 190)
+//                        .padding(.bottom, 10)
                     
-                    Text(": 우리들의 취업 / 스터디 플랫폼")
+                    // 1번안
+//                    Text("OUR")
+//                        .font(.system(size: 25))
+//                        .fontWeight(.black)
+//                    Text(": 우리들의 취업 / 스터디 플랫폼")
+                    
+                    // 2번안
+                    Text("우리들의 취업 / 스터디 플랫폼")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
                 }
                 
                 Spacer()
@@ -96,7 +109,11 @@ struct LoginView: View {
                         .frame(width: 300, height: 40)
                         .background(Color.black)
                         .cornerRadius(10)
-                    }.disabled(true)
+                    }
+                    .disabled(true)
+                    
+                    Spacer()
+                    
                 }.onAppear(perform: {
                     viewModel.autoLogin() { isLogin in
                         if isLogin {

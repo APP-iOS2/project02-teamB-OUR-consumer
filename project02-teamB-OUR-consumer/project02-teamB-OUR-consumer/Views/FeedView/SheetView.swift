@@ -21,7 +21,7 @@ extension Color {
 
 struct SheetView: View {
     var idStore: IdStore
-    var frameWidth: Double = 400
+    var frameWidth: Double = 355
     var frameHeight: Double = 120
     var frameCornerRadius: Double = 25
     
@@ -31,33 +31,34 @@ struct SheetView: View {
                 Button {
                     
                 } label: {
-                    Image(idStore.profileImgString)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 40)
-                        .border(Color.gray, width: 4)
-                        .padding(.leading, 30)
-                        .clipShape(Circle())
-                }
-
-                Button {
-                    
-                } label: {
-                    Group {
-                        Text("@")
-                            .padding(.leading, -30)
-                        Text(idStore.userID)
+                    HStack {
+                        Image(idStore.profileImgString)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .background(Color.gray)
+                            .clipShape(Circle())
+                            .frame(width: 60, height: 60)
+                        
+                        Text("@\(idStore.userID)")
                             .font(.system(size: 16))
                             .fontWeight(.bold)
-                            .padding(.leading, -20)
                     }
                     .foregroundColor(Color.black)
                     .font(.title3)
                     .bold()
                 }
-
                 Spacer()
+                Button {
+                    
+                } label: {
+                    ZStack {
+                        FollowingButtonView()
+                            .foregroundColor(Color(hex: 0x090580))
+                            .padding(.trailing, 10)
+                    }
+                }
             }
+            .padding()
             HStack {
                 VStack {
                     HStack {
@@ -73,12 +74,11 @@ struct SheetView: View {
                             .padding(.leading, 33)
                             .foregroundColor(Color(hex: 0x090580))
                         Spacer()
-                        
                         Button {
                             
                         } label: {
                             ZStack {
-                                FollowBtnView()
+                                FollowingButtonView()
                                     .foregroundColor(Color(hex: 0x090580))
                                     .padding(.trailing, 10)
                             }
@@ -126,7 +126,7 @@ struct SheetView: View {
                 
             } label: {
                 Text("프로필 방문하기")
-                    .frame(width: 400, height: 50)
+                    .frame(width: 355)
                     .background(Color(hex: 0x090580))
                     .cornerRadius(8)
                     .font(.largeTitle)

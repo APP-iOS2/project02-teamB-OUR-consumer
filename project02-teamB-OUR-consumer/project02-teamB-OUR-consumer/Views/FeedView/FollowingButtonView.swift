@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FollowBtnView: View {
+struct FollowingButtonView: View {
     var frameWidth: Double = 100
     var frameHeight: Double = 35
     
@@ -20,7 +20,7 @@ struct FollowBtnView: View {
                 
             Text("팔로잉")
                 .foregroundColor(Color(hex: 0x090580))
-                .font(.title2)
+                .font(.system(size: 14))
                 .bold()
                 .frame(width: frameWidth - 3, height: frameHeight - 3)
                 .background(Color.white)
@@ -30,8 +30,8 @@ struct FollowBtnView: View {
     }
 }
 
-struct FollowBtnView_Previews: PreviewProvider {
+struct FollowingButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        FollowBtnView()
+        FollowingButtonView()
     }
 }

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AddStudyMain: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
+    @StateObject var studyStoreViewModel: StudyRecruitStore = StudyRecruitStore()
     
     @State var studyTitle: String = ""
     @State var addStudy: Bool = false
@@ -20,6 +22,14 @@ struct AddStudyMain: View {
     @State var studyText: String = ""
     @State var placeholder: String = "스터디 내용을 입력해주세요."
     
+    @State var studyCount: Int = 1
+    @State var startDate: Date = Date()
+    @State var dueDate: Date = Date()
+    @State var studyImagePath: String = ""
+    @State var selectedItem: PhotosPickerItem? = nil
+
+    @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
+  
     var body: some View {
         NavigationView {
             ScrollView {
@@ -33,17 +43,16 @@ struct AddStudyMain: View {
                         .padding(.bottom, 20)
                     
                     // MARK: - 온/오프라인 선택
-                    MeetingFormView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
+                    StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
                         .padding(.bottom, 20)
                     
                     // MARK: - 날짜
                     Text("날짜와 인원을 선택해주세요.")
                         .font(.title2)
                         .padding(.bottom, 20)
-                    VStack {
-                        ButtonMainView(startDate: Date(), endDate: Date())
-                    }
-                    
+
+                    ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
+
                     // MARK: - 스터디 내용
                     Text("스터디 내용을 입력해주세요.")
                         .font(.system(.title2))
@@ -51,10 +60,6 @@ struct AddStudyMain: View {
                         TextEditor(text: $studyText)
                             .frame(minHeight:350, maxHeight:350)
                             .border(.gray)
-                        
-
-                        
-                        
                         if studyText.isEmpty {
                             Text(placeholder)
                                 .foregroundColor(.secondary)
@@ -63,21 +68,39 @@ struct AddStudyMain: View {
                     .padding(.bottom, 20)
                     
                     // MARK: - 사진 선택
-                    StudyImageView()
-                        .padding(.bottom, 20)
+                    StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
+                        
                     
                     // MARK: - 위치 선택
-                    StudyMapView()
-    
+                    StudyMapView(sharedViewModel: sharedViewModel)
+
                 }
                 .padding(20)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("추가") {
+                        Button("등록") {
+                            print("등록 버튼 tapped")
+
+                            guard let test = selectedItem else {
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                studyStoreViewModel.addFeed(newStudy)
+                                dismiss()
+                                return
+                            }
+                            
+                            studyStoreViewModel.returnImagePath(item: test) { urlString in
+                                guard let test = urlString else { return }
+                                print("test : \(test)")
+                                studyImagePath = test
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate, dueAt: dueDate, description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount)
+                                
+                                studyStoreViewModel.addFeed(newStudy)
+                            }
+                            
                             addStudy.toggle()
-                            print(addStudy)
-                            print("추가 버튼 tapped")
+                            dismiss()
                         }
+                        .disabled(studyTitle.isEmpty || studyText.isEmpty)
                     }
                 }
                 .toolbar {
@@ -90,13 +113,14 @@ struct AddStudyMain: View {
                         }
                     }
                 }
+                
             }.navigationTitle("스터디 등록")
         }
     }
 }
 
-struct AddStudyMain_Previews: PreviewProvider {
-    static var previews: some View {
-        AddStudyMain()
-    }
-}
+//struct AddStudyMain_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
+//    }
+//}

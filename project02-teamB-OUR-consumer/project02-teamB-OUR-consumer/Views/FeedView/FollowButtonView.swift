@@ -17,7 +17,7 @@ struct FollowButtonView: View {
             
             Text("팔로우")
                 .foregroundColor(.white)
-                .font(.title2)
+                .font(.system(size: 14))
                 .fontWeight(.bold)
                 .frame(width: 100, height: 35)
                 .background(Color(hex: 0x090580))
