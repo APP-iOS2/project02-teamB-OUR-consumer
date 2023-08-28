@@ -12,8 +12,8 @@ struct StudyRecruitModel {
     var id: String = UUID().uuidString
     var creator: String
     var studyTitle: String
-    var startAt: Date
-    var dueAt: Date
+    var startAt: String
+    var dueAt: String
     var description: String
     var isOnline: Bool
     var isOffline: Bool
@@ -22,19 +22,12 @@ struct StudyRecruitModel {
     var studyImagePath: String
     var studyCount: Int
     var studyCoordinates: [Double]
-    
-    private static let dateFormatter: DateFormatter = {
+}
+
+extension Date {
+    func dateToSring() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yy년 M월 dd일 HH:mm"
-        return formatter
-    }()
-    
-    var startDate: String {
-        return StudyRecruitModel.dateFormatter.string(from: startAt)
+        return formatter.string(from: self)
     }
-    
-    var dueDate: String {
-        return StudyRecruitModel.dateFormatter.string(from: dueAt)
-    }
-    
 }
