@@ -8,110 +8,90 @@
 import Foundation
 import FirebaseFirestore
 
-struct Study: Identifiable, Codable {
-    // 디비에 올라갈 내용
+// 실제로 사용할 study 구조체
+struct StudyDetail {
     var id: String = UUID().uuidString
     var imageString: String?
-    var creatorId: String
+    var creator: User
     var title: String
     var description: String
     var studyDate: String
     var deadline: String
     var locationName: String?
-    // geopoint => codable 안되어서 double,double로 줘야함
     var locationCoordinate: [Double]?
     var isOnline: Bool
     var linkString: String?
-    var currentMemberIds: [String]
+    var currentMembers: [User]
     var totalMemberCount: Int
-    // timestamp => coable 안되어서 string으로 줘야 함
-    var createdAt: String
-    
-    var comments: [StudyGroupComment] = []
+    var comments: [StudyComment]
 }
 
-struct StudyGroupComment: Identifiable, Codable {
-    var id: String = UUID().uuidString
-//    var profileImage: String?
-////    var studyPostID: String // 다시 확인하기!
-    var userId: String
-    var content: String
-    var createdAt: String
-   // var reportCount: Int
-  //  var reportContent: String
-    
-    enum CodingKeys: String, CodingKey {
-        case userId = "userId"
-        case content = "content"
-        case createdAt = "createdAt"
+extension StudyDetail {
+    static var defaultStudyDetail: StudyDetail {
+        return StudyDetail(creator: User.defaultUser, title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMembers: [], totalMemberCount: 0, comments: [])
     }
 }
 
+// 실제로 사용할 comment 구조체
+struct StudyComment: Identifiable {
+    var id: String = UUID().uuidString
+    var user: User
+    var content: String
+    var createdAt: String
+}
 
 class StudyViewModel: ObservableObject {
-    
     let dbRef = Firestore.firestore()
-    
+    // fetch하고 나서 결과를 = 결과 , 이게 아니라 append(결과)
     @Published var studyArray: [Study] = []
     
-    // 전체 스터디 가져오기 => viewwillAppear 할 때 마다 호출하기
+    // 전체 스터디 가져오기 => listview 호출
     func fetchStudy() {
         dbRef.collection("studyGroup").getDocuments { (snapshot, error) in
-            self.studyArray.removeAll()
-            
             if let snapshot {
                 var temp: [Study] = []
                 for document in snapshot.documents {
-                    let id: String = document.documentID as? String ?? ""
-                    let docData: [String: Any] = document.data()
-                    //let imageString: String = docData["imageString"] as? String ?? ""
-                    let creatorId: String = docData["creatorId"] as? String ?? ""
-                    let title: String = docData["title"] as? String ?? ""
-                    let description: String = docData["description"] as? String ?? ""
-                    let studyDate: String = docData["studyDate"] as? String ?? Date().toString()
-                    //시간 추가
-                    let deadline: String = docData["deadline"] as? String ?? Date().toString()
-                    let locationName: String = docData["locationName"] as? String ?? ""
-                    let locationCoordinate: String = docData["locationCoordinate"] as? String ?? ""
-                    let isOnline: Bool = docData["isOnline"] as? Bool ?? false
-                    let urlString: String = docData["urlString"] as? String ?? ""
-                    let currentMemberIds: [String] = docData["currentMemberIds"] as? [String] ?? []
-                    let totalMemberCount: Int = docData["totalMemberCount"] as? Int ?? 0
-                    let createdAt: String = docData["createdAt"] as? String ?? ""
-                    //let isSaved: Bool = docData["isSaved"] as? Bool ?? false
-                    //let comments: StudyGroupComment = docData["studyGroupComment"] as? StudyGroupComment ?? StudyGroupComment(profileImage: "이미지 없음", studyPostID: "studyPost ID fetch 실패", userID: "user ID fetch 실패", content: "없음", createdDate: Date())
-                    
-                    let study = Study(id: id, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, isOnline: false, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt)
-                    temp.append(study)
-                    
-                    if self.filterWithDeadline(deadline: deadline) {
-                        continue
-                    }
-                    
-                    // 저장한 파일인지 가져오기
-//                    self.isSavedStudy(id.uuidString) { isSaved in
-//                        if isSaved {
-//                            let study = Study(id: id, imageString: imageString, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, locationName: locationName, locationCoordinate: locationCoordinate, isOnline: isOnline, urlString: urlString, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt, isSaved: true, comment: [comments])
-//                            temp.append(study)
-//                        } else {
-//                            let study = Study(id: id, imageString: imageString, creatorId: creatorId, title: title, description: description, studyDate: studyDate, deadline: deadline, locationName: locationName, locationCoordinate: locationCoordinate, isOnline: isOnline, urlString: urlString, currentMemberIds: currentMemberIds, totalMemberCount: totalMemberCount, createdAt: createdAt, isSaved: false, comment: [comments])
-//                            temp.append(study)
+                    let id = document.documentID
+                    do {
+                        // document의 data들을 study구조체로 decoding한다
+                        // item 자체가 study의 객체
+                        var item = try document.data(as: Study.self)
+                        item.id = document.documentID
+                        // 필터링을 하려고했는데 날짜가 string이여서 필터링이 안되어서 주석처리
+//                        if filterWithDeadline(deadline: item.deadline) {
+//                            continue
 //                        }
-//                    }
+                        temp.append(item)
+                    } catch let error {
+                        print(error.localizedDescription)
+                        return
+                    }
                 }
                 self.studyArray = temp
             }
         }
     }
     
-    func fetchComments(index: Int, documentId: String) {
-        dbRef.collection("studyGroup").document(documentId).collection("comments").getDocuments { [self] (snapshot, error) in
+    // 댓글 가져오기
+    // studygroupcomment가 db에 저장될 내용이고 studycomment가 실제로 저희가 사용할 구조체
+    // studygroupcomment로 디코딩을해서 studycomment로 돌려주고 있어요
+    func fetchComments(documentId: String, completion: @escaping ([StudyComment]) -> Void) {
+        dbRef.collection("studyGroup").document(documentId).collection("comments").getDocuments { (snapshot, error) in
             if let snapshot {
+                var comments: [StudyComment] = []
                 for document in snapshot.documents {
                     do {
+                        // 디코딩할 때 studygroupcomment로 하지만
                         var item = try document.data(as: StudyGroupComment.self)
                         item.id = document.documentID
-                        self.studyArray[index].comments.append(item)
+                        // 누가 댓글 달앗는지 알기위해서 getuserInfo를 해요
+                        self.getUserInfo(userId: item.userId) { user in
+                            // 여기가 studygroupcomment -> studycomment로 변환
+                            comments.append(StudyComment(id: document.documentID, user: user ?? User.defaultUser, content: item.content, createdAt: item.createdAt))
+                            if comments.count == snapshot.documents.count {
+                                completion(comments)
+                            }
+                        }
                     } catch let error {
                         print(error.localizedDescription)
                         return
@@ -121,7 +101,7 @@ class StudyViewModel: ObservableObject {
         }
     }
     
-    // 데드라인에서 지났는지 체크, 지났으면 true 반환
+    // 데드라인에서 지났는지 체크, 지났으면 true 반환 => 현재는 string to date 변환 필요함
     func filterWithDeadline(deadline: String) -> Bool {
         let date = deadline.toDateWithSlash()
         let today = Date()
@@ -129,6 +109,58 @@ class StudyViewModel: ObservableObject {
             return true
         }
         return false
+    }
+    
+    // 유저 1명 불러오기
+    func getUserInfo(userId: String, completion: @escaping (User?) -> Void) {
+        dbRef.collection(Collections.users.rawValue).document(userId).getDocument(as: User.self) { result in
+            switch result {
+            case .success(let response):
+                completion(response)
+            case .failure(let error):
+                print("Error decoding users: \(error)")
+                completion(nil)
+            }
+        }
+    }
+
+    // 유저 여러명 불러오기 => 댓글 단 사람전부 또는 참여한 사람 전부
+    func getUsersInfo(userIds: [String], completion: @escaping ([User]) -> Void) {
+        var members: [User] = []
+        for userId in userIds {
+            dbRef.collection(Collections.users.rawValue).document(userId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let response):
+                    members.append(response)
+                case .failure(let error):
+                    print("Error decoding users: \(error)")
+                }
+            }
+        }
+        completion(members)
+    }
+    
+    // studydetail은 listview->Detailview로 넘어갈 때 사용될 예정입니당
+    // 디비에서 가져온 study를 실제로 뷰에 뿌려줄 studydetail로 변환
+    // 실제로 studydetailview 이하에서 사용할 데이터를 만드는 메서드
+    func makeStudyDetail(study: Study, completion: @escaping(StudyDetail) -> Void){
+        var creator: User = User.defaultUser
+        // 만든 사람
+        getUserInfo(userId: study.creatorId) { result in
+            if let result = result {
+                creator = result
+            }
+            var currentMembers: [User] = []
+            // 참여한 사람들
+            self.getUsersInfo(userIds: study.currentMemberIds) { result in
+                currentMembers = result
+                currentMembers.append(creator)
+                // 댓글
+                self.fetchComments(documentId: study.id) { comments in
+                    completion(StudyDetail(id: study.id, creator: creator, title: study.title, description: study.description, studyDate: study.studyDate, deadline: study.deadline, isOnline: study.isOnline, currentMembers: currentMembers, totalMemberCount: study.totalMemberCount, comments: comments))
+                }
+            }
+        }
     }
     
     // 스터디 저장 버튼 눌렀을 때 데이터베이스에 저장하기

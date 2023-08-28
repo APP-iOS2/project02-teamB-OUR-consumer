@@ -27,21 +27,6 @@ struct LoginView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 110)
                         .padding(.bottom, 10)
-                    
-                    // 2번안
-//                    Image("OurSimpleLogo")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: 190)
-//                        .padding(.bottom, 10)
-                    
-                    // 1번안
-//                    Text("OUR")
-//                        .font(.system(size: 25))
-//                        .fontWeight(.black)
-//                    Text(": 우리들의 취업 / 스터디 플랫폼")
-                    
-                    // 2번안
                     Text("우리들의 취업 / 스터디 플랫폼")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
@@ -67,11 +52,8 @@ struct LoginView: View {
                     }.disabled(true)
                     Button {
                         isLoading = true
-                        viewModel.signOut()
                         viewModel.signIn() {
-                            if viewModel.state != .signedOut {
-                                navigate = true
-                            }
+                            navigate = true
                             isLoading = false
                         }
                     } label: {
@@ -115,11 +97,11 @@ struct LoginView: View {
                     Spacer()
                     
                 }.onAppear(perform: {
-                    viewModel.autoLogin() { isLogin in
-                        if isLogin {
-                            navigate = true
-                        }
-                    }
+//                    viewModel.autoLogin() { isLogin in
+//                        if isLogin {
+//                            navigate = true
+//                        }
+//                    }
                 })
             }.navigationDestination(isPresented: $navigate) {
                 if viewModel.state == .signUp {

@@ -15,7 +15,9 @@ struct StudyReplyDetailView: View {
 //    var comment: StudyComment
     
     var studyViewModel: StudyViewModel
-    var study: Study
+    var comment: StudyComment
+    
+    // studycomment니까 실제로 댓글 달면 studygroupcomment로 달아줘야겠죠?? 다시 디비로 보낼때도 변환하는 과정ㅇ ㅣ필요합니다!!
     @State var index: Int
     
     @Binding var isEditing: Bool
@@ -38,15 +40,15 @@ struct StudyReplyDetailView: View {
                 
                 VStack(alignment: .leading, spacing: 5){
                     HStack {
-                        Text(study.comments[index].userId)
+                        Text(comment.user.name)
                             .font(.system(size: 14))
                             .fontWeight(.bold)
-                        Text(study.comments[index].createdAt)
+                        Text(comment.createdAt)
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
 
                     }
-                    Text(study.comments[index].content)
+                    Text(comment.content)
                         .font(.system(size: 14))
                     
                 }
@@ -99,7 +101,7 @@ struct StudyReplyDetailView_Previews: PreviewProvider {
     
     
     static var previews: some View {
-        StudyReplyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"), index: 0, isEditing: .constant(false))
+        StudyReplyDetailView(studyViewModel: StudyViewModel(), comment: StudyComment(user: User.defaultUser, content: "", createdAt: ""), index: 0, isEditing: .constant(false))
         
     }
 }
