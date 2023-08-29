@@ -11,9 +11,10 @@ import SwiftUI
 struct RecruitServiceExample: View {
     
     @ObservedObject var model = FeedViewModelTemp()
-    @State var selectID = " "   //공백을 줘야 DocumentID를 nil로 인식하지않고 에러를 내지않는다.
+    @State var selectID = ""   //공백을 줘야 DocumentID를 nil로 인식하지않고 에러를 내지않는다.
     @State var changedContent = ""
     @State var selectIndex: Int = -1
+    @State var limitCount: Int = 2
     
     var body: some View {
         VStack {
@@ -31,7 +32,8 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.updateField(documentID: "\(selectID)", data: .init(content: "\(changedContent)" , reportCount: 435))
+                    model.updateField(documentID: "\(selectID)", data: .init(creator: "백엔드팀", content: "\(changedContent)" ))
+                    
                     
                 } label: {
                     Text("UPDate")
@@ -42,7 +44,7 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.addDocument(data: .init(creator: "ID업데이트", content: "테스트중", reportCount: 49))
+                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, feedImagePath: ""))
                 } label: {
                     Text("ADD")
                 }
@@ -52,9 +54,9 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    selectID = "2N0ohAhpHgt1KbgU5AEY"
+                    selectID = "kuXiDi8JD2HzEqb9NHG7"
                     model.fetchOneData(documentID: "\(selectID)")
-                   
+                    
                 } label: {
                     Text("FetchOne")
                         .font(.system(size: 14))
@@ -67,33 +69,49 @@ struct RecruitServiceExample: View {
                 
             }
             
-            
             HStack {
-                if let name = model.feedDic["content"] as? String {
-                    Text("\(name)")
-                }
+//                if let name = model.feedDic["content"] as? String {
+//                    Text("\(name)")
+//                }
+                
+                Text("\(model.feedTable.id ?? "")")
+                
                 Divider().frame(height: 10)
                     .foregroundColor(.black)
                     .tint(.black)
                 
                 TextField("content 입력", text: $changedContent)
                 
-                Button("2개만 나오게") {
-                    model.limit = 2
-                    Task {
-                        await model.fetchAll()
-                        
+                Button(action: {
+                    if limitCount == 0 {
+                        limitCount = 2
+                        model.limit = 0
+                    } else {
+                        limitCount = 0
+                        model.limit = 2
                     }
-                }
+                    
+                    Task {
+                        model.fetchAll()
+                    }
+                    
+                }, label: {
+                    if limitCount == 0 {
+                        Text("전체다 나오게")
+                    } else {
+                        Text("\(limitCount)개만 나오게")
+                    }
+                    
+                })
                 .padding(5)
                 .border(.blue)
                 
                 Button("검색") {
                     model.whereContentData = changedContent
-                    Task {
-                        await model.fetchAll()
+//                    Task {
+                        model.fetchAll()
                         
-                    }
+//                    }
                 }
                 .foregroundColor(.black)
                 .padding(5)
@@ -104,51 +122,62 @@ struct RecruitServiceExample: View {
             .padding(.horizontal, 20)
             
             
+            if model.isWorking {
+                model.loadDataAlert()
+            }
+            
+            
             ScrollView(.vertical) {
                 LazyVStack( alignment: .leading ) {
-                    ForEach(model.feedDics.indices, id: \.self) { index in
+                    ForEach(model.feedTables) { index in
 //Struct 객체 타입
-//                        VStack( alignment: .leading) {
-//                            Button {
-//                                print("\(index.id ?? "")")
-//
-//                            } label: {
-//                                Text("\(index.creator ?? "")")//
-//                                Text("컨텐츠: \(index.content ?? "")")
-//
-//                            }
-//                            .foregroundColor(.black)
-//                        }
-                        
-// Dictionary 타입
+                        //index = FeedRecruitModelTemp
                         VStack( alignment: .leading ) {
                             Button {
-                                selectIndex = index
-                                
-                                if let id = model.feedDics[index]["id"] as? String {
-                                    selectID = id
-                                    print("\(selectID)")
-                                }
+                                selectID = index.id ?? ""
+                                print("\(index.id ?? "")")
 
                             } label: {
-                                /* Dictionary 형식으로 받아와서 써야 런타임 에러의 위험이 없다. */
-                                HStack {
-                                    if let name = model.feedDics[index]["creator"] as? String {
-                                        Text("\(index + 1).  \(name)")
-                                    }
-                                    VStack( alignment: .leading ) {
-                                        if let name = model.feedDics[index]["content"] as? String {
-                                            Text("컨텐츠: \(name)")
-                                        }
-                                        if let name = model.feedDics[index]["location"] as? String {
-                                            Text("위치: \(name)")
-                                        }
-                                    }
-                                }
+                                Text("\(index.createdDate)")//
+                                Text("컨텐츠: \(index.content ?? "")")
+
                             }
                             .foregroundColor(.black)
-                            .background( selectIndex == index ? .yellow : .white)
+                            
                         }
+                        
+                        
+// Dictionary 타입
+//                        VStack( alignment: .leading ) {
+//                            Button {
+//                                selectIndex = index
+//
+//                                if let id = model.feedDics[index]["id"] as? String {
+//                                    selectID = id
+//                                    print("\(selectID)")
+//                                }
+//
+//                            } label: {
+//                                /* Dictionary 형식으로 받아와서 써야 런타임 에러의 위험이 없다. */
+//                                HStack {
+//                                    if let name = model.feedDics[index]["creator"] as? String {
+//                                        Text("\(index + 1).  \(name)")
+//                                    }
+//                                    VStack( alignment: .leading ) {
+//                                        if let name = model.feedDics[index]["content"] as? String {
+//                                            Text("컨텐츠: \(name)")
+//                                                .multilineTextAlignment(.leading)
+//                                        }
+//
+//                                        if let name = model.feedDics[index]["location"] as? String {
+//                                            Text("위치: \(name)")
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            .foregroundColor(.black)
+//                            .background( selectIndex == index ? .yellow : .white)
+//                        }
                         
                         Divider().frame( height: 10 )
                     }
@@ -156,10 +185,15 @@ struct RecruitServiceExample: View {
                 .padding()
             }
             .onAppear {
-                Task {
+//                Task {
                     model.limit = 50
-                    await model.fetchAll()
-                }
+                    model.isWorking = true
+                    model.fetchAll()
+//                }
+            }
+            .refreshable {
+                //addSnapShotListener를 사용할 수 없기 때문에 추가.
+                model.fetchAll()
             }
             
         }

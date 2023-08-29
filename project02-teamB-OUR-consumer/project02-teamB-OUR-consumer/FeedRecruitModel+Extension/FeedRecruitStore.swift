@@ -12,66 +12,83 @@ import PhotosUI
 import _PhotosUI_SwiftUI
 
 class FeedRecruitStore: ObservableObject {
-    
+    let service = RecruitService()
     
     @Published var feedStores: [FeedRecruitModel] = []
     
     let dbRef = Firestore.firestore().collection("posts")
     
     func fetchFeeds() {
-        
-        dbRef.getDocuments { (snapshot, error) in
-            
-            self.feedStores.removeAll()
-            
-            if let snapshot {
-                var tempFeeds: [FeedRecruitModel] = []
-                
-                for document in snapshot.documents {
-                    let id: String = document.documentID
-                    let docData: [String: Any] = document.data()
-                    let creator: String = docData["creator"] as? String ?? ""
-                    let content: String = docData["content"] as? String ?? ""
-                    let location: String = docData["location"] as? String ?? ""
-                    let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
-                    let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
-                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
-                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
-                    
-                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt, feedImagePath: studyImagePath)
-                    
-                    tempFeeds.append(feeds)
-                }
-                
-                self.feedStores  = tempFeeds
-            }
+        service.fetchAll(collection: .posts) { results in
+            self.feedStores = results
         }
     }
     
+    func addFeed( _ data: FeedRecruitModel ) {
+        service.add(collection: .posts, data: data)
+    }
     
-    func addFeed(_ feed: FeedRecruitModel) {
-        
-        dbRef.document(feed.id)
-            .setData([
-                "id": feed.id,
-                "creator": feed.creator,
-                "content": feed.content,
-                "location": feed.location,
-                "privateSetting": feed.privateSetting,
-                "createdAt": feed.createdDate,
-                "reportCount": feed.reportCount,
-                "studyImagePath": feed.feedImagePath])
-        
-        fetchFeeds()
+    func updateData( docID: String, _ data: FeedRecruitModel ) {
+        service.update(collection: .posts, documentID: docID, data: data)
     }
     
     
-    func removeFeed(_ feed: FeedRecruitModel) {
-        
-        dbRef.document(feed.id).delete()
-        
-        fetchFeeds()
-    }
+    
+    
+//    func fetchFeeds() {
+//
+//        dbRef.getDocuments { (snapshot, error) in
+//
+//            self.feedStores.removeAll()
+//
+//            if let snapshot {
+//                var tempFeeds: [FeedRecruitModel] = []
+//
+//                for document in snapshot.documents {
+//                    let id: String = document.documentID
+//                    let docData: [String: Any] = document.data()
+//                    let creator: String = docData["creator"] as? String ?? ""
+//                    let content: String = docData["content"] as? String ?? ""
+//                    let location: String = docData["location"] as? String ?? ""
+//                    let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
+//                    let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
+//                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
+//                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
+//
+//                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt, feedImagePath: studyImagePath)
+//
+//                    tempFeeds.append(feeds)
+//                }
+//
+//                self.feedStores  = tempFeeds
+//            }
+//        }
+//    }
+//
+//
+//    func addFeed(_ feed: FeedRecruitModel) {
+//
+//        dbRef.document(feed.id)
+//            .setData([
+//                "id": feed.id,
+//                "creator": feed.creator,
+//                "content": feed.content,
+//                "location": feed.location,
+//                "privateSetting": feed.privateSetting,
+//                "createdAt": feed.createdDate,
+//                "reportCount": feed.reportCount,
+//                "studyImagePath": feed.feedImagePath])
+//
+//        fetchFeeds()
+//    }
+//
+//
+//    func removeFeed(_ feed: FeedRecruitModel) {
+//
+//        dbRef.document(feed.id).delete()
+//
+//        fetchFeeds()
+//    }
     
     //이미지 FireBase Storage에 Save.
     
