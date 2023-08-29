@@ -175,7 +175,7 @@ struct MyProjectEditView: View {
         }
         .onAppear(){
             if isEditing {
-                guard var project = resumeViewModel.resume?.projects[index] else {
+                guard let project = resumeViewModel.resume?.projects[index] else {
                     return
                 }
                 projectTitle = project.projectTitle
