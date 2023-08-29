@@ -65,7 +65,7 @@ struct FeedRecruitView: View {
                         isAlert = true
                         
                         if selectedItem.isEmpty {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: feedImagePath)
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
                             print("사진 없을경우 \(newFeed)")
@@ -74,7 +74,7 @@ struct FeedRecruitView: View {
                             
                             Task {
                                 try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: feedImagePath)
+                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                                 
                                 self.newFeed = newFeed2
                                 print("사진 있을경우 \(newFeed)")
