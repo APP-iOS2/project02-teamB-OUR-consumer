@@ -59,11 +59,9 @@ struct project02_teamB_OUR_consumerApp: App {
     var body: some Scene {
         WindowGroup {
 
-//            NavigationStack {
-//                LoginView()
-            CustomTabBarView()
-//            AddStudyMain()
-
+            NavigationStack {
+                LoginView()
+            }
         }
     }
 }
