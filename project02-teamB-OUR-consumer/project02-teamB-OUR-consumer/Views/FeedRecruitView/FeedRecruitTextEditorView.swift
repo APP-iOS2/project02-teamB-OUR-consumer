@@ -17,17 +17,19 @@ struct FeedRecruitTextEditorView: View {
                 .frame(minHeight:350, maxHeight:350)
                 .buttonBorderShape(.roundedRectangle)
                 .border(Color.secondary)
-                
+            
             
             if content.isEmpty {
                 Text(placeholder)
                     .foregroundColor(.secondary)
+                    .position(x: 100, y: 20) //plaecholder 위치변경
+                
             }
+            
         }
-  
     }
+    
 }
-
 struct FeedRecruitTextEditorView_Previews: PreviewProvider {
     static var previews: some View {
         FeedRecruitTextEditorView(content: .constant(""))

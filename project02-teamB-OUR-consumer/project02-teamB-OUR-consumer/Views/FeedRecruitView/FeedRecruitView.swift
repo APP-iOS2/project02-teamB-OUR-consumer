@@ -24,7 +24,7 @@ struct FeedRecruitView: View {
     @State var feedImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
     @State var isAlert: Bool = false
-    
+    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
     
     
     var body: some View {
@@ -45,7 +45,7 @@ struct FeedRecruitView: View {
                 //content 글 작성뷰
                 FeedRecruitTextEditorView(content: $content)
                     .padding(.horizontal, 20.0)
-                    
+                
                 
                 //사진추가 View
                 FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
@@ -62,11 +62,12 @@ struct FeedRecruitView: View {
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
                         isAlert = true
+                        
                         guard let imageItem = selectedItem else {
-                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
-                            feedStoreViewModel.addFeed(newFeed)
-//                            dismiss()
+                            self.newFeed = newFeed1
+                            print(newFeed)
                             return
                         }
                         
@@ -74,10 +75,11 @@ struct FeedRecruitView: View {
                             try await  feedImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
                             let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
+                            self.newFeed = newFeed2
+                            print("사진 있을경우 \(newFeed)")
                             //feedStoreViewModel.addFeed(newFeed2)
                         }
                         
-//                        dismiss()
                     }
                     .disabled(content.isEmpty)
                 }
@@ -85,7 +87,23 @@ struct FeedRecruitView: View {
             }
             .navigationTitle("피드 등록")
             .navigationBarTitleDisplayMode(.inline)
-       
+            .alert("피드", isPresented: $isAlert) {
+               
+                Button("등록" ,role: .destructive) {
+
+                    print("얼러트\(newFeed)")
+                    feedStoreViewModel.addFeed(newFeed)
+                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+                    dismiss()
+                }
+                Button("취소" ,role: .cancel) {
+                    isAlert = false
+                }
+            } message: {
+                Text("등록하시겠습니까?")
+            }
+            
+            
         }
     }
 }
