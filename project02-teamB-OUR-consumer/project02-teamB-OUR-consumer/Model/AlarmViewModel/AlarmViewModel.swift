@@ -125,10 +125,7 @@ class AlarmViewModel: ObservableObject{
             let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
         else {return nil}
         
-        return User(name: sampleUserName,
-                    email: "",
-                    profileImage: "",
-                    profileMessage: "")
+        return User(id: nil, name: sampleUserName, email: "", profileImage: nil, profileMessage: nil, follower: nil, following: nil)
     }
     
     

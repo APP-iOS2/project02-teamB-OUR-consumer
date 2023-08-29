@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestoreSwift
 
 class UserViewModel: ObservableObject {
     @Published var user: User?
