@@ -10,17 +10,17 @@ import FirebaseCore
 import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-      
-
-      UNUserNotificationCenter.current().delegate = self 
-
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        return true
+    }
     
-
+    
     
     
     @available(iOS 9.0, *)
@@ -34,21 +34,21 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                  willPresent notification: UNNotification,
-                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-          completionHandler([.banner,.list,.sound])
-      }
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner,.list,.sound])
+    }
     
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                  didReceive response: UNNotificationResponse,
-                                  withCompletionHandler completionHandler: @escaping () -> Void) {
-          
-          // deep link처리 시 아래 url값 가지고 처리
-          _ = response.notification.request.content.userInfo
-          
-          completionHandler()
-      }
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        // deep link처리 시 아래 url값 가지고 처리
+        _ = response.notification.request.content.userInfo
+        
+        completionHandler()
+    }
 }
 
 
@@ -58,11 +58,13 @@ struct project02_teamB_OUR_consumerApp: App {
     @StateObject var sharedViewModel = SharedViewModel()
     var body: some Scene {
         WindowGroup {
-
-//            NavigationStack {
+            
+            //            NavigationStack {
+            NavigationStack {
                 LoginView()
-//            AddStudyMain()
-
+            }
+            //            AddStudyMain()
+            
         }
     }
 }

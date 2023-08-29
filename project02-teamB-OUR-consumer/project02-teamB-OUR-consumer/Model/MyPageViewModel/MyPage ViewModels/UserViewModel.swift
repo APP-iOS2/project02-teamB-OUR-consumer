@@ -50,5 +50,31 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+}
+
+extension UserViewModel {
+    func followUser(targetUserId: String) {
+        if let currentUserId = Auth.auth().currentUser?.uid{
+            db.collection("users").document(currentUserId).updateData([
+                "following": FieldValue.arrayUnion([targetUserId])
+            ])
+            
+            
+            db.collection("users").document(targetUserId).updateData([
+                "follower": FieldValue.arrayUnion([currentUserId])
+            ])
+        }
+    }
     
+    func unfollowUser(targetUserId: String) {
+        if let currentUserId = Auth.auth().currentUser?.uid{
+            db.collection("users").document(currentUserId).updateData([
+                "following": FieldValue.arrayRemove([targetUserId])
+            ])
+            
+            db.collection("users").document(targetUserId).updateData([
+                "follower": FieldValue.arrayRemove([currentUserId])
+            ])
+        }
+    }
 }
