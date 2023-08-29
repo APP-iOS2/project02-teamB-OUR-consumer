@@ -15,7 +15,7 @@ let mainColor = Color(hex: "#090580")
 struct MyMain: View {
     @StateObject private var studyViewModel = StudyViewModel()
     @State private var currentTab: Int = 0
-    @State private var isMyProfile: Bool = false
+    @State private var isMyProfile: Bool = true
     @State private var isFollowing: Bool = false
     
     @ObservedObject var userViewModel = UserViewModel()
@@ -91,7 +91,8 @@ struct MyMain: View {
 
 struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MyMain()
-            
+        NavigationStack {
+            MyMain()
+        }
     }
 }

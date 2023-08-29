@@ -25,7 +25,7 @@ struct MyWorkCellView: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
-                    Text(work.jobTitle)
+                    Text("\(work.company.companyName) - \(work.jobTitle)")
                         .font(.system(size: 14))
                         .fontWeight(.semibold)
                     

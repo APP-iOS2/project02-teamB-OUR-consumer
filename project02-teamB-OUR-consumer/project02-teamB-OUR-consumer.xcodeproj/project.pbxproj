@@ -28,7 +28,6 @@
 		6332A6002A95A3640047E2DD /* PostButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A5FF2A95A3640047E2DD /* PostButtonView.swift */; };
 		6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A6022A95D1220047E2DD /* ScrapView.swift */; };
 		6332A60B2A98648E0047E2DD /* PostModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostModifyView.swift */; };
-		6413BF572A9C89D200B834D9 /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6413BF562A9C89D200B834D9 /* MyMainView.swift */; };
 		649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B52A9604AD00506F46 /* FollowButtonView.swift */; };
 		649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B72A96067A00506F46 /* RecommendFriendView.swift */; };
 		649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B92A96068600506F46 /* RecommendDetailView.swift */; };
@@ -69,6 +68,7 @@
 		968837912A9C3E1C004B98E1 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378D2A9C3E1C004B98E1 /* UserViewModel.swift */; };
 		968837922A9C3E1C004B98E1 /* ResumeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378E2A9C3E1C004B98E1 /* ResumeViewModel.swift */; };
 		968837942A9C4279004B98E1 /* ProfileBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968837932A9C4279004B98E1 /* ProfileBar.swift */; };
+		96A71E792A9D74CA00390B7A /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
 		9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2752A94590F00AD72D7 /* FeedTabView.swift */; };
 		9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2772A94593E00AD72D7 /* FeedView.swift */; };
 		9B35B27A2A94594C00AD72D7 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2792A94594C00AD72D7 /* SheetView.swift */; };
@@ -90,7 +90,6 @@
 		A05CDDA32A9C8CD500B4948C /* MyFollowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA22A9C8CD500B4948C /* MyFollowView.swift */; };
 		A05CDDA62A9C945900B4948C /* MyFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */; };
 		A05CDDA82A9C946200B4948C /* MyFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */; };
-		A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
 		A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */; };
@@ -693,6 +692,7 @@
 		FA435A742A9746C8000A2A11 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				6413BF562A9C89D200B834D9 /* MyMainView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -810,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A71E792A9D74CA00390B7A /* MyMainView.swift in Sources */,
 				FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */,
 				D55D366D2A95E1CD00A7BE14 /* StudyLocationManager.swift in Sources */,
 				A05CDDA12A9C8B0F00B4948C /* MyFollowingView.swift in Sources */,
@@ -912,7 +913,6 @@
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				FAB51C7D2A9677E40047A725 /* DateStore.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
-				6413BF572A9C89D200B834D9 /* MyMainView.swift in Sources */,
 				649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				FAB51C762A96755C0047A725 /* RecruitImagePicker.swift in Sources */,
