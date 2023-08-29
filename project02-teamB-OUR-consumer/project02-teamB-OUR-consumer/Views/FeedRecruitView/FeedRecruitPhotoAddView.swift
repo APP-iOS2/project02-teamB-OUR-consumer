@@ -15,14 +15,23 @@ struct FeedRecruitPhotoAddView: View {
     @Binding var selectedImages: [UIImage]
     @State private var isImagePickerPresented: Bool = false
     @State var imageData : Data? = nil
+    var xBox: Bool {
+        
+        if selectedItem != nil {
+            
+            return true
+        }
+        return false
+    }
     
     var body: some View {
         VStack {
-            
+            //사진데이터가 없을경우
             if imageData == nil {
                 HStack {
                     
                     Text("사진추가")
+                        .foregroundColor(.accentColor)
                     Spacer()
                 }
                 .padding()
@@ -37,44 +46,54 @@ struct FeedRecruitPhotoAddView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                     
                 }
+                //사진 데이터가 있을경우
             } else {
                 HStack {
                     
                     Text("사진추가")
+                        .foregroundColor(.accentColor)
                     Spacer()
                 }
                 .padding()
                 
-                ZStack{
-                    PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.gray)
-                            .font(.system(size: 40, weight: .thin))
-                            .padding(40)
-                            .frame(maxWidth: .infinity, maxHeight: 150)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                        
+                
+                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                    ZStack{
+                        Rectangle()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(.clear)
+                            .buttonBorderShape(.roundedRectangle)
+                            .border(Color.gray)
+                        HStack{
+                            if let imageData,
+                               let image = UIImage(data: imageData) {
+                                
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 250, height: 150, alignment: .center)
+                            }
+                            if xBox {
+                                Button {
+                                    imageData = nil
+                                } label: {
+                                    Label("Delete", systemImage: "xmark.circle")
+                                }
+                                .padding()
+                            }
+                            
+                            
+                            
+                        }
                     }
-                    
-                    
-                    if let imageData,
-                       let image = UIImage(data: imageData) {
-                        
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 150, alignment: .center)
-                        
-                    }
-                    
-                }
                     
                     
                 }
                 
             }
-
-        
+            
+            
+        }
         
         .onChange(of: selectedItem) { newItem in
             Task {
@@ -83,25 +102,8 @@ struct FeedRecruitPhotoAddView: View {
                 }
             }
         }
-        //        .sheet(isPresented: $isImagePickerPresented) {
-        //            FeedRecruitPHPickerViewControllerWrapper(selectedImages: $selectedImages)
-        //        }
+        
     }
 }
 
-//struct FeedRecruitPhotoAddView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedRecruitPhotoAddView()
-//    }
-//}
-
-//
-//
-//    .onChange(of: selectedItem) { newItem in
-//                Task {
-//                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
-//                        self.imageData = data
-//                    }
-//                }
-//            }
 

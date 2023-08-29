@@ -19,7 +19,7 @@ struct StudyRecruitModel {
     var isOffline: Bool
     var locationName: String // 이름
     var reportCount: Int // 신고 횟수
-    var studyImagePath: String
+    var studyImagePath: [String]
     var studyCount: Int
     var studyCoordinates: [Double]
 }

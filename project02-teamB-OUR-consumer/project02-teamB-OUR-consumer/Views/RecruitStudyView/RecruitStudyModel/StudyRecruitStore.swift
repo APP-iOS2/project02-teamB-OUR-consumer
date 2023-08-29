@@ -41,7 +41,7 @@ class StudyRecruitStore: ObservableObject {
                     let reportCount: Int  = docData["reportCount"] as? Int ?? 0
                     let startAt: String = docData["startAt"] as? String ?? ""
                     let dueAt: String = docData["dueAt"] as? String ?? ""
-                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
+                    let studyImagePath: [String] = docData["studyImagePath"] as? [String] ?? []
                     let studyCount: Int = docData["studyCount"] as? Int ?? 1
                     let studyCoordinates: [Double] = docData["studyCoordinates"] as? [Double] ?? []
                     
