@@ -82,7 +82,7 @@ struct FeedRecruitPhotoAddView: View {
                                 } label: {
                                     Label("Delete", systemImage: "xmark.circle")
                                 }
-                                .padding()
+                              
                             }
                             
                             
