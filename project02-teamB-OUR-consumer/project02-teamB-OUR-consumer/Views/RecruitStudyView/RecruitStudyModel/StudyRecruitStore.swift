@@ -27,6 +27,7 @@ class StudyRecruitStore: ObservableObject {
     
     
     func fetchFeeds() {
+
         service.fetchAll(collection: .studypost) { results in
             self.studyStores = results
         }

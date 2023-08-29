@@ -142,3 +142,4 @@ struct AddStudyMain_Previews: PreviewProvider {
         AddStudyMain()
     }
 }
+

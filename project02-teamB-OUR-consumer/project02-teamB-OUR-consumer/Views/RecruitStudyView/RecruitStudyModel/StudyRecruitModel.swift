@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 import FirebaseFirestoreSwift
 
+
 struct StudyRecruitModel: Codable, Identifiable {
-//    var id: String = UUID().uuidString
+    //    var id: String = UUID().uuidString
     
     @DocumentID var id: String?
     var creator: String?
@@ -26,7 +27,6 @@ struct StudyRecruitModel: Codable, Identifiable {
     var studyCount: Int?
     var studyCoordinates: [Double]?
 }
-
 extension Date {
     func dateToSring() -> String {
         let formatter = DateFormatter()
