@@ -83,6 +83,14 @@
 		9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF12A944A5A00699B6A /* Assets.xcassets */; };
 		9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */; };
 		A037E6C52A9816C3005C0ED9 /* StudyReplyDetailInReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037E6C42A9816C3005C0ED9 /* StudyReplyDetailInReportView.swift */; };
+		A05CDD992A9C73C300B4948C /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDD982A9C73C300B4948C /* ProfileHeaderView.swift */; };
+		A05CDD9B2A9C827300B4948C /* MyFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDD9A2A9C827300B4948C /* MyFollowButton.swift */; };
+		A05CDD9F2A9C8B0200B4948C /* MyFollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDD9E2A9C8B0200B4948C /* MyFollowersView.swift */; };
+		A05CDDA12A9C8B0F00B4948C /* MyFollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA02A9C8B0F00B4948C /* MyFollowingView.swift */; };
+		A05CDDA32A9C8CD500B4948C /* MyFollowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA22A9C8CD500B4948C /* MyFollowView.swift */; };
+		A05CDDA62A9C945900B4948C /* MyFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */; };
+		A05CDDA82A9C946200B4948C /* MyFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */; };
+		A09ED4BB2A9490D200E6A626 /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
 		A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */; };
@@ -219,6 +227,14 @@
 		9E99CCF12A944A5A00699B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E99CCF42A944A5A00699B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A037E6C42A9816C3005C0ED9 /* StudyReplyDetailInReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailInReportView.swift; sourceTree = "<group>"; };
+		A05CDD982A9C73C300B4948C /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		A05CDD9A2A9C827300B4948C /* MyFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowButton.swift; sourceTree = "<group>"; };
+		A05CDD9E2A9C8B0200B4948C /* MyFollowersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowersView.swift; sourceTree = "<group>"; };
+		A05CDDA02A9C8B0F00B4948C /* MyFollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowingView.swift; sourceTree = "<group>"; };
+		A05CDDA22A9C8CD500B4948C /* MyFollowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowView.swift; sourceTree = "<group>"; };
+		A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowerCell.swift; sourceTree = "<group>"; };
+		A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowingCell.swift; sourceTree = "<group>"; };
+		A09ED4BA2A9490D200E6A626 /* MyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainView.swift; sourceTree = "<group>"; };
 		A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainTabBar.swift; sourceTree = "<group>"; };
 		A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainProfileEditView.swift; sourceTree = "<group>"; };
 		A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -371,9 +387,12 @@
 		960EFDDC2A9491B20036CEC1 /* MyPageView */ = {
 			isa = PBXGroup;
 			children = (
-				6413BF562A9C89D200B834D9 /* MyMainView.swift */,
+				A05CDDA42A9C943B00B4948C /* MyPageFollow */,
+				A09ED4BA2A9490D200E6A626 /* MyMainView.swift */,
+				A05CDD982A9C73C300B4948C /* ProfileHeaderView.swift */,
 				968837932A9C4279004B98E1 /* ProfileBar.swift */,
 				A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */,
+				A05CDD9A2A9C827300B4948C /* MyFollowButton.swift */,
 				96C1F2822A982C8C000D6E1F /* MyProfileEditView */,
 				96C1F27F2A982C0F000D6E1F /* MyResumeTabView */,
 				A09ED4C92A95F62E00E6A626 /* MyBoardView.swift */,
@@ -589,6 +608,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		A05CDDA42A9C943B00B4948C /* MyPageFollow */ = {
+			isa = PBXGroup;
+			children = (
+				A05CDDA22A9C8CD500B4948C /* MyFollowView.swift */,
+				A05CDD9E2A9C8B0200B4948C /* MyFollowersView.swift */,
+				A05CDDA02A9C8B0F00B4948C /* MyFollowingView.swift */,
+				A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */,
+				A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */,
+			);
+			path = MyPageFollow;
+			sourceTree = "<group>";
+		};
 		A06ED3492A971514004462EB /* StudyView */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,6 +812,7 @@
 			files = (
 				FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */,
 				D55D366D2A95E1CD00A7BE14 /* StudyLocationManager.swift in Sources */,
+				A05CDDA12A9C8B0F00B4948C /* MyFollowingView.swift in Sources */,
 				9620C5102A95FD8F000C21BC /* CustomTabBarView.swift in Sources */,
 				FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */,
 				968837902A9C3E1C004B98E1 /* User.swift in Sources */,
@@ -842,6 +874,7 @@
 				962B7E1F2A95F05700083790 /* MyEduMoreView.swift in Sources */,
 				54FEB27D2A9693940083A33F /* InquiryRow.swift in Sources */,
 				A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */,
+				A05CDD9B2A9C827300B4948C /* MyFollowButton.swift in Sources */,
 				3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */,
 				968837942A9C4279004B98E1 /* ProfileBar.swift in Sources */,
 				FAB51C142A9655590047A725 /* AgreeTermView.swift in Sources */,
@@ -860,11 +893,14 @@
 				84BC2B392A94916A00B0E270 /* StudyListItemView.swift in Sources */,
 				84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */,
 				46C816AE2A949593003B2944 /* StudyDetailView.swift in Sources */,
+				A05CDDA82A9C946200B4948C /* MyFollowingCell.swift in Sources */,
 				4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */,
 				960358A12A987E7200C14D68 /* AlarmImageView.swift in Sources */,
 				9603589B2A98607E00C14D68 /* AlarmImageContainer.swift in Sources */,
 				A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */,
 				FAB51C8B2A9678870047A725 /* Date.swift in Sources */,
+				A05CDDA32A9C8CD500B4948C /* MyFollowView.swift in Sources */,
+				A05CDD992A9C73C300B4948C /* ProfileHeaderView.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
 				649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */,
 				9B6B9B302A94A2AA004609AF /* FeedStore.swift in Sources */,
@@ -897,6 +933,8 @@
 				968837922A9C3E1C004B98E1 /* ResumeViewModel.swift in Sources */,
 				A09ED4CA2A95F62E00E6A626 /* MyBoardView.swift in Sources */,
 				118AA9702A95099F006946C3 /* MySkillEditView.swift in Sources */,
+				A05CDD9F2A9C8B0200B4948C /* MyFollowersView.swift in Sources */,
+				A05CDDA62A9C945900B4948C /* MyFollowerCell.swift in Sources */,
 				962B7E1D2A95F04800083790 /* MyProjectMoreView.swift in Sources */,
 				FAB51C952A96794B0047A725 /* AuthViewModel.swift in Sources */,
 				118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */,

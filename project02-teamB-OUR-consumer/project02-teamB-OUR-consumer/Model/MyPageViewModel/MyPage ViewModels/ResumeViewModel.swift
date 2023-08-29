@@ -14,7 +14,7 @@ class ResumeViewModel: ObservableObject {
                 }
                 switch result {
                     case .success(let resume):
-                            self.resume = resume
+                        self.resume = resume
                     
                     case .failure(let error):
                         print("Error decoding resume: \(error)")

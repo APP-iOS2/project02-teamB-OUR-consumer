@@ -18,4 +18,5 @@ struct User: Identifiable, Codable {
     var numberOfFollowing: Int {
         following?.count ?? 0
     }
+    
 }
