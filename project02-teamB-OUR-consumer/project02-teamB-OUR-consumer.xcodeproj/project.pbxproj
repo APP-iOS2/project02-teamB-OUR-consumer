@@ -94,9 +94,12 @@
 		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
 		A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyCommentReportView.swift */; };
 		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
-		B7610BA72A951A6E0074F78C /* FeedRecruitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */; };
+		B7610BA72A951A6E0074F78C /* FeedRecruitLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7610BA62A951A6E0074F78C /* FeedRecruitLocationModel.swift */; };
 		B786FC162A987ADF00E3C1E9 /* FeedStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */; };
 		B786FC192A987B0F00E3C1E9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B786FC182A987B0F00E3C1E9 /* FirebaseStorage */; };
+		B786FC3C2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */; };
+		B786FC3E2A9D762300E3C1E9 /* FeedRecruitLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */; };
+		B786FC402A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */; };
 		B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */; };
 		B7C4A51E2A95C3DB00CB05C8 /* FeedRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */; };
 		D55D36612A95E16200A7BE14 /* AddStudyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36602A95E16200A7BE14 /* AddStudyMain.swift */; };
@@ -109,6 +112,7 @@
 		D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B182A97B0B7000BC8E2 /* StorageManager.swift */; };
 		F43988242A98C9E600436844 /* RecruitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43988232A98C9E600436844 /* RecruitService.swift */; };
 		F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */; };
+		F496DA1D2A9DF23D003CBD1A /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -230,8 +234,11 @@
 		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
 		A0CE323C2A952C110019300F /* StudyCommentReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCommentReportView.swift; sourceTree = "<group>"; };
 		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitViewModel.swift; sourceTree = "<group>"; };
+		B7610BA62A951A6E0074F78C /* FeedRecruitLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitLocationModel.swift; sourceTree = "<group>"; };
 		B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStorageManager.swift; sourceTree = "<group>"; };
+		B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPrivateSettingView.swift; sourceTree = "<group>"; };
+		B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitLocationView.swift; sourceTree = "<group>"; };
+		B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitTextEditorView.swift; sourceTree = "<group>"; };
 		B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitModel.swift; sourceTree = "<group>"; };
 		B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitStore.swift; sourceTree = "<group>"; };
 		D55D36602A95E16200A7BE14 /* AddStudyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyMain.swift; sourceTree = "<group>"; };
@@ -244,6 +251,7 @@
 		D5755B182A97B0B7000BC8E2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F43988232A98C9E600436844 /* RecruitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitService.swift; sourceTree = "<group>"; };
 		F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitServiceExample.swift; sourceTree = "<group>"; };
+		F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
@@ -394,6 +402,7 @@
 		9620C50C2A95FD39000C21BC /* CustomTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				F496DA1E2A9DF243003CBD1A /* Models */,
 				9620C50F2A95FD8F000C21BC /* CustomTabBarView.swift */,
 				9620C50A2A95FD31000C21BC /* PostButton.swift */,
 				9620C50D2A95FD69000C21BC /* RecruitButton.swift */,
@@ -594,7 +603,10 @@
 				FAB51C7F2A9677F00047A725 /* DatePickerSheet.swift */,
 				FAB51C802A9677F00047A725 /* PersonnelSheet.swift */,
 				FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */,
+				B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */,
+				B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */,
 				FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */,
+				B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */,
 			);
 			path = FeedRecruitView;
 			sourceTree = "<group>";
@@ -605,7 +617,7 @@
 				FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */,
 				B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */,
 				B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */,
-				B7610BA62A951A6E0074F78C /* FeedRecruitViewModel.swift */,
+				B7610BA62A951A6E0074F78C /* FeedRecruitLocationModel.swift */,
 				B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */,
 				F43988232A98C9E600436844 /* RecruitService.swift */,
 				F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */,
@@ -641,6 +653,14 @@
 				D5755B182A97B0B7000BC8E2 /* StorageManager.swift */,
 			);
 			path = RecruitStudyModel;
+			sourceTree = "<group>";
+		};
+		F496DA1E2A9DF243003CBD1A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FA435A742A9746C8000A2A11 /* Recovered References */ = {
@@ -768,7 +788,7 @@
 				9620C5102A95FD8F000C21BC /* CustomTabBarView.swift in Sources */,
 				FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */,
 				54FEB27F2A9694070083A33F /* Inquiry.swift in Sources */,
-				B7610BA72A951A6E0074F78C /* FeedRecruitViewModel.swift in Sources */,
+				B7610BA72A951A6E0074F78C /* FeedRecruitLocationModel.swift in Sources */,
 				D55D36632A95E17100A7BE14 /* StudyMeetingView.swift in Sources */,
 				FAB51C8A2A9678870047A725 /* UIImage.swift in Sources */,
 				B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */,
@@ -808,6 +828,7 @@
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
 				D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */,
 				118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */,
+				B786FC402A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift in Sources */,
 				960EFDE02A9497040036CEC1 /* MyIntroView.swift in Sources */,
 				960EFDE42A9497330036CEC1 /* MyProjectView.swift in Sources */,
 				FAB51C812A9677F00047A725 /* ButtonMainView.swift in Sources */,
@@ -818,6 +839,7 @@
 				960EFDE82A9497530036CEC1 /* MySkillView.swift in Sources */,
 				F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */,
 				A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */,
+				B786FC3C2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
 				A09ED4D02A97402D00E6A626 /* CameraView.swift in Sources */,
 				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
@@ -842,6 +864,7 @@
 				A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */,
 				96C1F27A2A974229000D6E1F /* Firebase.swift in Sources */,
 				A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */,
+				F496DA1D2A9DF23D003CBD1A /* CustomTabBarViewModel.swift in Sources */,
 				FAB51C152A9655590047A725 /* LoginSecondView.swift in Sources */,
 				84BC2B392A94916A00B0E270 /* StudyListItemView.swift in Sources */,
 				84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */,
@@ -866,6 +889,7 @@
 				96C1F27C2A974229000D6E1F /* MypageModel.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				FAB51C762A96755C0047A725 /* RecruitImagePicker.swift in Sources */,
+				B786FC3E2A9D762300E3C1E9 /* FeedRecruitLocationView.swift in Sources */,
 				FAB51C7C2A9677E40047A725 /* DateModel.swift in Sources */,
 				F43988242A98C9E600436844 /* RecruitService.swift in Sources */,
 				960358992A98601300C14D68 /* AlarmTabBarImage.swift in Sources */,
