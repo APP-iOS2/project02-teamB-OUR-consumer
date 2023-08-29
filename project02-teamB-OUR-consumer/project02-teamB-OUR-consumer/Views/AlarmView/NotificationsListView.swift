@@ -26,9 +26,9 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
-        .onAppear{
-                    viewModel.fetchNotificationItem()
-                }
+//        .onAppear{
+//                    viewModel.fetchNotificationItem()
+//                }
         .refreshable {
             // 새로고침 로직
             viewModel.fetchNotificationItem()
