@@ -26,7 +26,7 @@ class LocationManager: NSObject, ObservableObject {
     func requestLocation() {
         manager.requestWhenInUseAuthorization()
     }
-
+    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -55,5 +55,23 @@ extension LocationManager: CLLocationManagerDelegate {
         
     }
     
-  
+    func convertLocationToAddress(location: CLLocation) ->  String{
+        //"en_US_POSIX"
+        var locationAddress: String = "담기기전값"
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "en_US_POSIX")
+        
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks,error) in
+            if error != nil { return}
+            guard let placemark = placemarks?.first else {return}
+            locationAddress =  try await "\(placemark.country ?? "") \(placemark.locality ?? "") \(placemark.name ?? "")"
+        }
+        
+        print("\(locationAddress)")
+        return locationAddress
+        
+    }
+    
 }
+
+
