@@ -19,9 +19,9 @@ struct FeedRecruitModel: Codable, Identifiable {
     var location: String?
     var privateSetting: Bool?
     var reportCount: Int?
+
     var createdAt: String?
- 
-    var postImagePath: String?
+    var postImagePath: [String]
 
     
 //    var createdDate: String {

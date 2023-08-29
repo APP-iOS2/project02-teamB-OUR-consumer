@@ -21,11 +21,12 @@ struct FeedRecruitView: View {
     @State var content: String = ""
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-    @State var postImagePath: String = ""
-    @State var selectedItem: PhotosPickerItem? = nil
+    @State var feedImagePath: [String] = []
+    @State var selectedItem: [PhotosPickerItem] = []
     @State var isAlert: Bool = false
     @State var createdDate: Date = Date()
-    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: "")
+    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
+
     
     
     var body: some View {
@@ -47,9 +48,8 @@ struct FeedRecruitView: View {
                 FeedRecruitTextEditorView(content: $content)
                     .padding(.horizontal, 20.0)
                 
-                
                 //사진추가 View
-                FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
+                FeedRecruitPhotoAddView(selectedImages: $selectedImages, selectedItem: $selectedItem)
                     .padding(.horizontal, 20.0)
                 
             }
@@ -64,23 +64,23 @@ struct FeedRecruitView: View {
                     Button("등록") {
                         isAlert = true
                         
-                        guard let imageItem = selectedItem else {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, createdAt: createdDate.toString(), postImagePath: postImagePath)
+                        if selectedItem.isEmpty {
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
-                            print(newFeed)
+                            print("사진 없을경우 \(newFeed)")
                             return
-                        }
-                        
-                        Task {
-                            try await  postImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
-                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: postImagePath)
+                        } else {
                             
-                            self.newFeed = newFeed2
-                            print("사진 있을경우 \(newFeed)")
-                            //feedStoreViewModel.addFeed(newFeed2)
+                            Task {
+                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: feedImagePath)
+                                
+                                self.newFeed = newFeed2
+                                print("사진 있을경우 \(newFeed)")
+                                //feedStoreViewModel.addFeed(newFeed2)
+                            }
                         }
-                        
                     }
                     .disabled(content.isEmpty)
                 }
@@ -93,9 +93,12 @@ struct FeedRecruitView: View {
                
                 Button("등록" ,role: .destructive) {
 
-                    print("얼러트\(newFeed)")
+                    print("얼러트에서 등록 후\(newFeed)")
                     feedStoreViewModel.addFeed(newFeed)
-                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: "")
+
+                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
+
+
                     dismiss()
                 }
                 Button("취소" ,role: .cancel) {
