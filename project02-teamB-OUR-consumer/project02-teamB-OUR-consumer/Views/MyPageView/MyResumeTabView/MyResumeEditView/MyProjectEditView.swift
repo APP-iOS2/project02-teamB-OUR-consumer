@@ -12,7 +12,6 @@ struct MyProjectEditView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @ObservedObject var resumeViewModel: ResumeViewModel
-    var index: Int
     
     @State var projectTitle: String = ""
     @State var jobTitle: String = ""
@@ -23,7 +22,8 @@ struct MyProjectEditView: View {
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    var isShowingDeleteButton: Bool
+    var isEditing: Bool
+    var index: Int
     
     var body: some View {
         //        NavigationStack {
@@ -121,7 +121,7 @@ struct MyProjectEditView: View {
                 Image(systemName: "chevron.backward")
             })
             //MARK: 편집이면 삭제뜨게
-            if isShowingDeleteButton {
+            if isEditing {
                 HStack{
                     Spacer()
                     Button {
@@ -135,7 +135,8 @@ struct MyProjectEditView: View {
                     .foregroundColor(.gray)
                     .alert(isPresented: $isDeleteItemAlert) {
                         Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
-                            //삭제 함수
+                            resumeViewModel.resume?.projects.remove(at: index)
+                            resumeViewModel.updateResume()
                             dismiss()
                         }), secondaryButton: .cancel(Text("취소")))
                     }
@@ -147,15 +148,19 @@ struct MyProjectEditView: View {
             }
         }
         .padding()
-        .navigationTitle("교육")
+        .navigationTitle("프로젝트")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    if projectTitle.isEmpty {
-                        isTextFieldEmpty.toggle()
+                    if isEditing {
+                        saveProjectChanges()
+                        dismiss()
+                    } else {
+                        resumeViewModel.resume?.projects.append(Project(projectTitle: projectTitle, jobTitle: jobTitle, startDate: startDate, endDate: endDate, description: description))
+                        resumeViewModel.updateResume()
+                        dismiss()
                     }
-                    updateProject()
                 } label: {
                     Text("완료")
                         .font(.system(size: 14))
@@ -169,18 +174,20 @@ struct MyProjectEditView: View {
             }
         }
         .onAppear(){
-            guard var project = resumeViewModel.resume?.projects[index] else {
-                return
+            if isEditing {
+                guard var project = resumeViewModel.resume?.projects[index] else {
+                    return
+                }
+                projectTitle = project.projectTitle
+                jobTitle = project.jobTitle
+                startDate = project.startDate
+                endDate = project.endDate ?? Date()
+                description = project.description ?? ""
             }
-            projectTitle = project.projectTitle
-            jobTitle = project.jobTitle
-            startDate = project.startDate
-            endDate = project.endDate ?? Date()
-            description = project.description ?? ""
         }
     }
     
-    func updateProject() {
+    func saveProjectChanges() {
         guard var resume = resumeViewModel.resume else {
             return
         }
@@ -196,6 +203,6 @@ struct MyProjectEditView: View {
 
 struct MyExperienceEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectEditView(resumeViewModel: ResumeViewModel(), index: 0, isShowingDeleteButton: false)
+        MyProjectEditView(resumeViewModel: ResumeViewModel(), isEditing: false, index: 0)
     }
 }

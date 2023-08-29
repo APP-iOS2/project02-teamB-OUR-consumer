@@ -16,36 +16,34 @@ struct WorkExperience: Identifiable, Codable {
     var id: String = UUID().uuidString
     var jobTitle: String
     var company: Company
-    var startDate: Double
-    var endDate: Double
+    var startDate: Date
+    var endDate: Date
     var description: String?
     
     var startDateString: String {
-        return formatDate(from: startDate)
+        return formatDate(startDate)
     }
     
     var endDateString: String {
-        return formatDate(from: endDate)
+        return formatDate(endDate)
     }
     
-    private func formatDate(from timestamp: Double) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "yyyy년 MM월"
-        let date = Date(timeIntervalSince1970: timestamp)
-        return dateFormatter.string(from: date)
-    }
+    func formatDate(_ date: Date) -> String {
+       let formatter = DateFormatter()
+       formatter.locale = Locale(identifier: "ko_KR")
+       formatter.dateFormat = "yy년 M월 dd일 HH:mm"
+       return formatter.string(from: date)
+   }
 }
 
 struct Education: Identifiable, Codable {
     var id: String = UUID().uuidString
-    let schoolName: String
-    let degree: String
-    let fieldOfStudy: String
-    let startDate: Date
-    let endDate: Date?
-    let description: String?
+    var schoolName: String
+    var degree: String
+    var fieldOfStudy: String
+    var startDate: Date
+    var endDate: Date?
+    var description: String?
 }
 
 struct Project: Identifiable, Codable {

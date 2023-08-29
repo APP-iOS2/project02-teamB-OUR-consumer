@@ -23,7 +23,7 @@ struct MyWorkEditView: View {
     @State var isEmptyJobTitle: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    var isShowingDeleteButton: Bool
+    var isEditing: Bool
     var index: Int
 
     var body: some View {
@@ -144,7 +144,7 @@ struct MyWorkEditView: View {
                             })
             
                 //MARK: 편집일때 삭제하기 뜨도록
-                if isShowingDeleteButton {
+                if isEditing {
                     HStack{
                         Spacer()
                         Button {
@@ -158,7 +158,8 @@ struct MyWorkEditView: View {
                         .foregroundColor(.gray)
                         .alert(isPresented: $isDeleteItemAlert) {
                             Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
-                                
+                                resumeViewModel.resume?.workExperience.remove(at: index)
+                                resumeViewModel.updateResume()
                                 dismiss()
                             }), secondaryButton: .cancel(Text("취소")))
                         }
@@ -171,14 +172,14 @@ struct MyWorkEditView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        if companyName.isEmpty {
-                            isEmptyCompanyName.toggle()
+                        if isEditing {
+                            saveWorkChanges()
+                            dismiss()
+                        } else {
+                            resumeViewModel.resume?.workExperience.append(WorkExperience(jobTitle: jobTitle, company: Company(companyName: companyName, companyImage: nil), startDate: startDate, endDate: endDate))
+                            resumeViewModel.updateResume()
+                            dismiss()
                         }
-                        if jobTitle.isEmpty {
-                            isEmptyJobTitle.toggle()
-                        }
-                        updateWork()
-                        dismiss()
                     } label: {
                         Text("완료")
                             .font(.system(size: 14))
@@ -193,27 +194,29 @@ struct MyWorkEditView: View {
             }
             .onAppear {
 
-                if let work = resumeViewModel.resume?.workExperience[index] {
-                    companyName = work.company.companyName
-                    jobTitle = work.jobTitle
-                    startDate = Date(timeIntervalSince1970: work.startDate)
-                    endDate = Date(timeIntervalSince1970: work.endDate)
+                if isEditing {
+                    if let work = resumeViewModel.resume?.workExperience[index] {
+                        companyName = work.company.companyName
+                        jobTitle = work.jobTitle
+                        startDate = work.startDate
+                        endDate = work.endDate
 
-                    // isSelectedToggle = work.
+                        // isSelectedToggle = work.
 
+                    }
                 }
 
             }
     }
     
     
-    func updateWork() {
+    func saveWorkChanges() {
         // index아니면 id로 해도됨
         if var updatedWork = resumeViewModel.resume {
             updatedWork.workExperience[index].company.companyName = companyName
             updatedWork.workExperience[index].jobTitle = jobTitle
-            updatedWork.workExperience[index].startDate = startDate.timeIntervalSince1970
-            updatedWork.workExperience[index].endDate = endDate.timeIntervalSince1970
+            updatedWork.workExperience[index].startDate = startDate
+            updatedWork.workExperience[index].endDate = endDate
 
             resumeViewModel.updateResume(resume: updatedWork)
         }
@@ -224,6 +227,6 @@ struct MyWorkEditView: View {
 
 struct MyCarreerEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkEditView(resumeViewModel: ResumeViewModel(), isShowingDeleteButton: true, index: 0)
+        MyWorkEditView(resumeViewModel: ResumeViewModel(), isEditing: true, index: 0)
     }
 }

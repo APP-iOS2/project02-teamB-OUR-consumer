@@ -24,7 +24,7 @@ struct MyProjectCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyProjectEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: true)
+                        MyProjectEditView(resumeViewModel: resumeViewModel, isEditing: true, index: index)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -63,14 +63,14 @@ struct MyProjectView: View {
                     
                     Spacer()
                     
-//                    if isMyProfile {
-//                        NavigationLink {
-//                            MyProjectEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: false)
-//                        } label: {
-//                            Image(systemName: "plus")
-//                        }
-//
-//                    }
+                    if isMyProfile {
+                        NavigationLink {
+                            MyProjectEditView(resumeViewModel: resumeViewModel, isEditing: false, index: 0)
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+
+                    }
                     
                 }
                 .padding(.vertical, 5)
