@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PostModifyView: View {
     
+    var post: FeedStore
+    
     @Binding var isShowingPostModifySheet: Bool
     @Binding var isShowingModifyDetailView: Bool
     
@@ -22,8 +24,8 @@ struct PostModifyView: View {
                     Label("수정", systemImage: "square.and.pencil")
                         .foregroundColor(Color(hex: 0x090580))
                 }
-                
-                Divider()
+            }
+            VStack(alignment: .leading, spacing: 30) {
                 Button {
                     //게시물 삭제 함수!!!
                     isShowingPostModifySheet = false
@@ -32,14 +34,14 @@ struct PostModifyView: View {
                         .foregroundColor(.red)
                 }
             }
-            .padding()
-            .font(.title2)
+
         }
+        .font(.title)
     }
 }
 
 struct PostModifyView_Previews: PreviewProvider {
     static var previews: some View {
-        PostModifyView(isShowingPostModifySheet: .constant(false), isShowingModifyDetailView: .constant(false))
+        PostModifyView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg2", content: "축구...어렵네..."), isShowingPostModifySheet: .constant(false), isShowingModifyDetailView: .constant(false))
     }
 }

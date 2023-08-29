@@ -20,9 +20,14 @@ struct PostView: View {
     
     var body: some View {
         VStack {
-            Image(post.postImageString)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            // 어씽크이미지로 수정
+            AsyncImage(url: URL(string: "https://isplus.com/data/isp/image/2023/08/06/isp20230806000272.600x.0.jpeg")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                ProgressView()
+            }
                 
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {

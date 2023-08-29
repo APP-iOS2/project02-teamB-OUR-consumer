@@ -21,7 +21,8 @@ struct FeedView: View {
             VStack {
                 HStack {
                     PostUserView(post: post, isShowingSheet: $isShowingSheet)
-                    if post.postId == userId {  //임시로 넣은 이승준계정 접속 일때만 수정 삭제 가능하게
+                    //임시로 넣은 이승준계정 접속 일때만 수정 삭제 가능하게
+                    if post.postId == userId {
                         Button {
                             isShowingPostModifySheet.toggle()
                         } label: {
@@ -34,7 +35,6 @@ struct FeedView: View {
                             PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
                         }
                     }
-                    
                 }
                 PostView(post: post)
                 
@@ -46,8 +46,9 @@ struct FeedView: View {
                 
             }
             .padding()
+            // 수정, 삭제 버튼 시트
             .sheet(isPresented: $isShowingPostModifySheet) {
-                PostModifyView(isShowingPostModifySheet: $isShowingPostModifySheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+                PostModifyView(post: post, isShowingPostModifySheet: $isShowingPostModifySheet, isShowingModifyDetailView: $isShowingModifyDetailView)
                     .presentationDetents([.height(220), .height(220)])
             }
         }
