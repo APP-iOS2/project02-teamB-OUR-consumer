@@ -14,7 +14,7 @@ class ResumeViewModel: ObservableObject {
                 }
                 switch result {
                     case .success(let resume):
-                            self.resume = resume
+                        self.resume = resume
                     
                     case .failure(let error):
                         print("Error decoding resume: \(error)")
@@ -53,19 +53,3 @@ class ResumeViewModel: ObservableObject {
     }
 }
 
-extension ResumeViewModel {
-    func updateWork(collectionName: String, documentID: String, fieldName: String, newValue: Any) {
-        let db = Firestore.firestore()
-        let docRef = db.collection("resumes").document(documentID)
-        
-        docRef.updateData([
-            fieldName: newValue
-        ]) { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {
-                print("Document successfully updated")
-            }
-        }
-    }
-}

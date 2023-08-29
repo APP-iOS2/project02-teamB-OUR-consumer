@@ -15,13 +15,13 @@ struct MyResumeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    MyIntroView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    MyIntroView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
                     Rectangle()
                         .fill(Color("DefaultGray"))
                     MyWorkView(isMyProfile: $isMyProfile, resumeViewModel: resumeViewModel)
                     Rectangle()
                         .fill(Color("DefaultGray"))
-                    //                        MyProjectView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    MyProjectView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
                     Rectangle()
                         .fill(Color("DefaultGray"))
                     //                        MyEduView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)

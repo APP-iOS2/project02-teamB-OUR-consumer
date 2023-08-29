@@ -50,11 +50,11 @@ struct Education: Identifiable, Codable {
 
 struct Project: Identifiable, Codable {
     var id: String = UUID().uuidString
-    let projectTitle: String
-    let jobTitle: String
-    let startDate: Date
-    let endDate: Date?
-    let description: String?
+    var projectTitle: String
+    var jobTitle: String
+    var startDate: Date
+    var endDate: Date?
+    var description: String?
 }
 
 struct Skill: Identifiable, Codable {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyProjectMoreView: View {
+    @ObservedObject var resumeViewModel: ResumeViewModel
     var myProjects: [Project]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -17,7 +18,7 @@ struct MyProjectMoreView: View {
             ScrollView {
                 ForEach(0..<myProjects.count, id: \.self) { index in
                     VStack {
-                        MyProjectCellView(isMyProfile: $isMyProfile, project: myProjects[index])
+                        MyProjectCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, project: myProjects[index], index: index)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -51,7 +52,7 @@ struct MyProjectMoreView: View {
 struct MyProjectMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyProjectMoreView(myProjects: [], isMyProfile: .constant(true))
+            MyProjectMoreView(resumeViewModel: ResumeViewModel(), myProjects: [], isMyProfile: .constant(true))
         }
     }
 }
