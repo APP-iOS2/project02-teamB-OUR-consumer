@@ -53,11 +53,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
+    @StateObject var alarmViewModel = AlarmViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 LoginView()
             }
+            .environmentObject(alarmViewModel)
         }
     }
 }

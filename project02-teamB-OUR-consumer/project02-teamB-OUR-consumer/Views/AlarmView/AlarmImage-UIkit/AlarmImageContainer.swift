@@ -13,7 +13,7 @@ import SnapKit
 class AlarmImageContainer: UIView{
     
     // 선언
-    private let alarmViewImage: AlarmImageView = {
+    private let testView: AlarmImageView = {
         let view = AlarmImageView(frame: .zero)
         return view
     }()
@@ -26,11 +26,19 @@ class AlarmImageContainer: UIView{
         return label
     }()
     
-    
-    func setAlarmImage(color: UIColor){
-        alarmViewImage.settingColor(color: color)
+    func addDot() {
+        testView.addDot()
     }
-    func setLabel(color: Color){
+
+    func removeDot() {
+        testView.removeDot()
+    }
+
+    func settingColor(color: UIColor){
+        testView.settingColor(color: color)
+        titleLabel.textColor = color
+    }
+    func settingColor(color: Color){
         titleLabel.textColor = UIColor(color)
     }
     
@@ -39,17 +47,17 @@ class AlarmImageContainer: UIView{
         super.init(frame: frame)
         
         // add SubView
-        self.addSubview(alarmViewImage)
+        self.addSubview(testView)
         self.addSubview(titleLabel)
         
-        alarmViewImage.snp.makeConstraints { make in
+        testView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(-1)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(25)
+            make.height.equalTo(20)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(alarmViewImage.snp.bottom).offset(1)
-            make.centerX.equalTo(alarmViewImage.snp.centerX)
+            make.top.equalTo(testView.snp.bottom).offset(1)
+            make.centerX.equalTo(testView.snp.centerX)
             make.bottom.equalToSuperview()
         }
     }
