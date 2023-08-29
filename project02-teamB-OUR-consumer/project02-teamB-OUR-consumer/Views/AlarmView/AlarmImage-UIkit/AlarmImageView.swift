@@ -9,18 +9,19 @@ import UIKit
 import SnapKit
 
 
-private enum Const {    
-    static let borderWidth: Double = 1
-    static let imageOuterSpacing = Self.borderWidth + 4.0
-    static let greenDotOuterSpacing = 1
-    static let greenDotViewInset = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 3)
-    static let greenDotViewSize = CGSize(width: 10, height: 10)
-    
-    // shapeLayer
-    static let gradationWidth = 2.0
+// 레이아웃 및 시각적 요소를 위한 상수들을 저장하는 열거형
+private enum Const {
+    static let borderWidth: Double = 1  // 테두리의 두께
+    static let imageOuterSpacing = Self.borderWidth + 4.0  // 이미지 외부 여백
+    static let greenDotOuterSpacing = 1  // 빨간색 점의 외부 여백
+    static let greenDotViewInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 2)  // 빨간색 점의 여백
+    static let greenDotViewSize = CGSize(width: 6, height: 6)  // 빨간색 점의 크기
 }
 
+// 알람 아이콘과 빨간색 점(뱃지)을 표시하기 위한 UIView 클래스
 class AlarmImageView: UIView {
+
+    // 알람 아이콘을 담을 컨테이너 뷰
     private let containerView: RoundView = {
         let roundView = RoundView()
         roundView.backgroundColor = .clear
@@ -29,6 +30,7 @@ class AlarmImageView: UIView {
         return roundView
     }()
     
+    // 실제 알람 아이콘 이미지 뷰
     private let alarmImageView: RoundImageView = {
         let image = RoundImageView()
         image.image = UIImage(systemName: "bell.fill")
@@ -37,6 +39,7 @@ class AlarmImageView: UIView {
         return image
     }()
     
+    // 빨간색 점(뱃지)을 담을 컨테이너 뷰
     private let greenDotContainerView: RoundView = {
         let roundView = RoundView()
         roundView.isUserInteractionEnabled = false
@@ -54,29 +57,51 @@ class AlarmImageView: UIView {
         greenDotView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(Const.greenDotOuterSpacing)
         }
+        
         return roundView
     }()
     
-    
+    // 알람 아이콘의 색상을 설정하는 함수
     func settingColor(color: UIColor){
         alarmImageView.tintColor = color
     }
     
-    required init?(coder: NSCoder) {
-        fatalError()
+    // 빨간색 점(뱃지)을 제거하는 함수
+    func removeDot(){
+        greenDotContainerView.removeFromSuperview()
     }
+    
+    // 빨간색 점(뱃지)을 추가하는 함수
+    func addDot(){
+        self.addSubview(self.greenDotContainerView)
+        self.greenDotContainerView.snp.makeConstraints {
+            $0.right.top.equalToSuperview().inset(Const.greenDotViewInset)
+            $0.size.equalTo(Const.greenDotViewSize)
+        }
+    }
+    
+    // 필수 초기화 함수 (Interface Builder 사용을 위함, 현재는 사용되지 않음)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 커스텀 초기화 함수
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        // 컨테이너 뷰를 메인 뷰에 추가
         self.addSubview(self.containerView)
+        // 빨간색 점(뱃지) 컨테이너 뷰를 메인 뷰에 추가
         self.addSubview(self.greenDotContainerView)
+        // 알람 아이콘 이미지 뷰를 컨테이너 뷰에 추가
         self.containerView.addSubview(self.alarmImageView)
         
+        // AutoLayout 설정
         self.containerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         self.alarmImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()//.inset(Const.imageOuterSpacing)
+            $0.edges.equalToSuperview()
         }
         
         self.greenDotContainerView.snp.makeConstraints {
@@ -84,5 +109,10 @@ class AlarmImageView: UIView {
             $0.size.equalTo(Const.greenDotViewSize)
         }
     }
-    
 }
+
+//    1. 처음에 데이터가 있는지 없는지 확인 , ViewModel, UserDefaults
+//    2 - 1. 초기 앱 로딩시 알람이 있으면 addDot호출
+//    2 - 2. 초1기 앱 로딩시 알람이 없으면 아무것도 호출하지 않는다.
+//    3. 알람의 존재여부에 따라 0이 되면 removeDot 호출
+//    4. 알람의 존재여부에 따라 1이상이 되면 addDot 호출

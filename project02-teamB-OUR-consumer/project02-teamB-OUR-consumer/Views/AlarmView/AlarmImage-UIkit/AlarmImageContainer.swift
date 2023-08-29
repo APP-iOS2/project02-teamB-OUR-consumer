@@ -26,7 +26,14 @@ class AlarmImageContainer: UIView{
         return label
     }()
     
-    
+    func addDot() {
+        testView.addDot()
+    }
+
+    func removeDot() {
+        testView.removeDot()
+    }
+
     func settingColor(color: UIColor){
         testView.settingColor(color: color)
         titleLabel.textColor = color
@@ -44,11 +51,12 @@ class AlarmImageContainer: UIView{
         self.addSubview(titleLabel)
         
         testView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(28)
+            make.top.equalToSuperview().offset(-1)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(20)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(testView.snp.bottom).offset(3)
+            make.top.equalTo(testView.snp.bottom).offset(1)
             make.centerX.equalTo(testView.snp.centerX)
             make.bottom.equalToSuperview()
         }
@@ -58,12 +66,3 @@ class AlarmImageContainer: UIView{
         
     }
 }
-
-//extension UIView {
-//  func asImage() -> UIImage {
-//        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-//        return renderer.image { rendererContext in
-//            layer.render(in: rendererContext.cgContext)
-//        }
-//    }
-//}

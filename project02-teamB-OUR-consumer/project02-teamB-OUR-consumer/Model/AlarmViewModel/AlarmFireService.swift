@@ -112,8 +112,35 @@ class AlarmFireService {
     
     
     // update
-    func update(){
+    func update(_ path: String = "notification",
+                id: String,
+                completion: @escaping (Error?) -> ())
+    {
+        db.collection("\(path)").document(id).updateData([ "isRead" : true ], completion: { error in
+            if let error{
+                completion(error)
+            }else{
+                completion(nil)
+            }
+        })
+    }
+    
+    // update
+    func update(_ path: String = "notification",
+                ids: [String],
+                completion: @escaping (Error?) -> ())
+    {
         
+        ids.forEach { id in
+            db.collection("\(path)").document(id).updateData([ "isRead" : true ], completion: { error in
+                if let error{
+                    completion(error)
+                }else{
+                    completion(nil)
+                }
+            })
+        }
+       
     }
     
 }

@@ -17,7 +17,7 @@ struct StudyReplyDetailInReportView: View {
                 Button {
                     //해당 프로필 시트 올려주는 ~
                 } label: {
-                    comment.profileImage
+                    Image("OUR_Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40)
@@ -27,10 +27,10 @@ struct StudyReplyDetailInReportView: View {
                 
                 VStack(alignment: .leading, spacing: 5){
                     HStack {
-                        Text(comment.userId)
+                        Text(comment.user.name)
                             .font(.system(size: 14))
                             .fontWeight(.bold)
-                        Text(comment.createdDate)
+                        Text(comment.createdAt)
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
                         
@@ -53,6 +53,6 @@ struct StudyReplyDetailInReportView: View {
 
 struct StudyReplyDetailInReportView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyDetailInReportView(comment: StudyComment(userId: "성은", content: "어쩌구"))
+        StudyReplyDetailInReportView(comment: StudyComment(user: User.defaultUser, content: "어쩌구", createdAt: "23-02-12"))
     }
 }
