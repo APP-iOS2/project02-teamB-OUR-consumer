@@ -28,14 +28,12 @@ struct RecruitButton: View {
                                 .font(.largeTitle)
                                 .foregroundColor(Color.black)
                         }
-                        Spacer().frame(width: 140)
+                        Spacer()
                         Text("스터디 모집")
                             .foregroundColor(Color.black)
                             .font(.title2)
-                        Spacer().frame(width: 30)
                     }
                     .padding()
-                    
                 }
                 .fullScreenCover(isPresented: $isShowToggle, content: {
                     AddStudyMain(startDate: Date(), dueDate: Date())
@@ -57,11 +55,10 @@ struct RecruitButton: View {
                                 .font(.largeTitle)
                                 .foregroundColor(Color.black)
                         }
-                        Spacer().frame(width: 129)
-                        Text("피드 작성하기")
+                        Spacer()
+                        Text("피드 등록")
                             .foregroundColor(Color.black)
                             .font(.title2)
-                        Spacer().frame(width: 17)
                     }
                     .padding()
                 }
@@ -72,6 +69,7 @@ struct RecruitButton: View {
 //                    FeedRecruitView()
 //                }
             }
+            .padding(20)
         }
     }
 }

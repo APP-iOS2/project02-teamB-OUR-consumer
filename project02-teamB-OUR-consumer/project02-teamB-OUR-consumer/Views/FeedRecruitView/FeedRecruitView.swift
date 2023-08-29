@@ -131,7 +131,7 @@ struct FeedRecruitView: View {
     func convertLocationToAddress(location: CLLocation) {
         //"en_US_POSIX"
         let geocoder = CLGeocoder()
-        let locale = Locale(identifier: "en_US_POSIX")
+        let locale = Locale(identifier: "ko_KR")
         geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks,error) in
             if error != nil {
                 return

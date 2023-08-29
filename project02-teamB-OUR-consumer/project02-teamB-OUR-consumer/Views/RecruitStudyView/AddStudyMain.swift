@@ -20,7 +20,7 @@ struct AddStudyMain: View {
     @State var onlineToggle: Bool = false
     @State var offlineToggle: Bool = false
     @State var studyText: String = ""
-    @State var placeholder: String = "스터디 내용을 입력해주세요."
+    @State var placeholder: String = "스터디 내용을 입력하세요."
     
     @State var studyCount: Int = 1
     @State var startDate: Date = Date()
@@ -37,44 +37,47 @@ struct AddStudyMain: View {
         NavigationStack {
             
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 30) {
                     
                     // MARK: - 스터디 제목
-                    Text("스터디 제목을 입력해주세요.").font(.system(.title2))
-                    TextField(" 스터디 제목을 입력하세요.", text: $studyTitle)
-                        .frame(maxWidth: .infinity, maxHeight: 50)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                        .padding(.bottom, 20)
+                    VStack(alignment: .leading) {
+                        Text("스터디 제목")
+                            .font(.system(.title3, weight: .semibold))
+                        TextField("스터디 제목을 입력하세요.", text: $studyTitle)
+                            .frame(maxWidth: .infinity, maxHeight: 50)
+                            .padding()
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    }
+                    
+                    // MARK: - 스터디 내용
+                    VStack(alignment: .leading) {
+                        Text("스터디 내용")
+                            .font(.system(.title3, weight: .semibold))
+                        ZStack{
+                            TextEditor(text: $studyText)
+                                .frame(minHeight: 180, maxHeight: 180)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1)
+                                )
+                            
+                            if studyText.isEmpty {
+                                Text(placeholder)
+                                    .foregroundColor(.gray)
+                                    .position(x: 108, y: 20)
+                            }
+                                
+                        }
+                    }
+                    
                     
                     // MARK: - 온/오프라인 선택
                     StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
-                        .padding(.bottom, 20)
                     
                     // MARK: - 날짜
-                    Text("날짜와 인원을 선택해주세요.")
-                        .font(.title2)
                     ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
-                        .padding(.bottom, 20)
-                    
-                    
-                    // MARK: - 스터디 내용
-                    Text("스터디 내용을 입력해주세요.")
-                        .font(.system(.title2))
-                    ZStack{
-                        TextEditor(text: $studyText)
-                            .frame(minHeight:350, maxHeight:350)
-                            .border(.gray)
-                        if studyText.isEmpty {
-                            Text(placeholder)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.bottom, 20)
                     
                     // MARK: - 사진 선택
                     StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
-                        .padding(.bottom, 20)
                     
                     // MARK: - 위치 선택
                     StudyMapView(sharedViewModel: sharedViewModel)
@@ -93,9 +96,7 @@ struct AddStudyMain: View {
                                 
                             } else {
                                 studyImagePath.removeAll()  // 이미지경로 배열 초기화
-                                
                                 Task {
-                                    
                                     for item in selectedItem {
                                         studyImagePath.append( await studyStoreViewModel.returnImagePath(item: item) )
                                         
@@ -105,15 +106,9 @@ struct AddStudyMain: View {
                                     let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                     
                                     studyStoreViewModel.addFeed(newStudy)
-                                    
-                                    
                                 }
-                                
-                                
                             }
-                            
                             dismiss()
-                            
                         }
                         .disabled( studyTitle.isEmpty || studyText.isEmpty )
                         
@@ -123,8 +118,6 @@ struct AddStudyMain: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("취소") {
                             cancel.toggle()
-//                            print(cancel)
-//                            print("취소 버튼 tapped")
                             dismiss()
                         }
                     }
