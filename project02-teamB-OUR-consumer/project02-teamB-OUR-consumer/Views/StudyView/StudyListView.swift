@@ -39,12 +39,33 @@ struct StudyListView: View {
             }
             
             List {
-                ForEach(studyViewModel.studyArray) { study in
-                    NavigationLink {
-                        StudyDetailView(studyViewModel: studyViewModel, study: study)
-                    } label: {
-                        StudyListItemView(study: study)
+                if selectedArray == .allList {
+                    ForEach(studyViewModel.sortedStudy()) { study in
+                        NavigationLink {
+                            StudyDetailView(studyViewModel: studyViewModel, study: study)
+                        } label: {
+                            StudyListItemView(study: study)
+                        }
                     }
+                    .listRowSeparator(.hidden)
+                } else if selectedArray == .onlineList {
+                    ForEach(studyViewModel.sortedOnlineStudy()) { study in
+                        NavigationLink {
+                            StudyDetailView(studyViewModel: studyViewModel, study: study)
+                        } label: {
+                            StudyListItemView(study: study)
+                        }
+                    }
+                    .listRowSeparator(.hidden)
+                } else {
+                    ForEach(studyViewModel.sortedOfflineStudy()) { study in
+                        NavigationLink {
+                            StudyDetailView(studyViewModel: studyViewModel, study: study)
+                        } label: {
+                            StudyListItemView(study: study)
+                        }
+                    }
+                    .listRowSeparator(.hidden)
                 }
             }
             .listStyle(.plain)
