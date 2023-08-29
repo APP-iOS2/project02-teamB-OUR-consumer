@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-
+import Combine
 
 typealias ASection = String
 typealias NotiItem = [ASection : [NotificationItem]]
@@ -15,16 +15,23 @@ typealias NotiItem = [ASection : [NotificationItem]]
 class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
+    private var myPageViewModel: MypageViewModel
     
-//    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
     var personalIds: [String] = []
     var publicIds: [String] = []
     
-    init(dependency: AlarmFireService = AlarmFireService()){
-        self.service = dependency
+    
+    struct Dependency{
+        let alarmFireSerivce: AlarmFireService
+        let mypageViewModel: MypageViewModel
+    }
+    
+    init(dependency: Dependency){
+        self.service = dependency.alarmFireSerivce
+        self.myPageViewModel = dependency.mypageViewModel
     }
  
     #if DEBUG
@@ -45,21 +52,22 @@ class AlarmViewModel: ObservableObject{
             })
         }
     }
-    #endif
+#endif
     
-    
-    
+
     func fetchNotificationItem(limit: Int = 10) {
-        service.read { [weak self] ids, notifiationDTO in
-            guard let self = self else { return }
-            
-            let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
-            
-            personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
-            publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
-//            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-//            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
-        }
+        service.read(completion: { [weak self] result in
+            guard let self else {return }
+            switch result{
+            case .success(let notificationDTO):
+                let items = notificationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
+                let models = self.mapToDictionary(items: items)
+                self.personalNotiItem = models.0
+                self.publicNotiItem = models.1
+            case .failure(let error):
+                print("error: \(error) -- \(#function)")
+            }
+        })
     }
     
 //    func removeRows(at offsets: IndexSet) {
@@ -73,11 +81,11 @@ class AlarmViewModel: ObservableObject{
             switch access {
             case .public:
                 for index in set{
-                    willDeleteIds.append(publicIds[index])
+                    willDeleteIds.append(self.publicNotiItem[key]![index].id)
                 }
             case .personal:
                 for index in set{
-                    willDeleteIds.append(personalIds[index])
+                    willDeleteIds.append(self.personalNotiItem[key]![index].id)
                 }
             case .none:
                 return
@@ -86,19 +94,6 @@ class AlarmViewModel: ObservableObject{
             service.delete(ids: willDeleteIds, completion: { string in
                 print("Delete Success \(string)")
             })
-        }else{
-            switch access {
-            case .public:
-                service.delete(ids: publicIds, completion: { string in
-                    print("Delete Success \(string)")
-                })
-            case .personal:
-                service.delete(ids: personalIds, completion: { string in
-                    print("Delete Success \(string)")
-                })
-            case .none:
-                return
-            }
         }
     }
     
@@ -120,7 +115,15 @@ class AlarmViewModel: ObservableObject{
     
     
 
+    private var cancelable = Set<AnyCancellable>()
+
     private func getUser(user id: ID) -> User?{
+        
+        _ = myPageViewModel.$user
+            .sink(receiveValue: { user in
+                print(user)
+            })
+            
         guard
             let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
         else {return nil}
@@ -132,28 +135,22 @@ class AlarmViewModel: ObservableObject{
     /// Mapping To View Model
     /// - Parameter items: notification Item
     /// - Returns: public , personal
-    private func mapToDictionary(items: [NotificationItem],ids: [ID]) -> (NotiItem,NotiItem){
-        return zip(items, ids).reduce(into: (NotiItem(),NotiItem()), { original, models in
-            
-            let (item, id) = models
-            
+    private func mapToDictionary(items: [NotificationItem]) -> (NotiItem,NotiItem){
+        return items.reduce(into: (NotiItem(),NotiItem()), { original, models in
+            let item = models
             if item.type.getAccessLevel() == .personal{
                 let dotDate = item.createdDate.dotString()
                 if let items = original.0[dotDate]{
                     original.0[dotDate] = items + [item]
-                    personalIds.append(id)
                 }else{
                     original.0[dotDate] = [item]
-                    personalIds = [id]
                 }
             }else {
                 let dotDate = item.createdDate.dotString()
                 if let items = original.1[dotDate]{
                     original.1[dotDate] = items + [item]
-                    publicIds.append(id)
                 }else{
                     original.1[dotDate] = [item]
-                    publicIds = [id]
                 }
             }
         })
