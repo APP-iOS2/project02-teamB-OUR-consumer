@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StudyReplyDetailView: View {
     
-    var studyViewModel: StudyViewModel
+    @StateObject var studyViewModel: StudyViewModel
     var comment: StudyComment
     
     // studycomment니까 실제로 댓글 달면 studygroupcomment로 달아줘야겠죠?? 다시 디비로 보낼때도 변환하는 과정이 필요합니다!!
@@ -70,7 +70,7 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         NavigationLink {
-                            StudyCommentReportView(viewModel: studyViewModel, comment: comment)
+                            StudyCommentReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
