@@ -54,28 +54,31 @@ class UserViewModel: ObservableObject {
 
 extension UserViewModel {
     func followUser(targetUserId: String) {
-        if let currentUserId = Auth.auth().currentUser?.uid{
-            db.collection("users").document(currentUserId).updateData([
+   
+            db.collection("users").document("BMTtH2JFcPNPiofzyzMI5TcJn1S2").updateData([
                 "following": FieldValue.arrayUnion([targetUserId])
             ])
             
             
             db.collection("users").document(targetUserId).updateData([
-                "follower": FieldValue.arrayUnion([currentUserId])
+                "follower": FieldValue.arrayUnion(["BMTtH2JFcPNPiofzyzMI5TcJn1S2"])
             ])
-        }
+        
+            user?.following?.append(targetUserId)
     }
     
     func unfollowUser(targetUserId: String) {
-        if let currentUserId = Auth.auth().currentUser?.uid{
-            db.collection("users").document(currentUserId).updateData([
+            db.collection("users").document("BMTtH2JFcPNPiofzyzMI5TcJn1S2").updateData([
                 "following": FieldValue.arrayRemove([targetUserId])
             ])
             
             db.collection("users").document(targetUserId).updateData([
-                "follower": FieldValue.arrayRemove([currentUserId])
+                "follower": FieldValue.arrayRemove(["BMTtH2JFcPNPiofzyzMI5TcJn1S2"])
             ])
-        }
+        
+        user?.following?.removeAll(where: { id in
+            return id == targetUserId
+        })
     }
     
     func fetchFollowDetails(userId: String, follow: FollowType, completion: @escaping ([User]) -> Void) {

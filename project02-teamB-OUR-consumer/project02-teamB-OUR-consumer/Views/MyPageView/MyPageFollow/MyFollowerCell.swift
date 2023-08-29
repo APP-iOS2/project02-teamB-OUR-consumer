@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MyFollowerCell: View {
+    @ObservedObject var userViewModel: UserViewModel
+    var follower: User
+    
     var body: some View {
         HStack(spacing: 8) {
             Image("OUR_Logo")
@@ -15,21 +18,32 @@ struct MyFollowerCell: View {
                 .frame(width: 100, height: 100)
                 .cornerRadius(50)
             
-            Text("ID")
-                
+            Text(follower.name)
+            
             Spacer()
             
-            Button {
-                
-            } label: {
-                
+            if let followings = userViewModel.user?.following {
+                if followings.contains(where: { $0 == follower.id }) {
+                    Button(action:{
+                        userViewModel.unfollowUser(targetUserId: follower.id ?? "")
+                    }) {
+                        Text("unfollow")
+                    }
+                } else {
+                    Button(action: {
+                        userViewModel.followUser(targetUserId: follower.id ?? "")
+                    }){
+                        Text("follow")
+                    }
+                }
             }
+            
         }
     }
 }
 
 struct MyFollowerCell_Previews: PreviewProvider {
     static var previews: some View {
-        MyFollowerCell()
+        MyFollowerCell(userViewModel:UserViewModel() ,follower: User(name: "chan", email: "chan000@email.com"))
     }
 }
