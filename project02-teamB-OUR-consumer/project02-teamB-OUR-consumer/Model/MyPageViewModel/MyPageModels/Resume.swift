@@ -14,11 +14,11 @@ struct Resume: Identifiable, Codable {
 
 struct WorkExperience: Identifiable, Codable {
     var id: String = UUID().uuidString
-    let jobTitle: String
-    let company: Company
+    var jobTitle: String
+    var company: Company
     var startDate: Double
     var endDate: Double
-    let description: String?
+    var description: String?
     
     var startDateString: String {
         return formatDate(from: startDate)
@@ -64,6 +64,6 @@ struct Skill: Identifiable, Codable {
 }
 
 struct Company: Codable {
-    let companyName: String
+    var companyName: String
     let companyImage: String?
 }

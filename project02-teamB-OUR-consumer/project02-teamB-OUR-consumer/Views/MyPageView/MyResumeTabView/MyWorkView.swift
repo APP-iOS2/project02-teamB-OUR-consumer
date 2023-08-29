@@ -9,8 +9,11 @@ import SwiftUI
 
 struct MyWorkCellView: View {
     @Binding var isMyProfile: Bool
-    var work: WorkExperience
     
+    @ObservedObject var resumeViewModel: ResumeViewModel
+
+    var work: WorkExperience
+    var index: Int
 
     var body: some View {
         HStack(alignment: .top) {
@@ -30,7 +33,8 @@ struct MyWorkCellView: View {
                   
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView(isShowingDeleteButton: true)
+                            MyWorkEditView(resumeViewModel: resumeViewModel, isShowingDeleteButton: true, index: index)
+                            
                         } label: {
                             Image(systemName: "pencil")
                                 .foregroundColor(.black)
@@ -51,9 +55,12 @@ struct MyWorkCellView: View {
 }
 
 struct MyWorkView: View {
-    var myWorks: [WorkExperience]
+    var myWorks: [WorkExperience] {
+        resumeViewModel.resume?.workExperience ?? []
+    }
     @Binding var isMyProfile: Bool
     
+    @ObservedObject var resumeViewModel: ResumeViewModel
     
     var body: some View {
         NavigationStack {
@@ -65,15 +72,15 @@ struct MyWorkView: View {
                     
                     Spacer()
                     
-                    if isMyProfile {
-                        NavigationLink {
-                            MyWorkEditView(isShowingDeleteButton: false)
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-
-                    }
-                    
+//                    if isMyProfile {
+//                        NavigationLink {
+//                            MyWorkEditView(resumeViewModel: resumeViewModel, isShowingDeleteButton: false)
+//                        } label: {
+//                            Image(systemName: "plus")
+//                        }
+//
+//                    }
+//
   
                 }
                 .padding(.vertical, 5)
@@ -86,7 +93,7 @@ struct MyWorkView: View {
                 // 최대 3개 보이도록
                 ForEach(0..<myWorks.count, id: \.self) { index in
                     if index < 3 {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: myWorks[index])
+                        MyWorkCellView(isMyProfile: $isMyProfile, resumeViewModel: resumeViewModel, work: myWorks[index], index: index)
 
                             .padding(.vertical, 8)
                         Divider()
@@ -97,7 +104,7 @@ struct MyWorkView: View {
                 // 경력 3개 넘으면 더보기
                 if myWorks.count > 3 {
                     NavigationLink {
-                        MyWorkMoreView(myWorks: myWorks, isMyProfile: $isMyProfile)
+                        MyWorkMoreView(myWorks: myWorks, isMyProfile: $isMyProfile, resumeViewModel: resumeViewModel)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -115,6 +122,6 @@ struct MyWorkView: View {
 
 struct MyWorkView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkView(myWorks: [], isMyProfile: .constant(true))
+        MyWorkView(isMyProfile: .constant(true), resumeViewModel: ResumeViewModel())
     }
 }
