@@ -13,11 +13,12 @@ struct StudyDetailView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var studyViewModel: StudyViewModel
-    var study: Study
+    var study: StudyDTO
     @State var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
+    @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool = true
     
     // 현재 로그인된 유저아이디
@@ -173,7 +174,6 @@ struct StudyDetailView: View {
         .onAppear {
             studyViewModel.makeStudyDetail(study: study) { studyDetail in
                 self.studyDetail = studyDetail
-                print(self.studyDetail)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -191,7 +191,7 @@ struct StudyDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(role: .destructive) {
-                        //
+                        isShowingReportSheet = true
                     } label: {
                         Label("신고하기", systemImage: "exclamationmark.shield")
                     }
@@ -208,14 +208,17 @@ struct StudyDetailView: View {
             LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                 .presentationDetents([.medium])
         }
+        .sheet(isPresented: $isShowingReportSheet) {
+            StudyCommentReportView(viewModel: studyViewModel, study: studyDetail)
+        }
     }
 }
 
-struct StudyDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack{
-            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
-        }
-    }
-    
-}
+//struct StudyDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationStack{
+//            StudyDetailView(studyViewModel: StudyViewModel(), study: StudyDTO(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
+//        }
+//    }
+//
+//}

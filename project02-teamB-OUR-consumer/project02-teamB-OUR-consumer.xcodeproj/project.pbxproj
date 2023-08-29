@@ -14,8 +14,8 @@
 		118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA96C2A95099F006946C3 /* MyWorkEditView.swift */; };
 		118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118AA9722A95A24E006946C3 /* MyIntroEditView.swift */; };
 		1D6169F72A94941200F3A8E9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */; };
-		3A4B07AC2A9C7D6B001EB3BC /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B07AB2A9C7D6B001EB3BC /* Collections.swift */; };
 		3A4B07AE2A9C9441001EB3BC /* StudyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B07AD2A9C9441001EB3BC /* StudyData.swift */; };
+		3AA4B6352A9DAAD200824313 /* Reports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4B6342A9DAAD200824313 /* Reports.swift */; };
 		3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF70F3A2A951C2E008E9CAB /* Keys.swift */; };
 		3AFE39FA2A98387600E20755 /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE39F92A98387600E20755 /* StudyViewModel.swift */; };
 		4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */; };
@@ -149,8 +149,8 @@
 		118AA96C2A95099F006946C3 /* MyWorkEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWorkEditView.swift; sourceTree = "<group>"; };
 		118AA9722A95A24E006946C3 /* MyIntroEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIntroEditView.swift; sourceTree = "<group>"; };
 		1D6169F62A94941200F3A8E9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
-		3A4B07AB2A9C7D6B001EB3BC /* Collections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		3A4B07AD2A9C9441001EB3BC /* StudyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyData.swift; sourceTree = "<group>"; };
+		3AA4B6342A9DAAD200824313 /* Reports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reports.swift; sourceTree = "<group>"; };
 		3AF70F382A95199B008E9CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF70F3A2A951C2E008E9CAB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		3AFE39F92A98387600E20755 /* StudyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
@@ -292,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF70F3A2A951C2E008E9CAB /* Keys.swift */,
+				3AA4B6342A9DAAD200824313 /* Reports.swift */,
 			);
 			path = Key;
 			sourceTree = "<group>";
@@ -505,7 +506,6 @@
 				9B6B9B2D2A949F15004609AF /* IdData.swift */,
 				FAB51C782A96771F0047A725 /* IdClassStore.swift */,
 				9B6B9B352A94A746004609AF /* PostData.swift */,
-				3A4B07AB2A9C7D6B001EB3BC /* Collections.swift */,
 				3A4B07AD2A9C9441001EB3BC /* StudyData.swift */,
 			);
 			path = Data;
@@ -829,13 +829,13 @@
 				A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */,
 				3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */,
 				FAB51C142A9655590047A725 /* AgreeTermView.swift in Sources */,
-				3A4B07AC2A9C7D6B001EB3BC /* Collections.swift in Sources */,
 				D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */,
 				6332A5FE2A95979A0047E2DD /* PostUserView.swift in Sources */,
 				632883782A94F57C004DC84E /* CommentDetailView.swift in Sources */,
 				6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */,
 				FAB51C822A9677F00047A725 /* DatePickerSheet.swift in Sources */,
 				9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */,
+				3AA4B6352A9DAAD200824313 /* Reports.swift in Sources */,
 				A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */,
 				FAB51C132A9655590047A725 /* LoginView.swift in Sources */,
 				A037E6C52A9816C3005C0ED9 /* StudyReplyDetailInReportView.swift in Sources */,
