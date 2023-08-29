@@ -68,8 +68,6 @@ struct AddStudyMain: View {
                                 
                         }
                     }
-                    
-                    
                     // MARK: - 온/오프라인 선택
                     StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
                     
