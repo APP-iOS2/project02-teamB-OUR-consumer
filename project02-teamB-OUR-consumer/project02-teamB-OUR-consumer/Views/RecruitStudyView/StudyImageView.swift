@@ -34,6 +34,7 @@ struct StudyImageView: View {
                                         Button(action: {
                                             print("사진삭제")
                                             imageDataArray.remove(at: imageData)
+                                            selectedItem.remove(at: imageData)
                                         }, label: {
                                             Image(systemName: "trash.slash.fill")
                                                 .foregroundColor(.red)
