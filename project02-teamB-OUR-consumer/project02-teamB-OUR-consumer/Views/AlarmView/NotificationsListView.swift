@@ -26,6 +26,9 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
+        .onAppear{
+                    viewModel.fetchNotificationItem()
+                }
         .refreshable {
             // 새로고침 로직
             viewModel.fetchNotificationItem()
@@ -42,21 +45,22 @@ struct NotificationsListView: View {
     // bitem 1
     
     func makeListAlarmView(items: NotiItem) -> some View{
-        ForEach(items.keys.sorted(by: >),
-                id: \.self)
-        { key in
-            Section(header:
-                        Text("\(key)")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(Color.black),
-                    content:  {
-                ForEach(items[key]!, id: \.id) { notification in
-                    NotificationRow(notification: notification)
-                }.onDelete(perform: { offset in
-                    // key
-                    viewModel.delete(notification: offset, access: access, key: key)
+        ForEach(items.keys.sorted(by: >), id: \.self) { key in
+            // key 비어있지 않으면 Section 추가
+            if let notifications = items[key], !notifications.isEmpty {
+                Section(header:
+                            Text("\(key)")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(Color.black),
+                        content:  {
+                    ForEach(items[key]!, id: \.id) { notification in
+                        NotificationRow(notification: notification)
+                    }.onDelete(perform: { offset in
+                        // key
+                        viewModel.delete(notification: offset, access: access, key: key)
+                    })
                 })
-            })
+            }
         }
     }
 }
