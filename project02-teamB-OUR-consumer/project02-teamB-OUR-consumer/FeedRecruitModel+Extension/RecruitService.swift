@@ -163,18 +163,6 @@ final class FeedViewModelTemp: ObservableObject {
         service.remove( collection: .posts, documentID: documentID )
     }
     
-    @ViewBuilder
-    func loadDataAlert() -> some View {
-        service.loadingAlertView()
-            .onAppear {
-                DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-//                    DispatchQueue.main.async {
-                        self.isWorking = false
-//                    }
-                }
-            }
-    }
-    
 }
 
 
@@ -196,6 +184,7 @@ final class RecruitService {
             case resume = "resumes"
             case users = "users"
             case follow = "follow"
+            case studypost = "StudyPosts"
             
         }
         
@@ -603,18 +592,6 @@ final class RecruitService {
 //        } else {
 //            print("Batch write succeeded.")
 //        }
-    }
-
-    
-    @ViewBuilder
-    func loadingAlertView() -> some View {
-        VStack {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle())
-                .padding()
-            Text("잠시만 기다려주세요\n데이터를 불러오는 중입니다.")
-                .multilineTextAlignment(.center)
-        }
     }
     
 }
