@@ -69,7 +69,6 @@ struct RecruitServiceExample: View {
                 
             }
             
-            
             HStack {
 //                if let name = model.feedDic["content"] as? String {
 //                    Text("\(name)")
@@ -123,6 +122,11 @@ struct RecruitServiceExample: View {
             .padding(.horizontal, 20)
             
             
+            if model.isWorking {
+                model.loadDataAlert()
+            }
+            
+            
             ScrollView(.vertical) {
                 LazyVStack( alignment: .leading ) {
                     ForEach(model.feedTables) { index in
@@ -134,7 +138,7 @@ struct RecruitServiceExample: View {
                                 print("\(index.id ?? "")")
 
                             } label: {
-                                Text("\(index.creator ?? "")")//
+                                Text("\(index.createdDate)")//
                                 Text("컨텐츠: \(index.content ?? "")")
 
                             }
@@ -183,6 +187,7 @@ struct RecruitServiceExample: View {
             .onAppear {
 //                Task {
                     model.limit = 50
+                    model.isWorking = true
                     model.fetchAll()
 //                }
             }
