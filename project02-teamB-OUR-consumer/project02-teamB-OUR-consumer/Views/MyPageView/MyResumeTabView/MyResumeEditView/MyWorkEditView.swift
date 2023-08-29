@@ -10,8 +10,9 @@ import SwiftUI
 struct MyWorkEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-
-
+    
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    
     @State var companyName: String = ""
     @State var jobTitle: String = ""
     @State var startDate = Date()
@@ -23,7 +24,8 @@ struct MyWorkEditView: View {
     @State var isDeleteItemAlert: Bool = false
     
     var isShowingDeleteButton: Bool
-    
+    var index: Int
+
     var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {
@@ -86,7 +88,6 @@ struct MyWorkEditView: View {
                         .bold()
                         .padding(.top, 25)
                         HStack {
-                            // 피커 스타일 / 색상 바꾸기 / 크기 바꾸기
                             DatePicker("", selection: $startDate,
                                        displayedComponents: [.date]
                             )
@@ -97,8 +98,8 @@ struct MyWorkEditView: View {
                             Text(" ~ ")
                             
                             DatePicker("", selection: $endDate,
-                                       displayedComponents: [.date]
-                            )
+                                       in: startDate..., displayedComponents: [.date])
+                            
                             .padding()
                             .datePickerStyle(.compact)
                             .labelsHidden()
@@ -157,7 +158,7 @@ struct MyWorkEditView: View {
                         .foregroundColor(.gray)
                         .alert(isPresented: $isDeleteItemAlert) {
                             Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
-                                //삭제 함수
+                                
                                 dismiss()
                             }), secondaryButton: .cancel(Text("취소")))
                         }
@@ -176,6 +177,7 @@ struct MyWorkEditView: View {
                         if jobTitle.isEmpty {
                             isEmptyJobTitle.toggle()
                         }
+                        updateWork()
                         dismiss()
                     } label: {
                         Text("완료")
@@ -188,23 +190,40 @@ struct MyWorkEditView: View {
                     }
                     .disabled(companyName.isEmpty || jobTitle.isEmpty)
                 }
-                //MARK: Back 버튼 다른 팀이랑 통일
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        // 뒤로가기
-//                    } label: {
-//                        Image(systemName: "arrow.backward")
-//                    }
-//
-//
-//                }
+            }
+            .onAppear {
+
+                if let work = resumeViewModel.resume?.workExperience[index] {
+                    companyName = work.company.companyName
+                    jobTitle = work.jobTitle
+                    startDate = Date(timeIntervalSince1970: work.startDate)
+                    endDate = Date(timeIntervalSince1970: work.endDate)
+
+                    // isSelectedToggle = work.
+
+                }
+
             }
     }
+    
+    
+    func updateWork() {
+        // index아니면 id로 해도됨
+        if var updatedWork = resumeViewModel.resume {
+            updatedWork.workExperience[index].company.companyName = companyName
+            updatedWork.workExperience[index].jobTitle = jobTitle
+            updatedWork.workExperience[index].startDate = startDate.timeIntervalSince1970
+            updatedWork.workExperience[index].endDate = endDate.timeIntervalSince1970
+
+            resumeViewModel.updateResume(resume: updatedWork)
+        }
+    }
+    
     
 }
 
 struct MyCarreerEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyWorkEditView(isShowingDeleteButton: true)
+        MyWorkEditView(resumeViewModel: ResumeViewModel(), isShowingDeleteButton: true, index: 0)
     }
 }

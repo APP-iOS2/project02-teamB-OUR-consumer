@@ -18,7 +18,7 @@ struct MyResumeView: View {
                     MyIntroView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
                     Rectangle()
                         .fill(Color("DefaultGray"))
-                    //                        MyWorkView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    MyWorkView(isMyProfile: $isMyProfile, resumeViewModel: resumeViewModel)
                     Rectangle()
                         .fill(Color("DefaultGray"))
                     MyProjectView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
