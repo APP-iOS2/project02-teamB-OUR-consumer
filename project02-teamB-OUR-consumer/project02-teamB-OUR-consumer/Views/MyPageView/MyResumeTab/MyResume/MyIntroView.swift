@@ -10,6 +10,9 @@ import SwiftUI
 struct MyIntroView: View {
     @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
+    var myIntro: String {
+        resumeViewModel.resume?.introduction ?? ""
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,10 +31,15 @@ struct MyIntroView: View {
                     }
                 }
             }
-            .padding(.vertical, 5)
+            .padding(.bottom, 5)
             
-            Text(resumeViewModel.resume?.introduction ?? "자기소개를 입력하세요")
-                .font(.system(size: 14))
+            if myIntro != "" {
+                Text(myIntro)
+                    .font(.system(size: 14))
+            } else {
+                Text("자기소개를 입력해주세요")
+                    .font(.system(size: 14))
+            }
         }
         .padding()
         .foregroundColor(.black)
