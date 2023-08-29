@@ -122,11 +122,6 @@ struct RecruitServiceExample: View {
             .padding(.horizontal, 20)
             
             
-            if model.isWorking {
-                model.loadDataAlert()
-            }
-            
-            
             ScrollView(.vertical) {
                 LazyVStack( alignment: .leading ) {
                     ForEach(model.feedTables) { index in

@@ -26,16 +26,19 @@ struct AddStudyMain: View {
     @State var startDate: Date = Date()
     @State var dueDate: Date = Date()
     @State var studyImagePath: [String] = []
-
     @State var selectedItem: [PhotosPickerItem] = []
     @State var imageDataArray: [Data] = []
-
+    
+    
+    
     @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
-  
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
+            
             ScrollView {
                 VStack(alignment: .leading) {
+                    
                     // MARK: - 스터디 제목
                     Text("스터디 제목을 입력해주세요.").font(.system(.title2))
                     TextField(" 스터디 제목을 입력하세요.", text: $studyTitle)
@@ -75,43 +78,53 @@ struct AddStudyMain: View {
                     
                     // MARK: - 위치 선택
                     StudyMapView(sharedViewModel: sharedViewModel)
-
+                    
                 }
                 .padding(20)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("등록") {
                             print("등록 버튼 tapped")
+                            
                             if selectedItem.isEmpty {
                                 let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
-                                dismiss()
+                                
                             } else {
-                                for item in selectedItem {
-                                    studyStoreViewModel.returnImagePath(item: item) { urlString in
-                                        guard let url = urlString else { return }
-                                        print("url : \(url)")
-                                        studyImagePath.append(url)
+                                studyImagePath.removeAll()  // 이미지경로 배열 초기화
+                                
+                                Task {
+                                    
+                                    for item in selectedItem {
+                                        studyImagePath.append( await studyStoreViewModel.returnImagePath(item: item) )
                                         
-                                        let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
-                                        
-                                        studyStoreViewModel.addFeed(newStudy)
-                                        dismiss()
                                     }
+                                    print("추가된 사진배열: \(studyImagePath)")
+                                    
+                                    let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                    
+                                    studyStoreViewModel.addFeed(newStudy)
+                                    
+                                    
                                 }
+                                
+                                
                             }
+                            
                             dismiss()
+                            
                         }
-                        .disabled(studyTitle.isEmpty || studyText.isEmpty)
+                        .disabled( studyTitle.isEmpty || studyText.isEmpty )
+                        
                     }
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("취소") {
                             cancel.toggle()
-                            print(cancel)
-                            print("취소 버튼 tapped")
+//                            print(cancel)
+//                            print("취소 버튼 tapped")
                             dismiss()
                         }
                     }
@@ -120,10 +133,12 @@ struct AddStudyMain: View {
             }.navigationTitle("스터디 등록")
         }
     }
+    
 }
 
-//struct AddStudyMain_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
-//    }
-//}
+struct AddStudyMain_Previews: PreviewProvider {
+    static var previews: some View {
+        //        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
+        AddStudyMain()
+    }
+}
