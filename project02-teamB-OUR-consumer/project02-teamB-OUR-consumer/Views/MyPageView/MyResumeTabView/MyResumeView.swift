@@ -15,7 +15,7 @@ struct MyResumeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    MyIntroView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)
+                    MyIntroView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile)
                     Rectangle()
                         .fill(Color("DefaultGray"))
                     //                        MyWorkView(resumeViewModel: ResumeViewModel(), isMyProfile: $isMyProfile)

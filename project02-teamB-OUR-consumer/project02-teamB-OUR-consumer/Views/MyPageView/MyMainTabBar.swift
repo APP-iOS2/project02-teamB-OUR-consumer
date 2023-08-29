@@ -11,7 +11,7 @@ struct MyMainTabBar: View {
     
     @Binding var currentTab: Int
     @Namespace var namespace
-    var tabBarOptions: [String] = ["이력서", "게시물", "스터디"]
+    var tabBarOptions: [String]
     
     var body: some View {
         
@@ -47,8 +47,8 @@ struct TabBarItem: View {
                         .padding(.vertical, 10)
                     Color.black
                         .frame(height: 2)
-//                        .matchedGeometryEffect(id: "underline",
-//                                               in: namespace.self)
+                        .matchedGeometryEffect(id: "underline",
+                                               in: namespace.self)
                 } else {
                     Text(title)
                         .foregroundColor(.gray)
@@ -56,7 +56,7 @@ struct TabBarItem: View {
                     Color.gray.frame(height: 2)
                 }
             }
-            .animation(.none, value: currentTab)
+            .animation(Animation.easeInOut, value: currentTab)
         }
         .background(.white)
         .buttonStyle(.plain)
@@ -68,6 +68,6 @@ struct TabBarItem: View {
 
 struct MyMainTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        MyMainTabBar(currentTab: .constant(0))
+        MyMainTabBar(currentTab: .constant(0), tabBarOptions: ["이력서", "게시물", "스터디"])
     }
 }
