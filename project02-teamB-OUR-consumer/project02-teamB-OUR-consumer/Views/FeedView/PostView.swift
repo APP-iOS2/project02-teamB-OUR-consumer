@@ -20,6 +20,10 @@ struct PostView: View {
     
     var body: some View {
         VStack {
+            Image(post.postImageString)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
                     Text("\(post.content)")
@@ -56,7 +60,7 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."))
+            PostView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg2", content: "축구...어렵네..."))
         }
     }
 }
