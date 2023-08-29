@@ -11,7 +11,8 @@ struct MyProjectEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    var index: Int
     
     @State var projectTitle: String = ""
     @State var jobTitle: String = ""
@@ -154,6 +155,7 @@ struct MyProjectEditView: View {
                     if projectTitle.isEmpty {
                         isTextFieldEmpty.toggle()
                     }
+                    updateProject()
                 } label: {
                     Text("완료")
                         .font(.system(size: 14))
@@ -166,13 +168,34 @@ struct MyProjectEditView: View {
                 .disabled(projectTitle.isEmpty)
             }
         }
-        //        }
+        .onAppear(){
+            guard var project = resumeViewModel.resume?.projects[index] else {
+                return
+            }
+            projectTitle = project.projectTitle
+            jobTitle = project.jobTitle
+            startDate = project.startDate
+            endDate = project.endDate ?? Date()
+            description = project.description ?? ""
+        }
+    }
+    
+    func updateProject() {
+        guard var resume = resumeViewModel.resume else {
+            return
+        }
+        resume.projects[index].projectTitle = projectTitle
+        resume.projects[index].jobTitle = jobTitle
+        resume.projects[index].startDate = startDate
+        resume.projects[index].endDate = endDate
+        resume.projects[index].description = description
+        resumeViewModel.updateResume(resume: resume)
     }
 }
 
 
 struct MyExperienceEditView_Previews: PreviewProvider {
     static var previews: some View {
-        MyProjectEditView(isShowingDeleteButton: false)
+        MyProjectEditView(resumeViewModel: ResumeViewModel(), index: 0, isShowingDeleteButton: false)
     }
 }

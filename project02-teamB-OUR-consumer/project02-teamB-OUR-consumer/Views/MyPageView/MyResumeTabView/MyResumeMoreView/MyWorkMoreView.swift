@@ -12,13 +12,15 @@ struct MyWorkMoreView: View {
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 ForEach(0..<myWorks.count, id: \.self) { index in
                     VStack {
-                        MyWorkCellView(isMyProfile: $isMyProfile, work: myWorks[index])
+                        MyWorkCellView(isMyProfile: $isMyProfile, resumeViewModel: resumeViewModel, work: myWorks[index], index: index)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -39,7 +41,7 @@ struct MyWorkMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyWorkEditView(isShowingDeleteButton: false)
+//                        MyWorkEditView(resumeViewModel: resumeViewModel, isShowingDeleteButton: false)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -52,7 +54,7 @@ struct MyWorkMoreView: View {
 struct MyWorkMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyWorkMoreView(myWorks: [], isMyProfile: .constant(true))
+            MyWorkMoreView(myWorks: [], isMyProfile: .constant(true), resumeViewModel: ResumeViewModel())
         }
     }
 }

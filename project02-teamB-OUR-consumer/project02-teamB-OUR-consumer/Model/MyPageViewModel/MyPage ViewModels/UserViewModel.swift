@@ -10,6 +10,7 @@ import Firebase
 
 class UserViewModel: ObservableObject {
     @Published var user: User?
+    
     private var db = Firestore.firestore()
     
     // Create
