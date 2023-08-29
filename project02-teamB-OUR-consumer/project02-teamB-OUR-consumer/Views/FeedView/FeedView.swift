@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct FeedView: View {
-    
-//    @ObservedObject var postData: PostData = PostData()
     @ObservedObject var postViewModel: PostViewModel = PostViewModel()
     
     @State private var isShowingSheet: Bool = false
     @State private var isShowingPostModifySheet: Bool = false
     @State private var isScrapFeed: Bool = false
     @State private var isShowingModifyDetailView: Bool = false
-    
-//    var userId: String = "leeseungjun"
     
     var body: some View {
         VStack {

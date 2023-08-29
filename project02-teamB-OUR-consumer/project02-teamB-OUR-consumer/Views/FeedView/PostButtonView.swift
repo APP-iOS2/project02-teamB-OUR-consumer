@@ -59,10 +59,10 @@ struct PostButtonView: View {
     }
 }
 
-//struct PostButtonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack {
-//            PostButtonView(post: PostModel(creator: "qVEfC7VbiZNbPqqcZuNCbHcInHL2", privateSetting: false, content: "Feed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed TestFeed Test", location: "천안", createdAt: "2023/08/29 15:31", feedImagePath: "https://firebasestorage.googleapis.com:443/v0/b/our-app-server.appspot.com/o/FeedPosts%2FdfMFTtvs96wYBH6xAQAs%2F1F89C181-2EA7-4301-9507-B8CFF1B41303.jpeg?alt=media&token=40affd81-d5d2-4a5c-8799-7cebf7f6607f", reportCount: 0), isScrapFeed: .constant(false))
-//        }
-//    }
-//}
+struct PostButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            PostButtonView(post: PostModel(creator: "dsfdsf", privateSetting: false, content: "abcd", createdAt: "2023/5/30", location: "천안", postImagePath: [""], reportCount: 0), postViewModel: PostViewModel(), isScrapFeed: .constant(false))
+        }
+    }
+}
