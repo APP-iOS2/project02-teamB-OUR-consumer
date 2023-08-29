@@ -109,6 +109,7 @@
 		D5755B192A97B0B7000BC8E2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5755B182A97B0B7000BC8E2 /* StorageManager.swift */; };
 		F43988242A98C9E600436844 /* RecruitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43988232A98C9E600436844 /* RecruitService.swift */; };
 		F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */; };
+		F496DA1D2A9DF23D003CBD1A /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */; };
 		FA63F0412A9513550010B0FE /* FeedRecruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */; };
 		FA63F0422A9513550010B0FE /* FeedRecruitPhotoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */; };
 		FA63F0442A9513610010B0FE /* FeedRecruitPHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */; };
@@ -244,6 +245,7 @@
 		D5755B182A97B0B7000BC8E2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F43988232A98C9E600436844 /* RecruitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitService.swift; sourceTree = "<group>"; };
 		F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitServiceExample.swift; sourceTree = "<group>"; };
+		F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitView.swift; sourceTree = "<group>"; };
 		FA63F0402A9513550010B0FE /* FeedRecruitPhotoAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPhotoAddView.swift; sourceTree = "<group>"; };
 		FA63F0432A9513610010B0FE /* FeedRecruitPHPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRecruitPHPicker.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 		9620C50C2A95FD39000C21BC /* CustomTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				F496DA1E2A9DF243003CBD1A /* Models */,
 				9620C50F2A95FD8F000C21BC /* CustomTabBarView.swift */,
 				9620C50A2A95FD31000C21BC /* PostButton.swift */,
 				9620C50D2A95FD69000C21BC /* RecruitButton.swift */,
@@ -643,6 +646,14 @@
 			path = RecruitStudyModel;
 			sourceTree = "<group>";
 		};
+		F496DA1E2A9DF243003CBD1A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FA435A742A9746C8000A2A11 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -842,6 +853,7 @@
 				A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */,
 				96C1F27A2A974229000D6E1F /* Firebase.swift in Sources */,
 				A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */,
+				F496DA1D2A9DF23D003CBD1A /* CustomTabBarViewModel.swift in Sources */,
 				FAB51C152A9655590047A725 /* LoginSecondView.swift in Sources */,
 				84BC2B392A94916A00B0E270 /* StudyListItemView.swift in Sources */,
 				84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */,
