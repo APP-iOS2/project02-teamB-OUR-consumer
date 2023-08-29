@@ -17,6 +17,8 @@ class PostViewModel: ObservableObject {
     }
     
     func fetchPostForCurrentUserFollower(limit amount: Int) {
+        
+        /// 로그인한 유저의 UID를 가져옴
 //        guard let currentUserUID = PostFireService.getCurrentUserUID() else {
 //            print("Error: current user UID")
 //            return
@@ -33,6 +35,10 @@ class PostViewModel: ObservableObject {
                 self.posts = post
             }
         }
+    }
+    
+    func likePost(postID: String) {
+        fireStoreService.likePost(postID: postID)
     }
     
 }

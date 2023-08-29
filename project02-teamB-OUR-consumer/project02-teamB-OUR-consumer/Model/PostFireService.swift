@@ -3,12 +3,10 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
+
 class PostFireService {
     private let db = Firestore.firestore()
-    
-    struct FollowerData: Codable {
-        let follower: [String]
-    }
     
     /// 로그인한 유저의 UID  Get
     static func getCurrentUserUID() -> String? {
@@ -63,19 +61,41 @@ class PostFireService {
             }
     }
     
-    func isMyPost(_ feed: PostModel) -> Bool {
+    /// 이 게시물이 내 게시물인지
+    func isMyFeed(post: PostModel) -> Bool {
         guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return false }
         
-        if feed.creator == userId {
+        if post.creator == userId {
             return true
         } else {
             return true
         }
     }
     
-    func likeFeed(feedID: String, currentUserUID: String) {
-        let query = db.collection("posts")
-            .document(feedID).collection("like")
-
+    /// 좋아요 기능
+    func likePost(postID: String) {
+//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        
+        do {
+            let likedUser: LikedUsers = LikedUsers(userID: userId)
+            try db.collection("posts").document(postID).collection("like").document(userId).setData(from: likedUser)
+            print("좋아요 저장")
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    func getUserInfo(userId: String, completion: @escaping (User?) -> Void) {
+        db.collection("users").document(userId).getDocument(as: User.self) { result in
+            switch result {
+            case .success(let response):
+                completion(response)
+            case .failure(let error):
+                print("Error decoding users: \(error)")
+                completion(nil)
+            }
+        }
     }
 }
