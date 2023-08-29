@@ -16,6 +16,7 @@ struct StudyCommentReportView: View {
     var comment: StudyComment
     
     //신고유형들 쭈루룩
+    //경미님이 짜준 enum 올라오면 활용하기
     let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
     
     @State var showAlert: Bool = false
@@ -29,7 +30,7 @@ struct StudyCommentReportView: View {
                 Text("신고하는 댓글")
                     .fontWeight(.heavy)
                 
-                StudyReplyDetailInReportView(comment: comment)
+                StudyReplyDetailInReportView(comment:comment)
                     .padding(10)
                     .overlay(
                             RoundedRectangle(cornerRadius: 20)
@@ -90,7 +91,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(comment: StudyComment(userId: "경미", content: "개발천재"))
+            StudyCommentReportView(comment: StudyComment(user: User.defaultUser, content: "어쩌구", createdAt: "23-02-12"))
         }
     }
 }
