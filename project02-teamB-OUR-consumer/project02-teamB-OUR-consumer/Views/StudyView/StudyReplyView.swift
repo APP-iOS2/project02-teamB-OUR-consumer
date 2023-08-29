@@ -19,7 +19,7 @@ struct StudyReplyView: View {
     
     @State var content: String = ""
     //현재 로그인 된 아이디
-    @State var commentUserId: String = "성은"
+    @State var commentUserId: String = "test"
     
     var body: some View {
         VStack{
@@ -38,7 +38,7 @@ struct StudyReplyView: View {
             
             //List {
             ForEach(studyDetail.comments) { comment in
-                StudyReplyDetailView(studyViewModel: studyViewModel, comment: comment, index: 0, isEditing: $isEditing)
+                StudyReplyDetailView(studyViewModel: studyViewModel, comment: comment, index: 0, editComment: $editComment, isEditing: $isEditing)
             }
             // }
             .listStyle(.plain)
@@ -49,35 +49,37 @@ struct StudyReplyView: View {
             .padding([.leading,.trailing], 8)
             
             
-//            HStack {
-//                //프로필 이미지
-//                Image("OUR_Logo")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 40)
-//                    .clipShape(Circle())
-//                //댓글입력창
-//                if isEditing {
-//
-//                    TextField("Edit reply",text: $content)
-//                    //                        .onTapGesture {
-//                    //                            studyGroupComments[2].content = ""
-//                    //                        }
-//                    Button("Edit") {
-//
-//                        isEditing = false
-//                    }
-//                } else {
-//                    TextField("댓글을 입력하세요", text: $content, axis: .vertical)
-//                    Button("등록") {
+            HStack {
+                            //프로필 이미지
+                            Image("OUR_Logo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 40)
+                                .clipShape(Circle())
+                            //댓글입력창
+                            if isEditing {
+
+                                TextField("Edit reply",text: $editComment)
+                                                        .onTapGesture {
+                                                            editComment = ""
+                                                        }
+                                Button("Edit") {
+                                    
+                                    //댓글 edit 함수 자리
+                                    isEditing = false
+                                }
+                            } else {
+                                TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+                                Button("등록") {
 //                        let comment = StudyComment(userId: commentUserId, content: content)
 //                        studyCommentStore.comments.append(comment)
 //                        print("\(studyCommentStore.comments)")
-//                        content = ""
-//                    }
-//                }
-//            }
-//            .padding()
+                                    //댓글 등록 함수 자리
+                                    content = ""
+                    }
+                }
+            }
+            .padding()
             
         }
         .onAppear {

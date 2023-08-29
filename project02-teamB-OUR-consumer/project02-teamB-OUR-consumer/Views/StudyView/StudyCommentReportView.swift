@@ -13,9 +13,10 @@ struct StudyCommentReportView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
 //    var commentUserId: String // 신고하는 사람..?
-    var comment: StudyGroupComment
+    var comment: StudyComment
     
     //신고유형들 쭈루룩
+    //경미님이 짜준 enum 올라오면 활용하기
     let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
     
     @State var showAlert: Bool = false
@@ -90,7 +91,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(comment: StudyGroupComment(userId: "1", content: "diudididi", createdAt: "2022-11"))
+            StudyCommentReportView(comment: StudyComment(user: User.defaultUser, content: "어쩌구", createdAt: "23-02-12"))
         }
     }
 }

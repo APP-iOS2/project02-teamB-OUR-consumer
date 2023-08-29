@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StudyReplyDetailInReportView: View {
     
-    var comment: StudyGroupComment
+    var comment: StudyComment
     
     var body: some View {
         VStack {
@@ -27,7 +27,7 @@ struct StudyReplyDetailInReportView: View {
                 
                 VStack(alignment: .leading, spacing: 5){
                     HStack {
-                        Text(comment.userId)
+                        Text(comment.user.name)
                             .font(.system(size: 14))
                             .fontWeight(.bold)
                         Text(comment.createdAt)
@@ -53,6 +53,6 @@ struct StudyReplyDetailInReportView: View {
 
 struct StudyReplyDetailInReportView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyDetailInReportView(comment: StudyGroupComment(userId: "1", content: "diudididi", createdAt: "2022-11"))
+        StudyReplyDetailInReportView(comment: StudyComment(user: User.defaultUser, content: "어쩌구", createdAt: "23-02-12"))
     }
 }
