@@ -21,19 +21,21 @@ struct StudyDetailView: View {
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool = true
     
-    // 현재 로그인된 유저아이디
-    var loginId = ""
-    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
-                    Image("OUR_Logo")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 200)
+                    if studyDetail.imageString != nil {
+                        AsyncImage(url: URL(string: studyDetail.imageString!)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200)
+                                .clipped()
+                        } placeholder: {
+                            ProgressView()
+                        }
                         .frame(maxWidth: .infinity)
-                        .clipped()
                         .overlay(alignment:.bottom) {
                             VStack(alignment: .center, spacing: 10) {
                                 Text(studyDetail.creator.name)
@@ -49,9 +51,31 @@ struct StudyDetailView: View {
                             .padding(.horizontal, 20)
                             .offset(y:30)
                         }
+                    } else {
+                        Image("OUR_Logo")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .frame(maxWidth: .infinity)
+                            .clipped()
+                            .overlay(alignment:.bottom) {
+                                VStack(alignment: .center, spacing: 10) {
+                                    Text(studyDetail.creator.name)
+                                        .font(.system(size: 14, weight: .semibold))
+                                    Text(studyDetail.title)
+                                        .font(.system(size: 16, weight: .bold))
+                                }
+                                .padding(15)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.white)
+                                .cornerRadius(15)
+                                .shadow(color: Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255), radius: 5)
+                                .padding(.horizontal, 20)
+                                .offset(y:30)
+                            }
+                    }
                     
                     VStack {
-                        
                         VStack {
                             Spacer(minLength: 20)
                             Text(studyDetail.description)
@@ -64,21 +88,23 @@ struct StudyDetailView: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                Image(systemName: "mappin.and.ellipse" )
+                                Image(systemName: studyDetail.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse" )
                                     .frame(width: 20)
-                                Text("위치 : \(studyDetail.locationName ?? "")")
+                                Text(studyDetail.isOnline ? "\(studyDetail.linkString ?? "")" : "\(studyDetail.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
-                                Button {
-                                    isShowingLocationSheet = true
-                                } label: {
-                                    Text("위치보기")
-                                        .font(.system(size: 9, weight: .semibold))
-                                        .foregroundColor(.black)
-                                        .padding(3)
-                                        .border(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                        .cornerRadius(10)
+                                if !studyDetail.isOnline {
+                                    Button {
+                                        isShowingLocationSheet = true
+                                    } label: {
+                                        Text("위치보기")
+                                            .font(.system(size: 9, weight: .semibold))
+                                            .foregroundColor(.black)
+                                            .padding(3)
+                                            .border(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                            .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+                                            .cornerRadius(10)
+                                    }
                                 }
                             }
                             .padding(.vertical, 5)
@@ -88,7 +114,7 @@ struct StudyDetailView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20)
-                                Text("인원 : 최대 \(studyDetail.totalMemberCount)명 (\(studyDetail.currentMembers.count)/\(studyDetail.totalMemberCount))")
+                                Text("최대 \(studyDetail.totalMemberCount)명 (\(studyDetail.currentMembers.count)/\(studyDetail.totalMemberCount))")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -115,10 +141,9 @@ struct StudyDetailView: View {
                             .padding(.bottom, 10)
                             
                             HStack {
-                                
-                                if studyDetail.creator.id == loginId {
+                                if studyViewModel.isMyStudy(study) {
                                     Button {
-                                        print("")
+                                        //MARK: 스터디 게시글 수정
                                     } label: {
                                         Text("수정")
                                             .bold()
@@ -128,7 +153,7 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        print("")
+                                        //MARK: 스터디 게시글 삭제
                                     } label: {
                                         Text("삭제")
                                             .bold()
@@ -138,9 +163,32 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     
-                                } else {
+                                }
+//                                MARK: 로그인한 유저가 이 스터디를 이미 신청했다면 참석취소 버튼 보여주기
+//                                else if studyDetail.currentMembers. {
+//                                    Button {
+//                                        //MARK: 참석 취소 프로세스-디비저장-알럿
+//                                    } label: {
+//                                        Text("참석취소")
+//                                            .bold()
+//                                            .frame(width: 290, height: 40)
+//                                            .foregroundColor(.white)
+//                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+//                                            .cornerRadius(5)
+//                                    }
+//                                    Button {
+//                                        isSavedBookmark.toggle()
+//                                    } label: {
+//                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
+//                                            .font(.system(size: 30))
+//                                            .frame(width: 60, height: 40)
+//                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+//                                    }
+//
+//                                }
+                                else {
                                     Button {
-                                        print("")
+                                        //MARK: 참석 프로세스-디비저장-알럿
                                     } label: {
                                         Text("참석")
                                             .bold()
@@ -150,6 +198,7 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
+                                        //MARK: isSaved 변수 업데이트
                                         isSavedBookmark.toggle()
                                     } label: {
                                         Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
