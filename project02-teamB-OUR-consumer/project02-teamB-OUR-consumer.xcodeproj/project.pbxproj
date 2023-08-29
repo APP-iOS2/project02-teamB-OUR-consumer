@@ -29,7 +29,8 @@
 		6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A6022A95D1220047E2DD /* ScrapView.swift */; };
 		6332A60B2A98648E0047E2DD /* PostModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostModifyView.swift */; };
 		63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */; };
-		63F3ED7F2A9DC9570087D716 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63F3ED7E2A9DC9570087D716 /* GoogleService-Info.plist */; };
+		6445B0FA2A9DD71800DC3091 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6445B0F92A9DD71800DC3091 /* GoogleService-Info.plist */; };
+		6445B0FC2A9DD7B500DC3091 /* LikeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6445B0FB2A9DD7B500DC3091 /* LikeListView.swift */; };
 		649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B52A9604AD00506F46 /* FollowButtonView.swift */; };
 		649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B72A96067A00506F46 /* RecommendFriendView.swift */; };
 		649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B92A96068600506F46 /* RecommendDetailView.swift */; };
@@ -167,7 +168,8 @@
 		6332A6022A95D1220047E2DD /* ScrapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapView.swift; sourceTree = "<group>"; };
 		6332A60A2A98648E0047E2DD /* PostModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyView.swift; sourceTree = "<group>"; };
 		63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailView.swift; sourceTree = "<group>"; };
-		63F3ED7E2A9DC9570087D716 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6445B0F92A9DD71800DC3091 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6445B0FB2A9DD7B500DC3091 /* LikeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListView.swift; sourceTree = "<group>"; };
 		649085B52A9604AD00506F46 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FollowButtonView.swift; path = ../FollowButtonView.swift; sourceTree = "<group>"; };
 		649085B72A96067A00506F46 /* RecommendFriendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommendFriendView.swift; path = ../RecommendFriendView.swift; sourceTree = "<group>"; };
 		649085B92A96068600506F46 /* RecommendDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommendDetailView.swift; path = ../RecommendDetailView.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				9B35B2772A94593E00AD72D7 /* FeedView.swift */,
 				6332A5FD2A95979A0047E2DD /* PostUserView.swift */,
 				632883732A94DD31004DC84E /* PostView.swift */,
+				6445B0FB2A9DD7B500DC3091 /* LikeListView.swift */,
 				6332A60A2A98648E0047E2DD /* PostModifyView.swift */,
 				63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */,
 				6332A5FF2A95A3640047E2DD /* PostButtonView.swift */,
@@ -557,7 +560,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF70F382A95199B008E9CAB /* Info.plist */,
-				63F3ED7E2A9DC9570087D716 /* GoogleService-Info.plist */,
+				6445B0F92A9DD71800DC3091 /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
 				FAB51C772A9676720047A725 /* Extension */,
@@ -756,7 +759,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
-				63F3ED7F2A9DC9570087D716 /* GoogleService-Info.plist in Resources */,
+				6445B0FA2A9DD71800DC3091 /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				FAB51C1B2A96568D0047A725 /* (null) in Resources */,
 			);
@@ -871,6 +874,7 @@
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				FAB51C7D2A9677E40047A725 /* DateStore.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
+				6445B0FC2A9DD7B500DC3091 /* LikeListView.swift in Sources */,
 				649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */,
 				96C1F27C2A974229000D6E1F /* MypageModel.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
