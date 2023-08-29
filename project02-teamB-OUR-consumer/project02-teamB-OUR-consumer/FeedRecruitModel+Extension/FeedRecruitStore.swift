@@ -19,7 +19,7 @@ class FeedRecruitStore: ObservableObject {
     let dbRef = Firestore.firestore().collection("posts")
     
     func fetchFeeds() {
-
+        
         service.fetchAll(collection: .posts) { results in
             self.feedStores = results
         }
@@ -29,7 +29,7 @@ class FeedRecruitStore: ObservableObject {
         service.add(collection: .posts, data: data)
     }
     
-
+    
     func updateData( docID: String, _ data: FeedRecruitModel ) {
         service.update(collection: .posts, documentID: docID, data: data)
     }
@@ -37,75 +37,75 @@ class FeedRecruitStore: ObservableObject {
     
     
     
-//    func fetchFeeds() {
-//
-//        dbRef.getDocuments { (snapshot, error) in
-//
-//            self.feedStores.removeAll()
-//
-//            if let snapshot {
-//                var tempFeeds: [FeedRecruitModel] = []
-//
-//                for document in snapshot.documents {
-//                    let id: String = document.documentID
-//                    let docData: [String: Any] = document.data()
-//                    let creator: String = docData["creator"] as? String ?? ""
-//                    let content: String = docData["content"] as? String ?? ""
-//                    let location: String = docData["location"] as? String ?? ""
-//                    let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
-//                    let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
-//                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
-//                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
-//
-//                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt, feedImagePath: studyImagePath)
-//
-//                    tempFeeds.append(feeds)
-//                }
-//
-//                self.feedStores  = tempFeeds
-//            }
-//        }
-//    }
-//
-//
-//    func addFeed(_ feed: FeedRecruitModel) {
-//
-//        dbRef.document(feed.id)
-//            .setData([
-//                "id": feed.id,
-//                "creator": feed.creator,
-//                "content": feed.content,
-//                "location": feed.location,
-//                "privateSetting": feed.privateSetting,
-//                "createdAt": feed.createdDate,
-//                "reportCount": feed.reportCount,
-//                "studyImagePath": feed.feedImagePath])
-//
-//        fetchFeeds()
-//    }
-//
-//
-//    func removeFeed(_ feed: FeedRecruitModel) {
-//
-//        dbRef.document(feed.id).delete()
-//
-//        fetchFeeds()
-//    }
+    //    func fetchFeeds() {
+    //
+    //        dbRef.getDocuments { (snapshot, error) in
+    //
+    //            self.feedStores.removeAll()
+    //
+    //            if let snapshot {
+    //                var tempFeeds: [FeedRecruitModel] = []
+    //
+    //                for document in snapshot.documents {
+    //                    let id: String = document.documentID
+    //                    let docData: [String: Any] = document.data()
+    //                    let creator: String = docData["creator"] as? String ?? ""
+    //                    let content: String = docData["content"] as? String ?? ""
+    //                    let location: String = docData["location"] as? String ?? ""
+    //                    let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
+    //                    let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
+    //                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
+    //                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
+    //
+    //                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt, feedImagePath: studyImagePath)
+    //
+    //                    tempFeeds.append(feeds)
+    //                }
+    //
+    //                self.feedStores  = tempFeeds
+    //            }
+    //        }
+    //    }
+    //
+    //
+    //    func addFeed(_ feed: FeedRecruitModel) {
+    //
+    //        dbRef.document(feed.id)
+    //            .setData([
+    //                "id": feed.id,
+    //                "creator": feed.creator,
+    //                "content": feed.content,
+    //                "location": feed.location,
+    //                "privateSetting": feed.privateSetting,
+    //                "createdAt": feed.createdDate,
+    //                "reportCount": feed.reportCount,
+    //                "studyImagePath": feed.feedImagePath])
+    //
+    //        fetchFeeds()
+    //    }
+    //
+    //
+    //    func removeFeed(_ feed: FeedRecruitModel) {
+    //
+    //        dbRef.document(feed.id).delete()
+    //
+    //        fetchFeeds()
+    //    }
     
     //이미지 FireBase Storage에 Save.
     
     
     
-    func returnImagePath(item: PhotosPickerItem) async throws -> String{
+    func returnImagePath(items: [PhotosPickerItem]) async throws -> [String]{
         
-        var urlString = ""
+        var urlString:[String] = []
         
-        guard let data = try await item.loadTransferable(type: Data.self) else {return urlString }
-        
-        let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
-        
-        urlString = url.absoluteString
-        
+        for item in items {
+            guard let data = try? await item.loadTransferable(type: Data.self) else {return urlString}
+            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
+            urlString.append(url.absoluteString)
+        }
+    
         return urlString
         
         
@@ -113,17 +113,17 @@ class FeedRecruitStore: ObservableObject {
     }
     
     
-    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) {
-        
-        Task {
-            guard let data = try await item.loadTransferable(type: Data.self) else {
-                completion(nil)
-                return
-            }
-            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
-            completion(url.absoluteString)
-        }
-    }
+    //    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) {
+    //
+    //        Task {
+    //            guard let data = try await item.loadTransferable(type: Data.self) else {
+    //                completion(nil)
+    //                return
+    //            }
+    //            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
+    //            completion(url.absoluteString)
+    //        }
+    //    }
     
     
     func saveStudyImage(item: PhotosPickerItem) {

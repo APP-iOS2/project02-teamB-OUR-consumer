@@ -21,10 +21,10 @@ struct FeedRecruitView: View {
     @State var content: String = ""
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-    @State var feedImagePath: String = ""
-    @State var selectedItem: PhotosPickerItem? = nil
+    @State var feedImagePath: [String] = []
+    @State var selectedItem: [PhotosPickerItem] = []
     @State var isAlert: Bool = false
-    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: [])
     
     
     var body: some View {
@@ -46,9 +46,8 @@ struct FeedRecruitView: View {
                 FeedRecruitTextEditorView(content: $content)
                     .padding(.horizontal, 20.0)
                 
-                
                 //사진추가 View
-                FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
+                FeedRecruitPhotoAddView(selectedImages: $selectedImages, selectedItem: $selectedItem)
                     .padding(.horizontal, 20.0)
                 
             }
@@ -63,7 +62,7 @@ struct FeedRecruitView: View {
                     Button("등록") {
                         isAlert = true
                         
-                        guard let imageItem = selectedItem else {
+                        if selectedItem != [] {
                             let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
@@ -72,7 +71,7 @@ struct FeedRecruitView: View {
                         }
                         
                         Task {
-                            try await  feedImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
+                            try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
                             let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
                             self.newFeed = newFeed2
@@ -93,7 +92,7 @@ struct FeedRecruitView: View {
 
                     print("얼러트\(newFeed)")
                     feedStoreViewModel.addFeed(newFeed)
-                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: [])
                     dismiss()
                 }
                 Button("취소" ,role: .cancel) {

@@ -10,14 +10,17 @@ import PhotosUI
 
 struct FeedRecruitPhotoAddView: View {
     
-    @Binding var selectedItem: PhotosPickerItem?
+    
     
     @Binding var selectedImages: [UIImage]
     @State private var isImagePickerPresented: Bool = false
-    @State var imageData : Data? = nil
+    
+    @State var imageData : [UIImage] = []
+    @Binding var selectedItem: [PhotosPickerItem]
+    
     var xBox: Bool {
         
-        if selectedItem != nil {
+        if selectedItem != [] {
             
             return true
         }
@@ -27,17 +30,17 @@ struct FeedRecruitPhotoAddView: View {
     var body: some View {
         VStack {
             //사진데이터가 없을경우
-            if imageData == nil {
+            if selectedItem.isEmpty {
                 HStack {
                     
                     Text("사진추가")
                         .foregroundColor(.accentColor)
                     Spacer()
                 }
-                .padding()
+                .padding(.top)
                 
                 
-                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                PhotosPicker(selection: $selectedItem, matching: .any(of: [.images,.videos]), photoLibrary: .shared()) {
                     Image(systemName: "plus")
                         .foregroundColor(.gray)
                         .font(.system(size: 40, weight: .thin))
@@ -46,67 +49,97 @@ struct FeedRecruitPhotoAddView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                     
                 }
+                
                 //사진 데이터가 있을경우
             } else {
-                HStack {
+                VStack{
+                    HStack {
+                        
+                        Text("사진추가")
+                            .foregroundColor(.accentColor)
+                        Spacer()
+                    }
+                    .padding()
                     
-                    Text("사진추가")
-                        .foregroundColor(.accentColor)
-                    Spacer()
-                }
-                .padding()
-                
-                
-                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                    ZStack{
-                        Rectangle()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .foregroundColor(.clear)
-                            .buttonBorderShape(.roundedRectangle)
-                            .border(Color.gray)
-                        HStack{
-                            if let imageData,
-                               let image = UIImage(data: imageData) {
-                                
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 250, height: 150, alignment: .center)
-                            } else {
-                                ProgressView()
-                            }
+                    
+                    HStack{
+                        ScrollView(.horizontal, showsIndicators: false) {
                             
-                            if xBox {
-                                Button {
-                                    imageData = nil
-                                } label: {
-                                    Label("Delete", systemImage: "xmark.circle")
+                            HStack{
+                                ForEach(imageData, id:\.self) { image in
+                                    VStack{
+                                        //                                    if xBox {
+                                        //                                        Button {
+                                        //                                            imageData = []
+                                        //                                        } label: {
+                                        //                                            Label("Delete", systemImage: "xmark.circle")
+                                        //                                        }
+                                        //
+                                        //                                    }
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width:150, height:150)
+                                            .cornerRadius(10)
+                                    }
+                                    
                                 }
-                              
                             }
-                            
+                        }
+                        PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 40, weight: .thin))
+                                .frame(maxWidth: 150, maxHeight: 150)
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                             
                             
                         }
                     }
-                    
+
                     
                 }
                 
             }
             
-            
         }
         
-        .onChange(of: selectedItem) { newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    self.imageData = data
+        
+        .onChange(of: selectedItem) { newImages in
+            var images : [UIImage] = []
+            Task{
+                
+                for image in newImages {
+                    if let data =  try await image.loadTransferable(type: Data.self) {
+                        if let uiImage = UIImage(data: data) {
+                            images.append(uiImage)
+                            print("온체인지-1\(uiImage)")
+                            
+                        }
+                    }
                 }
+                imageData = images
+                print("온체인지 \(imageData)")
             }
+            
+            
+            //                do{
+            //
+            //                    let data = try await newItem?.loadTransferable(type: Data.self)
+            //
+            //                    guard let data = data else {
+            //                        throw URLError(.badServerResponse)
+            //                    }
+            //                    self.imageData = UIImage(data: data)
+            //                } catch {
+            //                    print(error)
+            //
+            //
+            
         }
         
     }
 }
+
 
 

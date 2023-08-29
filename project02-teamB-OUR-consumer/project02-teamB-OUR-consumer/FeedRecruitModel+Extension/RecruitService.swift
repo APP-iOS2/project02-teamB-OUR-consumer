@@ -116,7 +116,7 @@ extension Encodable {
 final class FeedViewModelTemp: ObservableObject {
     let service = RecruitService()
     
-    @Published var feedTable = FeedRecruitModel()
+    //@Published var feedTable = FeedRecruitModel
     @Published var feedTables = [FeedRecruitModel]()
     @Published var feedDics = [[String : Any]]()
     @Published var feedDic = [String : Any]()
@@ -147,7 +147,7 @@ final class FeedViewModelTemp: ObservableObject {
     func fetchOneData( documentID: String ) {
         service.fetchOneData( collection: .posts, documentID: documentID ) { result in
 //            self.feedDic = result
-            self.feedTable = result
+           // self.feedTable = result
         }
     }
 
