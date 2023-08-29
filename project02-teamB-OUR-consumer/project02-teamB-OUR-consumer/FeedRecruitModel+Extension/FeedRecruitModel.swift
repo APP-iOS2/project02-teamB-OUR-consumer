@@ -7,11 +7,10 @@
 
 import Foundation
 import SwiftUI
-import FirebaseFirestoreSwift
 
 struct FeedRecruitModel {
     
-    @DocumentID var id: String?
+    var id: String = UUID().uuidString
     var creator: String
     var content: String
     var location: String
