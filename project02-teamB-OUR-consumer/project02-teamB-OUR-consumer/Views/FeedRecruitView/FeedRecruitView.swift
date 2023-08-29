@@ -16,21 +16,15 @@ struct FeedRecruitView: View {
     @Environment(\.dismiss) private var dismiss: DismissAction
     
     @StateObject var feedStoreViewModel: FeedRecruitStore = FeedRecruitStore()
-    @StateObject var locationManager = LocationManager.shared
-    @State var toolbarToogle: Bool = false
+    
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
     @State var content: String = ""
-    @State var placeholder: String = "Share Your Idea In OUR."
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-    
-    
     @State var feedImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
-    //    var toString: String {
-    //
-    //        UIImage.toString(selectedImages)
-    //    }
+    @State var isAlert: Bool = false
+    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
     
     
     var body: some View {
@@ -38,111 +32,80 @@ struct FeedRecruitView: View {
         NavigationStack {
             ScrollView{
                 VStack(alignment: .leading){
-                    HStack{
-                        Picker("PrivacySetting", selection: $privacySetting) {
-                            Text("Public").tag(PrivacySetting.Public)
-                            Text("Private").tag(PrivacySetting.Private)
-                        }
-                        .pickerStyle(.menu)
-                        Spacer()
-                    }
-                    HStack{
-                        
-                        
-                        //현재 위치설정 버튼
-                        Button {
-                            locationManager.requestLocation()
-                            if let location = locationManager.userLocation {
-                                convertLocationToAddress(location: location)
-                            }
-                        } label: {
-                            Image(systemName: "location")
-                            locationAddress.isEmpty ? Text("위치설정") : Text("\(locationAddress)")
-                        }
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                    }.padding(.horizontal)
+                    //공개범위 뷰
+                    FeedRecruitPrivateSettingView(privacySetting: $privacySetting)
+                    
+                    //위치설정 뷰
+                    FeedRecruitLocationView(locationAddress: $locationAddress)
+                        .padding(.horizontal)
                     
                 }
                 .padding()
                 
-                ZStack{
-                    TextEditor(text: $content)
-                        .frame(minHeight:350, maxHeight:350)
-                        .buttonBorderShape(.roundedRectangle)
-                        .border(Color.secondary)
-                    
-                    if content.isEmpty {
-                        Text(placeholder)
-                            .foregroundColor(.secondary)
-                    }
-                }
+                //content 글 작성뷰
+                FeedRecruitTextEditorView(content: $content)
+                    .padding(.horizontal, 20.0)
+                
                 
                 //사진추가 View
-                
                 FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
+                    .padding(.horizontal, 20.0)
                 
             }
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
                     Button("취소") {
-                        toolbarToogle.toggle()
+                        
                         dismiss()
                     }
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
+                        isAlert = true
                         
-                        guard let test = selectedItem else {
-                            let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
-                            print("첫번째\(newFeed.content)")
-                            feedStoreViewModel.addFeed(newFeed)
+                        guard let imageItem = selectedItem else {
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
-                            dismiss()
+                            self.newFeed = newFeed1
+                            print(newFeed)
                             return
                         }
                         
-                        feedStoreViewModel.returnImagePath(item: test) { urlString in
-                            guard let test = urlString else {return}
-                            
-                            feedImagePath = test
-                            
+                        Task {
+                            try await  feedImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
                             let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
-                            feedStoreViewModel.addFeed(newFeed2)
-                            
-                          
-                            print(newFeed2.content)
-                            
+                            self.newFeed = newFeed2
+                            print("사진 있을경우 \(newFeed)")
+                            //feedStoreViewModel.addFeed(newFeed2)
                         }
-
                         
-                        toolbarToogle.toggle()
-                        dismiss()
                     }
                     .disabled(content.isEmpty)
                 }
                 
             }
-            
-        }
-    }
-    //위도,경도를 주소로 변환하는 함수
-    func convertLocationToAddress(location: CLLocation) {
-        //"en_US_POSIX"
-        let geocoder = CLGeocoder()
-        let locale = Locale(identifier: "en_US_POSIX")
-        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks,error) in
-            if error != nil {
-                return
+            .navigationTitle("피드 등록")
+            .navigationBarTitleDisplayMode(.inline)
+            .alert("피드", isPresented: $isAlert) {
+               
+                Button("등록" ,role: .destructive) {
+
+                    print("얼러트\(newFeed)")
+                    feedStoreViewModel.addFeed(newFeed)
+                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+                    dismiss()
+                }
+                Button("취소" ,role: .cancel) {
+                    isAlert = false
+                }
+            } message: {
+                Text("등록하시겠습니까?")
             }
-            guard let placemark = placemarks?.first else {return}
             
-            self.locationAddress = "\(placemark.country ?? "") \(placemark.locality ?? "") \(placemark.name ?? "")"
+            
         }
     }
-    
-    
 }
 
 struct FeedRecruitView_Previews: PreviewProvider {

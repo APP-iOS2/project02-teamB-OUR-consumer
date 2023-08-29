@@ -19,6 +19,7 @@ class FeedRecruitStore: ObservableObject {
     let dbRef = Firestore.firestore().collection("posts")
     
     func fetchFeeds() {
+
         service.fetchAll(collection: .posts) { results in
             self.feedStores = results
         }
@@ -28,6 +29,7 @@ class FeedRecruitStore: ObservableObject {
         service.add(collection: .posts, data: data)
     }
     
+
     func updateData( docID: String, _ data: FeedRecruitModel ) {
         service.update(collection: .posts, documentID: docID, data: data)
     }
@@ -94,7 +96,25 @@ class FeedRecruitStore: ObservableObject {
     
     
     
+    func returnImagePath(item: PhotosPickerItem) async throws -> String{
+        
+        var urlString = ""
+        
+        guard let data = try await item.loadTransferable(type: Data.self) else {return urlString }
+        
+        let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
+        
+        urlString = url.absoluteString
+        
+        return urlString
+        
+        
+        
+    }
+    
+    
     func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) {
+        
         Task {
             guard let data = try await item.loadTransferable(type: Data.self) else {
                 completion(nil)
@@ -117,7 +137,20 @@ class FeedRecruitStore: ObservableObject {
         }
     }
     
-    
+    //
+    //    func convertLocationToAddress(location: CLLocation) async throws -> String {
+    //
+    //        var test:String = ""
+    //        let geocoder = CLGeocoder()
+    //        let locale = Locale(identifier: "en_US_POSIX")
+    //
+    //        let data = try await geocoder.reverseGeocodeLocation(location, preferredLocale: locale)
+    //
+    //        test = "\(data.first?.country ?? ""), \(data.first?.locality ?? ""), \(data.first?.name ?? "")"
+    //        print(test)
+    //        return test
+    //    }
+    //
     
     
     

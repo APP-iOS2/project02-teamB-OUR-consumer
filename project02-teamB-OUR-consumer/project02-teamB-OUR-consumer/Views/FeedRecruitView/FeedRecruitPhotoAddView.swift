@@ -72,14 +72,17 @@ struct FeedRecruitPhotoAddView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 250, height: 150, alignment: .center)
+                            } else {
+                                ProgressView()
                             }
+                            
                             if xBox {
                                 Button {
                                     imageData = nil
                                 } label: {
                                     Label("Delete", systemImage: "xmark.circle")
                                 }
-                                .padding()
+                              
                             }
                             
                             
