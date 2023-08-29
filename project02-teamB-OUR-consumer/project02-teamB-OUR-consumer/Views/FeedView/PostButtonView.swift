@@ -17,6 +17,8 @@ struct PostButtonView: View {
     @State var isShowingScrapSheet: Bool = false
     @State var isShowingShareSheet: Bool = false
     
+    @Binding var isScrapFeed: Bool
+    
     var body: some View {
         HStack(spacing: 75) {
             Button {
@@ -56,7 +58,7 @@ struct PostButtonView: View {
         }
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {
-            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet)
+            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
                 .presentationDetents([.height(180), .height(180)])
         }
         .sheet(isPresented: $isShowingShareSheet) {
@@ -68,7 +70,7 @@ struct PostButtonView: View {
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), postData: PostData())
+            PostButtonView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네..."), postData: PostData(), isScrapFeed: .constant(false))
         }
     }
 }

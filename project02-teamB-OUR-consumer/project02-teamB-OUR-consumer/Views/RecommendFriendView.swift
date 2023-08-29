@@ -66,6 +66,7 @@ struct RecommendFriendView: View {
                     .padding(.leading, 50)
                 }
             }
+            .padding()
         }
     }
 }

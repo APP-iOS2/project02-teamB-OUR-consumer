@@ -56,6 +56,6 @@ struct PostUserView: View {
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(idData: IdData(), post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), isShowingSheet: .constant(false))
+        PostUserView(idData: IdData(), post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네..."), isShowingSheet: .constant(false))
     }
 }

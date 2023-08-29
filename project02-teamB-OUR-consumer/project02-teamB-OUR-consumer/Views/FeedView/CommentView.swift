@@ -69,7 +69,7 @@ struct CommentView: View {
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CommentView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), idData: IdData(), isReviseComment: false)
+            CommentView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네..."), idData: IdData(), isReviseComment: false)
         }
     }
 }

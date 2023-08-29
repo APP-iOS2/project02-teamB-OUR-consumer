@@ -20,6 +20,15 @@ struct PostView: View {
     
     var body: some View {
         VStack {
+            // 어씽크이미지로 수정
+            AsyncImage(url: URL(string: "https://isplus.com/data/isp/image/2023/08/06/isp20230806000272.600x.0.jpeg")) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                ProgressView()
+            }
+                
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
                     Text("\(post.content)")
@@ -56,7 +65,7 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."))
+            PostView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg2", content: "축구...어렵네..."))
         }
     }
 }
