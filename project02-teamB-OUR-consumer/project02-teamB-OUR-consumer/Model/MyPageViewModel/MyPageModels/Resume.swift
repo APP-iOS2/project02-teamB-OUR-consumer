@@ -59,8 +59,8 @@ struct Project: Identifiable, Codable {
 
 struct Skill: Identifiable, Codable {
     var id: String = UUID().uuidString
-    let skillName: String
-    let description: String?
+    var skillName: String
+    var description: String?
 }
 
 struct Company: Codable {

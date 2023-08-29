@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct MySkillCellView: View {
+    @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
     var skill: Skill
+    var index: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -20,14 +22,14 @@ struct MySkillCellView: View {
                 
                 Spacer()
                 
+                //MARK: 스킬 편집
                 if isMyProfile {
                     NavigationLink {
-                        MySkillEditView(isShowingDeleteButton: true)
+                        MySkillEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
                     }
-
                 }
             }
             
@@ -38,64 +40,83 @@ struct MySkillCellView: View {
 }
 
 struct MySkillView: View {
-    var mySkills: [Skill]
+    @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
-
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                HStack {
-                    Text("스킬")
-                        .font(.system(size: 16))
-                        .bold()
-                    
-                    Spacer()
-                    
-                    if isMyProfile {
-                        NavigationLink {
-                            MySkillEditView(isShowingDeleteButton: false)
-                        } label: {
-                            Image(systemName: "plus")
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("스킬")
+                            .font(.system(size: 16))
+                            .bold()
+                        
+                        Spacer()
+                        
+                        //MARK: 스킬 추가
+                        if isMyProfile {
+                            NavigationLink {
+                                MySkillEditView(resumeViewModel: resumeViewModel, index: resumeViewModel.resume?.skills.count ?? 0,  isShowingDeleteButton: false)
+                            } label: {
+                                Button {
+//                                    resumeViewModel.resume?.skills.append(Skill(skillName: ""))
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                            }
                         }
                     }
+                    .padding(.vertical, 5)
                 }
-                .padding(.vertical, 5)
-            }
-            .padding(.top, 11)
-            .padding(.horizontal)
-            .foregroundColor(.black)
-            
-            VStack {
-                // 최대 3개 보이도록
-                ForEach(0..<mySkills.count, id: \.self) { index in
-                    if index < 3 {
-                        MySkillCellView(isMyProfile: $isMyProfile, skill: mySkills[index])
-                            .padding(.vertical, 8)
-                        Divider()
-                    }
-                }
+                .padding(.top, 11)
                 .padding(.horizontal)
+                .foregroundColor(.black)
                 
-                // 스킬 3개 넘으면 더보기
-                if mySkills.count > 3 {
-                    NavigationLink {
-                        MySkillMoreView(mySkills: mySkills, isMyProfile: $isMyProfile)
-                    } label: {
-                        Text("더보기")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.black)
+                VStack(alignment: .leading) {
+                    if let resumeSkills = resumeViewModel.resume?.skills {
+                        VStack {
+                            // 스킬 최대 3개 보이도록
+                            ForEach(0..<resumeSkills.count, id: \.self) { index in
+                                if index < 3 {
+                                    MySkillCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, skill: resumeSkills[index], index: index)
+                                        .padding(.vertical, 8)
+                                    Divider()
+                                }
+                            }
+                            .padding(.horizontal)
+                            
+                            // 스킬 3개 넘으면 더보기
+                            if resumeSkills.count > 3 {
+                                NavigationLink {
+                                    MySkillMoreView(resumeViewModel: resumeViewModel, mySkills: resumeSkills, isMyProfile: $isMyProfile)
+                                } label: {
+                                    HStack {
+                                        Text("더보기")
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+                                .padding(.vertical, 8)
+                                
+                                Divider()
+                            }
+                        }
+                    } else {
+                        // 스킬 없을 때
+                        Text("스킬을 추가해주세요")
+                            .font(.system(size: 14))
+                            .padding(.leading, 16)
                     }
-                    .padding(.vertical, 8)
-                    
-                    Divider()
                 }
             }
         }
     }
 }
 
+
 struct MySkillView_Previews: PreviewProvider {
     static var previews: some View {
-        MySkillView(mySkills: [], isMyProfile: .constant(true))
+        MySkillView(resumeViewModel: ResumeViewModel(), isMyProfile: .constant(true))
     }
 }

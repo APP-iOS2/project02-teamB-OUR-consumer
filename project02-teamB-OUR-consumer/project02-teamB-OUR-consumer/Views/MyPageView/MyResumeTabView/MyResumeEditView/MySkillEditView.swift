@@ -17,7 +17,9 @@ import SwiftUI
 struct MySkillEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-
+    
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    var index: Int
     
     @State var skillName: String = ""
     @State var description: String = ""
@@ -27,7 +29,7 @@ struct MySkillEditView: View {
     
     var isShowingDeleteButton: Bool
     
-
+    
     
     var body: some View {
         ScrollView {
@@ -36,14 +38,13 @@ struct MySkillEditView: View {
                     Divider()
                         .padding(.top, -10)
                     Group {
-                        Text("내 스킬 ") // 폰트 크기랑 굵기 조절필요
+                        Text("내 스킬") // 폰트 크기랑 굵기 조절필요
                             .font(.system(size: 16))
                             .bold()
                             .padding(.top, 5)
                             .padding(.bottom)
                         
                         HStack {
-                            
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.gray, lineWidth: 2)
                                 .overlay {
@@ -52,21 +53,20 @@ struct MySkillEditView: View {
                                 }
                                 .frame(height: 50)
                             
-                            Button {
-                                //스킬추가
-                                skillName = ""
-                                description = ""
-                                isShowingAlert.toggle()
-                            } label: {
-                                Text("추가")
-                            }
-                            .buttonStyle(.borderless)
-                            // alert가 안되여 ㅠㅠ
-                            .alert(isPresented: $isShowingAlert, content: {
-                                Alert(title: Text("추가되었습니다."), message: nil, dismissButton: .default(Text("닫기")))
-                            })
-                            
-                            .disabled(skillName.isEmpty)
+//                            Button {
+//                                //스킬추가
+//                                skillName = ""
+//                                description = ""
+//                                isShowingAlert.toggle()
+//                            } label: {
+//                                Text("추가")
+//                            }
+//                            .buttonStyle(.borderless)
+//                            // alert가 안되여 ㅠㅠ
+//                            .alert(isPresented: $isShowingAlert, content: {
+//                                Alert(title: Text("추가되었습니다."), message: nil, dismissButton: .default(Text("닫기")))
+//                            })
+//                            .disabled(skillName.isEmpty)
                             
                         }
                         Group {
@@ -90,8 +90,6 @@ struct MySkillEditView: View {
                         .padding(.top)
                     }
                     
-                     
-                
                     //MARK: 편집일 때 삭제하기 뜨도록
                     if isShowingDeleteButton {
                         HStack{
@@ -102,12 +100,12 @@ struct MySkillEditView: View {
                                 Text("삭제하기")
                                     .font(.system(size: 12))
                                     .fontWeight(.semibold)
-                                
                             }
                             .foregroundColor(.gray)
                             .alert(isPresented: $isDeleteItemAlert) {
                                 Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
-                                    //삭제 함수
+                                    resumeViewModel.resume?.skills.remove(at: index)
+//                                    saveRemovedSkillChanges()
                                     dismiss()
                                 }), secondaryButton: .cancel(Text("취소")))
                             }
@@ -119,21 +117,19 @@ struct MySkillEditView: View {
             }
             .padding()
             .navigationBarBackButtonHidden(true)
-                        .navigationBarItems(leading: Button(action : {
-                            self.mode.wrappedValue.dismiss()
-                        }){
-                            Image(systemName: "chevron.backward")
-                        })
+            .navigationBarItems(leading: Button(action : {
+                self.mode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "chevron.backward")
+            })
         }
-        
-        .navigationTitle("경력")
+        .navigationTitle("스킬")
         .navigationBarTitleDisplayMode(.inline)
-        
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // 완료 버튼
-                    
+                    saveSkillChanges()
+                    dismiss()
                 } label: {
                     Text("완료")
                         .font(.system(size: 14))
@@ -143,19 +139,36 @@ struct MySkillEditView: View {
                         .background(mainColor)
                         .cornerRadius(5)
                 }
-                
-                
             }
- 
+        }
+        .onAppear {
+            if let skill = resumeViewModel.resume?.skills[index] {
+                skillName = skill.skillName
+                description = skill.description ?? ""
+            }
         }
     }
     
+    func saveSkillChanges() {
+        if var updatedResume = resumeViewModel.resume {
+            updatedResume.skills[index].skillName = skillName
+            updatedResume.skills[index].description = description
+            resumeViewModel.updateResume(resume: updatedResume)
+        }
+    }
+    
+//    func saveRemovedSkillChanges() {
+//        if var updatedResume = resumeViewModel.resume {
+//            updatedResume.skills.remove(at: index)
+//            resumeViewModel.updateResume(resume: updatedResume)
+//        }
+//    }
 }
 
 struct MySkillEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MySkillEditView(isShowingDeleteButton: false)
+            MySkillEditView(resumeViewModel: ResumeViewModel(), index: 0, isShowingDeleteButton: false)
         }
     }
 }
