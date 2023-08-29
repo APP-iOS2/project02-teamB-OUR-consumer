@@ -62,23 +62,23 @@ struct FeedRecruitView: View {
                     Button("등록") {
                         isAlert = true
                         
-                        if selectedItem != [] {
+                        if selectedItem.isEmpty {
                             let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
-                            print(newFeed)
+                            print("사진 없을경우 \(newFeed)")
                             return
-                        }
-                        
-                        Task {
-                            try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                        } else {
                             
-                            self.newFeed = newFeed2
-                            print("사진 있을경우 \(newFeed)")
-                            //feedStoreViewModel.addFeed(newFeed2)
+                            Task {
+                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                                
+                                self.newFeed = newFeed2
+                                print("사진 있을경우 \(newFeed)")
+                                //feedStoreViewModel.addFeed(newFeed2)
+                            }
                         }
-                        
                     }
                     .disabled(content.isEmpty)
                 }
@@ -90,7 +90,7 @@ struct FeedRecruitView: View {
                
                 Button("등록" ,role: .destructive) {
 
-                    print("얼러트\(newFeed)")
+                    print("얼러트에서 등록 후\(newFeed)")
                     feedStoreViewModel.addFeed(newFeed)
                     newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: [])
                     dismiss()
