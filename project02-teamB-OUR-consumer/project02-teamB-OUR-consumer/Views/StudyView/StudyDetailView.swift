@@ -17,7 +17,7 @@ struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
-    @State var isSavedBookmark: Bool = false
+    @Binding var isSavedBookmark: Bool
     
     // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
     var loginId = ""
@@ -203,7 +203,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
+            StudyDetailView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"), isSavedBookmark: .constant(false))
         }
     }
     
