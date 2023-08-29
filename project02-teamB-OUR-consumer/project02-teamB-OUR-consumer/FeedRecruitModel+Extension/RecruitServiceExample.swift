@@ -32,7 +32,7 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.updateField(documentID: "\(selectID)", data: .init(creator: "백엔드팀", content: "\(changedContent)", feedImagePath: [] ))
+                    model.updateField(documentID: "\(selectID)", data: .init(creator: "백엔드팀", content: "\(changedContent)", postImagePath: [] ))
                     
                     
                 } label: {
@@ -44,7 +44,7 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, feedImagePath: []))
+                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, postImagePath: []))
                 } label: {
                     Text("ADD")
                 }
