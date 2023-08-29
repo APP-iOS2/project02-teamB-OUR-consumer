@@ -64,8 +64,8 @@ struct CustomTabBarView: View {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
-                                            .frame(width: 30, height: 45, alignment: .bottom)
-                                    } else {
+                                            .frame(width: 20, height: 35, alignment: .bottom)
+                                    }else{
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 27, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
