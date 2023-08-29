@@ -12,14 +12,15 @@ struct StudyDetailView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    @ObservedObject var studyViewModel: StudyViewModel
+    var studyViewModel: StudyViewModel
     var study: Study
+    @State var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
-    @State var isSavedBookmark: Bool = false
+    @State var isSavedBookmark: Bool = true
     
-    // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
+    // 현재 로그인된 유저아이디
     var loginId = ""
     
     var body: some View {
@@ -34,9 +35,9 @@ struct StudyDetailView: View {
                         .clipped()
                         .overlay(alignment:.bottom) {
                             VStack(alignment: .center, spacing: 10) {
-                                Text(study.creatorId)
+                                Text(studyDetail.creator.name)
                                     .font(.system(size: 14, weight: .semibold))
-                                Text(study.title)
+                                Text(studyDetail.title)
                                     .font(.system(size: 16, weight: .bold))
                             }
                             .padding(15)
@@ -52,7 +53,7 @@ struct StudyDetailView: View {
                         
                         VStack {
                             Spacer(minLength: 20)
-                            Text(study.description)
+                            Text(studyDetail.description)
                                 .font(.system(size: 14))
                                 .multilineTextAlignment(.leading)
                                 .lineSpacing(3)
@@ -62,9 +63,9 @@ struct StudyDetailView: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                Image(systemName: "mappin" )
-                                    .frame(width: 15)
-                                Text("위치 : \(study.locationName ?? "")")
+                                Image(systemName: "mappin.and.ellipse" )
+                                    .frame(width: 20)
+                                Text("위치 : \(studyDetail.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -85,8 +86,8 @@ struct StudyDetailView: View {
                                 Image(systemName: "person.3.fill" )
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 15)
-                                Text("인원 : 최대 \(study.totalMemberCount)명 (\(study.currentMemberIds.count)/\(study.totalMemberCount))")
+                                    .frame(width: 20)
+                                Text("인원 : 최대 \(studyDetail.totalMemberCount)명 (\(studyDetail.currentMembers.count)/\(studyDetail.totalMemberCount))")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -105,8 +106,8 @@ struct StudyDetailView: View {
                             
                             HStack{
                                 Image(systemName: "calendar" )
-                                    .frame(width: 15)
-                                Text(study.studyDate)
+                                    .frame(width: 20)
+                                Text(studyDetail.studyDate)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
@@ -114,7 +115,7 @@ struct StudyDetailView: View {
                             
                             HStack {
                                 
-                                if study.creatorId == loginId {
+                                if studyDetail.creator.id == loginId {
                                     Button {
                                         print("")
                                     } label: {
@@ -169,6 +170,12 @@ struct StudyDetailView: View {
                 }
             }
         }
+        .onAppear {
+            studyViewModel.makeStudyDetail(study: study) { studyDetail in
+                self.studyDetail = studyDetail
+                print(self.studyDetail)
+            }
+        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action : {
             self.mode.wrappedValue.dismiss()
@@ -177,13 +184,17 @@ struct StudyDetailView: View {
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                ShareLink(item: study.title) {
+                ShareLink(item: studyDetail.title) {
                     Label("공유하기", systemImage: "square.and.arrow.up")
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    print("")
+                Menu {
+                    Button(role: .destructive) {
+                        //
+                    } label: {
+                        Label("신고하기", systemImage: "exclamationmark.shield")
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                 }
