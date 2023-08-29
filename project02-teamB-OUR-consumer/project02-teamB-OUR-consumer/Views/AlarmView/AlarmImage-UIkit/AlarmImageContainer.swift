@@ -13,7 +13,7 @@ import SnapKit
 class AlarmImageContainer: UIView{
     
     // 선언
-    private let testView: AlarmImageView = {
+    private let alarmViewImage: AlarmImageView = {
         let view = AlarmImageView(frame: .zero)
         return view
     }()
@@ -27,11 +27,10 @@ class AlarmImageContainer: UIView{
     }()
     
     
-    func settingColor(color: UIColor){
-        testView.settingColor(color: color)
-        titleLabel.textColor = color
+    func setAlarmImage(color: UIColor){
+        alarmViewImage.settingColor(color: color)
     }
-    func settingColor(color: Color){
+    func setLabel(color: Color){
         titleLabel.textColor = UIColor(color)
     }
     
@@ -40,17 +39,17 @@ class AlarmImageContainer: UIView{
         super.init(frame: frame)
         
         // add SubView
-        self.addSubview(testView)
+        self.addSubview(alarmViewImage)
         self.addSubview(titleLabel)
         
-        testView.snp.makeConstraints { make in
+        alarmViewImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(-1)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(20)
+            make.height.equalTo(25)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(testView.snp.bottom).offset(1)
-            make.centerX.equalTo(testView.snp.centerX)
+            make.top.equalTo(alarmViewImage.snp.bottom).offset(1)
+            make.centerX.equalTo(alarmViewImage.snp.centerX)
             make.bottom.equalToSuperview()
         }
     }
@@ -59,12 +58,3 @@ class AlarmImageContainer: UIView{
         
     }
 }
-
-//extension UIView {
-//  func asImage() -> UIImage {
-//        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-//        return renderer.image { rendererContext in
-//            layer.render(in: rendererContext.cgContext)
-//        }
-//    }
-//}

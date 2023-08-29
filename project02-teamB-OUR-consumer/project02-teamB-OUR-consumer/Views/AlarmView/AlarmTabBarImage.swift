@@ -21,8 +21,8 @@ struct AlarmTabBarImage: UIViewRepresentable{
      func updateUIView(_ uiView: AlarmImageContainer, context: Context) {
          print("value: \(selectedIndex)")
          
-         selectedIndex == index ? uiView.settingColor(color: UIColor(named: "AccentColor")!) : uiView.settingColor(color: .tertiaryLabel)
-         selectedIndex == index ? uiView.settingColor(color: Color(uiColor: UIColor(named: "AccentColor")!)) : uiView.settingColor(color: Color.gray)
+         selectedIndex == index ? uiView.setAlarmImage(color: UIColor.black ) : uiView.setAlarmImage(color: .tertiaryLabel)
+         selectedIndex == index ? uiView.setLabel(color: Color(hex: "#090580")) : uiView.setLabel(color: Color.gray)
      }
      
      func makeCoordinator() -> Coordinator { // <-
