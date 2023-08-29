@@ -44,7 +44,7 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, feedImagePath: ""))
+                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, postImagePath: ""))
                 } label: {
                     Text("ADD")
                 }

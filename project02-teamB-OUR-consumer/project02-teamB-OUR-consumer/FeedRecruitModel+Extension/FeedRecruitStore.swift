@@ -111,19 +111,17 @@ class FeedRecruitStore: ObservableObject {
         
         
     }
-    
-    
-    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) {
-        
-        Task {
-            guard let data = try await item.loadTransferable(type: Data.self) else {
-                completion(nil)
-                return
-            }
-            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
-            completion(url.absoluteString)
-        }
-    }
+//    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) {
+//        
+//        Task {
+//            guard let data = try await item.loadTransferable(type: Data.self) else {
+//                completion(nil)
+//                return
+//            }
+//            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
+//            completion(url.absoluteString)
+//        }
+//    }
     
     
     func saveStudyImage(item: PhotosPickerItem) {

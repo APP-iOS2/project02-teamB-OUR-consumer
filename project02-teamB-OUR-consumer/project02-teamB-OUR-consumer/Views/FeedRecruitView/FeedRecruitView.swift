@@ -21,10 +21,10 @@ struct FeedRecruitView: View {
     @State var content: String = ""
     @State var locationAddress: String = ""
     @State var selectedImages: [UIImage] = []
-    @State var feedImagePath: String = ""
+    @State var postImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
     @State var isAlert: Bool = false
-    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+    @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: "")
     
     
     var body: some View {
@@ -64,7 +64,7 @@ struct FeedRecruitView: View {
                         isAlert = true
                         
                         guard let imageItem = selectedItem else {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: postImagePath)
                             
                             self.newFeed = newFeed1
                             print(newFeed)
@@ -72,8 +72,8 @@ struct FeedRecruitView: View {
                         }
                         
                         Task {
-                            try await  feedImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
-                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
+                            try await  postImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
+                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: postImagePath)
                             
                             self.newFeed = newFeed2
                             print("사진 있을경우 \(newFeed)")
@@ -93,7 +93,7 @@ struct FeedRecruitView: View {
 
                     print("얼러트\(newFeed)")
                     feedStoreViewModel.addFeed(newFeed)
-                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, feedImagePath: "")
+                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: "")
                     dismiss()
                 }
                 Button("취소" ,role: .cancel) {

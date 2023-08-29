@@ -20,7 +20,7 @@ struct FeedRecruitModel: Codable, Identifiable {
     var privateSetting: Bool?
     var reportCount: Int?
     var createdAt: Double = Date().timeIntervalSince1970
-    var feedImagePath: String?
+    var postImagePath: String?
 
     
     var createdDate: String {
