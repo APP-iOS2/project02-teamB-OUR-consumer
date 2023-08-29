@@ -122,7 +122,7 @@ class StudyLocationManager: NSObject, ObservableObject, MKMapViewDelegate, CLLoc
     }
     
     func reverseLocationCoordinates(location: CLLocation) async throws -> CLPlacemark? {
-        let locale = Locale(identifier: "en_US_POSIX")
+        let locale = Locale(identifier: "ko_KR")
         let place = try await CLGeocoder().reverseGeocodeLocation(location,preferredLocale: locale).first
         return place
     }

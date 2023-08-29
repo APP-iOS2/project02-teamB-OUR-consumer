@@ -105,26 +105,23 @@ class StudyRecruitStore: ObservableObject {
     //TODO: document 문서번호가 지정이 안되어있음.
     ///이미지 경로 반환함수
     func returnImagePath(item: PhotosPickerItem) async -> String {
-        
         do {
             guard let data = try await item.loadTransferable(type: Data.self) else {
                 return ""
             }
-            
             do {
                 let (_, _, url) = try await StorageManger.shared.saveImage(data: data, id: dbRef.document().documentID)
                 return url.absoluteString
-                
             } catch {
                 print("\(error.localizedDescription)")
             }
-            
         } catch(let error) {
             print("\(error.localizedDescription)")
-            
         }
         return  ""
     }
+    
+    
     
 //    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) async {
 //        Task {

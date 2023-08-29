@@ -24,7 +24,9 @@ struct FeedRecruitView: View {
     @State var feedImagePath: [String] = []
     @State var selectedItem: [PhotosPickerItem] = []
     @State var isAlert: Bool = false
+    @State var createdDate: Date = Date()
     @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
+
     
     
     var body: some View {
@@ -84,6 +86,7 @@ struct FeedRecruitView: View {
                 }
                 
             }
+
             .navigationTitle("피드 등록")
             .navigationBarTitleDisplayMode(.inline)
             .alert("피드", isPresented: $isAlert) {
@@ -92,7 +95,10 @@ struct FeedRecruitView: View {
 
                     print("얼러트에서 등록 후\(newFeed)")
                     feedStoreViewModel.addFeed(newFeed)
+
                     newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
+
+
                     dismiss()
                 }
                 Button("취소" ,role: .cancel) {
@@ -100,6 +106,7 @@ struct FeedRecruitView: View {
                 }
             } message: {
                 Text("등록하시겠습니까?")
+
             }
             
             

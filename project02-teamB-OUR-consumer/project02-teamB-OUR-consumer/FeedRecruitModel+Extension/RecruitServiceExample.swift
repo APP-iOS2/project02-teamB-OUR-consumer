@@ -44,7 +44,9 @@ struct RecruitServiceExample: View {
                 
                 
                 Button {
-                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, createdAt: 20230803, postImagePath: []))
+
+                    model.addDocument(data: .init(creator: "WJ", content: "Test", location: "korean Seoul", privateSetting: true, reportCount: 0, postImagePath: []))
+
                 } label: {
                     Text("ADD")
                 }
@@ -133,7 +135,7 @@ struct RecruitServiceExample: View {
                                 print("\(index.id ?? "")")
 
                             } label: {
-                                Text("\(index.createdDate)")//
+                             
                                 Text("컨텐츠: \(index.content ?? "")")
 
                             }
