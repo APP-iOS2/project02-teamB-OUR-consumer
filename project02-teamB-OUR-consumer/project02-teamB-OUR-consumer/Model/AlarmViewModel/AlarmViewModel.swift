@@ -20,8 +20,8 @@ class AlarmViewModel: ObservableObject{
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
-    var personalIds: [String] = []
     var publicIds: [String] = []
+    var personalIds: [String] = []
     
     init(dependency: AlarmFireService = AlarmFireService()){
         self.service = dependency
@@ -48,7 +48,6 @@ class AlarmViewModel: ObservableObject{
     #endif
     
     
-    
     func fetchNotificationItem(limit: Int = 10) {
         service.read { [weak self] ids, notifiationDTO in
             guard let self = self else { return }
@@ -59,14 +58,12 @@ class AlarmViewModel: ObservableObject{
             publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
 //            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
 //            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
+            self.update(isReads: self.publicIds)
         }
     }
     
-//    func removeRows(at offsets: IndexSet) {
-//        personalNotiItem.remove(atOffsets: offsets)
-//    }
         
-    func delete(notification set: IndexSet?, access: NotificationType.Access){
+    func delete(notification set: IndexSet?, access: NotificationType.Access, key: ASection){
         if let set{
             var willDeleteIds: [ID] = []
             
@@ -84,7 +81,21 @@ class AlarmViewModel: ObservableObject{
             }
             
             service.delete(ids: willDeleteIds, completion: { string in
-                print("Delete Success \(string)")
+                switch access {
+                case .public:
+                    // 여기에서 메모리 에 있는 데이터 삭제
+                    var values = self.publicNotiItem[key]!
+                    values.remove(atOffsets: set)
+                    self.publicNotiItem[key] = values
+
+                case .personal:
+                    // 여기에서 메모리 에 있는 데이터 삭제
+                    var values = self.personalNotiItem[key]!
+                    values.remove(atOffsets: set)
+                    self.personalNotiItem[key] = values
+                case .none:
+                    return
+                }
             })
         }else{
             switch access {
@@ -109,15 +120,26 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-    func update(isRead item: NotificationItem){
-        
+    // notification의 id로 탐색을 할것인가....
+    func update(isRead id: ID){
+        service.update(id: id, completion: { err in
+            if err != nil{
+                print("failed update")
+            }else{
+                print("success update")
+            }
+        })
     }
     
-    
-    func remove(items: NotificationItem){
-        //FireBase remove Logic
+    func update(isReads ids: [ID]){
+        service.update(ids: ids, completion: { err in
+            if err != nil{
+                print("failed update")
+            }else{
+                print("success update")
+            }
+        })
     }
-    
     
 
     private func getUser(user id: ID) -> User?{

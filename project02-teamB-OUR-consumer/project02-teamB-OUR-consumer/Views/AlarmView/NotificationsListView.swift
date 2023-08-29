@@ -33,6 +33,14 @@ struct NotificationsListView: View {
         .listStyle(PlainListStyle()) // 하얀색 배경
     }
     
+    
+    // A - date
+    // aitem 0
+    // aitem 1
+    // B - date
+    // bitem 0
+    // bitem 1
+    
     func makeListAlarmView(items: NotiItem) -> some View{
         ForEach(items.keys.sorted(by: >),
                 id: \.self)
@@ -44,7 +52,10 @@ struct NotificationsListView: View {
                     content:  {
                 ForEach(items[key]!, id: \.id) { notification in
                     NotificationRow(notification: notification)
-                }
+                }.onDelete(perform: { offset in
+                    // key
+                    viewModel.delete(notification: offset, access: access, key: key)
+                })
             })
         }
     }
