@@ -24,6 +24,7 @@ struct FeedRecruitView: View {
     @State var postImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
     @State var isAlert: Bool = false
+    @State var createdDate: Date = Date()
     @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: "")
     
     
@@ -64,7 +65,7 @@ struct FeedRecruitView: View {
                         isAlert = true
                         
                         guard let imageItem = selectedItem else {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: postImagePath)
+                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, createdAt: createdDate.toString(), postImagePath: postImagePath)
                             
                             self.newFeed = newFeed1
                             print(newFeed)
@@ -73,7 +74,7 @@ struct FeedRecruitView: View {
                         
                         Task {
                             try await  postImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
-                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, postImagePath: postImagePath)
+                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: postImagePath)
                             
                             self.newFeed = newFeed2
                             print("사진 있을경우 \(newFeed)")
