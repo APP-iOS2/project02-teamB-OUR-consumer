@@ -163,6 +163,6 @@ struct LoginSecondView: View {
 
 struct LoginSecondView_Previews: PreviewProvider {
     static var previews: some View {
-            LoginSecondView(viewModel: AuthViewModel())
+        LoginSecondView(viewModel: AuthViewModel())
     }
 }
