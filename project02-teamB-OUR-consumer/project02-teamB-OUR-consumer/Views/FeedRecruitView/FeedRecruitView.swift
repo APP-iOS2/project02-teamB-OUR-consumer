@@ -51,7 +51,7 @@ struct FeedRecruitView: View {
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
                     Button("취소") {
-                        //toolbarToogle.toggle()
+                        
                         dismiss()
                     }
                 }

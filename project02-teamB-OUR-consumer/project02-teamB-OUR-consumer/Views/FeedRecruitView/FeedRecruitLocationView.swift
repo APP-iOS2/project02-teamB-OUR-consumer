@@ -16,12 +16,13 @@ struct FeedRecruitLocationView: View {
             //현재 위치설정 버튼
             Button {
                 locationManager.requestLocation()
-                guard let location = locationManager.userLocation  else {
-                    print("여기가에러인가?")
-                    return }
+                guard let location = locationManager.userLocation else { return }
                 
-                  locationAddress = locationManager.convertLocationToAddress(location: location)
-
+                Task {
+                    
+                    try await  locationAddress = locationManager.convertLocationToAddress(location: location)
+                }
+                
             } label: {
                 Image(systemName: "location")
                 locationAddress.isEmpty ? Text("위치설정") : Text("\(locationAddress)")
