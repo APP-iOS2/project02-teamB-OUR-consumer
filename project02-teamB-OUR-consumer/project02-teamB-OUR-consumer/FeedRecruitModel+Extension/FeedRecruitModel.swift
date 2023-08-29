@@ -7,17 +7,21 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestoreSwift
 
-struct FeedRecruitModel {
+
+struct FeedRecruitModel: Codable, Identifiable {
     
-    var id: String = UUID().uuidString
-    var creator: String
-    var content: String
-    var location: String
-    var privateSetting: Bool
-    var reportCount: Int
+//    var id: String = UUID().uuidString
+    @DocumentID var id: String?
+    var creator: String?
+    var content: String?
+    var location: String?
+    var privateSetting: Bool?
+    var reportCount: Int?
     var createdAt: Double = Date().timeIntervalSince1970
-    var feedImagePath: String
+    var feedImagePath: String?
+
     
     var createdDate: String {
         let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)

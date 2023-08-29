@@ -16,6 +16,8 @@ struct StudyMeetingView: View {
         VStack(alignment: .leading) {
             Text("만남의 형태를 정해주세요.")
                 .font(.system(.title2))
+            // pointcolor: .background(Color(hex: “#FB3741”))
+            // .background(Color(hex: "#090580"))
             HStack {
                 Button {
                     print("Online")
