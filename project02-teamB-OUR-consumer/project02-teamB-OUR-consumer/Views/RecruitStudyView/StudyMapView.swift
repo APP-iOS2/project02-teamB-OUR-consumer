@@ -43,11 +43,9 @@ struct StudyMapView: View {
                         .foregroundColor(mainColor)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 10)
-//
+                    
                     HStack {
                         Text(sharedViewModel.selectedLocality)
-                       
                     }
                     .font(.system(size: 16, weight: .semibold))
                     
