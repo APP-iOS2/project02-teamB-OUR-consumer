@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyStudyView: View {
     @StateObject private var studyViewModel = StudyViewModel()
-    var studyArray: [Study]
+    var studyArray: [StudyDTO]
     
     var body: some View {
         NavigationStack {

@@ -13,7 +13,7 @@ struct StudyListItemView: View {
     
     @State var addBookmark: Bool = false
     
-    var study: Study
+    var study: StudyDTO
     
     var body: some View {
         HStack(spacing: 20) {
@@ -92,6 +92,6 @@ struct StudyListItemView: View {
 
 struct StudyListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyListItemView(study: Study( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5, createdAt: "2023.08.28"))
+        StudyListItemView(study: StudyDTO( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5, createdAt: "2023.08.28"))
     }
 }

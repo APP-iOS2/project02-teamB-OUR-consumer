@@ -6,11 +6,21 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
+struct ReportDTO: Codable {
+    @DocumentID var id: String?
+    // 신고 사유
+    let reason: String
+    // 신고한 사람
+    let userId: String
+}
 
 // DB에 studygroup에 들어갈 study 전체 내용 (올라가고, 받고)
-struct Study: Identifiable, Codable {
+struct StudyDTO: Identifiable, Codable {
     // study Id => 추후 documentId로 바꿀 수도 있음
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
     // study 배경 Image
     var imageString: String?
     // study를 만든 사람의 id
@@ -32,6 +42,8 @@ struct Study: Identifiable, Codable {
     var totalMemberCount: Int
     // timestamp => coable 안되어서 string으로 줘야 함
     var createdAt: String
+    var reportReason: [String]?
+    var reportUserId: [String]?
     
     enum CodingKeys: String, CodingKey {
         case imageString = "imageString"
@@ -47,16 +59,37 @@ struct Study: Identifiable, Codable {
         case currentMemberIds = "currentMemberIds"
         case totalMemberCount = "totalMemberCount"
         case createdAt = "createdAt"
+        case reportReason = "reportReason"
+        case reportUserId = "reportUserId"
+    }
+    
+    func toStudyDetail(creator: User, currentMembers: [User], comments: [StudyComment]) -> StudyDetail {
+            return StudyDetail(
+                id: self.id ?? UUID().uuidString,
+                imageString: self.imageString,
+                creator: creator,
+                title: self.title,
+                description: self.description,
+                studyDate: self.studyDate,
+                deadline: self.deadline,
+                locationName: self.locationName,
+                locationCoordinate: self.locationCoordinate,
+                isOnline: self.isOnline,
+                linkString: self.linkString,
+                currentMembers: currentMembers,
+                totalMemberCount: self.totalMemberCount,
+                comments: comments
+            )
+        }
+}
+
+extension StudyDTO {
+    static var defaultStudy: StudyDTO {
+        return StudyDTO(creatorId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2", title: "test", description: "testetstseteststsets", studyDate: "2023년 9월 30일", deadline: "2023년 8월 30일", isOnline: false, currentMemberIds: [], totalMemberCount: 4, createdAt: "2023년 8월 23일 오전 12시 0분 0초 UTC+9")
     }
 }
 
-extension Study {
-    static var defaultStudy: Study {
-        return Study(creatorId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2", title: "test", description: "testetstseteststsets", studyDate: "2023년 9월 30일", deadline: "2023년 8월 30일", isOnline: false, currentMemberIds: [], totalMemberCount: 4, createdAt: "2023년 8월 23일 오전 12시 0분 0초 UTC+9")
-    }
-}
-
-struct StudyGroupComment: Identifiable, Codable {
+struct StucyCommentDTO: Identifiable, Codable {
     var id: String = UUID().uuidString
     var userId: String
     var content: String
@@ -67,4 +100,9 @@ struct StudyGroupComment: Identifiable, Codable {
         case content = "content"
         case createdAt = "createdAt"
     }
+}
+
+
+struct StudyReport {
+    
 }
