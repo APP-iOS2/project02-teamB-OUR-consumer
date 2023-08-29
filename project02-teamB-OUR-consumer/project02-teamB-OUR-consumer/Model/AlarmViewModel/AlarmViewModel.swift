@@ -262,6 +262,13 @@ struct DummyModel{
                             type: "studyReply",
                             content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
                             isRead: false,
-                            createdDate: "2023-06-21 13:50:39".toDate())]
+                            createdDate: "2023-06-21 13:50:39".toDate()),
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "studyReply",
+                            content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
+                            isRead: false,
+                            createdDate: "2022-06-21 13:50:39".toDate())
+        ]
     }
 }

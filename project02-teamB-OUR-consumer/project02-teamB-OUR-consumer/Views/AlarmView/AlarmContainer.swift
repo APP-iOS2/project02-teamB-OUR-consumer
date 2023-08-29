@@ -55,16 +55,18 @@ struct AlarmContainer: View {
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.personalNotiItem = [:]
-                    viewModel.publicNotiItem = [:]
-                } label: {
-                    Text("전체 삭제")
-                }
-            }
-        }
+        
+        // 전체 삭제 기능 제거
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    viewModel.personalNotiItem = [:]
+//                    viewModel.publicNotiItem = [:]
+//                } label: {
+//                    Text("전체 삭제")
+//                }
+//            }
+//        }
     }
 }
 
