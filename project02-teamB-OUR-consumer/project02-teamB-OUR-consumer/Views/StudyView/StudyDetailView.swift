@@ -124,7 +124,7 @@ struct StudyDetailView: View {
                                             .frame(width: 180, height: 40)
                                             .foregroundColor(.white)
                                             .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                            .cornerRadius(20)
+                                            .cornerRadius(5)
                                     }
                                     Button {
                                         print("")
@@ -134,7 +134,7 @@ struct StudyDetailView: View {
                                             .frame(width: 180, height: 40)
                                             .foregroundColor(.black)
                                             .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                            .cornerRadius(20)
+                                            .cornerRadius(5)
                                     }
                                     
                                 } else {
@@ -143,22 +143,18 @@ struct StudyDetailView: View {
                                     } label: {
                                         Text("참석")
                                             .bold()
-                                            .frame(width: 180, height: 40)
+                                            .frame(width: 290, height: 40)
                                             .foregroundColor(.white)
                                             .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                            .cornerRadius(20)
+                                            .cornerRadius(5)
                                     }
                                     Button {
                                         isSavedBookmark.toggle()
                                     } label: {
-                                        Label("북마크", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
-                                            .bold()
-                                            .frame(width: 180, height: 40)
+                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
+                                            .font(.system(size: 30))
+                                            .frame(width: 60, height: 40)
                                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
-                                            .cornerRadius(20)
-                                            .overlay(RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255), lineWidth: 2)
-                                                  )
                                     }
                                 }
                             }
