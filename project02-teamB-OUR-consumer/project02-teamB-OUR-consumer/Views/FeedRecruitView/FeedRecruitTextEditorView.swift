@@ -17,6 +17,7 @@ struct FeedRecruitTextEditorView: View {
                 .frame(minHeight:350, maxHeight:350)
                 .buttonBorderShape(.roundedRectangle)
                 .border(Color.secondary)
+                
             
             if content.isEmpty {
                 Text(placeholder)

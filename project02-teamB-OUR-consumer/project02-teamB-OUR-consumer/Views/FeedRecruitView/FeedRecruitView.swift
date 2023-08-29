@@ -23,6 +23,7 @@ struct FeedRecruitView: View {
     @State var selectedImages: [UIImage] = []
     @State var feedImagePath: String = ""
     @State var selectedItem: PhotosPickerItem? = nil
+    @State var isAlert: Bool = false
     
     
     
@@ -43,9 +44,12 @@ struct FeedRecruitView: View {
                 
                 //content 글 작성뷰
                 FeedRecruitTextEditorView(content: $content)
+                    .padding(.horizontal, 20.0)
+                    
                 
                 //사진추가 View
                 FeedRecruitPhotoAddView(selectedItem: $selectedItem, selectedImages: $selectedImages)
+                    .padding(.horizontal, 20.0)
                 
             }
             .toolbar {
@@ -57,30 +61,31 @@ struct FeedRecruitView: View {
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
                     Button("등록") {
-                        
+                        isAlert = true
                         guard let imageItem = selectedItem else {
                             let newFeed = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
                             feedStoreViewModel.addFeed(newFeed)
+//                            dismiss()
                             return
                         }
                         
-                        feedStoreViewModel.returnImagePath(item: imageItem) { urlString in
-                            guard let imageString = urlString else {return}
-                            
-                            feedImagePath = imageString
-                            
+                        Task {
+                            try await  feedImagePath = feedStoreViewModel.returnImagePath(item: imageItem)
                             let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0, feedImagePath: feedImagePath)
                             
-                            feedStoreViewModel.addFeed(newFeed2)
+                            //feedStoreViewModel.addFeed(newFeed2)
                         }
-                        dismiss()
+                        
+//                        dismiss()
                     }
                     .disabled(content.isEmpty)
                 }
                 
             }
-            
+            .navigationTitle("피드 등록")
+            .navigationBarTitleDisplayMode(.inline)
+       
         }
     }
 }
