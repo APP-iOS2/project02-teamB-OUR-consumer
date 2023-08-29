@@ -194,7 +194,7 @@ struct StudyDetailView: View {
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $isShowingLocationSheet) {
-            LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+            LocationSheetView(study: study, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 37.5718, longitude: study.locationCoordinate?[1] ?? 126.9769), isShowingLocationSheet: $isShowingLocationSheet)
                 .presentationDetents([.medium])
         }
     }
