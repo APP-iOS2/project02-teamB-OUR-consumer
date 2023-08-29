@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 // settingView 는 userDefaults 로 처리?
 
 struct SettingView: View {
     @State var notificationsEnabled: Bool = false
     @State var privacySetting: Bool = false // 스프레드 시트 보기
+    @State var isLogoutAlert: Bool = false
+    
+    @State var isLoggedIn: Bool = true
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
@@ -103,6 +107,11 @@ struct SettingView: View {
                 }
                 .padding()
             }
+            .alert(isPresented: $isLogoutAlert) {
+                Alert(title: Text("로그아웃 하시겠습니까?"), primaryButton: .destructive(Text("확인"), action: {
+                    logoutAction()
+                }), secondaryButton: .cancel(Text("취소")))
+            }
             .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
@@ -112,6 +121,21 @@ struct SettingView: View {
                 Image(systemName: "chevron.backward")
             })
         }
+        .background(
+            NavigationLink(destination: LoginView(), isActive: $isLoggedIn, label: {
+                Text("")
+                    .hidden()
+            })
+        )
+    }
+    
+    private func logoutAction() {
+        do {
+            try Auth.auth().signOut()
+            isLoggedIn = false
+        } catch {
+            print("-----로그아웃에 실패하였습니다-----")
+        }
     }
 }
 
@@ -120,3 +144,4 @@ struct SettingView_Previews: PreviewProvider {
         SettingView()
     }
 }
+

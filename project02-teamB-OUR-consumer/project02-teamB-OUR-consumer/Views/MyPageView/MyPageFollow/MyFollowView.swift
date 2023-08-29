@@ -19,9 +19,9 @@ struct MyFollowView: View {
                 Section {
                     switch currentTab {
                     case 0:
-                        MyFollowerView()
+                        MyFollowerView(userViewModel: userViewModel)
                     case 1:
-                        MyFollowingView()
+                        MyFollowingView(userViewModel: userViewModel)
                     default:
                         EmptyView()
                     }

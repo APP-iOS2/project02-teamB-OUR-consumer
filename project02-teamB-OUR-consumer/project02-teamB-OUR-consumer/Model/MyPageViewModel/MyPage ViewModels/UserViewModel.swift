@@ -77,4 +77,32 @@ extension UserViewModel {
             ])
         }
     }
+    
+    func fetchFollowDetails(userId: String, follow: FollowType, completion: @escaping ([User]) -> Void) {
+           db.collection("users").document(userId).getDocument { (document, error) in
+               if let data = document?.data(), let followingIds = data[follow.rawValue] as? [String] {
+                   self.fetchUsersDetails(userIds: followingIds, completion: completion)
+               } else {
+                   completion([])
+               }
+           }
+       }
+    
+    private func fetchUsersDetails(userIds: [String], completion: @escaping ([User]) -> Void) {
+        db.collection("users").whereField(FieldPath.documentID(), in: userIds).getDocuments { (querySnapshot, error) in
+            if let documents = querySnapshot?.documents {
+                let users = documents.compactMap { document -> User? in
+                    try? document.data(as: User.self)
+                }
+                completion(users)
+            } else {
+                completion([])
+            }
+        }
+    }
+}
+
+enum FollowType: String {
+    case following
+    case follower
 }
