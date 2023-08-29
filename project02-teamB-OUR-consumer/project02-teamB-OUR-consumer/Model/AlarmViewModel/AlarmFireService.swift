@@ -63,18 +63,16 @@ class AlarmFireService {
     /// - Parameters:
     ///   - path: notification path
     ///   - completion: 모델 가져와서 뷰에 전달 역할
-    func read(path: String = "notification", completion: @escaping ([String],[NotificationDTO]) -> ()) {
+    func read(path: String = "notification", completion: @escaping ([NotificationDTO]) -> ()) {
         db.collection("\(path)").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                let documentsID = querySnapshot!.documents.map{ $0.documentID }
-                
                 let notifications = querySnapshot!.documents.compactMap{
                     let data: [String: Any] = $0.data()
                     return data.decodeDTO()
                 }
-                completion(documentsID,notifications)
+                completion(notifications)
             }
         }
     }

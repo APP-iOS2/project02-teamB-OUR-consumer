@@ -15,7 +15,7 @@ typealias NotiItem = [ASection : [NotificationItem]]
 class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
-    private var myPageViewModel: MypageViewModel
+    private var userViewModel: UserViewModel
     
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
@@ -26,12 +26,13 @@ class AlarmViewModel: ObservableObject{
     
     struct Dependency{
         let alarmFireSerivce: AlarmFireService
-        let mypageViewModel: MypageViewModel
+        let userViewModel: UserViewModel
+
     }
     
     init(dependency: Dependency){
         self.service = dependency.alarmFireSerivce
-        self.myPageViewModel = dependency.mypageViewModel
+        self.userViewModel = dependency.userViewModel
     }
  
     #if DEBUG
@@ -74,7 +75,7 @@ class AlarmViewModel: ObservableObject{
 //        personalNotiItem.remove(atOffsets: offsets)
 //    }
         
-    func delete(notification set: IndexSet?, access: NotificationType.Access){
+    func delete(notification set: IndexSet?, access: NotificationType.Access, key: ASection){
         if let set{
             var willDeleteIds: [ID] = []
             
@@ -113,8 +114,6 @@ class AlarmViewModel: ObservableObject{
         //FireBase remove Logic
     }
     
-    
-
     private var cancelable = Set<AnyCancellable>()
 
     private func getUser(user id: ID) -> User?{

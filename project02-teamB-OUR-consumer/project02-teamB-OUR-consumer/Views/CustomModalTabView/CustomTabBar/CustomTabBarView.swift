@@ -10,6 +10,11 @@ import SwiftUI
 struct CustomTabBarView: View {
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
+
+    
+    @StateObject var UserViewModel: UserViewModel = UserViewModel()
+    
+
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
     let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
     
