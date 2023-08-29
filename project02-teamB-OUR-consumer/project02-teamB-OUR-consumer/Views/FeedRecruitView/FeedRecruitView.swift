@@ -86,6 +86,7 @@ struct FeedRecruitView: View {
                 }
                 
             }
+
             .navigationTitle("피드 등록")
             .navigationBarTitleDisplayMode(.inline)
             .alert("피드", isPresented: $isAlert) {
@@ -102,6 +103,7 @@ struct FeedRecruitView: View {
                 }
             } message: {
                 Text("등록하시겠습니까?")
+
             }
             
             
