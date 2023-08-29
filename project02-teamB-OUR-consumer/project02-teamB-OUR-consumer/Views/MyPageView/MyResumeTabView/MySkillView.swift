@@ -25,7 +25,7 @@ struct MySkillCellView: View {
                 //MARK: 스킬 편집
                 if isMyProfile {
                     NavigationLink {
-                        MySkillEditView(resumeViewModel: resumeViewModel, index: index, isShowingDeleteButton: true)
+                        MySkillEditView(resumeViewModel: resumeViewModel, index: index, isEditing: true)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -57,13 +57,10 @@ struct MySkillView: View {
                         //MARK: 스킬 추가
                         if isMyProfile {
                             NavigationLink {
-                                MySkillEditView(resumeViewModel: resumeViewModel, index: resumeViewModel.resume?.skills.count ?? 0,  isShowingDeleteButton: false)
+                                //MARK: 시간이 된다면...리팩토링^^
+                                MySkillEditView(resumeViewModel: resumeViewModel, index: 0, isEditing: false)
                             } label: {
-                                Button {
-//                                    resumeViewModel.resume?.skills.append(Skill(skillName: ""))
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
+                                Image(systemName: "plus")
                             }
                         }
                     }

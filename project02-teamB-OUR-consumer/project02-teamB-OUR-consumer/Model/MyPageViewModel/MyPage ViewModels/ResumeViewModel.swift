@@ -33,12 +33,23 @@ class ResumeViewModel: ObservableObject {
     }
     
     // Update
-    func updateResume(resume: Resume) {
-        if let resumeId = resume.id {
-            do {
-                try db.collection("resumes").document(resumeId).setData(from: resume)
-            } catch let error {
-                print("Error updating resume: \(error)")
+    func updateResume(resume: Resume? = nil) {
+        if let resume = resume {
+            if let resumeId = resume.id {
+                do {
+                    try db.collection("resumes").document(resumeId).setData(from: resume)
+                } catch let error {
+                    print("Error updating resume: \(error)")
+                }
+            }
+        } else {
+            if let resume = self.resume {
+                do {
+                    let resumeId = resume.id!
+                    try db.collection("resumes").document(resumeId).setData(from: resume)
+                } catch let error {
+                    print("Error updating resume: \(error)")
+                }
             }
         }
     }

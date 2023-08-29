@@ -47,7 +47,7 @@ struct MyMain: View {
                             MyMainTabBar(currentTab: $currentTab, namespace: Namespace(), tabBarOptions: ["이력서", "게시물", "스터디"])
                         }
                     }
-                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    .gesture(DragGesture(minimumDistance: 50, coordinateSpace: .local)
                         .onEnded({ value in
                             if value.translation.width < -50 {
                                 leftSwipeAction()

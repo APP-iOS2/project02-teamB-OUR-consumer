@@ -27,9 +27,7 @@ struct MySkillEditView: View {
     @State var isShowingAlert: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    var isShowingDeleteButton: Bool
-    
-    
+    var isEditing: Bool
     
     var body: some View {
         ScrollView {
@@ -91,7 +89,7 @@ struct MySkillEditView: View {
                     }
                     
                     //MARK: 편집일 때 삭제하기 뜨도록
-                    if isShowingDeleteButton {
+                    if isEditing {
                         HStack{
                             Spacer()
                             Button {
@@ -105,7 +103,7 @@ struct MySkillEditView: View {
                             .alert(isPresented: $isDeleteItemAlert) {
                                 Alert(title: Text("삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제"), action: {
                                     resumeViewModel.resume?.skills.remove(at: index)
-//                                    saveRemovedSkillChanges()
+                                    resumeViewModel.updateResume()
                                     dismiss()
                                 }), secondaryButton: .cancel(Text("취소")))
                             }
@@ -128,8 +126,14 @@ struct MySkillEditView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    saveSkillChanges()
-                    dismiss()
+                    if isEditing {
+                        saveSkillChanges()
+                        dismiss()
+                    } else {
+                        resumeViewModel.resume?.skills.append(Skill(skillName: skillName, description: description))
+                        resumeViewModel.updateResume()
+                        dismiss()
+                    }
                 } label: {
                     Text("완료")
                         .font(.system(size: 14))
@@ -142,9 +146,11 @@ struct MySkillEditView: View {
             }
         }
         .onAppear {
-            if let skill = resumeViewModel.resume?.skills[index] {
-                skillName = skill.skillName
-                description = skill.description ?? ""
+            if isEditing {
+                if let skill = resumeViewModel.resume?.skills[index] {
+                    skillName = skill.skillName
+                    description = skill.description ?? ""
+                }
             }
         }
     }
@@ -156,19 +162,12 @@ struct MySkillEditView: View {
             resumeViewModel.updateResume(resume: updatedResume)
         }
     }
-    
-//    func saveRemovedSkillChanges() {
-//        if var updatedResume = resumeViewModel.resume {
-//            updatedResume.skills.remove(at: index)
-//            resumeViewModel.updateResume(resume: updatedResume)
-//        }
-//    }
 }
 
 struct MySkillEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MySkillEditView(resumeViewModel: ResumeViewModel(), index: 0, isShowingDeleteButton: false)
+            MySkillEditView(resumeViewModel: ResumeViewModel(), index: 0, isEditing: false)
         }
     }
 }

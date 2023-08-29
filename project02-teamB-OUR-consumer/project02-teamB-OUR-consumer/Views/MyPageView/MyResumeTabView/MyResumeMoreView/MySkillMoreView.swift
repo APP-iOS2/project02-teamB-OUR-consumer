@@ -39,7 +39,7 @@ struct MySkillMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MySkillEditView(resumeViewModel: resumeViewModel, index: 0,  isShowingDeleteButton: false)
+                        MySkillEditView(resumeViewModel: resumeViewModel, index: 0,  isEditing: false)
                     } label: {
                         Image(systemName: "plus")
                     }
