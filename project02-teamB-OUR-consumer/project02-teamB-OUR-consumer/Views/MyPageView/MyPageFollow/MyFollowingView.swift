@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct MyFollowingView: View {
+    @ObservedObject var userViewModel: UserViewModel
+    
+    @State var followers: [User] = []
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        ScrollView {
+            List(followers) { user in
+                Text("\(user.name)")
+            }
+        }
+        .onAppear {
+            guard let userId = userViewModel.user?.id else { return print("옵셔널 못품 FOllowingView") }
+            
+            userViewModel.fetchFollowDetails(userId: userId, follow: .follower) { users in
+                print("users \(users)")
+                self.followers = users
+            }
+        }
     }
 }
 
 struct MyFollowingView_Previews: PreviewProvider {
     static var previews: some View {
-        MyFollowingView()
+        MyFollowingView(userViewModel: UserViewModel())
     }
 }
