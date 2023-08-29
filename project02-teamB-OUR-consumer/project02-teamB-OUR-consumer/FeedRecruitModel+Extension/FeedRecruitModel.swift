@@ -7,10 +7,11 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestoreSwift
 
 struct FeedRecruitModel {
     
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
     var creator: String
     var content: String
     var location: String
@@ -29,7 +30,6 @@ struct FeedRecruitModel {
         
         return dateFormatter.string(from: dateCreatedAt)
     }
-
 }
 
 
