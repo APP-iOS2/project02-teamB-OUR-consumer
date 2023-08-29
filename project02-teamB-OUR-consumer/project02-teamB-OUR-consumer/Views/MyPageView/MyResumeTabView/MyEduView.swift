@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct MyEduCellView: View {
+    @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
     var education: Education
-        
+    var index: Int
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             HStack {
@@ -22,7 +24,7 @@ struct MyEduCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyEduEditView(isShowingDeleteButton: true)
+                        MyEduEditView(resumeViewModel: resumeViewModel, isEditing: isMyProfile, index: 0)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -41,9 +43,12 @@ struct MyEduCellView: View {
 }
 
 struct MyEduView: View {
-    var myEdu: [Education]
+    @ObservedObject var resumeViewModel: ResumeViewModel
+    var myEdus: [Education] {
+        resumeViewModel.resume?.education ?? []
+    }
     @Binding var isMyProfile: Bool
-
+    @State var isDeleteItemAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -57,7 +62,7 @@ struct MyEduView: View {
                     
                     if isMyProfile {
                         NavigationLink {
-                            MyEduEditView(isShowingDeleteButton: false)
+                            MyEduEditView(resumeViewModel: resumeViewModel, isEditing: false, index: 0)
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -70,9 +75,9 @@ struct MyEduView: View {
             .foregroundColor(.black)
             VStack {
                 // 최대 3개 보이도록
-                ForEach(0..<myEdu.count, id: \.self) { index in
+                ForEach(0..<myEdus.count, id: \.self) { index in
                     if index < 3 {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: myEdu[index])
+                        MyEduCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, education: myEdus[index], index: 0)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -80,9 +85,9 @@ struct MyEduView: View {
                 .padding(.horizontal)
                 
                 // 교육 3개 넘으면 더보기
-                if myEdu.count > 3 {
+                if myEdus.count > 3 {
                     NavigationLink {
-                        MyEduMoreView(myEdu: myEdu, isMyProfile: $isMyProfile)
+                        MyEduMoreView(resumeViewModel: resumeViewModel, myEdu: myEdus, isMyProfile: $isMyProfile)
                     } label: {
                         Text("더보기")
                             .fontWeight(.semibold)
@@ -99,6 +104,6 @@ struct MyEduView: View {
 
 struct MyEduView_Previews: PreviewProvider {
     static var previews: some View {
-        MyEduView(myEdu: [], isMyProfile: .constant(true))
+        MyEduView(resumeViewModel: ResumeViewModel(), isMyProfile: .constant(true))
     }
 }

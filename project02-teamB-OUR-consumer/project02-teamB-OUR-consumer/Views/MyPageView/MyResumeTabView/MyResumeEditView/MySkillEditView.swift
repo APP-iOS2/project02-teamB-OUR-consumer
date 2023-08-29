@@ -19,7 +19,6 @@ struct MySkillEditView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @ObservedObject var resumeViewModel: ResumeViewModel
-    var index: Int
     
     @State var skillName: String = ""
     @State var description: String = ""
@@ -28,6 +27,7 @@ struct MySkillEditView: View {
     @State var isDeleteItemAlert: Bool = false
     
     var isEditing: Bool
+    var index: Int
     
     var body: some View {
         ScrollView {
@@ -167,7 +167,7 @@ struct MySkillEditView: View {
 struct MySkillEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MySkillEditView(resumeViewModel: ResumeViewModel(), index: 0, isEditing: false)
+            MySkillEditView(resumeViewModel: ResumeViewModel(), isEditing: false, index: 0)
         }
     }
 }

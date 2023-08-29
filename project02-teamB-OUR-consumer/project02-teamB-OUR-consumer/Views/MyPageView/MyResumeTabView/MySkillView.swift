@@ -25,7 +25,7 @@ struct MySkillCellView: View {
                 //MARK: 스킬 편집
                 if isMyProfile {
                     NavigationLink {
-                        MySkillEditView(resumeViewModel: resumeViewModel, index: index, isEditing: true)
+                        MySkillEditView(resumeViewModel: resumeViewModel, isEditing: true, index: index)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -58,7 +58,7 @@ struct MySkillView: View {
                         if isMyProfile {
                             NavigationLink {
                                 //MARK: 시간이 된다면...리팩토링^^
-                                MySkillEditView(resumeViewModel: resumeViewModel, index: 0, isEditing: false)
+                                MySkillEditView(resumeViewModel: resumeViewModel, isEditing: false, index: 0)
                             } label: {
                                 Image(systemName: "plus")
                             }

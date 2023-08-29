@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MyWorkCellView: View {
     @Binding var isMyProfile: Bool
-    
     @ObservedObject var resumeViewModel: ResumeViewModel
 
     var work: WorkExperience
@@ -33,7 +32,7 @@ struct MyWorkCellView: View {
                   
                     if isMyProfile {
                         NavigationLink {
-                            MyWorkEditView(resumeViewModel: resumeViewModel, isShowingDeleteButton: true, index: index)
+                            MyWorkEditView(resumeViewModel: resumeViewModel, isEditing: true, index: index)
                             
                         } label: {
                             Image(systemName: "pencil")
@@ -72,15 +71,15 @@ struct MyWorkView: View {
                     
                     Spacer()
                     
-//                    if isMyProfile {
-//                        NavigationLink {
-//                            MyWorkEditView(resumeViewModel: resumeViewModel, isShowingDeleteButton: false)
-//                        } label: {
-//                            Image(systemName: "plus")
-//                        }
-//
-//                    }
-//
+                    if isMyProfile {
+                        NavigationLink {
+                            MyWorkEditView(resumeViewModel: resumeViewModel, isEditing: false, index: 0)
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+
+                    }
+
   
                 }
                 .padding(.vertical, 5)

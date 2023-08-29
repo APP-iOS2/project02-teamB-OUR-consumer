@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyEduMoreView: View {
+    @ObservedObject var resumeViewModel: ResumeViewModel
     var myEdu: [Education]
     @Binding var isMyProfile: Bool
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -17,7 +18,7 @@ struct MyEduMoreView: View {
             ScrollView {
                 ForEach(0..<myEdu.count, id: \.self) { index in
                     VStack {
-                        MyEduCellView(isMyProfile: $isMyProfile, education: myEdu[index])
+                        MyEduCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, education: myEdu[index], index: index)
                             .padding(.vertical, 8)
                         Divider()
                     }
@@ -38,7 +39,7 @@ struct MyEduMoreView: View {
             if isMyProfile {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        MyEduEditView(isShowingDeleteButton: false)
+                        MyEduEditView(resumeViewModel: resumeViewModel, isEditing: isMyProfile, index: 0)
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -51,7 +52,7 @@ struct MyEduMoreView: View {
 struct MyEduMoreView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyEduMoreView(myEdu: [], isMyProfile: .constant(true))
+            MyEduMoreView(resumeViewModel: ResumeViewModel(), myEdu: [], isMyProfile: .constant(true))
         }
     }
 }
