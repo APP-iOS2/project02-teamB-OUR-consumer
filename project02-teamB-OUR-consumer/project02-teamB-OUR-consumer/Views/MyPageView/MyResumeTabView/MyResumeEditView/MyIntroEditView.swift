@@ -61,7 +61,7 @@ struct MyIntroEditView: View {
             }
             .onAppear {
                 if let resume = resumeViewModel.resume {
-                    introduction = resume.introduction ?? "자기소개를 입력하세요"
+                    introduction = resume.introduction ?? ""
                 }
             }
         }
