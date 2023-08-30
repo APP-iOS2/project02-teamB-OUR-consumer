@@ -13,14 +13,16 @@ class FeedStore: ObservableObject, Identifiable {
     var numberOfComments: Int
     var numberOfLike: Int
     var numberOfRepost: Int
+    var postImageString: String
     var content: String
     
-    init(id: UUID, postId: String, numberOfComments: Int, numberOfLike: Int, numberOfRepost: Int, content: String) {
+    init(id: UUID, postId: String, numberOfComments: Int, numberOfLike: Int, numberOfRepost: Int, postImageString: String, content: String) {
         self.id = id
         self.postId = postId
         self.numberOfComments = numberOfComments
         self.numberOfLike = numberOfLike
         self.numberOfRepost = numberOfRepost
+        self.postImageString = postImageString
         self.content = content
     }
     

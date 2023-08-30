@@ -8,36 +8,86 @@
 import SwiftUI
 
 struct FeedView: View {
+    @ObservedObject var postViewModel: PostViewModel = PostViewModel()
     
-    @ObservedObject var postData: PostData = PostData()
     @State private var isShowingSheet: Bool = false
     @State private var isShowingPostModifySheet: Bool = false
+    @State private var isScrapFeed: Bool = false
+    @State private var isShowingModifyDetailView: Bool = false
+    
     var body: some View {
-        ForEach(postData.postStore) { post in
-            VStack {
-                HStack {
-                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
-                    Button {
-                        isShowingPostModifySheet.toggle()
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .padding(2)
+        VStack {
+            ForEach(postViewModel.posts) { post in
+                VStack {
+                    HStack {
+                        PostUserView(post: post, isShowingSheet: $isShowingSheet)
+//                        if post.postId == userId {
+//                            Button {
+//                                isShowingPostModifySheet.toggle()
+//                            } label: {
+//                                Image(systemName: "ellipsis")
+//                                    .padding(2)
+//                            }
+//                            .foregroundColor(.gray)
+//                            .navigationDestination(isPresented: $isShowingModifyDetailView) {
+//                                PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
+//                            }
+//                        }
                     }
-                    .foregroundColor(.gray)
+                    PostView(post: post, postViewModel: postViewModel)
 
-                }
-                PostView(post: post)
-                PostButtonView(post: post, postData: postData)
-                Divider()
-                    .frame(height: 4)
-                    .overlay((Color("FeedViewDividerColor")))
+              
+                    PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
                     
-            }
-            .padding()
-            .sheet(isPresented: $isShowingPostModifySheet) {
-                PostModifyView(isShowingPostModifySheet: $isShowingPostModifySheet)
+                    Divider()
+                        .frame(height: 4)
+                        .overlay((Color("FeedViewDividerColor")))
+                }
             }
         }
+        .onAppear{
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+        }
+        .refreshable {
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+        }
+        
+        //예전 뷰
+        //        ForEach(postData.postStore) { post in
+        //            VStack {
+        //                HStack {
+        //                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
+        //                    //임시로 넣은 이승준계정 접속 일때만 수정 삭제 가능하게
+        //                    if post.postId == userId {
+        //                        Button {
+        //                            isShowingPostModifySheet.toggle()
+        //                        } label: {
+        //                            Image(systemName: "ellipsis")
+        //                                .padding(2)
+        //                        }
+        //                        .foregroundColor(.gray)
+        //                        // 중복으로 3개 나 나오니까 로그인한 아이디랑 게시물 아이디랑 같을때만 버튼 사용하게
+        //                        .navigationDestination(isPresented: $isShowingModifyDetailView) {
+        //                            PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
+        //                        }
+        //                    }
+        //                }
+        //                PostView(post: post)
+        //
+        //                PostButtonView(post: post, postData: postData, isScrapFeed: $isScrapFeed)
+        //
+        //                Divider()
+        //                    .frame(height: 4)
+        //                    .overlay((Color("FeedViewDividerColor")))
+        //
+        //            }
+        //            .padding()
+        //            // 수정, 삭제 버튼 시트
+        //            .sheet(isPresented: $isShowingPostModifySheet) {
+        //                PostModifyView(post: post, isShowingPostModifySheet: $isShowingPostModifySheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+        //                    .presentationDetents([.height(220), .height(220)])
+        //            }
+        //        }
     }
 }
 

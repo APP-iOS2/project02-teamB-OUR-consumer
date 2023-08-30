@@ -16,6 +16,7 @@ struct TitleView: View {
     @State var searchCategory: [String] = ["게시글", "스터디", "사용자"]
     @State var selectedCategory: String = "게시글"
     @State var isFocus: Bool = false
+    @State private var isAlertSheet: Bool = false
     
     var body: some View {
         ZStack {
@@ -26,6 +27,17 @@ struct TitleView: View {
                     .frame(width: 100)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
                 Spacer()
+                Button {
+                    isAlertSheet.toggle()
+                } label: {
+                    Image(systemName: "megaphone")
+                        .font(.system(size: 25))
+                        .foregroundColor(Color(hex: 0x090580))
+                        .padding(.trailing, 25)
+                }
+                .sheet(isPresented: $isAlertSheet) {
+                    AdminAnnounceView(isAlertSheet: $isAlertSheet)
+                }
             }
             ZStack {
                 Rectangle()
@@ -59,7 +71,7 @@ struct TitleView: View {
                     } label: {
                         Text("확인")
                             .foregroundColor(.black)
-                            .padding(.trailing, 10)
+                            .padding(.trailing, 20)
                     }
                     
                     Spacer()
