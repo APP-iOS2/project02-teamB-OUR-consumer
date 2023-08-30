@@ -86,9 +86,6 @@ class AlarmViewModel: ObservableObject{
         service.read { [weak self] ids, notifiationDTO in
             guard let self = self else { return }
             
-            // 여기에 로깅을 추가
-            print("가져온 알람: \(notifiationDTO)")
-            
             let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
             
             personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
@@ -99,9 +96,6 @@ class AlarmViewModel: ObservableObject{
             
             // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
             self.hasUnreadData = !notifiationDTO.allSatisfy { $0.isRead }
-            
-            // 이 부분도 로깅으로 확인
-            print("hasUnreadData updated to: \(self.hasUnreadData)")
         }
     }
     

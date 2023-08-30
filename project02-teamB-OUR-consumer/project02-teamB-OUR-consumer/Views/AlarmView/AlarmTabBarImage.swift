@@ -29,10 +29,8 @@ struct AlarmTabBarImage: UIViewRepresentable{
         }
         
         if hasUnreadData {
-            print("뱃지 생김")  // 디버깅 코드
             uiView.addDot()
         }else {
-            print("뱃지 없어짐")  // 디버깅 코드
             uiView.removeDot()
         }
      }
