@@ -10,6 +10,7 @@ import CoreLocation
 
 struct StudyDetailView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @StateObject var viewModel: StudyViewModel
@@ -20,6 +21,7 @@ struct StudyDetailView: View {
     @State var isShowingReportSheet: Bool = false
     @Binding var isSavedBookmark: Bool
     @State var showAlert: Bool = false
+    @State private var showDeleteAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -153,7 +155,15 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        //TODO: 스터디 게시글 삭제
+                                        if isMyStudy() {
+                                            if viewModel.studyDetail.currentMembers.isEmpty {
+                                                showDeleteAlert = true
+                                            } else {
+                                                //TODO: 참석자가 한 명이라도 있다면 삭제할 수 없다는 알럿
+                                            }
+                                        } else {
+                                            //TODO: 게시글 작성자만 삭제할 수 있다는 알럿
+                                        }
                                     } label: {
                                         Text("삭제")
                                             .bold()
@@ -176,9 +186,9 @@ struct StudyDetailView: View {
                                     Button {
                                         isSavedBookmark.toggle()
                                         if isSavedBookmark {
-                                            viewModel.updateBookmark(studyID: study.id ?? "")
+                                            viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
                                         } else {
-                                            viewModel.removeBookmark(studyID: study.id ?? "")
+                                            viewModel.removeBookmark(studyID: viewModel.studyDetail.id)
                                         }
                                     } label: {
                                         Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
@@ -186,16 +196,24 @@ struct StudyDetailView: View {
                                             .frame(width: 60, height: 40)
                                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                                     }
-                                }
-                                Button {
-                                    //TODO: 참석 프로세스-디비저장-알럿
-                                } label: {
-                                    Text("참석")
+                                } else if viewModel.studyDetail.totalMemberCount == viewModel.studyDetail.currentMembers.count {
+                                    Text("모집마감")
                                         .bold()
                                         .frame(width: 290, height: 40)
-                                        .foregroundColor(.white)
-                                        .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                        .foregroundColor(.black)
+                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
                                         .cornerRadius(5)
+                                } else {
+                                    Button {
+                                        //TODO: 참석 프로세스-디비저장-알럿
+                                    } label: {
+                                        Text("참석")
+                                            .bold()
+                                            .frame(width: 290, height: 40)
+                                            .foregroundColor(.white)
+                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                            .cornerRadius(5)
+                                    }
                                 }
                                 Button {
                                     //TODO: isSaved 변수 업데이트
@@ -259,6 +277,14 @@ struct StudyDetailView: View {
                   message: Text("이미 신고한 스터디입니다."),
                   dismissButton: .destructive(Text("확인")) {
             })
+        }
+        .alert(isPresented: $showDeleteAlert) {
+            Alert(title: Text("게시물을 삭제하겠습니까?"),
+                  message: Text("게시물을 삭제합니다"),
+                  primaryButton: .destructive(Text("삭제")) {
+                viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
+                dismiss()
+            }, secondaryButton: .cancel(Text("취소")))
         }
         .onAppear(){
             viewModel.makeStudyDetail(study: study) {

@@ -221,6 +221,14 @@ class StudyViewModel: ObservableObject {
         print("remove")
     }
     
+    //스터디 피드 삭제
+    func deleteStudy(studyID: String) {
+        dbRef.collection(.studyGroup).document(studyID).delete { error in
+            if let error = error {
+                print("Study delete failed: \(error)")
+            }
+        }
+    }
     
     func sortedStudy(sorted: StudyList) -> [StudyDTO] {
         switch sorted {
