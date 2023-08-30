@@ -135,15 +135,13 @@ struct MyMainProfileEditView: View {
         .navigationTitle("프로필 편집")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            if let user = userViewModel.user {
-                name = user.name
-                profileMessage = user.profileMessage ?? ""
-            }
+            name = userViewModel.user.name
+            profileMessage = userViewModel.user.profileMessage ?? ""
         }
     }
     
     func saveProfileChanges() {
-        if var updatedUser = userViewModel.user {
+        var updatedUser = userViewModel.user
             updatedUser.name = name
             updatedUser.profileMessage = profileMessage
             userViewModel.uploadProfileImage(image){ success in
@@ -154,14 +152,14 @@ struct MyMainProfileEditView: View {
                 }
             }
             userViewModel.updateUser(user: updatedUser)
-        }
+        
     }
 }
 
 struct MyMainProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyMainProfileEditView(userViewModel: UserViewModel())
+            MyMainProfileEditView(userViewModel: UserViewModel(id: ""))
         }
     }
 }

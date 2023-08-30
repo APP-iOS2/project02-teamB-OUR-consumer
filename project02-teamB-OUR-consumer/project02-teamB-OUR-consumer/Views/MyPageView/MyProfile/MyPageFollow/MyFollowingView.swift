@@ -27,7 +27,7 @@ struct MyFollowingView: View {
             }
             .navigationBarTitle("Followings", displayMode: .inline)
             .onAppear {
-                guard let userId = userViewModel.user?.id else { return print("옵셔널 못품 FOllowingView") }
+                guard let userId = userViewModel.user.id else { return print("옵셔널 못품 FOllowingView") }
                 
                 userViewModel.fetchFollowDetails(userId: userId, follow: .following) { users in
                     print("users \(users)")
@@ -48,6 +48,6 @@ struct FollowingDetailView: View {
 
 struct MyFollowingView_Previews: PreviewProvider {
     static var previews: some View {
-        MyFollowingView(userViewModel: UserViewModel())
+        MyFollowingView(userViewModel: UserViewModel(id: ""))
     }
 }

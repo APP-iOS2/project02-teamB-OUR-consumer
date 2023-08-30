@@ -43,9 +43,8 @@ struct MyMain: View {
     @State private var isMyProfile: Bool = true
     @State private var isFollowing: Bool = false
     
-    @ObservedObject var userViewModel = UserViewModel()
+    @ObservedObject var userViewModel: UserViewModel
     @ObservedObject var resumeViewModel = ResumeViewModel()
-    //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     
     var body: some View {
         NavigationStack {
@@ -116,7 +115,7 @@ struct MyMain: View {
 struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyMain()
+            MyMain(userViewModel: UserViewModel(id: ""))
         }
     }
 }

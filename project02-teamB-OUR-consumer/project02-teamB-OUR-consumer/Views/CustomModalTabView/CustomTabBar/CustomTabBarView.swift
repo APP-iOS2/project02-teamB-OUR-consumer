@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct CustomTabBarView: View {
 
     @ObservedObject var model = CustomTabBarViewModel()
     @EnvironmentObject var alarmViewModel: AlarmViewModel
-
+    
+    @StateObject var userViewModel = UserViewModel(id: (Auth.auth().currentUser?.uid) ?? "")
+    
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
     
@@ -34,12 +37,12 @@ struct CustomTabBarView: View {
                 case 3:
                     AlarmContainer()
                 case 4:
-                    MyMain()
+                    MyMain(userViewModel: userViewModel)
+                        
                 default:
                     EmptyView()
                 }
             }
-
             
             Spacer()
             
@@ -119,7 +122,9 @@ struct CustomTabBarView: View {
                 model.getReportCount()
             }
             
-        }.navigationBarBackButtonHidden()
+        }
+        .environmentObject(userViewModel)
+        .navigationBarBackButtonHidden()
             
     }
 }

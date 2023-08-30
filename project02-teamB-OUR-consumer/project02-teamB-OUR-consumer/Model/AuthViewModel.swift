@@ -106,7 +106,6 @@ class AuthViewModel: ObservableObject {
              }
          }
      }
-     
     private func authenticateUser(for user: GIDGoogleUser?, with error: Error?, completion: @escaping () -> Void) {
          if let error = error {
              print(error.localizedDescription)

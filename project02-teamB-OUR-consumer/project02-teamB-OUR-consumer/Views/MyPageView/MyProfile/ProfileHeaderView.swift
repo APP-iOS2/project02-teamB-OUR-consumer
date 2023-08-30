@@ -16,13 +16,13 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 20) {
-                Image(userViewModel.user?.profileImage ?? "OUR_Logo")
+                Image(userViewModel.user.profileImage ?? "OUR_Logo")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .cornerRadius(50)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(userViewModel.user?.name ?? "")
+                    Text(userViewModel.user.name)
                         .bold()
                         .font(.system(size: 16))
                     HStack(spacing: 20) {
@@ -31,7 +31,7 @@ struct ProfileHeaderView: View {
                         } label: {
                             HStack(spacing: 2) {
                                 Text("팔로워")
-                                Text("\(userViewModel.user?.numberOfFollower ?? 0)")
+                                Text("\(userViewModel.user.numberOfFollower ?? 0)")
                                     .bold()
                             }
                         }
@@ -41,7 +41,7 @@ struct ProfileHeaderView: View {
                         } label: {
                             HStack(spacing: 2) {
                                 Text("팔로잉")
-                                Text("\(userViewModel.user?.numberOfFollowing ?? 0)")
+                                Text("\(userViewModel.user.numberOfFollowing ?? 0)")
                                     .bold()
                             }
                         }
@@ -59,7 +59,7 @@ struct ProfileHeaderView: View {
                     .font(.system(size: 12))
                 }
             }
-            Text("\(userViewModel.user?.profileMessage ?? "자기소개")")
+            Text("\(userViewModel.user.profileMessage ?? "자기소개")")
                 .font(.system(size: 14))
                 .padding(.vertical)
             
@@ -110,6 +110,6 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(userViewModel: UserViewModel(), isMyProfile: .constant(true), isFollowing: .constant(false))
+        ProfileHeaderView(userViewModel: UserViewModel(id: ""), isMyProfile: .constant(true), isFollowing: .constant(false))
     }
 }

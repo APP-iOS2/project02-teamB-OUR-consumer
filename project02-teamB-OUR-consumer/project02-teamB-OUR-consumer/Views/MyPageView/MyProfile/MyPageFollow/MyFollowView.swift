@@ -31,7 +31,7 @@ struct MyFollowView: View {
             }
             
         }
-        .navigationBarTitle("\(userViewModel.user?.name ?? "")")
+        .navigationBarTitle("\(userViewModel.user.name ?? "")")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action : {
@@ -45,6 +45,6 @@ struct MyFollowView: View {
 
 struct MyFollowView_Previews: PreviewProvider {
     static var previews: some View {
-        MyFollowView(currentTab: 0, userViewModel: UserViewModel())
+        MyFollowView(currentTab: 0, userViewModel: UserViewModel(id: ""))
     }
 }

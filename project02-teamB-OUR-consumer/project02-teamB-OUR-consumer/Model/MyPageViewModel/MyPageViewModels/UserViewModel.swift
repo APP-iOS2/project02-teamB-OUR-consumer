@@ -8,12 +8,39 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import FirebaseAuth
+
+class UserManager {
+
+    let myViewModel: UserViewModel
+    let id: String
+    
+    init(myViewModel: UserViewModel, id: String) {
+        self.myViewModel = myViewModel
+        self.id = id
+    }
+    
+    func getUserViewModel() -> UserViewModel {
+        if id == Auth.auth().currentUser?.uid {
+            return myViewModel
+        } else {
+            return UserViewModel(id: id)
+        }
+    }
+}
+
 
 class UserViewModel: ObservableObject {
-    @Published var user: User?
+    
+    @Published var user: User = User.defaultUser
+    
     
     private var db = Firestore.firestore()
     
+    init(id: String) {
+        fetchUser(userId: id)
+    }
+
     // Create
     func createUser(user: User) {
         do {
@@ -33,7 +60,6 @@ class UserViewModel: ObservableObject {
                 switch result {
                     case .success(let user):
                         self.user = user
-                    
                     case .failure(let error):
                         print("Error decoding user: \(error)")
                 }
@@ -65,7 +91,7 @@ extension UserViewModel {
                 "follower": FieldValue.arrayUnion(["BMTtH2JFcPNPiofzyzMI5TcJn1S2"])
             ])
         
-            user?.following?.append(targetUserId)
+            user.following?.append(targetUserId)
     }
     
     func unfollowUser(targetUserId: String) {
@@ -77,7 +103,7 @@ extension UserViewModel {
                 "follower": FieldValue.arrayRemove(["BMTtH2JFcPNPiofzyzMI5TcJn1S2"])
             ])
         
-        user?.following?.removeAll(where: { id in
+        user.following?.removeAll(where: { id in
             return id == targetUserId
         })
     }
@@ -120,7 +146,7 @@ extension UserViewModel {
             return
         }
 
-        guard let userId = user?.id else {
+        guard let userId = user.id else {
             completion(false)
             return
         }
@@ -142,7 +168,7 @@ extension UserViewModel {
                     return
                 }
     
-                self.user?.profileImage = downloadURL.absoluteString
+                self.user.profileImage = downloadURL.absoluteString
             }
         }
     }

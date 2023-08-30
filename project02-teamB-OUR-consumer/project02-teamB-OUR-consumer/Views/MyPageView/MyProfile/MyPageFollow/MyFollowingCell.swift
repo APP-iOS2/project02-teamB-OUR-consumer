@@ -23,7 +23,7 @@ struct MyFollowingCell: View {
                 .padding(.leading, 4)
             
             Spacer()
-            if let followings = userViewModel.user?.following {
+            if let followings = userViewModel.user.following {
                 if followings.contains(where: { $0 == following.id }) {
                     
                     Button(action:{
@@ -83,6 +83,6 @@ struct MyFollowingCell: View {
 
 struct MyFollowingCell_Previews: PreviewProvider {
     static var previews: some View {
-        MyFollowingCell(userViewModel:UserViewModel(), following: User(name: "chan", email: "chan000@email.com"))
+        MyFollowingCell(userViewModel:UserViewModel(id: ""), following: User(name: "chan", email: "chan000@email.com"))
     }
 }
