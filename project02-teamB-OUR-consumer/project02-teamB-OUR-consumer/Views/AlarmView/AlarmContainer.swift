@@ -33,11 +33,11 @@ struct AlarmContainer: View {
                     } label: {
                         Text("푸쉬 알림")
                     }
-                    Button {
-                        UNNotificationService.shared.requestAuthNoti()
-                    } label: {
-                        Text("권한 설정")
-                    }
+//                    Button {
+//                        UNNotificationService.shared.requestAuthNoti()
+//                    } label: {
+//                        Text("권한 설정")
+//                    }
                 }
                 
                 // 알림 뷰
