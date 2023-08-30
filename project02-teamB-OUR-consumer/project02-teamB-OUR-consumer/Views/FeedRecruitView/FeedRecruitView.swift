@@ -71,14 +71,14 @@ struct FeedRecruitView: View {
                             return
                         } else {
                             Task {
-                                isfetching = true
+                              
                                 try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
                                 print("피드이미지패드 \(feedImagePath)")
                                 let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                                 print("사진 있을경우1 \(newFeed2)")
                                 self.newFeed = newFeed2
                                 print("사진 있을경우 2\(newFeed)")
-                                isfetching = false
+                      
                                 isAlert = true
                                 //feedStoreViewModel.addFeed(newFeed2)
                             }
