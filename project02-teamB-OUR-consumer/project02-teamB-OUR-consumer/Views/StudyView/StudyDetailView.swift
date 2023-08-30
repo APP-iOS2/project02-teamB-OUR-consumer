@@ -1,5 +1,5 @@
 //
-//  StudyDetailView.swift
+//  viewModel.studyDetailView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by yuri rho on 2023/08/22.
@@ -12,21 +12,21 @@ struct StudyDetailView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    var studyViewModel: StudyViewModel
+    @StateObject var viewModel: StudyViewModel
     var study: StudyDTO
-    @State var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool = true
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
-                    if studyDetail.imageString != nil {
-                        AsyncImage(url: URL(string: studyDetail.imageString!)) { image in
+                    if viewModel.studyDetail.imageString != nil {
+                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString!)) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -38,9 +38,9 @@ struct StudyDetailView: View {
                         .frame(maxWidth: .infinity)
                         .overlay(alignment:.bottom) {
                             VStack(alignment: .center, spacing: 10) {
-                                Text(studyDetail.creator.name)
+                                Text(viewModel.studyDetail.creator.name)
                                     .font(.system(size: 14, weight: .semibold))
-                                Text(studyDetail.title)
+                                Text(viewModel.studyDetail.title)
                                     .font(.system(size: 16, weight: .bold))
                             }
                             .padding(15)
@@ -60,9 +60,9 @@ struct StudyDetailView: View {
                             .clipped()
                             .overlay(alignment:.bottom) {
                                 VStack(alignment: .center, spacing: 10) {
-                                    Text(studyDetail.creator.name)
+                                    Text(viewModel.studyDetail.creator.name)
                                         .font(.system(size: 14, weight: .semibold))
-                                    Text(studyDetail.title)
+                                    Text(viewModel.studyDetail.title)
                                         .font(.system(size: 16, weight: .bold))
                                 }
                                 .padding(15)
@@ -78,7 +78,7 @@ struct StudyDetailView: View {
                     VStack {
                         VStack {
                             Spacer(minLength: 20)
-                            Text(studyDetail.description)
+                            Text(viewModel.studyDetail.description)
                                 .font(.system(size: 14))
                                 .multilineTextAlignment(.leading)
                                 .lineSpacing(3)
@@ -88,12 +88,12 @@ struct StudyDetailView: View {
                         
                         VStack(alignment: .leading) {
                             HStack {
-                                Image(systemName: studyDetail.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse" )
+                                Image(systemName: viewModel.studyDetail.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse" )
                                     .frame(width: 20)
-                                Text(studyDetail.isOnline ? "\(studyDetail.linkString ?? "")" : "\(studyDetail.locationName ?? "")")
+                                Text(viewModel.studyDetail.isOnline ? "\(viewModel.studyDetail.linkString ?? "")" : "\(viewModel.studyDetail.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
-                                if !studyDetail.isOnline {
+                                if !viewModel.studyDetail.isOnline {
                                     Button {
                                         isShowingLocationSheet = true
                                     } label: {
@@ -114,7 +114,7 @@ struct StudyDetailView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20)
-                                Text("최대 \(studyDetail.totalMemberCount)명 (\(studyDetail.currentMembers.count)/\(studyDetail.totalMemberCount))")
+                                Text("최대 \(viewModel.studyDetail.totalMemberCount)명 (\(viewModel.studyDetail.currentMembers.count)/\(viewModel.studyDetail.totalMemberCount))")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 Button {
@@ -134,14 +134,14 @@ struct StudyDetailView: View {
                             HStack{
                                 Image(systemName: "calendar" )
                                     .frame(width: 20)
-                                Text(studyDetail.studyDate)
+                                Text(viewModel.studyDetail.studyDate)
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                             }
                             .padding(.bottom, 10)
                             
                             HStack {
-                                if studyViewModel.isMyStudy(study) {
+                                if isMyStudy() {
                                     Button {
                                         //MARK: 스터디 게시글 수정
                                     } label: {
@@ -212,13 +212,8 @@ struct StudyDetailView: View {
                     }
                     .padding(15)
                     
-                    StudyReplyView(studyViewModel: studyViewModel, study: study)
+                    StudyReplyView(viewModel: viewModel)
                 }
-            }
-        }
-        .onAppear {
-            studyViewModel.makeStudyDetail(study: study) { studyDetail in
-                self.studyDetail = studyDetail
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -229,17 +224,21 @@ struct StudyDetailView: View {
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                ShareLink(item: studyDetail.title) {
+                ShareLink(item: viewModel.studyDetail.title) {
                     Label("공유하기", systemImage: "square.and.arrow.up")
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    Button(role: .destructive) {
-                        isShowingReportSheet = true
-                    } label: {
+                    Button(action: {
+                        if isAlreadyReported() {
+                            showAlert = true
+                        } else {
+                            isShowingReportSheet = true
+                        }
+                    }, label: {
                         Label("신고하기", systemImage: "exclamationmark.shield")
-                    }
+                    })
                 } label: {
                     Image(systemName: "ellipsis")
                 }
@@ -252,18 +251,50 @@ struct StudyDetailView: View {
         .sheet(isPresented: $isShowingLocationSheet) {
             LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
                 .presentationDetents([.medium])
+        }.sheet(isPresented: $isShowingReportSheet) {
+            StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
-        .sheet(isPresented: $isShowingReportSheet) {
-            StudyCommentReportView(viewModel: studyViewModel, study: studyDetail)
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("신고"),
+                  message: Text("이미 신고한 스터디입니다."),
+                  dismissButton: .destructive(Text("확인")) {
+            })
+        }.onAppear(){
+            viewModel.makeStudyDetail(study: study) {
+                
+            }
         }
+    }
+    
+    func isMyStudy() -> Bool {
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        // 작성자 id와 내 id가 같다면
+        if viewModel.studyDetail.creator.id == userId {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    func isAlreadyReported() -> Bool {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        if viewModel.studyDetail.reportUserIds.contains(userId) {
+            return true
+        }
+        return false
     }
 }
 
-//struct StudyDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationStack{
-//            StudyDetailView(studyViewModel: StudyViewModel(), study: StudyDTO(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
-//        }
-//    }
-//
-//}
+struct StudyDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack{
+            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy)
+        }
+    }
+    
+}
