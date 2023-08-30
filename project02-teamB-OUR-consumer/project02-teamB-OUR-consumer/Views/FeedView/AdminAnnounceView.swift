@@ -9,27 +9,18 @@ import SwiftUI
 
 struct AdminAnnounceView: View {
     @Binding var isAlertSheet: Bool
+    @StateObject private var announce: AnnouncementStore = AnnouncementStore()
     
     var body: some View {
         NavigationStack {
-            Form {
-                // category
-                Section("공지") {
-                    VStack(alignment: .leading) {
-                        // title
-                        Text("Title")
-                        // context
-                        Text("공지")
-                        // date?
-                        Text("날짜")
+            List {
+                ForEach(announce.announcementArr) { announce in
+                    NavigationLink {
+                        AdminAnnounceDetailView(announce: announce)
+                    } label: {
+                        Text("[\(announce.category)] \(announce.title)")
                     }
-                }
-                
-                Section("점검") {
-                    VStack(alignment: .leading) {
-                        Text("1/2")
-                        Text("정기점검")
-                    }
+
                 }
             }
             .navigationTitle("공지사항")
@@ -39,9 +30,15 @@ struct AdminAnnounceView: View {
                     Button {
                         isAlertSheet.toggle()
                     } label: {
-                        Text("완료")
+                        Text("닫기")
                     }
                 }
+            }
+            .onAppear {
+                announce.fetch()
+            }
+            .refreshable {
+                announce.fetch()
             }
         }
     }

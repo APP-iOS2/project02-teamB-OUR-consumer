@@ -30,6 +30,9 @@
 		6332A60B2A98648E0047E2DD /* PostModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostModifyView.swift */; };
 		63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */; };
 		642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */; };
+		642B35EF2A9F02D300494AF8 /* AnnounceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35EE2A9F02D300494AF8 /* AnnounceModel.swift */; };
+		642B35F12A9F087300494AF8 /* AnnounceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35F02A9F087300494AF8 /* AnnounceStore.swift */; };
+		642B35F32A9F12D400494AF8 /* AdminAnnounceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35F22A9F12D400494AF8 /* AdminAnnounceDetailView.swift */; };
 		6445B0FA2A9DD71800DC3091 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6445B0F92A9DD71800DC3091 /* GoogleService-Info.plist */; };
 		6445B0FC2A9DD7B500DC3091 /* LikeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6445B0FB2A9DD7B500DC3091 /* LikeListView.swift */; };
 		649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B52A9604AD00506F46 /* FollowButtonView.swift */; };
@@ -170,6 +173,9 @@
 		6332A60A2A98648E0047E2DD /* PostModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyView.swift; sourceTree = "<group>"; };
 		63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailView.swift; sourceTree = "<group>"; };
 		642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAnnounceView.swift; sourceTree = "<group>"; };
+		642B35EE2A9F02D300494AF8 /* AnnounceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceModel.swift; sourceTree = "<group>"; };
+		642B35F02A9F087300494AF8 /* AnnounceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnounceStore.swift; sourceTree = "<group>"; };
+		642B35F22A9F12D400494AF8 /* AdminAnnounceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAnnounceDetailView.swift; sourceTree = "<group>"; };
 		6445B0F92A9DD71800DC3091 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6445B0FB2A9DD7B500DC3091 /* LikeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListView.swift; sourceTree = "<group>"; };
 		649085B52A9604AD00506F46 /* FollowButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FollowButtonView.swift; path = ../FollowButtonView.swift; sourceTree = "<group>"; };
@@ -335,6 +341,7 @@
 				649085B72A96067A00506F46 /* RecommendFriendView.swift */,
 				9B35B27B2A94595900AD72D7 /* TitleView.swift */,
 				642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */,
+				642B35F22A9F12D400494AF8 /* AdminAnnounceDetailView.swift */,
 			);
 			path = FeedView;
 			sourceTree = "<group>";
@@ -537,6 +544,8 @@
 				D85729192A9C57CA00FA90FB /* PostFireService.swift */,
 				D857291B2A9D71CA00FA90FB /* PostModel.swift */,
 				D857291D2A9D754200FA90FB /* PostsViewModel.swift */,
+				642B35EE2A9F02D300494AF8 /* AnnounceModel.swift */,
+				642B35F02A9F087300494AF8 /* AnnounceStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -889,8 +898,10 @@
 				9B6B9B362A94A746004609AF /* PostData.swift in Sources */,
 				9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */,
 				B786FC162A987ADF00E3C1E9 /* FeedStorageManager.swift in Sources */,
+				642B35F12A9F087300494AF8 /* AnnounceStore.swift in Sources */,
 				9B35B27C2A94595900AD72D7 /* TitleView.swift in Sources */,
 				632883762A94F0ED004DC84E /* CommentView.swift in Sources */,
+				642B35EF2A9F02D300494AF8 /* AnnounceModel.swift in Sources */,
 				9B35B27A2A94594C00AD72D7 /* SheetView.swift in Sources */,
 				962B7E212A95F06700083790 /* MySkillMoreView.swift in Sources */,
 				A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */,
@@ -903,6 +914,7 @@
 				118AA9712A95099F006946C3 /* MyWorkEditView.swift in Sources */,
 				FAA6FC222A949FF2005E31DC /* Extension.swift in Sources */,
 				A09ED4C82A95F45900E6A626 /* MyBookMarkView.swift in Sources */,
+				642B35F32A9F12D400494AF8 /* AdminAnnounceDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
