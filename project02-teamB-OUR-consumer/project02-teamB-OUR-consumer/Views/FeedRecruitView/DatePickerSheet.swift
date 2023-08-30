@@ -30,21 +30,23 @@ struct DatePickerSheet: View {
                    
                }
                Divider()
+               // 시작일자 설정
                Spacer().frame(height: 30)
-               
                DatePicker(selection: $startDate) {
                    Text("시작일자")
                }
                .environment(\.locale, Locale(identifier: "ko_KR"))
               
                Divider()
+               // 마감일자 설정
                Spacer().frame(height: 30)
                DatePicker(selection: $endDate, displayedComponents: .date) {
                    Text("마감일자")
                }
-               
                .environment(\.locale, Locale(identifier: "ko_KR"))
+               
                Divider()
+               // 설정하기
                Button {
                    dateStore.addDate(id: UUID(), startDate: startDate, endDate: endDate)
                    isShowingDateSheet = false

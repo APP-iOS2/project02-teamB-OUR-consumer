@@ -15,34 +15,48 @@ struct StudyImageView: View {
     @State private var openPhoto = false
     @State private var selectedImages: [UIImage] = []
     
-    @State var imageData: Data?
-    @Binding var selectedItem: PhotosPickerItem?
+    @Binding var selectedItem: [PhotosPickerItem]
+    @State var imageDataArray: [Data] = []
     
     var body: some View {
         VStack(alignment: .leading) {
-            if selectedItem != nil { // 사진이 선택되었다면..
-                Text("사진을 선택해주세요.")
-                    .font(.system(.title2))
-                if let imageData = imageData, let uiImage = UIImage(data: imageData) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                    //                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: .infinity)
-                    
-                    PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                        Text("사진 수정하기")
-                            .frame(maxWidth: .infinity)
-                            .font(.system(size: 16))
-                            .foregroundColor(.white)
-                            .background(mainColor)
-                            .cornerRadius(5)
+            Text("사진 선택")
+                .font(.system(.title3, weight: .semibold))
+            if !imageDataArray.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(imageDataArray.indices, id: \.self) { imageData in
+                            if let uiimage = UIImage(data: imageDataArray[imageData]) {
+                                Image(uiImage: uiimage)
+                                    .resizable()
+                                    .frame(width: 170, height: 170)
+                                    .overlay(
+                                        Button(action: {
+                                            print("사진삭제")
+                                            imageDataArray.remove(at: imageData)
+                                            selectedItem.remove(at: imageData)
+                                        }, label: {
+                                            Image(systemName: "trash.slash.fill")
+                                                .foregroundColor(.red)
+                                                .font(.system(.title2))
+                                                .padding()
+                                        })
+                                    )
+                            }
+                        }
+                        PhotosPicker(selection: $selectedItem, matching: .images) {
+                            Image(systemName: "plus")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 40, weight: .thin))
+                                .padding(40)
+                                .frame(width: 170, height: 170)
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        }
                     }
                 }
-            } else { // 선택 사진이 없을경우
-                Text("사진을 선택해주세요.")
-                    .font(.system(.title2))
-                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+            }
+            else {
+                PhotosPicker(selection: $selectedItem, matching: .images) {
                     Image(systemName: "plus")
                         .foregroundColor(.gray)
                         .font(.system(size: 40, weight: .thin))
@@ -51,12 +65,21 @@ struct StudyImageView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                 }
             }
-            
         }
-        .onChange(of: selectedItem) { newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    self.imageData = data
+        .onChange(of: selectedItem) { newValue in
+            imageDataArray.removeAll()
+            for item in newValue {
+                item.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case .success(let data):
+                        if let data = data {
+                            self.imageDataArray.append(data)
+                        } else {
+                            print("Data is nil")
+                        }
+                    case .failure(let failure):
+                        fatalError("\(failure)")
+                    }
                 }
             }
         }

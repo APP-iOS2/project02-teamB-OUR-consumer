@@ -26,7 +26,14 @@ class AlarmImageContainer: UIView{
         return label
     }()
     
-    
+    func addDot() {
+        testView.addDot()
+    }
+
+    func removeDot() {
+        testView.removeDot()
+    }
+
     func settingColor(color: UIColor){
         testView.settingColor(color: color)
         titleLabel.textColor = color
@@ -59,12 +66,3 @@ class AlarmImageContainer: UIView{
         
     }
 }
-
-//extension UIView {
-//  func asImage() -> UIImage {
-//        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-//        return renderer.image { rendererContext in
-//            layer.render(in: rendererContext.cgContext)
-//        }
-//    }
-//}
