@@ -18,5 +18,10 @@ struct User: Identifiable, Codable {
     var numberOfFollowing: Int {
         following?.count ?? 0
     }
-    
+}
+
+extension User {
+    static var defaultUser: User {
+        return User(name: "test", email: "test@gamil.com")
+    }
 }
