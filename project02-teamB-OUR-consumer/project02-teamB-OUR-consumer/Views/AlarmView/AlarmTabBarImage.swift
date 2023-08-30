@@ -22,10 +22,12 @@ struct AlarmTabBarImage: UIViewRepresentable{
     func updateUIView(_ uiView: AlarmImageContainer, context: Context) {
          print("value: \(selectedIndex)")
 
-         
-         selectedIndex == index ? uiView.settingColor(color: UIColor(named: "AccentColor")!) : uiView.settingColor(color: .tertiaryLabel)
-         selectedIndex == index ? uiView.settingColor(color: Color(uiColor: UIColor(named: "AccentColor")!)) : uiView.settingColor(color: Color.gray)
-         
+        if selectedIndex == index {
+            uiView.settingColor(color: UIColor(named: "AccentColor")!)
+        } else {
+            uiView.settingColor(color: .tertiaryLabel)
+        }
+        
         if hasUnreadData {
             print("뱃지 생김")  // 디버깅 코드
             uiView.addDot()
