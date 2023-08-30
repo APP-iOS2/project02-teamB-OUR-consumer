@@ -48,13 +48,9 @@ struct LocationSheetView: View {
                 MapMarker(coordinate: annotation.coordinate)
             }
                 .frame(height: 250)
-                .onAppear {
-                    setRegion(locationCoordinate)
-                }
         }
         .padding()
         .onAppear {
-            print(locationCoordinate)
             setRegion(locationCoordinate)
         }
     }
