@@ -26,7 +26,6 @@ struct FeedRecruitView: View {
     @State var isAlert: Bool = false
     @State var createdDate: Date = Date()
     @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
-
     
     
     var body: some View {
@@ -61,44 +60,48 @@ struct FeedRecruitView: View {
                     }
                 }
                 ToolbarItem(placement:.navigationBarTrailing) {
+                    
                     Button("등록") {
-                        isAlert = true
-                        
                         if selectedItem.isEmpty {
                             let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
                             print("사진 없을경우 \(newFeed)")
+                            isAlert = true
                             return
                         } else {
-                            
                             Task {
+                                isfetching = true
                                 try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                                print("피드이미지패드 \(feedImagePath)")
                                 let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                                
+                                print("사진 있을경우1 \(newFeed2)")
                                 self.newFeed = newFeed2
-                                print("사진 있을경우 \(newFeed)")
+                                print("사진 있을경우 2\(newFeed)")
+                                isfetching = false
+                                isAlert = true
                                 //feedStoreViewModel.addFeed(newFeed2)
                             }
                         }
                     }
                     .disabled(content.isEmpty)
+                    
                 }
                 
             }
-
+            
             .navigationTitle("피드 등록")
             .navigationBarTitleDisplayMode(.inline)
             .alert("피드", isPresented: $isAlert) {
-               
+                
                 Button("등록" ,role: .destructive) {
-
+                    
                     print("얼러트에서 등록 후\(newFeed)")
-                    feedStoreViewModel.addFeed(newFeed)
-
-                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
-
-
+                    //feedStoreViewModel.addFeed(newFeed)
+                    
+                    //newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
+                    
+                    
                     dismiss()
                 }
                 Button("취소" ,role: .cancel) {
@@ -106,7 +109,7 @@ struct FeedRecruitView: View {
                 }
             } message: {
                 Text("등록하시겠습니까?")
-
+                
             }
             
             
