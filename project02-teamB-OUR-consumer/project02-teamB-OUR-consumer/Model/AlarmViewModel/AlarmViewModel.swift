@@ -36,25 +36,6 @@ class AlarmViewModel: ObservableObject{
         self.userViewModel = dependency.userViewModel
     }
  
-    #if DEBUG
-    // sample model 생성
-    func createNoti(){
-        let personal = DummyModel.getPersonal()
-        let publicmodel = DummyModel.getPublic()
-        personal.forEach { model in
-            service.create(send: model, completion: { value in
-                print("success : \(value)")
-                print("sampleModel : \(model)")
-            })
-        }
-        publicmodel.forEach { model in
-            service.create(send: model, completion: { value in
-                print("success2: \(value)")
-                print("sampleModel2: \(model)")
-            })
-        }
-    }
-#endif
     
 
     func fetchNotificationItem(limit: Int = 10) {
