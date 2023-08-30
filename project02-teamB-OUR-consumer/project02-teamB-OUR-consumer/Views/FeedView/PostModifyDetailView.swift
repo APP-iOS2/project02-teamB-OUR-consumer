@@ -9,29 +9,41 @@ import SwiftUI
 
 struct PostModifyDetailView: View {
     
-    @ObservedObject var post: FeedStore
+    var post: Post
+    var postViewModel: PostViewModel
+    
+    @State private var postModel: PostModel = PostModel.samplePostModel
+    
     @Binding var isShowingModifyDetailView: Bool
     
     @State private var tempContent: String = ""
     
     var body: some View {
-        VStack {
-            List {
+        NavigationStack {
+            Form {
                 Section("게시물 사진") {
-                    Image(post.postImageString)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    if postModel.postImagePath.isEmpty == false {
+                        TabView {
+                            ForEach(postModel.postImagePath, id: \.self) { imagePath in
+                                AsyncImage(url: URL(string: imagePath)) { image in
+                                    image
+                                        .resizable()
+                                        .frame(height: 400)
+                                        .aspectRatio(contentMode: .fit)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            }
+                        }
+                        .tabViewStyle(PageTabViewStyle())
+                        .frame(height: 350)
+                    }
                 }
                 Section("게시물 내용"){
-                    TextField("게시물의 내용을 입력해주세요.", text: $post.content)
+                    TextField("게시물의 내용을 입력해주세요.", text: $postModel.content)
                         .font(.system(size: 16))
-                    
                 }
             }
-            .padding()
-            .navigationTitle("게시물 수정")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -50,17 +62,21 @@ struct PostModifyDetailView: View {
                     } label: {
                         Text("취소")
                     }
-
                 }
             }
         }
+        .padding()
+        .navigationTitle("게시물 수정")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        
     }
 }
 
 struct PostModifyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostModifyDetailView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg2", content: "축구...어렵네..."), isShowingModifyDetailView: .constant(true))
+            PostModifyDetailView(post: Post.samplePost, postViewModel: PostViewModel(), isShowingModifyDetailView: .constant(true))
         }
     }
 }
