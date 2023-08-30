@@ -11,15 +11,19 @@ struct StudyMeetingView: View {
     
     @Binding var onlineToggle: Bool
     @Binding var offlineToggle: Bool
+    @Binding var selectValue: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("만남의 형태를 정해주세요.")
-                .font(.system(.title2))
+            Text("스터디 형식")
+                .font(.system(.title3, weight: .semibold))
+            // pointcolor: .background(Color(hex: “#FB3741”))
+            // .background(Color(hex: "#090580"))
             HStack {
                 Button {
-                    print("Online")
-                    onlineToggle.toggle()
+                    onlineToggle = true
+                    offlineToggle = false
+                    selectValue = true  //선택 값
                 } label: {
                     if !onlineToggle {
                         Text("온라인")
@@ -40,8 +44,9 @@ struct StudyMeetingView: View {
                 }
                 
                 Button {
-                    print("Offline")
-                    offlineToggle.toggle()
+                    onlineToggle = false
+                    offlineToggle = true
+                    selectValue = false  //선택 값
                 } label: {
                     if !offlineToggle {
                         Text("오프라인")
@@ -66,8 +71,8 @@ struct StudyMeetingView: View {
     }
 }
 
-struct StudyMeetingView_Previews: PreviewProvider {
-    static var previews: some View {
-        StudyMeetingView(onlineToggle: .constant(true), offlineToggle: .constant(true))
-    }
-}
+//struct StudyMeetingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StudyMeetingView(onlineToggle: .constant(true), offlineToggle: .constant(true))
+//    }
+//}

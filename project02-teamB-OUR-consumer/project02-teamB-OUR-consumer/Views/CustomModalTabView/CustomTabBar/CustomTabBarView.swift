@@ -8,50 +8,73 @@
 import SwiftUI
 
 struct CustomTabBarView: View {
+
+    @ObservedObject var model = CustomTabBarViewModel()
+    @EnvironmentObject var alarmViewModel: AlarmViewModel
+
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
+    
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
     let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
+    
+    @State var reportCount: Int = 3
+    @State private var isReportPresent = false
     
     var body: some View {
         VStack {
             ZStack {
-                if selectedIndex == 0 {
+                switch selectedIndex {
+                case 0:
                     FeedTabView()
-                } else if selectedIndex == 1 {
+                case 1:
                     StudyListView()
-                } else if selectedIndex == 2 {
+                case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
-                } else if selectedIndex == 3 {
+                case 3:
                     AlarmContainer()
-                } else if selectedIndex == 4 {
+                case 4:
                     MyMain()
-                } else {
-                    
+                default:
+                    EmptyView()
                 }
             }
+
             
             Spacer()
             
             ZStack {
                 Rectangle()
-                    .frame(width: 350, height: 45)
-                //                    .aspectRatio(contentMode: .fit)
+                    .frame(width: .infinity, height: 55)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
-                    .shadow(radius: 15)
+                    .shadow(radius: 8)
+                    .padding(.horizontal, 10)
+                    
+                
                 HStack {
                     Spacer()
-                    //                    0 ..< tabBarImageNames.count
+                    
                     ForEach(0 ..< tabBarImageNames.endIndex, id:\.self) { index in
                         VStack {
                             if index == 2 {
                                 VStack {
                                     Button {
-                                        isShowingSheet.toggle()
+                                        //신고누적횟수가 3회초과했을 경우 등록을 못하게 막음.
+                                        if model.reportCount < 4 {
+                                            isShowingSheet.toggle()
+                                        } else {
+                                            isReportPresent.toggle()
+                                        }
                                     } label: {
                                         PostButton()
                                     }
+                                    .alert("알림", isPresented: $isReportPresent) {
+                                        EmptyView()
+                                    } message: {
+                                        Text("신고 누적횟수가 \(model.reportCount)회 입니다.\n게시물관련 등록기능을 이용하실 수 없습니다.\n관리자에게 문의바랍니다.")
+                                    }
+                                    
                                 }
                                 .sheet(isPresented: $isShowingSheet) {
                                     print("dismissed")
@@ -60,19 +83,27 @@ struct CustomTabBarView: View {
                                         .presentationDetents([.fraction(0.45)])
                                         .presentationDragIndicator(.visible)
                                 }
+                                
+                                
                             } else {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
-                                        AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
+                                        AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
                                             .frame(width: 20, height: 35, alignment: .bottom)
-                                    }else{
+                                    } else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 27, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
-                                            .font(.system(size: 13))
+                                            .font(.system(size: 12))
+
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                        
+                                        // 새로운 알림을 추가하는 버튼
+                                        Button("데이터 추가") {
+                                            alarmViewModel.addNewNotification()
+                                        }
                                     }
                                 }
                             }
@@ -87,7 +118,12 @@ struct CustomTabBarView: View {
                     }
                 }
             }
+            .onAppear {
+                model.getReportCount()
+            }
+            
         }.navigationBarBackButtonHidden()
+            
     }
 }
 
