@@ -17,7 +17,7 @@ import PhotosUI
 class StudyRecruitStore: ObservableObject {
     @Published var studyStores: [StudyRecruitModel] = []
     @State var returnUrlTest: String = ""
-    
+    let userID: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue ) ?? ""
     
     let service = RecruitService()
 //    private let userCollection = Firestore.firestore().collection("StudyPosts")
@@ -34,7 +34,9 @@ class StudyRecruitStore: ObservableObject {
     }
     
     func addFeed(_ study: StudyRecruitModel) {
-        service.add(collection: .studypost, data: study)
+        var temp = study
+        temp.creator = userID
+        service.add(collection: .studypost, data: temp)
     }
     
     func removeFeed(_ study: StudyRecruitModel) {
