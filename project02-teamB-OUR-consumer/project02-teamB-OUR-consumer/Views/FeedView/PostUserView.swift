@@ -8,46 +8,45 @@
 import SwiftUI
 
 struct PostUserView: View {
-    @ObservedObject var idData: IdData = IdData()
     var post: Post
     @Binding var isShowingSheet: Bool
     
     var body: some View {
-        ForEach (idData.idStore) { user in
-            if post.creator == user.userID {
+        
+        
+        HStack {
+            Button {
+                isShowingSheet.toggle()
+            } label: {
                 HStack {
-                    Button {
-                        isShowingSheet.toggle()
-                    } label: {
+                    Image("OUR_Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .background(Color.gray)
+                        .clipShape(Circle())
+                        .frame(width: 40, height: 40)
+                    VStack(alignment: .leading) {
                         HStack {
-                            Image("OUR_Logo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .background(Color.gray)
-                                .clipShape(Circle())
-                                .frame(width: 40, height: 40)
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("\(user.name)")
-                                        .font(.system(size: 16))
-                                        .foregroundColor(.black)
-                                        .bold()
-                                }
-                            }
+                            Text("\(post.creator)")
+                                .font(.system(size: 16))
+                                .foregroundColor(.black)
+                                .bold()
                         }
-                        Spacer()
                     }
-//                    .sheet(isPresented: $isShowingSheet) {
-//                        SheetView(idStore: user)
-//                            .presentationDetents([.medium, .medium])
-//                    }
                 }
+                Spacer()
             }
+            //                    .sheet(isPresented: $isShowingSheet) {
+            //                        SheetView(idStore: user)
+            //                            .presentationDetents([.medium, .medium])
+            //                    }
         }
+        
+        
     }
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(idData: IdData(), post: Post.samplePost, isShowingSheet: .constant(false))
+        PostUserView(post: Post.samplePost, isShowingSheet: .constant(false))
     }
 }
