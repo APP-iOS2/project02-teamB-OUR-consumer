@@ -17,6 +17,12 @@ struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
+
+    @Binding var isSavedBookmark: Bool
+    
+    // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
+    var loginId = ""
+
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool = true
     @State var showAlert: Bool = false
@@ -249,7 +255,7 @@ struct StudyDetailView: View {
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $isShowingLocationSheet) {
-            LocationSheetView(isShowingLocationSheet: $isShowingLocationSheet, locationCoordinate: CLLocationCoordinate2D(latitude: 37.5718, longitude: 126.9769))
+            LocationSheetView(study: study, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 0.0, longitude: study.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
                 .presentationDetents([.medium])
         }.sheet(isPresented: $isShowingReportSheet) {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)

@@ -11,7 +11,7 @@ struct StudyListItemView: View {
 
     @ObservedObject var studyViewModel: StudyViewModel = StudyViewModel()
     
-    @State var addBookmark: Bool = false
+    @Binding var isSavedBookmark: Bool
     
     var study: StudyDTO
     
@@ -64,9 +64,9 @@ struct StudyListItemView: View {
                     Spacer()
                     
                     Button {
-                        addBookmark.toggle()
+                        isSavedBookmark.toggle()
                     } label: {
-                        Label("", systemImage: addBookmark ? "bookmark.fill" : "bookmark")
+                        Label("", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
                             .font(.title2)
                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                     }
@@ -92,6 +92,7 @@ struct StudyListItemView: View {
 
 struct StudyListItemView_Previews: PreviewProvider {
     static var previews: some View {
+
         StudyListItemView(study: StudyDTO( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5, createdAt: "2023.08.28"))
     }
 }
