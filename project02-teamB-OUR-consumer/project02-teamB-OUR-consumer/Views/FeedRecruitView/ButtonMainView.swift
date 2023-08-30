@@ -36,6 +36,7 @@ struct ButtonMainView: View {
                                     .foregroundColor(.black)
                                 Text("\(dateStore.immobilizeEndTime(endDate))")
                                     .foregroundColor(.black)
+                                    .font(.system(size: 15, weight: .semibold))
                             }
                             
                             
@@ -45,6 +46,7 @@ struct ButtonMainView: View {
                                     .foregroundColor(.black)
                                 Text("\(dateStore.formattedDate(startDate))")
                                     .foregroundColor(.black)
+                                    .font(.system(size: 15, weight: .semibold))
                             }
 
                         }
@@ -66,7 +68,7 @@ struct ButtonMainView: View {
                         Text("인원")
                             .font(.system(size: 18))
                         Text("\(number)명")
-                            .font(.system(size: 15))
+                            .font(.system(size: 15, weight: .semibold))
                     }
                     .foregroundColor(.black)
                 }
