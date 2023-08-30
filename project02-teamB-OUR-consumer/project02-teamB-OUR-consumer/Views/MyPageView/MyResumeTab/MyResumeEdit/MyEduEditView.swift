@@ -25,7 +25,7 @@ struct MyEduEditView: View {
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
-    var degreeOption = ["재학", "휴학", "졸업", "수료"]
+    let degreeOption = ["재학", "휴학", "졸업", "수료"]
     var isEditing: Bool
     var index: Int
     
@@ -101,9 +101,10 @@ struct MyEduEditView: View {
                         .labelsHidden()
                     }
                 }
+                
                 Group {
-                    VStack(alignment: .leading) {
-                        Text("교육 기간")
+                    
+                        Text("재학 중")
                             .font(.system(size: 16))
                             .bold()
                             .padding(.top, 5)
@@ -113,9 +114,15 @@ struct MyEduEditView: View {
                                 Text($0)
                             }
                         }
-                        .pickerStyle(.segmented)
+                        .frame(width: 130)
+                        .accentColor(.black)
+                        .background(Color(red: 239/255 , green: 239/255, blue: 240/255))
+                        .cornerRadius(7)
+                        .padding(.vertical)
+                        .offset(x:15)
                     }
-                }
+                
+                
                 Group {
                     
                     if isPressedBtn {
