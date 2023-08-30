@@ -1,5 +1,5 @@
 //
-//  viewModel.studyDetailView.swift
+//  StudyDetailView.swift
 //  project02-teamB-OUR-consumer
 //
 //  Created by yuri rho on 2023/08/22.
@@ -93,9 +93,7 @@ struct StudyDetailView: View {
                                 Text(viewModel.studyDetail.isOnline ? "\(viewModel.studyDetail.linkString ?? "")" : "\(viewModel.studyDetail.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
-//                            MARK: 위치시트 보기 위함 테스트 후에 변경해야함
-//                                if !viewModel.studyDetail.isOnline {
-                                if viewModel.studyDetail.isOnline {
+                                if !viewModel.studyDetail.isOnline {
                                     Button {
                                         isShowingLocationSheet = true
                                     } label: {
@@ -143,9 +141,9 @@ struct StudyDetailView: View {
                             .padding(.bottom, 10)
                             
                             HStack {
-                                if isMyStudy() {
-                                    Button {
-                                        //MARK: 스터디 게시글 수정
+                                if isMyStudy()  {
+                                    NavigationLink {
+                                        StudyDetailEditView(viewModel: StudyViewModel(), study: study)
                                     } label: {
                                         Text("수정")
                                             .bold()
@@ -155,7 +153,7 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        //MARK: 스터디 게시글 삭제
+                                        //TODO: 스터디 게시글 삭제
                                     } label: {
                                         Text("삭제")
                                             .bold()
@@ -164,35 +162,11 @@ struct StudyDetailView: View {
                                             .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
                                             .cornerRadius(5)
                                     }
-                                    
-                                }
-//                                MARK: 로그인한 유저가 이 스터디를 이미 신청했다면 참석취소 버튼 보여주기
-//                                else if studyDetail.currentMembers. {
-//                                    Button {
-//                                        //MARK: 참석 취소 프로세스-디비저장-알럿
-//                                    } label: {
-//                                        Text("참석취소")
-//                                            .bold()
-//                                            .frame(width: 290, height: 40)
-//                                            .foregroundColor(.white)
-//                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-//                                            .cornerRadius(5)
-//                                    }
-//                                    Button {
-//                                        isSavedBookmark.toggle()
-//                                    } label: {
-//                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
-//                                            .font(.system(size: 30))
-//                                            .frame(width: 60, height: 40)
-//                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
-//                                    }
-//
-//                                }
-                                else {
+                                } else if isAlreadyJoined() {
                                     Button {
-                                        //MARK: 참석 프로세스-디비저장-알럿
+                                        //TODO: 참석 취소 프로세스-디비저장-알럿
                                     } label: {
-                                        Text("참석")
+                                        Text("참석취소")
                                             .bold()
                                             .frame(width: 290, height: 40)
                                             .foregroundColor(.white)
@@ -200,7 +174,6 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        //MARK: isSaved 변수 업데이트
                                         isSavedBookmark.toggle()
                                     } label: {
                                         Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
@@ -208,6 +181,25 @@ struct StudyDetailView: View {
                                             .frame(width: 60, height: 40)
                                             .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                                     }
+                                }
+                                Button {
+                                    //TODO: 참석 프로세스-디비저장-알럿
+                                } label: {
+                                    Text("참석")
+                                        .bold()
+                                        .frame(width: 290, height: 40)
+                                        .foregroundColor(.white)
+                                        .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                        .cornerRadius(5)
+                                }
+                                Button {
+                                    //TODO: isSaved 변수 업데이트
+                                    isSavedBookmark.toggle()
+                                } label: {
+                                    Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
+                                        .font(.system(size: 30))
+                                        .frame(width: 60, height: 40)
+                                        .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
                                 }
                             }
                         }
@@ -251,7 +243,7 @@ struct StudyDetailView: View {
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $isShowingLocationSheet) {
-            LocationSheetView(viewModel: viewModel, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 0.0, longitude: study.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
+            LocationSheetView(viewModel: viewModel, locationCoordinate: CLLocationCoordinate2D(latitude: viewModel.studyDetail.locationCoordinate?[0] ?? 0.0, longitude: viewModel.studyDetail.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
                 .presentationDetents([.medium])
         }
         .sheet(isPresented: $isShowingReportSheet) {
@@ -282,12 +274,21 @@ struct StudyDetailView: View {
         }
     }
     
-    
     func isAlreadyReported() -> Bool {
         guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
             return false
         }
         if viewModel.studyDetail.reportUserIds.contains(userId) {
+            return true
+        }
+        return false
+    }
+    
+    func isAlreadyJoined() -> Bool {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        if study.currentMemberIds.contains(userId) {
             return true
         }
         return false
