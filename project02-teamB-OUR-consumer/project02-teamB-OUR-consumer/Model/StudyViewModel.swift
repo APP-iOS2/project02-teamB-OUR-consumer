@@ -18,7 +18,7 @@ struct ReportData: Codable {
 // 실제로 사용할 study 구조체
 struct StudyDetail {
     var id: String = UUID().uuidString
-    var imageString: String?
+    var imageString: [String]?
     var creator: User
     var title: String
     var description: String

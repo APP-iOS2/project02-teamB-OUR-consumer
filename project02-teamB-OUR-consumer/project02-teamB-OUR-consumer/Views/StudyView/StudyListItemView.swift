@@ -25,7 +25,7 @@ struct StudyListItemView: View {
                     .frame(width: 100, height: 100)
                     .cornerRadius(10)
             } else {
-                AsyncImage(url: URL(string: study.imageString!)) { image in
+                AsyncImage(url: URL(string: study.imageString![0])) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)

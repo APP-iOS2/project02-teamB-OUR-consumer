@@ -28,7 +28,7 @@ struct StudyDetailView: View {
             ScrollView(.vertical) {
                 VStack {
                     if viewModel.studyDetail.imageString != nil {
-                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString!)) { image in
+                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString![0])) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -159,7 +159,7 @@ struct StudyDetailView: View {
                                             if viewModel.studyDetail.currentMembers.isEmpty {
                                                 showDeleteAlert = true
                                             } else {
-                                                //TODO: 참석자가 한 명이라도 있다면 삭제할 수 없다는 알럿
+                                                //TODO: 참석자가 한 명 이상이라면 있다면 삭제할 수 없다는 알럿
                                             }
                                         } else {
                                             //TODO: 게시글 작성자만 삭제할 수 있다는 알럿
@@ -172,38 +172,40 @@ struct StudyDetailView: View {
                                             .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
                                             .cornerRadius(5)
                                     }
-                                } else if isAlreadyJoined() {
-                                    Button {
-                                        //TODO: 참석 취소 프로세스-디비저장-알럿
-                                    } label: {
-                                        Text("참석취소")
-                                            .bold()
-                                            .frame(width: 290, height: 40)
-                                            .foregroundColor(.white)
-                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                            .cornerRadius(5)
-                                    }
-                                    Button {
-                                        isSavedBookmark.toggle()
-                                        if isSavedBookmark {
-                                            viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
-                                        } else {
-                                            viewModel.removeBookmark(studyID: viewModel.studyDetail.id)
-                                        }
-                                    } label: {
-                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
-                                            .font(.system(size: 30))
-                                            .frame(width: 60, height: 40)
-                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
-                                    }
-                                } else if viewModel.studyDetail.totalMemberCount == viewModel.studyDetail.currentMembers.count {
-                                    Text("모집마감")
-                                        .bold()
-                                        .frame(width: 290, height: 40)
-                                        .foregroundColor(.black)
-                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
-                                        .cornerRadius(5)
-                                } else {
+                                }
+//                                else if isAlreadyJoined() {
+//                                    Button {
+//                                        //TODO: 참석 취소 프로세스-디비저장-알럿
+//                                    } label: {
+//                                        Text("참석취소")
+//                                            .bold()
+//                                            .frame(width: 290, height: 40)
+//                                            .foregroundColor(.white)
+//                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+//                                            .cornerRadius(5)
+//                                    }
+//                                    Button {
+//                                        isSavedBookmark.toggle()
+//                                        if isSavedBookmark {
+//                                            viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
+//                                        } else {
+//                                            viewModel.removeBookmark(studyID: viewModel.studyDetail.id)
+//                                        }
+//                                    } label: {
+//                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
+//                                            .font(.system(size: 30))
+//                                            .frame(width: 60, height: 40)
+//                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+//                                    }
+//                                } else if viewModel.studyDetail.totalMemberCount == viewModel.studyDetail.currentMembers.count {
+//                                    Text("모집마감")
+//                                        .bold()
+//                                        .frame(width: 290, height: 40)
+//                                        .foregroundColor(.black)
+//                                        .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
+//                                        .cornerRadius(5)
+//                                }
+                                else {
                                     Button {
                                         //TODO: 참석 프로세스-디비저장-알럿
                                     } label: {
@@ -218,6 +220,11 @@ struct StudyDetailView: View {
                                 Button {
                                     //TODO: isSaved 변수 업데이트
                                     isSavedBookmark.toggle()
+                                    if isSavedBookmark {
+                                        viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
+                                    } else {
+                                        viewModel.removeBookmark(studyID: viewModel.studyDetail.id)
+                                    }
                                 } label: {
                                     Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
                                         .font(.system(size: 30))
@@ -233,6 +240,7 @@ struct StudyDetailView: View {
                 }
             }
         }
+
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action : {
             self.mode.wrappedValue.dismiss()
@@ -310,16 +318,6 @@ struct StudyDetailView: View {
             return false
         }
         if viewModel.studyDetail.reportUserIds.contains(userId) {
-            return true
-        }
-        return false
-    }
-    
-    func isAlreadyJoined() -> Bool {
-        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-            return false
-        }
-        if study.currentMemberIds.contains(userId) {
             return true
         }
         return false
