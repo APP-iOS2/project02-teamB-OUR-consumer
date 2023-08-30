@@ -25,60 +25,60 @@ struct StudyListItemView: View {
                     .frame(width: 100, height: 100)
                     .cornerRadius(10)
             } else {
-                AsyncImage(url: URL(string: study.imageString![0])) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
-                } placeholder: {
-                    ProgressView()
+                    AsyncImage(url: URL(string: study.imageString?[0] ?? "")) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    
                 }
-
-            }
-            
-            
-            VStack(alignment: .leading) {
-                Text(study.title)
-                    .font(.system(size: 16))
-                    .bold()
-                    .foregroundColor(.black)
-                    .lineLimit(2)
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(study.studyDate)
-                    Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
-                }
-                .font(.system(size: 12))
-                .bold()
-                .foregroundColor(.gray)
                 
-                HStack {
-                    HStack {
-                        Image(systemName: "person.3.fill")
-                        Text("\(study.currentMemberIds.count)/\(study.totalMemberCount)")
+                
+                VStack(alignment: .leading) {
+                    Text(study.title)
+                        .font(.system(size: 16))
+                        .bold()
+                        .foregroundColor(.black)
+                        .lineLimit(2)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(study.studyDate)
+                        Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
                     }
                     .font(.system(size: 12))
                     .bold()
                     .foregroundColor(.gray)
                     
-                    Spacer()
-                    
-                    Button {
-                        isSavedBookmark.toggle()
-                        if isSavedBookmark {
-                            studyViewModel.updateBookmark(studyID: study.id ?? "")
-                        } else {
-                            studyViewModel.removeBookmark(studyID: study.id ?? "")
+                    HStack {
+                        HStack {
+                            Image(systemName: "person.3.fill")
+                            Text("\(study.currentMemberIds.count)/\(study.totalMemberCount)")
                         }
-                    } label: {
-                        Label("", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
-                            .font(.title2)
-                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                        .font(.system(size: 12))
+                        .bold()
+                        .foregroundColor(.gray)
+                        
+                        Spacer()
+                        
+                        Button {
+                            isSavedBookmark.toggle()
+                            if isSavedBookmark {
+                                studyViewModel.updateBookmark(studyID: study.id ?? "")
+                            } else {
+                                studyViewModel.removeBookmark(studyID: study.id ?? "")
+                            }
+                        } label: {
+                            Label("", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
+                                .font(.title2)
+                                .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+                        }
+                        .buttonStyle(.plain)
+                        //이거 왜되는가..?
                     }
-                    .buttonStyle(.plain)
-                    //이거 왜되는가..?
                 }
-            }
         }
         .frame(width: 345, height: 90)
         .padding()

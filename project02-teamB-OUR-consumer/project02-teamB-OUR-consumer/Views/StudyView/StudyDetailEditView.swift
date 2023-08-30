@@ -112,11 +112,14 @@ struct StudyDetailEditView: View {
             }
         }
         .onAppear {
-            viewModel.makeStudyDetail(study: study) {
-                studyTitle = viewModel.studyDetail.title
-                studyContent = viewModel.studyDetail.description
-                studyMemberCount = viewModel.studyDetail.totalMemberCount
-            }
+//            viewModel.makeStudyDetail(study: study) {
+//                studyTitle = viewModel.studyDetail.title
+//                studyContent = viewModel.studyDetail.description
+//                studyMemberCount = viewModel.studyDetail.totalMemberCount
+//            }
+            studyTitle = viewModel.studyDetail.title
+            studyContent = viewModel.studyDetail.description
+            studyMemberCount = viewModel.studyDetail.totalMemberCount
         }
     }
     

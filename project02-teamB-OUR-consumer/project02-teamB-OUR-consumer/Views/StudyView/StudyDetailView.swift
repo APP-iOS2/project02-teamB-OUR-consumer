@@ -22,13 +22,14 @@ struct StudyDetailView: View {
     @Binding var isSavedBookmark: Bool
     @State var showAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
+    @State var alertText: String = ""
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
                     if viewModel.studyDetail.imageString != nil {
-                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString![0])) { image in
+                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString?[0] ?? "")) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -206,15 +207,33 @@ struct StudyDetailView: View {
 //                                        .cornerRadius(5)
 //                                }
                                 else {
-                                    Button {
-                                        //TODO: 참석 프로세스-디비저장-알럿
-                                    } label: {
-                                        Text("참석")
-                                            .bold()
-                                            .frame(width: 290, height: 40)
-                                            .foregroundColor(.white)
-                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                            .cornerRadius(5)
+                                    if viewModel.studyDetail.isJoined {
+                                        Button(action: {
+                                            
+                                        }, label: {
+                                            Text("이미 참석한 스터디입니다.")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(.gray)
+                                                .cornerRadius(5)
+                                        }).disabled(true)
+                                    } else {
+                                        Button {
+                                            //MARK: 참석 프로세스-디비저장-알럿
+                                            Task {
+                                                await viewModel.joinStudy()
+                                                alertText = "스터디에 참여하였습니다."
+                                                showAlert = true
+                                            }
+                                        } label: {
+                                            Text("참석")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                                .cornerRadius(5)
+                                        }
                                     }
                                 }
                                 Button {
@@ -257,6 +276,7 @@ struct StudyDetailView: View {
                 Menu {
                     Button(action: {
                         if isAlreadyReported() {
+                            alertText = "이미 신고한 스터디입니다."
                             showAlert = true
                         } else {
                             isShowingReportSheet = true
@@ -281,8 +301,8 @@ struct StudyDetailView: View {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("신고"),
-                  message: Text("이미 신고한 스터디입니다."),
+            Alert(title: Text("알림"),
+                  message: Text(alertText),
                   dismissButton: .destructive(Text("확인")) {
             })
         }
@@ -295,8 +315,8 @@ struct StudyDetailView: View {
             }, secondaryButton: .cancel(Text("취소")))
         }
         .onAppear(){
-            viewModel.makeStudyDetail(study: study) {
-                
+            Task {
+                await viewModel.makeStudyDetail(study: study)
             }
         }
     }
