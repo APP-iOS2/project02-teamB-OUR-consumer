@@ -10,8 +10,8 @@ import Foundation
 class PostData: ObservableObject {
     var id: UUID = UUID()
     @Published var postStore: [FeedStore] = [
-        FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."),
-        FeedStore(id: UUID(), postId: "kimjongchan", numberOfComments: 2, numberOfLike: 10, numberOfRepost: 5, content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ")
+        FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg2", content: "축구...어렵네..."),
+        FeedStore(id: UUID(), postId: "kimjongchan", numberOfComments: 2, numberOfLike: 10, numberOfRepost: 5, postImageString: "postImg", content: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ")
     ]
     
     var postCommentStore: [PostCommentStore] = [
