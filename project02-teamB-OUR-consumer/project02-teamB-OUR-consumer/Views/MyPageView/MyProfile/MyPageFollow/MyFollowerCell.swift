@@ -11,6 +11,8 @@ struct MyFollowerCell: View {
     @ObservedObject var userViewModel: UserViewModel
     var follower: User
     
+    @State var showingAlert: Bool = false
+    
     var body: some View {
         HStack(spacing: 8) {
             Image("OUR_Logo")
@@ -25,20 +27,42 @@ struct MyFollowerCell: View {
             
             if let followings = userViewModel.user?.following {
                 if followings.contains(where: { $0 == follower.id }) {
+                    
                     Button(action:{
-                        userViewModel.unfollowUser(targetUserId: follower.id ?? "")
+                        showingAlert = true
+//                        userViewModel.unfollowUser(targetUserId: follower.id ?? "")
                     }) {
-                        Text("unfollow")
+                        Text("팔로잉")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(AColor.main.color)
+                            .frame(width: 90.05, height: 27.85)
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(AColor.main.color, lineWidth: 2)
+                            )
+                    }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text("⚠️알림"), message: Text("정말 팔로우를 취소하시겠습니까?"), primaryButton: .destructive(Text("팔로우 취소"), action: {
+                            userViewModel.unfollowUser(targetUserId: follower.id ?? "")
+                            print("진행.")
+                        }), secondaryButton: .cancel(Text("취소")))
                     }
                 } else {
                     Button(action: {
                         userViewModel.followUser(targetUserId: follower.id ?? "")
+                        print("팔로우 되었습니다.")
                     }){
-                        Text("follow")
+                        Text("팔로우")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(.white)
+                            .frame(width: 90.05, height: 27.85)
+                            .background(AColor.main.color)
+                            .cornerRadius(5)
                     }
                 }
             }
-            
         }
     }
 }
