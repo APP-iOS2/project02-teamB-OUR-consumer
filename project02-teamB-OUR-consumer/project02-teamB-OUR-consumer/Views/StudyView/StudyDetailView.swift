@@ -20,15 +20,29 @@ struct StudyDetailView: View {
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool = true
     @State var showAlert: Bool = false
+    @State var alertText: String = ""
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
+<<<<<<< Updated upstream
                     Image("OUR_Logo")
                         .resizable()
                         .scaledToFill()
                         .frame(height: 200)
+=======
+                    if viewModel.studyDetail.imageString != nil {
+                        AsyncImage(url: URL(string: viewModel.studyDetail.imageString?[0] ?? "")) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200)
+                                .clipped()
+                        } placeholder: {
+                            ProgressView()
+                        }
+>>>>>>> Stashed changes
                         .frame(maxWidth: .infinity)
                         .clipped()
                         .overlay(alignment:.bottom) {
@@ -135,6 +149,7 @@ struct StudyDetailView: View {
                                             .cornerRadius(20)
                                     }
                                     
+<<<<<<< Updated upstream
                                 } else {
                                     Button {
                                         print("")
@@ -145,6 +160,59 @@ struct StudyDetailView: View {
                                             .foregroundColor(.white)
                                             .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
                                             .cornerRadius(20)
+=======
+                                }
+//                                MARK: 로그인한 유저가 이 스터디를 이미 신청했다면 참석취소 버튼 보여주기
+//                                else if studyDetail.currentMembers. {
+//                                    Button {
+//                                        //MARK: 참석 취소 프로세스-디비저장-알럿
+//                                    } label: {
+//                                        Text("참석취소")
+//                                            .bold()
+//                                            .frame(width: 290, height: 40)
+//                                            .foregroundColor(.white)
+//                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+//                                            .cornerRadius(5)
+//                                    }
+//                                    Button {
+//                                        isSavedBookmark.toggle()
+//                                    } label: {
+//                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
+//                                            .font(.system(size: 30))
+//                                            .frame(width: 60, height: 40)
+//                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
+//                                    }
+//
+//                                }
+                                else {
+                                    if viewModel.studyDetail.isJoined {
+                                        Button(action: {
+                                            
+                                        }, label: {
+                                            Text("이미 참석한 스터디입니다.")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(.gray)
+                                                .cornerRadius(5)
+                                        }).disabled(true)
+                                    } else {
+                                        Button {
+                                            //MARK: 참석 프로세스-디비저장-알럿
+                                            Task {
+                                                await viewModel.joinStudy()
+                                                alertText = "스터디에 참여하였습니다."
+                                                showAlert = true
+                                            }
+                                        } label: {
+                                            Text("참석")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                                .cornerRadius(5)
+                                        }
+>>>>>>> Stashed changes
                                     }
                                     Button {
                                         isSavedBookmark.toggle()
@@ -184,6 +252,7 @@ struct StudyDetailView: View {
                 Menu {
                     Button(action: {
                         if isAlreadyReported() {
+                            alertText = "이미 신고한 스터디입니다."
                             showAlert = true
                         } else {
                             isShowingReportSheet = true
@@ -207,13 +276,20 @@ struct StudyDetailView: View {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("신고"),
-                  message: Text("이미 신고한 스터디입니다."),
+            Alert(title: Text("알림"),
+                  message: Text(alertText),
                   dismissButton: .destructive(Text("확인")) {
             })
+<<<<<<< Updated upstream
         }.onAppear(){
             viewModel.makeStudyDetail(study: study) {
                 
+=======
+        }
+        .onAppear(){
+            Task {
+                await viewModel.makeStudyDetail(study: study)
+>>>>>>> Stashed changes
             }
         }
     }

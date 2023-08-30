@@ -20,7 +20,7 @@ struct StudyReplyView: View {
     
     var body: some View {
         VStack{
-        
+            
             HStack() {
                 Spacer()
                 
@@ -47,32 +47,31 @@ struct StudyReplyView: View {
             
             
             HStack {
-                            //프로필 이미지
-                            Image("OUR_Logo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 40)
-                                .clipShape(Circle())
-                            //댓글입력창
-                            if isEditing {
-
-                                TextField("Edit reply",text: $editComment)
-                                                        .onTapGesture {
-                                                            editComment = ""
-                                                        }
-                                Button("Edit") {
-                                    
-                                    //댓글 edit 함수 자리
-                                    isEditing = false
-                                }
-                            } else {
-                                TextField("댓글을 입력하세요", text: $content, axis: .vertical)
-                                Button("등록") {
-//                        let comment = StudyComment(userId: commentUserId, content: content)
-//                        studyCommentStore.comments.append(comment)
-//                        print("\(studyCommentStore.comments)")
-                                    //댓글 등록 함수 자리
-                                    content = ""
+                //프로필 이미지
+                Image("OUR_Logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40)
+                    .clipShape(Circle())
+                //댓글입력창
+                if isEditing {
+                    
+                    TextField("Edit reply",text: $editComment)
+                        .onTapGesture {
+                            editComment = ""
+                        }
+                    Button("Edit") {
+                        
+                        //댓글 edit 함수 자리
+                        isEditing = false
+                    }
+                } else {
+                    TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+                    Button("등록") {
+                        Task {
+                            await viewModel.addComments(content: content)
+                        }
+                        content = ""
                     }
                 }
             }
