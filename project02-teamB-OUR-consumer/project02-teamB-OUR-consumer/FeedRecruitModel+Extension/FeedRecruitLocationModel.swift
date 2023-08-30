@@ -11,25 +11,24 @@ import CoreLocationUI
 
 class LocationManager: NSObject, ObservableObject {
     
+    static let shared = LocationManager()
     private let manager = CLLocationManager()
     @Published var userLocation: CLLocation?
-    static let shared = LocationManager()
-    var addressString = ""
-    
+
     override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.startUpdatingLocation()
     }
+}
+
+extension LocationManager: CLLocationManagerDelegate {
     
     func requestLocation() {
         manager.requestWhenInUseAuthorization()
     }
-
-}
-
-extension LocationManager: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         switch status {
@@ -55,5 +54,19 @@ extension LocationManager: CLLocationManagerDelegate {
         
     }
     
-  
+    func convertLocationToAddress(location: CLLocation) async throws -> String {
+        
+        var test:String = ""
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "en_US_POSIX")
+        
+        let data = try await geocoder.reverseGeocodeLocation(location, preferredLocale: locale)
+        
+        test = "\(data.first?.country ?? ""), \(data.first?.locality ?? ""), \(data.first?.name ?? "")"
+        print(test)
+        return test
+    }
+    
 }
+
+
