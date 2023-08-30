@@ -21,12 +21,14 @@ struct RecruitButton: View {
                     HStack {
                         ZStack {
                             Circle()
+                                .stroke(Color("AccentColor"), lineWidth: 2)
                                 .frame(height: 80)
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.clear)
                                 .shadow(radius: 8)
+                                
                             Image(systemName: "person.2")
                                 .font(.largeTitle)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color("AccentColor"))
                         }
                         Spacer()
                         Text("스터디 모집")
@@ -48,12 +50,14 @@ struct RecruitButton: View {
                     HStack {
                         ZStack {
                             Circle()
+                                .stroke(Color("AccentColor"), lineWidth: 2)
                                 .frame(height: 80)
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.clear)
                                 .shadow(radius: 8)
+                                
                             Image(systemName: "doc.text")
                                 .font(.largeTitle)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color("AccentColor"))
                         }
                         Spacer()
                         Text("피드 등록")
