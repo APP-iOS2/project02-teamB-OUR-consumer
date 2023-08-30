@@ -7,8 +7,10 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import Firebase
 
-struct PostModel: Codable, Identifiable {
+// 데이터베이스에서 가져오는 모델
+struct Post: Codable, Identifiable {
     @DocumentID var id: String?
     var creator: String
     var privateSetting: Bool
@@ -18,10 +20,27 @@ struct PostModel: Codable, Identifiable {
     var postImagePath: [String]
     var reportCount: Int
     var isRepost: Bool?
+}
+
+
+struct PostModel: Identifiable {
+    var id: String?
+    var creator: User
+    var privateSetting: Bool
+    var content: String
+    var createdAt: String
+    var location: String
+    var postImagePath: [String]
+    var reportCount: Int
+    var isRepost: Bool?
     var numberOfComments: Int?
-    var numberOfLike: Int?
+    var numberOfLike: Int
     var numberOfRepost: Int?
 }
+
+//extension PostModel {
+//    static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfLike: 0)
+//}
 
 struct FollowerData: Codable {
     let follower: [String]
@@ -29,16 +48,13 @@ struct FollowerData: Codable {
 
 struct LikedUsers: Codable {
     let userID: String
-    var createdAt: Double = Date().timeIntervalSince1970
+    var createdAt: String
     
-    var createdDate: String {
-        let dateCreatedAt: Date = Date(timeIntervalSince1970: createdAt)
-        
-        let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-        
-        return dateFormatter.string(from: dateCreatedAt)
+    init(userID: String) {
+        self.userID = userID
+        let timestamp = Timestamp(date: Date())
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        self.createdAt = formatter.string(from: timestamp.dateValue())
     }
 }

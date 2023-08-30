@@ -10,7 +10,7 @@ import Foundation
 class PostViewModel: ObservableObject {
     private var fireStoreService: PostFireService
     
-    @Published var posts: [PostModel] = []
+    @Published var posts: [Post] = []
     
     init(fireStoreService: PostFireService = PostFireService()) {
         self.fireStoreService = fireStoreService
@@ -23,6 +23,7 @@ class PostViewModel: ObservableObject {
 //            print("Error: current user UID")
 //            return
 //        }
+        
         let currentUserUID = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         
         fireStoreService.fetchFollowerUIDs(for: currentUserUID) { followerUIDs in
@@ -31,7 +32,7 @@ class PostViewModel: ObservableObject {
                 return
             }
             
-            self.fireStoreService.fetchPosts(for: followerUIDs, path: "posts", amount: 10) { post in
+            self.fireStoreService.fetchPosts(for: followerUIDs, path: "posts", amount: amount) { post in
                 self.posts = post
             }
         }
@@ -41,4 +42,9 @@ class PostViewModel: ObservableObject {
         fireStoreService.likePost(postID: postID)
     }
     
+    func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
+        fireStoreService.getPost(post: post) { post in
+            completion(post)
+        }
+    }
 }

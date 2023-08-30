@@ -36,7 +36,7 @@ class PostFireService {
     }
     
     /// 로그인한 유저의 팔로워들의 게시물만 가져옴
-    func fetchPosts(for followerUIDs: [String], path: String, amount: Int, completion: @escaping ([PostModel]) -> ()) {
+    func fetchPosts(for followerUIDs: [String], path: String, amount: Int, completion: @escaping ([Post]) -> ()) {
         db.collection("\(path)")
             .whereField("creator", in: followerUIDs)
             .order(by: "createdAt", descending: true)
@@ -47,9 +47,9 @@ class PostFireService {
                         print("Error loadFeed: \(error)")
                     } else {
                         print("FetchPosts querySnapshot: \(String(describing: querySnapshot))")
-                        var feeds: [PostModel] = []
+                        var feeds: [Post] = []
                         for document in querySnapshot!.documents {
-                            let feed = try document.data(as: PostModel.self)
+                            let feed = try document.data(as: Post.self)
                             feeds.append(feed)
                         }
                         completion(feeds)
@@ -61,33 +61,94 @@ class PostFireService {
             }
     }
     
+    func getPost(post: Post, completion: @escaping (PostModel) -> ()) {
+        var creator: User = User(name: "", email: "")
+        var likeCount: Int = 0
+        
+        getUserInfo(userId:  post.creator) { result in
+            if let result = result {
+                creator = result
+            }
+            
+            self.getLikeCount(of: post.id ?? "") { count in
+                likeCount = count
+                
+                completion(PostModel(creator: creator, privateSetting: post.privateSetting, content: post.content, createdAt: post.createdAt, location: post.location, postImagePath: post.postImagePath, reportCount: post.reportCount, numberOfLike: likeCount))
+            }
+        }
+    }
+    
+    /// 좋아요 갯수
+    func getLikeCount(of postId: String, completion: @escaping (Int) -> ()) {
+        db.collection("posts").document(postId).collection("like").getDocuments { (document, error) in
+            if let error = error {
+                print("Error getLikeCount() \(error)")
+            } else {
+                if let document {
+                    let likeCount = document.count
+                    completion(likeCount)
+                    print("LikeCount: \(likeCount)")
+                }
+            }
+        }
+    }
+    
     /// 이 게시물이 내 게시물인지
     func isMyFeed(post: PostModel) -> Bool {
         guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return false }
         
-        if post.creator == userId {
+        if post.creator.id == userId {
             return true
         } else {
             return true
         }
     }
     
-    /// 좋아요 기능
     func likePost(postID: String) {
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
-        
-        do {
-            let likedUser: LikedUsers = LikedUsers(userID: userId)
-            try db.collection("posts").document(postID).collection("like").document(userId).setData(from: likedUser)
-            print("좋아요 저장")
-        }
-        catch {
-            print(error)
+
+        let likeCollectionRef = db.collection("posts").document(postID)
+
+        likeCollectionRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error checking likes: \(error)")
+            } else if let document = document {
+                if var likes = document.data()?["like"] as? [String] {
+                    if likes.contains(userId) {
+                        // 이미 좋아요를 눌렀을 경우, userId를 배열에서 삭제
+                        likes.removeAll(where: { $0 == userId })
+                    } else {
+                        // 좋아요를 누르지 않았을 경우, userId를 배열에 추가
+                        likes.append(userId)
+                    }
+                    likeCollectionRef.updateData([
+                        "like": likes
+                    ]) { error in
+                        if let error = error {
+                            print("Error updating likes: \(error)")
+                        } else {
+                            print("Updated likes")
+                        }
+                    }
+                } else {
+                    // like 필드가 존재하지 않을 경우, 새로운 배열 생성 후 userId 추가
+                    let newLikes = [userId]
+                    likeCollectionRef.updateData([
+                        "like": newLikes
+                    ]) { error in
+                        if let error = error {
+                            print("Error creating likes: \(error)")
+                        } else {
+                            print("Created likes")
+                        }
+                    }
+                }
+            }
         }
     }
+
     
-    func getUserInfo(userId: String, completion: @escaping (User?) -> Void) {
+    func getUserInfo(userId: String, completion: @escaping (User?) -> ()) {
         db.collection("users").document(userId).getDocument(as: User.self) { result in
             switch result {
             case .success(let response):
