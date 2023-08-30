@@ -11,14 +11,13 @@ struct PostUserView: View {
     @State var user: User = User.defaultUser
     @State var userViewModel: UserViewModel = UserViewModel()
     var post: Post
-    var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
     @Binding var isShowingSheet: Bool
     
     var body: some View {
-        
         
         HStack {
             Button {

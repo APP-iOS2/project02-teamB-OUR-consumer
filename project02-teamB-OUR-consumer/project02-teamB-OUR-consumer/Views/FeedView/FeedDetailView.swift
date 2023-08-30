@@ -11,13 +11,9 @@ struct FeedDetailView: View {
     
     // 파이어베이스 연결되어 있는 모델
     var post: Post
-    @ObservedObject var postViewModel: PostViewModel = PostViewModel()
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
     @State private var isShowingSheet: Bool = false
     @State private var isScrapFeed: Bool = false
-    
-    // 임의 모델
-    @ObservedObject var idData: IdData = IdData()
-    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
     
     var body: some View {
         ScrollView {

@@ -10,7 +10,7 @@ import SwiftUI
 struct PostButtonView: View {
     var post: Post
     
-    @ObservedObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -20,7 +20,7 @@ struct PostButtonView: View {
     
     @Binding var isScrapFeed: Bool
     
-    @ObservedObject var idData: IdData = IdData()
+    @StateObject var idData: IdData = IdData()
     var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
     
     var body: some View {

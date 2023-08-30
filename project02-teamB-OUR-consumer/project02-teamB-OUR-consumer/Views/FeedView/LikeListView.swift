@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct LikeListView: View {
-    @ObservedObject private var idData: IdData = IdData()
+    
+    var post: Post
+    @StateObject var postViewModel: PostViewModel
+    var postFireService: PostFireService = PostFireService()
+    @State private var postModel: PostModel = PostModel.samplePostModel
     @Binding var isToggle: Bool
     
     var body: some View {
         NavigationStack {
             VStack {
-                ForEach(idData.idStore) { like in
+                ForEach(postModel.likedUsers) { like in
                     HStack{
-                        Image("\(like.profileImgString)")
+                        Image("OUR_Logo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
@@ -27,15 +31,15 @@ struct LikeListView: View {
                             .foregroundColor(.black)
                         Spacer()
                         
-                        Button {
-                            idData.followToggle(like)
-                        } label: {
-                            if !like.isFollow {
-                                FollowButtonView()
-                            } else {
-                                FollowingButtonView()
-                            }
-                        }
+//                        Button {
+//                            postModel.
+//                        } label: {
+//                            if !postModel. {
+//                                FollowButtonView()
+//                            } else {
+//                                FollowingButtonView()
+//                            }
+//                        }
                     }
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                 }
@@ -54,6 +58,11 @@ struct LikeListView: View {
                     }
                 }
             }
+            .onAppear {
+                postFireService.getLikedUser(post: post) { postModel in
+                    self.postModel.likedUsers = postModel
+                }
+            }
         }
         
     }
@@ -61,6 +70,6 @@ struct LikeListView: View {
 
 struct LikeListView_Previews: PreviewProvider {
     static var previews: some View {
-        LikeListView(isToggle: .constant(true))
+        LikeListView(post: Post.samplePost, postViewModel: PostViewModel(), isToggle: .constant(true))
     }
 }
