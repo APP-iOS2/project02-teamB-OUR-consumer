@@ -15,7 +15,7 @@ struct Annotation: Identifiable {
 
 struct LocationSheetView: View {
     
-    var study: StudyDTO
+    var viewModel: StudyViewModel
     
     // map이 무거워서 onAppear로 coordinate가 값을 받아와도 변경이 안됨. 그래서 이 값이 true일때 Map을 보여라! 라고 해주는거임
     @State var isChangedState: Bool = false
@@ -30,7 +30,7 @@ struct LocationSheetView: View {
             VStack {
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
-                    Text(study.locationName ?? "(위치 없음)")
+                    Text(viewModel.studyDetail.locationName ?? "(위치 없음)")
                         .fontWeight(.heavy)
                     Spacer()
                 }
@@ -42,6 +42,7 @@ struct LocationSheetView: View {
                         .frame(height: 250)
                 }
             }
+            .padding()
             .onAppear {
                 // region값을 바꿔놓은 후에 isChangedState값을 토글시켜서 map 보여주기!
                 region.center = locationCoordinate
@@ -64,6 +65,6 @@ struct LocationSheetView: View {
 
 struct LocationSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSheetView(study: StudyDTO(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"), locationCoordinate: CLLocationCoordinate2D(latitude: 37.49733287620238, longitude: 127.02891033313006), isShowingLocationSheet: .constant(false))
+        LocationSheetView(viewModel: StudyViewModel(), locationCoordinate: CLLocationCoordinate2D(latitude: 37.49733287620238, longitude: 127.02891033313006), isShowingLocationSheet: .constant(false))
     }
 }

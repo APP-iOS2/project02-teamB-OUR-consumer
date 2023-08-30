@@ -247,11 +247,11 @@ struct StudyDetailView: View {
             }
         }
         .sheet(isPresented: $isShowingStudyMemberSheet) {
-            StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet)
+            StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet, viewModel: viewModel)
                 .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $isShowingLocationSheet) {
-            LocationSheetView(study: study, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 0.0, longitude: study.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
+            LocationSheetView(viewModel: viewModel, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 0.0, longitude: study.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
                 .presentationDetents([.medium])
         }
         .sheet(isPresented: $isShowingReportSheet) {
