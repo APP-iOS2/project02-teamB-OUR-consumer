@@ -14,7 +14,6 @@ struct PostButtonView: View {
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
-    @State private var isLikedButton: Bool = false
     @State var isShowingCommentSheet: Bool = false
     @State var isShowingScrapSheet: Bool = false
     @State var isShowingShareSheet: Bool = false
@@ -26,8 +25,8 @@ struct PostButtonView: View {
             Button {
                 // 좋아요 버튼
                 postViewModel.likePost(postID: post.id ?? "")
-                isLikedButton.toggle()
-                postModel.isLiked = isLikedButton
+                postModel.isLiked.toggle()
+                print("\(postModel.isLiked)")
 
             } label: {
                 postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
@@ -61,7 +60,9 @@ struct PostButtonView: View {
 //                .presentationDetents([.height(180), .height(180)])
 //        }
         .onAppear {
-            postViewModel.likePost(postID: post.id ?? "")
+            postViewModel.getPost(of: post) { postModel in
+                self.postModel = postModel
+            }
         }
     }
 }
