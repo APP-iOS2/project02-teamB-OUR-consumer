@@ -16,12 +16,12 @@ class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
     
-//    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
+    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
-    var personalIds: [String] = []
     var publicIds: [String] = []
+    var personalIds: [String] = []
     
     init(dependency: AlarmFireService = AlarmFireService()){
         self.service = dependency
@@ -48,25 +48,27 @@ class AlarmViewModel: ObservableObject{
     #endif
     
     
-    
     func fetchNotificationItem(limit: Int = 10) {
         service.read { [weak self] ids, notifiationDTO in
             guard let self = self else { return }
+            
+            // 여기에 로깅을 추가
+            print("가져온 알람: \(notifiationDTO)")
             
             let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
             
             personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
             publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
-//            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-//            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
+            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
+            
+            // 이 부분도 로깅으로 확인
+            print("hasUnreadData updated to: \(self.hasUnreadData)")
         }
     }
     
-//    func removeRows(at offsets: IndexSet) {
-//        personalNotiItem.remove(atOffsets: offsets)
-//    }
         
-    func delete(notification set: IndexSet?, access: NotificationType.Access){
+    func delete(notification set: IndexSet?, access: NotificationType.Access, key: ASection){
         if let set{
             var willDeleteIds: [ID] = []
             
@@ -84,7 +86,21 @@ class AlarmViewModel: ObservableObject{
             }
             
             service.delete(ids: willDeleteIds, completion: { string in
-                print("Delete Success \(string)")
+                switch access {
+                case .public:
+                    // 여기에서 메모리 에 있는 데이터 삭제
+                    var values = self.publicNotiItem[key]!
+                    values.remove(atOffsets: set)
+                    self.publicNotiItem[key] = values
+
+                case .personal:
+                    // 여기에서 메모리 에 있는 데이터 삭제
+                    var values = self.personalNotiItem[key]!
+                    values.remove(atOffsets: set)
+                    self.personalNotiItem[key] = values
+                case .none:
+                    return
+                }
             })
         }else{
             switch access {
@@ -109,16 +125,47 @@ class AlarmViewModel: ObservableObject{
     }
     
     
-    func update(isRead item: NotificationItem){
-        
+    // notification의 id로 탐색을 할것인가....
+    func update(isRead id: ID){
+        service.update(id: id, completion: { err in
+            if err != nil{
+                print("failed update")
+            }else{
+                print("success update")
+            }
+        })
     }
     
-    
-    func remove(items: NotificationItem){
-        //FireBase remove Logic
+    func update(isReads ids: [ID]){
+        service.update(ids: ids, completion: { err in
+            if err != nil{
+                print("failed update")
+            }else{
+                print("success update")
+            }
+        })
     }
     
-    
+    func addNewNotification() {
+        // 새로운 알림 데이터를 생성
+        let newNotification = NotificationDTO(
+            id: UUID().uuidString,
+            userId: "새로운 사용자 ID",
+            type: "follow",
+            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
+            isRead: false,
+            createdDate: "2023-08-29 13:50:39".toDate() // 현재 날짜와 시간을 설정
+        )
+
+        // Firestore 서비스를 통해 데이터를 추가
+        service.create(send: newNotification) { result in
+            if result == "success" {  // 예시: 성공 시 "success" 문자열 반환
+                print("New notification added successfully.")
+            } else {
+                print("Failed to add new notification.")
+            }
+        }
+    }
 
     private func getUser(user id: ID) -> User?{
         guard
@@ -240,6 +287,13 @@ struct DummyModel{
                             type: "studyReply",
                             content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
                             isRead: false,
-                            createdDate: "2023-06-21 13:50:39".toDate())]
+                            createdDate: "2023-06-21 13:50:39".toDate()),
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "studyReply",
+                            content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
+                            isRead: false,
+                            createdDate: "2022-06-21 13:50:39".toDate())
+        ]
     }
 }

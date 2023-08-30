@@ -20,9 +20,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    
-    
-    
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any])
@@ -56,15 +53,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
+    @StateObject var alarmViewModel = AlarmViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            
-            //            NavigationStack {
             NavigationStack {
                 LoginView()
             }
-            //            AddStudyMain()
-            
+            .environmentObject(alarmViewModel)
         }
     }
 }
