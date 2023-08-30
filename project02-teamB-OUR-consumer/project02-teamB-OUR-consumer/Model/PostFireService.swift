@@ -72,7 +72,7 @@ class PostFireService {
                     location: post.location,
                     postImagePath: post.postImagePath,
                     reportCount: post.reportCount,
-                    numberOfLike: post.like.count ,
+                    numberOfLike: post.like?.count ?? 0 ,
                     isLiked: bool // You can set this value as needed
                 )
                 completion(postModel)

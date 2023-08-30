@@ -19,7 +19,7 @@ struct Post: Codable, Identifiable {
     var location: String
     var postImagePath: [String]
     var reportCount: Int
-    var like: [String]
+    var like: [String]?
     var isRepost: Bool?
 }
 
