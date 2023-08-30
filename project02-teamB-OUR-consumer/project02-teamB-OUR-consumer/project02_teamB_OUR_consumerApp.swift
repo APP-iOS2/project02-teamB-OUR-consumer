@@ -58,12 +58,9 @@ struct project02_teamB_OUR_consumerApp: App {
     @StateObject var sharedViewModel = SharedViewModel()
     var body: some Scene {
         WindowGroup {
-
-//            NavigationStack {
-//                LoginView()
-            CustomTabBarView()
-//            AddStudyMain()
-
+            NavigationStack {
+                LoginView()
+            }
         }
     }
 }

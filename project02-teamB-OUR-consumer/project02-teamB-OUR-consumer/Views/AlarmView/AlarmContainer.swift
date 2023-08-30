@@ -29,21 +29,18 @@ struct AlarmContainer: View {
                     } label: {
                         Text("푸쉬 알림")
                     }
-
                     Button {
                         UNNotificationService.shared.requestAuthNoti()
                     } label: {
                         Text("권한 설정")
                     }
                 }
-
                 
                 // 알림 뷰
                 switch selectedTab {
                 case 0:
                     NotificationsListView(access: .personal) // 개인 알림
                         .environmentObject(viewModel)
-                    
                 case 1:
                     NotificationsListView(access: .public) // 공개 알림
                         .environmentObject(viewModel)
@@ -58,16 +55,18 @@ struct AlarmContainer: View {
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    viewModel.personalNotiItem = [:]
-                    viewModel.publicNotiItem = [:]
-                } label: {
-                    Text("전체 삭제")
-                }
-            }
-        }
+        
+        // 전체 삭제 기능 제거
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    viewModel.personalNotiItem = [:]
+//                    viewModel.publicNotiItem = [:]
+//                } label: {
+//                    Text("전체 삭제")
+//                }
+//            }
+//        }
     }
 }
 

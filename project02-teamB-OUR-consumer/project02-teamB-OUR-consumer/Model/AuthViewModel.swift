@@ -42,7 +42,6 @@ class AuthViewModel: ObservableObject {
                     print("Error getting documents: \(err)")
                     return
                 } else {
-//                    print(querySnapshot?.exists)
                     if let isUser = querySnapshot?.exists {
                         if !isUser {
                             self.state = .signUp
@@ -61,6 +60,13 @@ class AuthViewModel: ObservableObject {
     func signIn(completion: @escaping () -> Void) {
          // 이전에 로그인 했는지 검사
          // 이전에 로그인 했으면 그 기억을 복구하고, 없으면 로그인을 시도한다.
+         if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+             GIDSignIn.sharedInstance.restorePreviousSignIn { [unowned self] user, error in
+                 authenticateUser(for: user, with: error) {
+                     completion()
+                 }
+             }
+         } else {
              // google service info.plist에서 clientId 값을 가져온다.
              guard let clientID = FirebaseApp.app()?.options.clientID else {
                  return
@@ -73,6 +79,8 @@ class AuthViewModel: ObservableObject {
              // 로그인
              GIDSignIn.sharedInstance.signIn(withPresenting: self.getRootViewController()) { result, error in
                  guard error == nil else {
+                     print(error?.localizedDescription)
+                     completion()
                      return
                  }
 
@@ -96,6 +104,7 @@ class AuthViewModel: ObservableObject {
                      }
                  }
              }
+         }
      }
      
     private func authenticateUser(for user: GIDGoogleUser?, with error: Error?, completion: @escaping () -> Void) {
@@ -111,19 +120,17 @@ class AuthViewModel: ObservableObject {
 
          let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
 
-         let firebaseAuth = Auth.auth()
          Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
              if let error = error {
                  print(error.localizedDescription)
-                 completion()
              } else {
                  guard let result = result else { return }
                  self.state = .signedIn
                  UserDefaults.standard.set("google", forKey: Keys.loginType.rawValue)
                  UserDefaults.standard.set(result.user.uid, forKey: Keys.userId.rawValue)
                  UserDefaults.standard.set(result.user.email, forKey: Keys.email.rawValue)
-                 completion()
              }
+             completion()
          }
      }
     

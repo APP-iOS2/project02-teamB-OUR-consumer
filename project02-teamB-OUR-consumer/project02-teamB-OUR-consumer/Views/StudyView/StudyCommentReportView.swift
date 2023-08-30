@@ -12,44 +12,47 @@ struct StudyCommentReportView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-//    var commentUserId: String // 신고하는 사람..?
-    var comment: StudyGroupComment
+    //    var commentUserId: String // 신고하는 사람..?
+    var viewModel: StudyViewModel
+    var isStudy: Bool
+    var comment: StudyComment?
+    let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue)
     
     //신고유형들 쭈루룩
-    let reports: [String] = ["스팸","사기 또는 거짓", "혐오 발언 또는 상징", "계정이 해킹당 했을 수 있음"]
+    //경미님이 짜준 enum 올라오면 활용하기
+    let reports: [Report] = Report.reasons
     
     @State var showAlert: Bool = false
     @State var reportCategory: String = ""
-  
+    
     
     var body: some View {
         NavigationStack {
             Divider()
-            VStack(alignment: .leading) {
-                Text("신고하는 댓글")
-                    .fontWeight(.heavy)
-                
-                StudyReplyDetailInReportView(comment:comment)
-                    .padding(10)
-                    .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 0.5)
-                        )
-            }
-            
-            Divider()
+            //            VStack(alignment: .leading) {
+            //                Text("신고하는 댓글")
+            //                    .fontWeight(.heavy)
+            //
+            //                StudyReplyDetailInReportView(comment:comment)
+            //                    .padding(10)
+            //                    .overlay(
+            //                            RoundedRectangle(cornerRadius: 20)
+            //                                .stroke(Color.gray, lineWidth: 0.5)
+            //                        )
+            //            }
+            //
+            //            Divider()
             
             Form {
                 Text("신고하는 이유")
                     .fontWeight(.heavy)
                     .padding([.bottom, .top], 5)
                 ForEach(reports, id: \.self) { report in
-                    
                     Button {
-                        reportCategory = report
                         showAlert = true
+                        reportCategory = Report.getReport(for: report)
                     } label: {
-                        Text("\(report)")
+                        Text("\(Report.getReport(for: report))")
                             .padding(.bottom, 5)
                         
                     }
@@ -78,10 +81,14 @@ struct StudyCommentReportView: View {
             Alert(title: Text("신고하시겠습니까?"),
                   message: Text("\"\(reportCategory)\" 사유로 신고합니다"),
                   primaryButton: .destructive(Text("신고하기")) {
-                print(reportCategory)
+                if isStudy {
+                    guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                        return
+                    }
+                    viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                }
                 dismiss()//뷰 닫기
-                //신고관련된 함수넣기
-                    },
+            },
                   secondaryButton: .cancel(Text("취소")))
         }
     }
@@ -90,7 +97,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(comment: StudyGroupComment(userId: "1", content: "diudididi", createdAt: "2022-11"))
+            StudyCommentReportView(viewModel: StudyViewModel(), isStudy: true)
         }
     }
 }

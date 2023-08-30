@@ -16,7 +16,7 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @ObservedObject var studyViewModel = StudyViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
@@ -40,6 +40,7 @@ struct StudyListView: View {
             }
             
             List {
+
                 if selectedArray == .allList {
                     ForEach(studyViewModel.sortedStudy()) { study in
                         NavigationLink {
@@ -67,7 +68,16 @@ struct StudyListView: View {
                         }
                     }
                     .listRowSeparator(.hidden)
+
+                ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
+                    NavigationLink(destination: {
+                        StudyDetailView(viewModel: studyViewModel, study: study)
+                    }, label: {
+                        StudyListItemView(study: study)
+                    })
+
                 }
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("스터디 모임")
