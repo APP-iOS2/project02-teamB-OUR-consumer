@@ -53,16 +53,15 @@ struct PostButtonView: View {
         .bold()
         .foregroundColor(Color(hex: 0x090580))
         .padding()
-//        // 댓글 시트
+        // 댓글 시트
         .sheet(isPresented: $isShowingCommentSheet) {
-            CommentView(post: feed, idData: idData)
-                .presentationDetents([.medium, .large])
+            CommentView(post: post)
         }
-//        // 퍼가기 시트
-//        .sheet(isPresented: $isShowingScrapSheet) {
-//            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
-//                .presentationDetents([.height(180), .height(180)])
-//        }
+        // 퍼가기 시트
+        .sheet(isPresented: $isShowingScrapSheet) {
+            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
+                .presentationDetents([.height(180), .height(180)])
+        }
         .onAppear {
             postViewModel.getPost(of: post) { postModel in
                 self.postModel = postModel

@@ -15,13 +15,8 @@ struct PostView: View {
     
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
-    
-    @State var likeCount: Int = 0
-    @State var commentCount: Int = 0
-    @State var rePostCount: Int = 0
-    
     @State private var isSheet: Bool = false
-    
+ 
     var body: some View {
         Group {
             if post.postImagePath.isEmpty == false {
@@ -67,9 +62,9 @@ struct PostView: View {
                     .sheet(isPresented: $isSheet) {
                         LikeListView(isToggle: $isSheet)
                     }
-                    
-//                    Text("댓글 \(post.numberOfComments)")
-//                    Text("퍼감 \(post.numberOfRepost)")
+         
+//                    Text("댓글 \(postModel.numberOfComments)")
+//                    Text("퍼감 \(postModel.numberOfRepost)")
                 }
                 .font(.system(size: 14))
                 .foregroundColor(.gray)
