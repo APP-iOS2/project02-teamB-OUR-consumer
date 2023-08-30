@@ -92,6 +92,8 @@ extension UserViewModel {
        }
     
     private func fetchUsersDetails(userIds: [String], completion: @escaping ([User]) -> Void) {
+        if userIds.count == 0 { return completion([]) }
+
         db.collection("users").whereField(FieldPath.documentID(), in: userIds).getDocuments { (querySnapshot, error) in
             if let documents = querySnapshot?.documents {
                 let users = documents.compactMap { document -> User? in

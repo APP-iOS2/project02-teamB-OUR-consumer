@@ -15,10 +15,11 @@ struct MyFollowerCell: View {
         HStack(spacing: 8) {
             Image("OUR_Logo")
                 .resizable()
-                .frame(width: 100, height: 100)
+                .frame(width: 40, height: 40)
                 .cornerRadius(50)
             
             Text(follower.name)
+                .padding(.leading, 4)
             
             Spacer()
             
