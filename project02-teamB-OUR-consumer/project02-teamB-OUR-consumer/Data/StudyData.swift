@@ -14,7 +14,7 @@ struct StudyDTO: Identifiable, Codable {
     // study Id => 추후 documentId로 바꿀 수도 있음
     @DocumentID var id: String?
     // study 배경 Image
-    var imageString: String?
+    var imageString: [String]?
     // study를 만든 사람의 id
     var creatorId: String
     // study 제목

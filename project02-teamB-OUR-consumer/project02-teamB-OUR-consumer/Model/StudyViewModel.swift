@@ -18,7 +18,7 @@ struct ReportData: Codable {
 // 실제로 사용할 study 구조체
 struct StudyDetail {
     var id: String = UUID().uuidString
-    var imageString: String?
+    var imageString: [String]?
     var creator: User
     var title: String
     var description: String
@@ -221,6 +221,14 @@ class StudyViewModel: ObservableObject {
         print("remove")
     }
     
+    //스터디 피드 삭제
+    func deleteStudy(studyID: String) {
+        dbRef.collection(.studyGroup).document(studyID).delete { error in
+            if let error = error {
+                print("Study delete failed: \(error)")
+            }
+        }
+    }
     
     func sortedStudy(sorted: StudyList) -> [StudyDTO] {
         switch sorted {

@@ -14,17 +14,21 @@ struct RecruitMainSheet: View {
         
         VStack(alignment: .trailing) {
             HStack {
+                
                 Text("등록하기")
                     .font(.title2)
-                Spacer().frame(width: 240)
+//                Spacer().frame(width: 240)
+                Spacer()
                 Button {
                     isShowingSheet = false
                 } label: {
                     Image(systemName: "xmark")
                         .tint(.black)
                 }
-                .padding()
+              
             }
+            .padding(.top, 40)
+            .padding(.horizontal, 25)
           
             RecruitButton()
         }

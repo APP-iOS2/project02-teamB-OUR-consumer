@@ -10,11 +10,14 @@ import SwiftUI
 struct ScrapView: View {
     var post: FeedStore
     @Binding var isShowingScrapSheet: Bool
+    @Binding var isScrapFeed: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
             Button {
                 // 퍼가기 기능 실행
+                // 퍼가기 완료 알림!
+                isScrapFeed.toggle()
                 isShowingScrapSheet.toggle()
                 
             } label: {
@@ -32,6 +35,6 @@ struct ScrapView: View {
 
 struct ScrapView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrapView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), isShowingScrapSheet: .constant(false))
+        ScrapView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네..."), isShowingScrapSheet: .constant(false), isScrapFeed: .constant(false))
     }
 }
