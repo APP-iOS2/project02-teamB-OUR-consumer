@@ -89,7 +89,6 @@ struct MyMain: View {
             }
             .padding(.top, 1)
         }
-        
         .onAppear(){
             userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
             resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
