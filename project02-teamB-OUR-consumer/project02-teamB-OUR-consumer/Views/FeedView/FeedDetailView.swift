@@ -22,11 +22,11 @@ struct FeedDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                PostUserView(post: post, postViewModel: postViewModel, isShowingSheet: $isShowingSheet)
                     .padding(.leading, 15)
                 PostView(post: post, postViewModel: postViewModel)
                 PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
-                CommentView(post: feed, idData: idData)
+                CommentView(post: post)
             }
         }
     }

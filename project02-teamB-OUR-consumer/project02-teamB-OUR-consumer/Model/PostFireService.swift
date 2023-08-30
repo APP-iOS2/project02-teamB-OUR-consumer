@@ -97,7 +97,7 @@ class PostFireService {
         let postComment = PostComment(userId: userId, content: content)
         
         do {
-            let documentRef = try             db.collection("posts").document(postId).collection("comments").addDocument(from: postComment)
+            try db.collection("posts").document(postId).collection("comments").addDocument(from: postComment)
             completion(true)
         } catch {
             print("Error writeComment")
