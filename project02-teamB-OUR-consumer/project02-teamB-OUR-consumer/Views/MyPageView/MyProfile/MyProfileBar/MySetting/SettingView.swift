@@ -55,21 +55,6 @@ struct SettingView: View {
                     }
                     
                     Group {
-                        HStack {
-                            Text("공개 범위 설정")
-                                .font(.headline)
-                            Toggle(isOn: $privacySetting) {
-                                // 상태 변화
-                            }
-                            .offset(y: 10)
-                        }
-                        Text("이력서 공개 여부")
-                            .font(.footnote)
-                            .padding(.bottom, 10)
-                        Divider()
-                    }
-                    
-                    Group {
                         NavigationLink {
                             InquiryView()
                         } label: {
@@ -86,18 +71,6 @@ struct SettingView: View {
                             // 로그아웃
                         } label: {
                             Text("로그아웃")
-                                .font(.headline)
-                        }
-                        .buttonStyle(.plain)
-                        .padding(.vertical)
-                        Divider()
-                    }
-
-                    Group {
-                        Button {
-                            // 회원 탈퇴
-                        } label: {
-                            Text("회원탈퇴")
                                 .font(.headline)
                         }
                         .buttonStyle(.plain)
