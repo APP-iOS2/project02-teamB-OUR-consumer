@@ -35,18 +35,23 @@ struct AddStudyMain: View {
     
     var body: some View {
         NavigationStack {
-            
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
-                    
                     // MARK: - 스터디 제목
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading)  {
                         Text("스터디 제목")
                             .font(.system(.title3, weight: .semibold))
-                        TextField("스터디 제목을 입력하세요.", text: $studyTitle)
-                            .frame(maxWidth: .infinity, maxHeight: 50)
-                            .padding()
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        ZStack(alignment: .leading) {
+                            if studyTitle.isEmpty {
+                                Text("스터디 제목을 입력하세요.")
+                                    .foregroundColor(Color.gray)
+                                    .padding()
+                            }
+                            TextField("", text: $studyTitle)
+                                .padding() // Adjust the padding as needed
+                                .cornerRadius(8) // Customize the corner radius as needed
+                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                        }
                     }
                     
                     // MARK: - 스터디 내용
@@ -63,9 +68,9 @@ struct AddStudyMain: View {
                             if studyText.isEmpty {
                                 Text(placeholder)
                                     .foregroundColor(.gray)
-                                    .position(x: 108, y: 20)
+                                    .position(x: 104, y: 25)
                             }
-                                
+                            
                         }
                     }
                     // MARK: - 온/오프라인 선택
