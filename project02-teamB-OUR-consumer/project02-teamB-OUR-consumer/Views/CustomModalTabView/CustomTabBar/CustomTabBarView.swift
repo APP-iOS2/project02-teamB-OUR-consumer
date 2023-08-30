@@ -43,7 +43,6 @@ struct CustomTabBarView: View {
             ZStack {
                 Rectangle()
                     .frame(width: .infinity, height: 55)
-                //                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 8)
