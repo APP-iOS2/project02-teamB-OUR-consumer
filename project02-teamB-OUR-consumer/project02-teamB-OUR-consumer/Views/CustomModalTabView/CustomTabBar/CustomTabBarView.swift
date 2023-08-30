@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct CustomTabBarView: View {
+    @EnvironmentObject var alarmViewModel: AlarmViewModel
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
+    
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
     let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
     
@@ -36,13 +38,13 @@ struct CustomTabBarView: View {
             ZStack {
                 Rectangle()
                     .frame(width: 350, height: 45)
-                //                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
                     .shadow(radius: 15)
+                
                 HStack {
                     Spacer()
-                    //                    0 ..< tabBarImageNames.count
+                    
                     ForEach(0 ..< tabBarImageNames.endIndex, id:\.self) { index in
                         VStack {
                             if index == 2 {
@@ -63,9 +65,9 @@ struct CustomTabBarView: View {
                             } else {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
-                                        AlarmTabBarImage(selectedIndex: $selectedIndex, index: index)
+                                        AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
                                             .frame(width: 20, height: 35, alignment: .bottom)
-                                    }else{
+                                    } else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 27, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
@@ -73,6 +75,11 @@ struct CustomTabBarView: View {
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 13))
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                        
+                                        // 새로운 알림을 추가하는 버튼
+                                        Button("데이터 추가") {
+                                            alarmViewModel.addNewNotification()
+                                        }
                                     }
                                 }
                             }

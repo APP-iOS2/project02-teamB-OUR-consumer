@@ -16,7 +16,7 @@ class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
     
-//    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
+    @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
@@ -52,13 +52,18 @@ class AlarmViewModel: ObservableObject{
         service.read { [weak self] ids, notifiationDTO in
             guard let self = self else { return }
             
+            // 여기에 로깅을 추가
+            print("가져온 알람: \(notifiationDTO)")
+            
             let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
             
             personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
             publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
-//            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-//            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
-            self.update(isReads: self.publicIds)
+            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
+            
+            // 이 부분도 로깅으로 확인
+            print("hasUnreadData updated to: \(self.hasUnreadData)")
         }
     }
     
@@ -141,6 +146,26 @@ class AlarmViewModel: ObservableObject{
         })
     }
     
+    func addNewNotification() {
+        // 새로운 알림 데이터를 생성
+        let newNotification = NotificationDTO(
+            id: UUID().uuidString,
+            userId: "새로운 사용자 ID",
+            type: "follow",
+            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
+            isRead: false,
+            createdDate: "2023-08-29 13:50:39".toDate() // 현재 날짜와 시간을 설정
+        )
+
+        // Firestore 서비스를 통해 데이터를 추가
+        service.create(send: newNotification) { result in
+            if result == "success" {  // 예시: 성공 시 "success" 문자열 반환
+                print("New notification added successfully.")
+            } else {
+                print("Failed to add new notification.")
+            }
+        }
+    }
 
     private func getUser(user id: ID) -> User?{
         guard
