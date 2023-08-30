@@ -67,7 +67,7 @@ struct LoginView: View {
                     }.disabled(true)
                     Button {
                         isLoading = true
-                        viewModel.signOut()
+//                        viewModel.signOut()
                         viewModel.signIn() {
                             if viewModel.state != .signedOut {
                                 navigate = true
