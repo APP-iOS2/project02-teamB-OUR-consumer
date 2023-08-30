@@ -36,7 +36,7 @@ struct FeedView: View {
                     }
                     PostView(post: post, postViewModel: postViewModel)
 
-              
+
                     PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
                     
                     Divider()

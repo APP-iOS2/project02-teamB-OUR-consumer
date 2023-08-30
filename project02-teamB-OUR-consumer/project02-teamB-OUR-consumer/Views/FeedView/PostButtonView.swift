@@ -20,6 +20,9 @@ struct PostButtonView: View {
     
     @Binding var isScrapFeed: Bool
     
+    @ObservedObject var idData: IdData = IdData()
+    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
+    
     var body: some View {
         HStack(spacing: 75) {
             Button {
@@ -51,9 +54,10 @@ struct PostButtonView: View {
         .foregroundColor(Color(hex: 0x090580))
         .padding()
 //        // 댓글 시트
-//        .sheet(isPresented: $isShowingCommentSheet) {
-//            CommentView(post: post, idData: idData)
-//        }
+        .sheet(isPresented: $isShowingCommentSheet) {
+            CommentView(post: feed, idData: idData)
+                .presentationDetents([.medium, .large])
+        }
 //        // 퍼가기 시트
 //        .sheet(isPresented: $isShowingScrapSheet) {
 //            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)

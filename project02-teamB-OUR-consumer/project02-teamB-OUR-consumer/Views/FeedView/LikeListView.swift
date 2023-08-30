@@ -9,13 +9,11 @@ import SwiftUI
 
 struct LikeListView: View {
     @ObservedObject private var idData: IdData = IdData()
-    @State private var isToggle: Bool = false
+    @Binding var isToggle: Bool
     
     var body: some View {
-        ScrollView{
+        NavigationStack {
             VStack {
-                Text("Like List")
-                    .font(.system(size: 20))
                 ForEach(idData.idStore) { like in
                     HStack{
                         Image("\(like.profileImgString)")
@@ -41,14 +39,28 @@ struct LikeListView: View {
                     }
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                 }
+                Spacer()
             }
             .padding()
+            .navigationTitle("Like List")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        isToggle.toggle()
+                    } label: {
+                        Text("닫기")
+                            .foregroundColor(Color(hex: 0x090580))
+                    }
+                }
+            }
         }
+        
     }
 }
 
 struct LikeListView_Previews: PreviewProvider {
     static var previews: some View {
-        LikeListView()
+        LikeListView(isToggle: .constant(true))
     }
 }

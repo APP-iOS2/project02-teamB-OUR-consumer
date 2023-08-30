@@ -65,7 +65,7 @@ struct PostView: View {
                         Text("좋아요 \(postModel.numberOfLike)")
                     }
                     .sheet(isPresented: $isSheet) {
-                        LikeListView()
+                        LikeListView(isToggle: $isSheet)
                     }
                     
 //                    Text("댓글 \(post.numberOfComments)")

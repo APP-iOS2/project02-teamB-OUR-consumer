@@ -20,9 +20,12 @@ struct CommentView: View {
         ForEach(idData.idStore) { user in
             if post.postId == user.userID {
                 VStack {
-                    Text("댓글")
-                        .padding()
-                        .font(.headline)
+                    HStack{
+                        Text("댓글")
+                            .padding()
+                            .font(.headline)
+                        Spacer()
+                    }
                     Divider()
                     ScrollView {
                         ForEach(postData.postCommentStore) { comment in
