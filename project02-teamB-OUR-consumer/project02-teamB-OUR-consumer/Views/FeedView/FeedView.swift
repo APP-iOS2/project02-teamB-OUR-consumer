@@ -35,8 +35,10 @@ struct FeedView: View {
 //                        }
                     }
                     PostView(post: post, postViewModel: postViewModel)
-                    //                PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
+
+              
                     PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
+                    
                     Divider()
                         .frame(height: 4)
                         .overlay((Color("FeedViewDividerColor")))

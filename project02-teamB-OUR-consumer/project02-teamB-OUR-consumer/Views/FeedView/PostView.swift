@@ -24,22 +24,23 @@ struct PostView: View {
     
     var body: some View {
         Group {
-            TabView {
-                ForEach(post.postImagePath, id: \.self) { imagePath in
-                    AsyncImage(url: URL(string: imagePath)) { image in
-                        image
-                            .resizable()
-                            .frame(height: 400)
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
+            if post.postImagePath.isEmpty == false {
+                TabView {
+                    ForEach(postModel.postImagePath, id: \.self) { imagePath in
+                        AsyncImage(url: URL(string: imagePath)) { image in
+                            image
+                                .resizable()
+                                .frame(height: 400)
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
+                        }
                     }
                 }
+                .tabViewStyle(PageTabViewStyle())
+                .frame(height: 350)
             }
-            .tabViewStyle(PageTabViewStyle())
-            .frame(height: 350)
-            
-                
+ 
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
                     Text("\(post.content)")

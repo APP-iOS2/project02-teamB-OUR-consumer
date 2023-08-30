@@ -32,23 +32,15 @@ struct PostUserView: View {
                                         .font(.system(size: 16))
                                         .foregroundColor(.black)
                                         .bold()
-                                    Text("following")
-                                        .font(.system(size: 12))
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
                                 }
-                                Text("5일 전")
-                                    .font(.system(size: 12))
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
                             }
                         }
                         Spacer()
                     }
-                    .sheet(isPresented: $isShowingSheet) {
-                        SheetView(idStore: user)
-                            .presentationDetents([.medium, .medium])
-                    }
+//                    .sheet(isPresented: $isShowingSheet) {
+//                        SheetView(idStore: user)
+//                            .presentationDetents([.medium, .medium])
+//                    }
                 }
             }
         }

@@ -9,9 +9,12 @@ import SwiftUI
 
 struct PostButtonView: View {
     var post: Post
+    
     @ObservedObject var postViewModel: PostViewModel
     
-    @State var isLikeButton: Bool = false
+    @State private var postModel: PostModel = PostModel.samplePostModel
+    
+    @State private var isLikedButton: Bool = false
     @State var isShowingCommentSheet: Bool = false
     @State var isShowingScrapSheet: Bool = false
     @State var isShowingShareSheet: Bool = false
@@ -23,10 +26,11 @@ struct PostButtonView: View {
             Button {
                 // 좋아요 버튼
                 postViewModel.likePost(postID: post.id ?? "")
-                isLikeButton.toggle()
+                isLikedButton.toggle()
+                postModel.isLiked = isLikedButton
 
             } label: {
-                isLikeButton ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
+                postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
             }
             Button {
                 isShowingCommentSheet.toggle()
@@ -56,6 +60,9 @@ struct PostButtonView: View {
 //            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
 //                .presentationDetents([.height(180), .height(180)])
 //        }
+        .onAppear {
+            postViewModel.likePost(postID: post.id ?? "")
+        }
     }
 }
 
