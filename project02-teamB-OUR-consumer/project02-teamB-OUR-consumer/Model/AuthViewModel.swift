@@ -42,7 +42,6 @@ class AuthViewModel: ObservableObject {
                     print("Error getting documents: \(err)")
                     return
                 } else {
-//                    print(querySnapshot?.exists)
                     if let isUser = querySnapshot?.exists {
                         if !isUser {
                             self.state = .signUp

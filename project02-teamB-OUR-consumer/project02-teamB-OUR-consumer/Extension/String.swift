@@ -44,3 +44,14 @@ extension String {
         return UUID(uuidString: self)
     }
 }
+
+// MARK: Firebase collection 목록
+extension String {
+    static var users: String {
+        return "users"
+    }
+    
+    static var studyGroup: String {
+        return "studyGroup"
+    }
+}
