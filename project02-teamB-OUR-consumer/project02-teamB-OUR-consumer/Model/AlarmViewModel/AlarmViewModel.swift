@@ -21,10 +21,6 @@ class AlarmViewModel: ObservableObject{
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
-    var personalIds: [String] = []
-    var publicIds: [String] = []
-    
-    
     struct Dependency{
         let alarmFireSerivce: AlarmFireService
         let userViewModel: UserViewModel
