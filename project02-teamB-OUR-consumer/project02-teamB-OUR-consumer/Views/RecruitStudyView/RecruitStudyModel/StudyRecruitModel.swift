@@ -20,7 +20,7 @@ struct StudyRecruitModel: Codable, Identifiable {
     var dueAt: String?
     var description: String?
     var isOnline: Bool?
-    var isOffline: Bool?
+//    var isOffline: Bool?
     var locationName: String? // 이름
     var reportCount: Int? // 신고 횟수
     var studyImagePath: [String]?

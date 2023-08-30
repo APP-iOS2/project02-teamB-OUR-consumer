@@ -11,6 +11,7 @@ struct StudyMeetingView: View {
     
     @Binding var onlineToggle: Bool
     @Binding var offlineToggle: Bool
+    @Binding var selectValue: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,6 +23,7 @@ struct StudyMeetingView: View {
                 Button {
                     onlineToggle = true
                     offlineToggle = false
+                    selectValue = true  //선택 값
                 } label: {
                     if !onlineToggle {
                         Text("온라인")
@@ -44,6 +46,7 @@ struct StudyMeetingView: View {
                 Button {
                     onlineToggle = false
                     offlineToggle = true
+                    selectValue = false  //선택 값
                 } label: {
                     if !offlineToggle {
                         Text("오프라인")

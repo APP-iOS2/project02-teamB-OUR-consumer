@@ -19,6 +19,8 @@ struct AddStudyMain: View {
     
     @State var onlineToggle: Bool = false
     @State var offlineToggle: Bool = false
+    @State var selectValue: Bool = false
+    
     @State var studyText: String = ""
     @State var placeholder: String = "스터디 내용을 입력하세요."
     
@@ -74,7 +76,7 @@ struct AddStudyMain: View {
                         }
                     }
                     // MARK: - 온/오프라인 선택
-                    StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle)
+                    StudyMeetingView(onlineToggle: $onlineToggle, offlineToggle: $offlineToggle, selectValue: $selectValue)
                     
                     // MARK: - 날짜
                     ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
@@ -93,7 +95,7 @@ struct AddStudyMain: View {
                             print("등록 버튼 tapped")
                             
                             if selectedItem.isEmpty {
-                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue,  locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
                                 
@@ -106,7 +108,7 @@ struct AddStudyMain: View {
                                     }
                                     print("추가된 사진배열: \(studyImagePath)")
                                     
-                                    let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: onlineToggle, isOffline: offlineToggle, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                    let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                     
                                     studyStoreViewModel.addFeed(newStudy)
                                 }
