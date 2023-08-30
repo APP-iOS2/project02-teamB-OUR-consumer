@@ -1,3 +1,6 @@
+
+
+
 //
 //  PostModel.swift
 //  project02-teamB-OUR-consumer
@@ -39,9 +42,10 @@ struct PostModel: Identifiable {
     var numberOfRepost: Int?
     var isLiked: Bool
     var comment: [PostComment]?
+    var likedUsers: [User]
 }
 
-struct PostComment {
+struct PostComment: Codable {
     @DocumentID var id: String?
     var userId: String
     var content: String
@@ -62,7 +66,7 @@ extension Post {
 }
 
 extension PostModel {
-    static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfLike: 0, isLiked: false)
+    static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfLike: 0, isLiked: false, likedUsers: [User.defaultUser])
 }
 
 
