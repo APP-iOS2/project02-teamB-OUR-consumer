@@ -43,7 +43,7 @@ class PostViewModel: ObservableObject {
     }
     
     func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
-        fireStoreService.getPost(post: post) { post in
+        fireStoreService.getPostInfo(post: post) { post in
             completion(post)
         }
     }

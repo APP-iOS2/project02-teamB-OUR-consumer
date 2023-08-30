@@ -61,34 +61,43 @@ class PostFireService {
             }
     }
     
-    func getPost(post: Post, completion: @escaping (PostModel) -> ()) {
-        var creator: User = User(name: "", email: "")
-        var likeCount: Int = 0
-        
-        getUserInfo(userId:  post.creator) { result in
-            if let result = result {
-                creator = result
-            }
-            
-            self.getLikeCount(of: post.id ?? "") { count in
-                likeCount = count
-                
-                completion(PostModel(creator: creator, privateSetting: post.privateSetting, content: post.content, createdAt: post.createdAt, location: post.location, postImagePath: post.postImagePath, reportCount: post.reportCount, numberOfLike: likeCount))
+    func getPostInfo(post: Post, completion: @escaping (PostModel) -> ()) {
+        getUserInfo(userId: post.creator) { creator in
+            self.isLikedPost(post: post) { bool in
+                let postModel = PostModel(
+                    creator: creator ?? User(name: "", email: ""),
+                    privateSetting: post.privateSetting,
+                    content: post.content,
+                    createdAt: post.createdAt,
+                    location: post.location,
+                    postImagePath: post.postImagePath,
+                    reportCount: post.reportCount,
+                    numberOfLike: post.like.count ,
+                    isLiked: bool // You can set this value as needed
+                )
+                completion(postModel)
+                print("PostModel: \(postModel)")
             }
         }
     }
     
-    /// 좋아요 갯수
-    func getLikeCount(of postId: String, completion: @escaping (Int) -> ()) {
-        db.collection("posts").document(postId).collection("like").getDocuments { (document, error) in
+    func isLikedPost(post: Post, completion: @escaping (Bool) -> ()) {
+        guard let postId = post.id else {
+            completion(false)
+            return
+        }
+//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+
+        db.collection("posts").document(postId).getDocument { (document, error) in
             if let error = error {
-                print("Error getLikeCount() \(error)")
+                print("Error checking if post is liked: \(error)")
+                completion(false)
+            } else if let postData = document?.data(),
+                      let likedUserIds = postData["like"] as? [String] {
+                completion(likedUserIds.contains(userId))
             } else {
-                if let document {
-                    let likeCount = document.count
-                    completion(likeCount)
-                    print("LikeCount: \(likeCount)")
-                }
+                completion(false)
             }
         }
     }
