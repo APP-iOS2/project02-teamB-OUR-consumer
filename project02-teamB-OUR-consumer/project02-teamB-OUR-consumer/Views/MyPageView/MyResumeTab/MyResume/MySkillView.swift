@@ -40,6 +40,9 @@ struct MySkillCellView: View {
 }
 
 struct MySkillView: View {
+    var mySkills: [Skill] {
+        resumeViewModel.resume?.skills ?? []
+    }
     @ObservedObject var resumeViewModel: ResumeViewModel
     @Binding var isMyProfile: Bool
     
@@ -71,39 +74,39 @@ struct MySkillView: View {
                 .foregroundColor(.black)
                 
                 VStack(alignment: .leading) {
-                    if let resumeSkills = resumeViewModel.resume?.skills {
-                        VStack {
-                            // 스킬 최대 3개 보이도록
-                            ForEach(0..<resumeSkills.count, id: \.self) { index in
-                                if index < 3 {
-                                    MySkillCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, skill: resumeSkills[index], index: index)
-                                        .padding(.vertical, 8)
-                                    Divider()
-                                }
-                            }
-                            .padding(.horizontal)
-                            
-                            // 스킬 3개 넘으면 더보기
-                            if resumeSkills.count > 3 {
-                                NavigationLink {
-                                    MySkillMoreView(resumeViewModel: resumeViewModel, mySkills: resumeSkills, isMyProfile: $isMyProfile)
-                                } label: {
-                                    HStack {
-                                        Text("더보기")
-                                            .fontWeight(.semibold)
-                                            .foregroundColor(.black)
-                                    }
-                                }
-                                .padding(.vertical, 8)
-                                
+                    VStack {
+                        // 스킬 최대 3개 보이도록
+                        ForEach(0..<mySkills.count, id: \.self) { index in
+                            if index < 3 {
+                                MySkillCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, skill: mySkills[index], index: index)
+                                    .padding(.vertical, 8)
                                 Divider()
                             }
                         }
-                    } else {
+                        .padding(.horizontal)
+                        
+                        // 스킬 3개 넘으면 더보기
+                        if mySkills.count > 3 {
+                            NavigationLink {
+                                MySkillMoreView(resumeViewModel: resumeViewModel, mySkills: mySkills, isMyProfile: $isMyProfile)
+                            } label: {
+                                HStack {
+                                    Text("더보기")
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            .padding(.vertical, 8)
+                            
+                            Divider()
+                        }
+                        
                         // 스킬 없을 때
-                        Text("스킬을 추가해주세요")
-                            .font(.system(size: 14))
-                            .padding(.leading, 16)
+                        if mySkills.count == 0 {
+                            Text("스킬을 추가해주세요")
+                                .font(.system(size: 14))
+                                .padding([.leading, .bottom])
+                        }
                     }
                 }
             }

@@ -10,6 +10,7 @@ import MapKit
 
 class SharedViewModel: ObservableObject {
     @Published var selectedLocality: String = ""
+    @Published var selectedCoordinates: [Double]  = []
 }
 
 struct StudyMapView: View {
@@ -20,10 +21,9 @@ struct StudyMapView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading){
+                Text("위치 선택")
+                    .font(.system(.title3, weight: .semibold))
                 VStack(alignment: .leading) {
-                    Text("위치를 선택해주세요.")
-                        .font(.system(.title2))
-                    
                     Button {
                         if let coordinate = locationManger.userLocation?.coordinate {
                             locationManger.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
@@ -33,17 +33,22 @@ struct StudyMapView: View {
                             navigationTage = "MAPVIEW"
                         }
                     } label: {
-                        Label {
-                            Text("현재 위치 사용")
-                                .font(.system(size: 18, weight: .semibold))
-                        } icon: {
+//                        Label {
+//                            Text("현재 위치 사용")
+//                                .font(.system(size: 18, weight: .semibold))
+//                        } icon: {
+//                            Image(systemName: "location.north.circle.fill")
+//                        }
+//                        .foregroundColor(mainColor)
+                        HStack(spacing: 3){
                             Image(systemName: "location.north.circle.fill")
+                                .font(.system(size: 18))
+                            Text("현재 위치")
+                                .font(.system(size: 18))
                         }
-                        .foregroundColor(mainColor)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 10)
-//
+                    
                     HStack {
                         Text(sharedViewModel.selectedLocality)
                     }
@@ -60,7 +65,7 @@ struct StudyMapView: View {
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .strokeBorder(.gray)
                     }
-                    
+
                     if let places = locationManger.fetchedPlaces, !places.isEmpty {
                         List {
                             ForEach(places, id: \.self) { place in
@@ -101,7 +106,8 @@ struct StudyMapView: View {
                         Spacer()
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: 200)
+                .frame(maxWidth: .infinity)
+                .frame(minHeight: 200)
                 
                 .background {
                     NavigationLink(tag: "MAPVIEW", selection: $navigationTage) {
@@ -113,7 +119,6 @@ struct StudyMapView: View {
                 Spacer()
                 
             }
-//            .padding()
         }
     }
 }
@@ -158,12 +163,17 @@ struct MapViewSelection: View {
                     }
                     
                     Button {
-                        print(place.locality!)
+                        print("테스트1 \(place.location?.coordinate)")
+                        print("테스트2 \(place.locality!)")
+               
                         print(type(of: place.name)) // Optional String
 //                        selectedLocality = place.locality
 //                        selectedName = place.name
-                        if let locality = place.locality, let name = place.name {
+                        if let locality = place.locality, let name = place.name, let locationLatitude = place.location?.coordinate.latitude, let locationLongitude = place.location?.coordinate.longitude  {
                             sharedViewModel.selectedLocality = locality + ", " + name
+                            sharedViewModel.selectedCoordinates.append(locationLatitude)
+                            sharedViewModel.selectedCoordinates.append(locationLongitude)
+                            
                         }
 //                        sharedViewModel.selectedLocality = place.locality ?? ""
                         print("sharedViewModel.selectedLocality : \(sharedViewModel.selectedLocality)")

@@ -10,7 +10,7 @@ import SwiftUI
 struct StudyReplyView: View {
     
     var studyViewModel: StudyViewModel
-    var study: Study
+    var study: StudyDTO
     @State var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     
     
@@ -96,7 +96,7 @@ struct StudyReplyView: View {
 struct StudyReplyView_Previews: PreviewProvider {
     @State var studyReplies: [String] = ["1빠", "2빠"]
     static var previews: some View {
-        StudyReplyView(studyViewModel: StudyViewModel(), study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
+        StudyReplyView(studyViewModel: StudyViewModel(), study: StudyDTO(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"))
 
     }
 }

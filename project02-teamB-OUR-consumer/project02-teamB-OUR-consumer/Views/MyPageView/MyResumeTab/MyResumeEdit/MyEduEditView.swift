@@ -214,6 +214,7 @@ struct MyEduEditView: View {
                         dismiss()
                     } else {
                         resumeViewModel.resume?.education.append(Education(schoolName: schoolNameTextField, degree: degree, fieldOfStudy: fieldOfStudy, startDate: startDate, endDate: endDate, description: description))
+                        resumeViewModel.updateResume()
                         dismiss()
                     }
                     //                        if schoolNameTextField.isEmpty {

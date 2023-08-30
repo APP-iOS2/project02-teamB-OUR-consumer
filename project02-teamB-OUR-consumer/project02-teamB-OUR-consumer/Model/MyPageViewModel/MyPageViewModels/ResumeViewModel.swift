@@ -38,6 +38,7 @@ class ResumeViewModel: ObservableObject {
             if let resumeId = resume.id {
                 do {
                     try db.collection("resumes").document(resumeId).setData(from: resume)
+                    self.resume = resume
                 } catch let error {
                     print("Error updating resume: \(error)")
                 }
@@ -47,6 +48,7 @@ class ResumeViewModel: ObservableObject {
                 do {
                     let resumeId = resume.id!
                     try db.collection("resumes").document(resumeId).setData(from: resume)
+                    self.resume = resume
                 } catch let error {
                     print("Error updating resume: \(error)")
                 }

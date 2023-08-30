@@ -17,6 +17,7 @@ struct MyWorkEditView: View {
     @State var jobTitle: String = ""
     @State var startDate = Date()
     @State var endDate = Date()
+    @State var description: String = ""
     
     @State var isSelectedToggle: Bool = false
     @State var isEmptyCompanyName: Bool = false
@@ -130,6 +131,20 @@ struct MyWorkEditView: View {
                             }
                         }
                         .padding(.top, 5)
+                        
+                        Group {
+                            Text("활동을 입력해 주세요.")
+                                .font(.system(size: 16))
+                                .bold()
+                                .padding(.top)
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.gray, lineWidth: 2)
+                                .overlay {
+                                    TextEditor(text: $description)
+                                        .padding()
+                                }
+                                .frame(minHeight: 200)
+                        }
                     }
                     
                     Spacer()
