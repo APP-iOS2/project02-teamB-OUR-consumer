@@ -68,6 +68,7 @@ class PostFireService {
     }
     
     func getPostInfo(post: Post, completion: @escaping (PostModel) -> ()) {
+//        print("작성자 \(post.creator)")
         getUserInfo(userId: post.creator) { creator in
             self.isLikedPost(post: post) { bool in
                 self.getLikedUser(post: post) { users in
@@ -84,6 +85,7 @@ class PostFireService {
                         likedUsers: users
                     )
                     completion(postModel)
+                    print("포스트 모델: \(postModel)")
                 }
             }
         }
@@ -203,6 +205,11 @@ class PostFireService {
     }
     
     func getUserInfo(userIds: [String], completion: @escaping ([User?]) -> ()) {
+        guard !userIds.isEmpty else {
+            completion([]) // 빈 배열 반환
+            return
+        }
+        
         var members: [User] = []
         for userId in userIds {
             db.collection("users").document(userId).getDocument(as: User.self) { result in
@@ -212,7 +219,11 @@ class PostFireService {
                 case .failure(let error):
                     print("Error decoding users: \(error)")
                 }
-                completion(members)
+                
+                // 모든 클로저가 완료되었을 때만 호출
+                if members.count == userIds.count {
+                    completion(members)
+                }
             }
         }
     }

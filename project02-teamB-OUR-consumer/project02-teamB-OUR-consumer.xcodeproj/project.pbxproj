@@ -30,7 +30,6 @@
 		6332A6002A95A3640047E2DD /* PostButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A5FF2A95A3640047E2DD /* PostButtonView.swift */; };
 		6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A6022A95D1220047E2DD /* ScrapView.swift */; };
 		6332A60B2A98648E0047E2DD /* PostOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostOptionView.swift */; };
-		6377FA3F2A9F340200D8816C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6377FA3E2A9F340100D8816C /* GoogleService-Info.plist */; };
 		6377FA412A9F7A7A00D8816C /* PostReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6377FA402A9F7A7A00D8816C /* PostReportView.swift */; };
 		63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */; };
 		642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */; };
@@ -192,7 +191,6 @@
 		6332A5FD2A95979A0047E2DD /* PostUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostUserView.swift; sourceTree = "<group>"; };
 		6332A5FF2A95A3640047E2DD /* PostButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButtonView.swift; sourceTree = "<group>"; };
 		6332A6022A95D1220047E2DD /* ScrapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapView.swift; sourceTree = "<group>"; };
-		6332A60A2A98648E0047E2DD /* PostModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyView.swift; sourceTree = "<group>"; };
 		6332A60A2A98648E0047E2DD /* PostOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOptionView.swift; sourceTree = "<group>"; };
 		6377FA402A9F7A7A00D8816C /* PostReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportView.swift; sourceTree = "<group>"; };
 		63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailView.swift; sourceTree = "<group>"; };
@@ -678,7 +676,6 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
-				6377FA3E2A9F340100D8816C /* GoogleService-Info.plist */,
 				3AF70F382A95199B008E9CAB /* Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				F405273B2A9F31BF00B02F34 /* GoogleService-Info.plist */,
