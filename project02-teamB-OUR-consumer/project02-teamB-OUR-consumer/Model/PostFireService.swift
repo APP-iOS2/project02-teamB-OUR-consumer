@@ -84,7 +84,6 @@ class PostFireService {
                         likedUsers: users
                     )
                     completion(postModel)
-                    print("PostModel: \(postModel)")
                 }
             }
         }
@@ -108,8 +107,10 @@ class PostFireService {
     func getLikedUser(post: Post, completion: @escaping ([User]) -> ()) {
         var likedUser: [User] = []
         getUserInfo(userIds: post.like ?? [""]) { users in
+//            print("유저들\(users)")
             likedUser = users.compactMap { $0 }
             completion(likedUser)
+//            print("좋아요 한사람들\(likedUser)")
         }
     }
     
@@ -211,8 +212,8 @@ class PostFireService {
                 case .failure(let error):
                     print("Error decoding users: \(error)")
                 }
+                completion(members)
             }
         }
-        completion(members)
     }
 }
