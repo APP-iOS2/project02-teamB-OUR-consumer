@@ -10,6 +10,8 @@ import SwiftUI
 struct PostView: View {
     
     var post: Post
+    var postViewModel: PostViewModel
+    @State private var postModel: PostModel = PostModel.samplePostModel
     
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
@@ -56,14 +58,14 @@ struct PostView: View {
                 HStack() {
                     Text("\(post.createdAt)")
                     Spacer()
-//                    Button {
-//                        isSheet.toggle()
-//                    } label: {
-//                        Text("좋아요 \(post.numberOfLike)")
-//                    }
-//                    .sheet(isPresented: $isSheet) {
-//                        LikeListView()
-//                    }
+                    Button {
+                        isSheet.toggle()
+                    } label: {
+                        Text("좋아요 \(postModel.numberOfLike)")
+                    }
+                    .sheet(isPresented: $isSheet) {
+                        LikeListView()
+                    }
                     
 //                    Text("댓글 \(post.numberOfComments)")
 //                    Text("퍼감 \(post.numberOfRepost)")
@@ -71,6 +73,11 @@ struct PostView: View {
                 .font(.system(size: 14))
                 .foregroundColor(.gray)
                 .padding()
+            }
+        }
+        .onAppear {
+            postViewModel.getPost(of: post) { postmodel in
+                self.postModel = postmodel
             }
         }
         
@@ -81,7 +88,7 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0))
+            PostView(post: Post.samplePost, postViewModel: PostViewModel())
         }
     }
 }

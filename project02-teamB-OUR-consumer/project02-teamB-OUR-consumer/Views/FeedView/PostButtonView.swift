@@ -62,7 +62,7 @@ struct PostButtonView: View {
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0), postViewModel: PostViewModel(), isScrapFeed: .constant(false))
+            PostButtonView(post: Post.samplePost, postViewModel: PostViewModel(), isScrapFeed: .constant(false))
         }
     }
 }

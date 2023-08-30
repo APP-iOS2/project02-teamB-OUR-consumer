@@ -56,6 +56,6 @@ struct PostUserView: View {
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(idData: IdData(), post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0), isShowingSheet: .constant(false))
+        PostUserView(idData: IdData(), post: Post.samplePost, isShowingSheet: .constant(false))
     }
 }

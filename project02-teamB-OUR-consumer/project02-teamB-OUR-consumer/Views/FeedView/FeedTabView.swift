@@ -19,7 +19,7 @@ struct FeedTabView: View {
                     Divider()
                     FeedView()
                     Divider()
-                    RecommendFriendView()
+//                    RecommendFriendView()
                 }
             }
         }
