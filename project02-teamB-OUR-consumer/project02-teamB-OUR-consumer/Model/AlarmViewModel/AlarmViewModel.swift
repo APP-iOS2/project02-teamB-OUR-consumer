@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 
-
 typealias ASection = String
 typealias NotiItem = [ASection : [NotificationItem]]
 
@@ -25,6 +24,41 @@ class AlarmViewModel: ObservableObject{
     
     init(dependency: AlarmFireService = AlarmFireService()){
         self.service = dependency
+
+        if let hasUnreadData = UserDefaults.standard.value(forKey: "hasUnreadData") as? Bool {
+            self.hasUnreadData = hasUnreadData
+        }
+    }
+
+    // 모든 알람을 읽은 상태로 만드는 메서드
+    func markAllAsRead() {
+        personalNotiItem = markNotificationsAsRead(personalNotiItem)
+        publicNotiItem = markNotificationsAsRead(publicNotiItem)
+        hasUnreadData = false
+        UserDefaults.standard.setValue(hasUnreadData, forKey: "hasUnreadData")
+    }
+    
+    private func markNotificationsAsRead(_ notifications: NotiItem) -> NotiItem {
+        var newNotiItem: NotiItem = [:]
+        var idsToUpdate: [String] = []
+        
+        for (key, notificationList) in notifications {
+            newNotiItem[key] = notificationList.map { notification in
+                var newNotification = notification
+                if !newNotification.isRead {
+                    idsToUpdate.append(newNotification.id)
+                    newNotification.isRead = true
+                }
+                return newNotification
+            }
+        }
+
+        // 뱃지 업데이트
+        if !idsToUpdate.isEmpty {
+            update(isReads: idsToUpdate)
+        }
+        
+        return newNotiItem
     }
  
     #if DEBUG
@@ -52,18 +86,16 @@ class AlarmViewModel: ObservableObject{
         service.read { [weak self] ids, notifiationDTO in
             guard let self = self else { return }
             
-            // 여기에 로깅을 추가
-            print("가져온 알람: \(notifiationDTO)")
-            
             let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
             
             personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
             publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
-            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-            self.hasUnreadData = notifiationDTO.contains { !$0.isRead }
+
+            // UserDefaults에 알람 상태를 저장합니다.
+            UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
             
-            // 이 부분도 로깅으로 확인
-            print("hasUnreadData updated to: \(self.hasUnreadData)")
+            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+            self.hasUnreadData = !notifiationDTO.allSatisfy { $0.isRead }
         }
     }
     
@@ -146,6 +178,7 @@ class AlarmViewModel: ObservableObject{
         })
     }
     
+
     func addNewNotification() {
         // 새로운 알림 데이터를 생성
         let newNotification = NotificationDTO(

@@ -11,6 +11,8 @@ import SwiftUI
 
 
 struct AlarmContainer: View {
+    @EnvironmentObject var alarmViewModel: AlarmViewModel
+    
     @State private var selectedTab = 0
     // 개인 및 공개 알림 샘플 데이터
     @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
@@ -25,7 +27,7 @@ struct AlarmContainer: View {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 
-                HStack {
+                VStack {
                     Button {
                         UNNotificationService.shared.requestSendNoti(seconds: 0.1)
                     } label: {
@@ -54,6 +56,7 @@ struct AlarmContainer: View {
         }
         .onAppear{
             viewModel.fetchNotificationItem()
+            alarmViewModel.markAllAsRead()
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)

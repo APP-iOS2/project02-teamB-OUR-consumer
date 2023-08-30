@@ -9,14 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct ReportDTO: Codable {
-    @DocumentID var id: String?
-    // 신고 사유
-    let reason: String
-    // 신고한 사람
-    let userId: String
-}
-
 // DB에 studygroup에 들어갈 study 전체 내용 (올라가고, 받고)
 struct StudyDTO: Identifiable, Codable {
     // study Id => 추후 documentId로 바꿀 수도 있음
@@ -45,24 +37,6 @@ struct StudyDTO: Identifiable, Codable {
     var reportReason: [String]?
     var reportUserId: [String]?
     
-    enum CodingKeys: String, CodingKey {
-        case imageString = "imageString"
-        case creatorId = "creatorId"
-        case title = "title"
-        case description = "description"
-        case studyDate = "studyDate"
-        case deadline = "deadline"
-        case locationName = "locationName"
-        case locationCoordinate = "locationCoordinate"
-        case isOnline = "isOnline"
-        case linkString = "linkString"
-        case currentMemberIds = "currentMemberIds"
-        case totalMemberCount = "totalMemberCount"
-        case createdAt = "createdAt"
-        case reportReason = "reportReason"
-        case reportUserId = "reportUserId"
-    }
-    
     func toStudyDetail(creator: User, currentMembers: [User], comments: [StudyComment]) -> StudyDetail {
             return StudyDetail(
                 id: self.id ?? UUID().uuidString,
@@ -78,7 +52,9 @@ struct StudyDTO: Identifiable, Codable {
                 linkString: self.linkString,
                 currentMembers: currentMembers,
                 totalMemberCount: self.totalMemberCount,
-                comments: comments
+                comments: comments,
+                reportReasons: self.reportReason ?? [],
+                reportUserIds: self.reportUserId ?? []
             )
         }
 }
@@ -90,19 +66,18 @@ extension StudyDTO {
 }
 
 struct StucyCommentDTO: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
     var userId: String
     var content: String
     var createdAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case userId = "userId"
-        case content = "content"
-        case createdAt = "createdAt"
-    }
-}
 
-
-struct StudyReport {
     
+    func toStudyComments(user: User) -> StudyComment {
+            return StudyComment(
+                id: self.id ?? UUID().uuidString,
+                user: user,
+                content: content,
+                createdAt: createdAt
+            )
+        }
 }
