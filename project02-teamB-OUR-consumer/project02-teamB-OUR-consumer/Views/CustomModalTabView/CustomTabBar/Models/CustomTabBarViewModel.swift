@@ -16,8 +16,6 @@ final class CustomTabBarViewModel: ObservableObject {
     // 실제 연동시 주석제거
     let userID: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue ) ?? ""
     
-    //테스트 데이터
-//    let userID = "vnOYYw2jxGn2Qo3OTryc(TestForAdmin)"
     
     func getReportCount() {
         print("UID userID  =  \(userID)")

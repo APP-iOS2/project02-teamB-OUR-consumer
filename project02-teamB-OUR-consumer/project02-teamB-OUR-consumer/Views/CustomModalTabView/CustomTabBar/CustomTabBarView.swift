@@ -16,9 +16,8 @@ struct CustomTabBarView: View {
     @State var isShowingSheet: Bool = false
     
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
-    let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
+    let tabBarTextNames = ["피드", "스터디", "", "알림", "프로필"]
     
-    @State var reportCount: Int = 3
     @State private var isReportPresent = false
     
     var body: some View {
@@ -41,17 +40,21 @@ struct CustomTabBarView: View {
             }
 
             
-            Spacer()
             
             ZStack {
+                
                 Rectangle()
-                    .frame(width: .infinity, height: 55)
+                    .frame(height: 55)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
-                    .shadow(radius: 8)
+//                    .shadow(radius: 8)
                     .padding(.horizontal, 10)
+                    .overlay(alignment: .top) {
+                        Divider()
+                            .background(Color("DefaultGray"))
+                    }
                     
-                
+
                 HStack {
                     Spacer()
                     
@@ -92,18 +95,19 @@ struct CustomTabBarView: View {
                                             .frame(width: 20, height: 35, alignment: .bottom)
                                     } else {
                                         Image(systemName: tabBarImageNames[index])
-                                            .font(.system(size: 27, weight: .light))
+                                            .font(.system(size: 22, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
-                                            .font(.system(size: 12))
+                                            .font(.system(size: 14))
 
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
                                         
                                         // 새로운 알림을 추가하는 버튼
-                                        Button("데이터 추가") {
-                                            alarmViewModel.addNewNotification()
-                                        }
+//                                        Button("데이터 추가") {
+//                                            alarmViewModel.addNewNotification()
+//                                        }
+//                                        .font(.caption2)
                                     }
                                 }
                             }
@@ -117,6 +121,9 @@ struct CustomTabBarView: View {
                         Spacer()
                     }
                 }
+                .offset(y:10)
+                
+                
             }
             .onAppear {
                 model.getReportCount()
@@ -130,5 +137,6 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBarView()
+            .environmentObject(AlarmViewModel())
     }
 }

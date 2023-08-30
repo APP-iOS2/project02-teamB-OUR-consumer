@@ -179,12 +179,14 @@ final class RecruitService {
     struct Recruit {
         /// 컬렉션 Enum
         enum collection: String {
+            case anounce = "Announcement"
+            case follow = "follow"
+            case noti = "notification"
             case posts = "posts"
-            case study = "study"
             case resume = "resumes"
             case users = "users"
-            case follow = "follow"
-            case studypost = "StudyPosts"
+            case studypost = "studyGroup"
+            case studyComent = "studyGroupComments"
             
         }
         
@@ -212,6 +214,8 @@ final class RecruitService {
     ///- documentID: 문서번호
     ///- completion: 해당 문서번호에 해당하는 형식의 객체를 파라미터로 return 시켜준다.
     func fetchOneData<T: Codable>( collection col: Recruit.collection, documentID docID: String, completion: @escaping (T) -> Void ) {
+        guard docID != "" else { return }
+        
         let docRef: DocumentReference = db.collection("\(col.rawValue)").document(docID)
 
         docRef.getDocument(as: T.self) { result in
@@ -234,6 +238,8 @@ final class RecruitService {
     ///- documentID: 문서번호
     ///- completion: 해당 문서번호에 해당하는 형식의 객체를 파라미터로 return 시켜준다.
     func fetchOneData( collection col: Recruit.collection, documentID docID: String, completion: @escaping ([String : Any]) -> Void ) {
+        guard docID != "" else { return }
+        
         let docRef: DocumentReference = db.collection("\(col.rawValue)").document(docID)
 
         docRef.addSnapshotListener { document, error in
