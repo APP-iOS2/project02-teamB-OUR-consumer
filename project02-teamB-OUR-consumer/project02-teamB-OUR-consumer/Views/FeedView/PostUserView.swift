@@ -9,18 +9,18 @@ import SwiftUI
 
 struct PostUserView: View {
     @ObservedObject var idData: IdData = IdData()
-    var post: FeedStore
+    var post: Post
     @Binding var isShowingSheet: Bool
     
     var body: some View {
         ForEach (idData.idStore) { user in
-            if post.postId == user.userID {
+            if post.creator == user.userID {
                 HStack {
                     Button {
                         isShowingSheet.toggle()
                     } label: {
                         HStack {
-                            Image("\(user.profileImgString)")
+                            Image("OUR_Logo")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .background(Color.gray)
@@ -56,6 +56,6 @@ struct PostUserView: View {
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(idData: IdData(), post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네..."), isShowingSheet: .constant(false))
+        PostUserView(idData: IdData(), post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0), isShowingSheet: .constant(false))
     }
 }

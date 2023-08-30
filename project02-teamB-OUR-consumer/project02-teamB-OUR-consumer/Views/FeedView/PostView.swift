@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostView: View {
     
-    var post: PostModel
+    var post: Post
     
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
@@ -81,7 +81,7 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: PostModel(creator: "dsfdsf", privateSetting: false, content: "abcd", createdAt: "2023/5/30", location: "천안", postImagePath: [""], reportCount: 0))
+            PostView(post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0))
         }
     }
 }

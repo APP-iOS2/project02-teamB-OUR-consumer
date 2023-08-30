@@ -19,12 +19,27 @@ struct FeedView: View {
         VStack {
             ForEach(postViewModel.posts) { post in
                 VStack {
+                    HStack {
+                        PostUserView(post: post, isShowingSheet: $isShowingSheet)
+//                        if post.postId == userId {
+//                            Button {
+//                                isShowingPostModifySheet.toggle()
+//                            } label: {
+//                                Image(systemName: "ellipsis")
+//                                    .padding(2)
+//                            }
+//                            .foregroundColor(.gray)
+//                            .navigationDestination(isPresented: $isShowingModifyDetailView) {
+//                                PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
+//                            }
+//                        }
+                    }
                     PostView(post: post)
                     //                PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
                     PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
                     Divider()
-                            .frame(height: 4)
-                            .overlay((Color("FeedViewDividerColor")))
+                        .frame(height: 4)
+                        .overlay((Color("FeedViewDividerColor")))
                 }
             }
         }
@@ -36,41 +51,41 @@ struct FeedView: View {
         }
         
         //예전 뷰
-//        ForEach(postData.postStore) { post in
-//            VStack {
-//                HStack {
-//                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
-//                    //임시로 넣은 이승준계정 접속 일때만 수정 삭제 가능하게
-//                    if post.postId == userId {
-//                        Button {
-//                            isShowingPostModifySheet.toggle()
-//                        } label: {
-//                            Image(systemName: "ellipsis")
-//                                .padding(2)
-//                        }
-//                        .foregroundColor(.gray)
-//                        // 중복으로 3개 나 나오니까 로그인한 아이디랑 게시물 아이디랑 같을때만 버튼 사용하게
-//                        .navigationDestination(isPresented: $isShowingModifyDetailView) {
-//                            PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
-//                        }
-//                    }
-//                }
-//                PostView(post: post)
-//
-//                PostButtonView(post: post, postData: postData, isScrapFeed: $isScrapFeed)
-//
-//                Divider()
-//                    .frame(height: 4)
-//                    .overlay((Color("FeedViewDividerColor")))
-//
-//            }
-//            .padding()
-//            // 수정, 삭제 버튼 시트
-//            .sheet(isPresented: $isShowingPostModifySheet) {
-//                PostModifyView(post: post, isShowingPostModifySheet: $isShowingPostModifySheet, isShowingModifyDetailView: $isShowingModifyDetailView)
-//                    .presentationDetents([.height(220), .height(220)])
-//            }
-//        }
+        //        ForEach(postData.postStore) { post in
+        //            VStack {
+        //                HStack {
+        //                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
+        //                    //임시로 넣은 이승준계정 접속 일때만 수정 삭제 가능하게
+        //                    if post.postId == userId {
+        //                        Button {
+        //                            isShowingPostModifySheet.toggle()
+        //                        } label: {
+        //                            Image(systemName: "ellipsis")
+        //                                .padding(2)
+        //                        }
+        //                        .foregroundColor(.gray)
+        //                        // 중복으로 3개 나 나오니까 로그인한 아이디랑 게시물 아이디랑 같을때만 버튼 사용하게
+        //                        .navigationDestination(isPresented: $isShowingModifyDetailView) {
+        //                            PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
+        //                        }
+        //                    }
+        //                }
+        //                PostView(post: post)
+        //
+        //                PostButtonView(post: post, postData: postData, isScrapFeed: $isScrapFeed)
+        //
+        //                Divider()
+        //                    .frame(height: 4)
+        //                    .overlay((Color("FeedViewDividerColor")))
+        //
+        //            }
+        //            .padding()
+        //            // 수정, 삭제 버튼 시트
+        //            .sheet(isPresented: $isShowingPostModifySheet) {
+        //                PostModifyView(post: post, isShowingPostModifySheet: $isShowingPostModifySheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+        //                    .presentationDetents([.height(220), .height(220)])
+        //            }
+        //        }
     }
 }
 

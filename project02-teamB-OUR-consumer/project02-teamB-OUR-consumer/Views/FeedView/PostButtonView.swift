@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PostButtonView: View {
-    var post: PostModel
+    var post: Post
     @ObservedObject var postViewModel: PostViewModel
     
     @State var isLikeButton: Bool = false
@@ -62,7 +62,7 @@ struct PostButtonView: View {
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: PostModel(creator: "dsfdsf", privateSetting: false, content: "abcd", createdAt: "2023/5/30", location: "천안", postImagePath: [""], reportCount: 0), postViewModel: PostViewModel(), isScrapFeed: .constant(false))
+            PostButtonView(post: Post(creator: "leeseungjun", privateSetting: false, content: "fdsfsdfd", createdAt: "", location: "ddd", postImagePath: [""], reportCount: 0), postViewModel: PostViewModel(), isScrapFeed: .constant(false))
         }
     }
 }
