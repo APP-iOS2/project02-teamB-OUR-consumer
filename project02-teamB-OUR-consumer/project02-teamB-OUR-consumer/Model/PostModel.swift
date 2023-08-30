@@ -65,11 +65,6 @@ extension PostModel {
     static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfLike: 0, isLiked: false)
 }
 
-extension User {
-    static var defaultUser: User {
-        return User(name: "test", email: "test@gamil.com")
-    }
-}
 
 struct FollowerData: Codable {
     let follower: [String]
