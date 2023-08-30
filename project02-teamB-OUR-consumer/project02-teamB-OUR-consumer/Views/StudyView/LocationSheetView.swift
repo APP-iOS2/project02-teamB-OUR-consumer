@@ -15,7 +15,7 @@ struct Annotation: Identifiable {
 
 struct LocationSheetView: View {
     
-    var study: Study
+    var study: StudyDTO
     
     // map이 무거워서 onAppear로 coordinate가 값을 받아와도 변경이 안됨. 그래서 이 값이 true일때 Map을 보여라! 라고 해주는거임
     @State var isChangedState: Bool = false
@@ -64,6 +64,6 @@ struct LocationSheetView: View {
 
 struct LocationSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationSheetView(study: Study(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"), locationCoordinate: CLLocationCoordinate2D(latitude: 37.49733287620238, longitude: 127.02891033313006), isShowingLocationSheet: .constant(false))
+        LocationSheetView(study: StudyDTO(creatorId: "", title: "", description: "", studyDate: "", deadline: "", isOnline: false, currentMemberIds: [""], totalMemberCount: 0, createdAt: "23.08.28"), locationCoordinate: CLLocationCoordinate2D(latitude: 37.49733287620238, longitude: 127.02891033313006), isShowingLocationSheet: .constant(false))
     }
 }

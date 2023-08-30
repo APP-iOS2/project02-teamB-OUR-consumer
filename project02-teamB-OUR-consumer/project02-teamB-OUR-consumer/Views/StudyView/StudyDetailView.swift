@@ -17,14 +17,8 @@ struct StudyDetailView: View {
     
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
-
-    @Binding var isSavedBookmark: Bool
-    
-    // 스터디 크리에이터아이디와 비교할 유저아이디 유저정보에서 받아와야함
-    var loginId = ""
-
     @State var isShowingReportSheet: Bool = false
-    @State var isSavedBookmark: Bool = true
+    @Binding var isSavedBookmark: Bool
     @State var showAlert: Bool = false
     
     var body: some View {
@@ -99,7 +93,9 @@ struct StudyDetailView: View {
                                 Text(viewModel.studyDetail.isOnline ? "\(viewModel.studyDetail.linkString ?? "")" : "\(viewModel.studyDetail.locationName ?? "")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
-                                if !viewModel.studyDetail.isOnline {
+//                            MARK: 위치시트 보기 위함 테스트 후에 변경해야함
+//                                if !viewModel.studyDetail.isOnline {
+                                if viewModel.studyDetail.isOnline {
                                     Button {
                                         isShowingLocationSheet = true
                                     } label: {
@@ -257,7 +253,8 @@ struct StudyDetailView: View {
         .sheet(isPresented: $isShowingLocationSheet) {
             LocationSheetView(study: study, locationCoordinate: CLLocationCoordinate2D(latitude: study.locationCoordinate?[0] ?? 0.0, longitude: study.locationCoordinate?[1] ?? 0.0), isShowingLocationSheet: $isShowingLocationSheet)
                 .presentationDetents([.medium])
-        }.sheet(isPresented: $isShowingReportSheet) {
+        }
+        .sheet(isPresented: $isShowingReportSheet) {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
         .alert(isPresented: $showAlert) {
@@ -265,7 +262,8 @@ struct StudyDetailView: View {
                   message: Text("이미 신고한 스터디입니다."),
                   dismissButton: .destructive(Text("확인")) {
             })
-        }.onAppear(){
+        }
+        .onAppear(){
             viewModel.makeStudyDetail(study: study) {
                 
             }
@@ -299,7 +297,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy)
+            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy, isSavedBookmark: .constant(false))
         }
     }
     
