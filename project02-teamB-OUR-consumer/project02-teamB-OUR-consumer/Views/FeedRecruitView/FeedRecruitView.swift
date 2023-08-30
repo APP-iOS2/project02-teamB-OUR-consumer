@@ -62,27 +62,9 @@ struct FeedRecruitView: View {
                 ToolbarItem(placement:.navigationBarTrailing) {
                     
                     Button("등록") {
-                        if selectedItem.isEmpty {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                            
-                            self.newFeed = newFeed1
-                            print("사진 없을경우 \(newFeed)")
-                            isAlert = true
-                            return
-                        } else {
-                            Task {
-                              
-                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                                print("피드이미지패드 \(feedImagePath)")
-                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                                print("사진 있을경우1 \(newFeed2)")
-                                self.newFeed = newFeed2
-                                print("사진 있을경우 2\(newFeed)")
-                      
-                                isAlert = true
-                                //feedStoreViewModel.addFeed(newFeed2)
-                            }
-                        }
+                        
+                        isAlert = true
+                
                     }
                     .disabled(content.isEmpty)
                     
@@ -96,13 +78,37 @@ struct FeedRecruitView: View {
                 
                 Button("등록" ,role: .destructive) {
                     
-                    print("얼러트에서 등록 후\(newFeed)")
-                    //feedStoreViewModel.addFeed(newFeed)
-                    
-                    //newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
-                    
-                    
-                    dismiss()
+                  
+                    if selectedItem.isEmpty {
+                        feedImagePath.removeAll()
+                        let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                        
+                        self.newFeed = newFeed1
+                        
+                        //isAlert = false
+                        print("사진 없을 경우 : \(newFeed)")
+                        dismiss()
+                    print("\(isAlert)")
+         
+                        return
+                    } else {
+                        Task {
+                            feedImagePath.removeAll()
+                            try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                            print("FeedImagePATH: \(feedImagePath)")
+                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                          
+                            self.newFeed = newFeed2
+                            print("사진 있을 경우: \(newFeed)")
+                  
+                       
+                         
+                            dismiss()
+                       
+                            //feedStoreViewModel.addFeed(newFeed2)
+                        }
+                    }
+
                 }
                 Button("취소" ,role: .cancel) {
                     isAlert = false
