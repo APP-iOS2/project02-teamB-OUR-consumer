@@ -175,6 +175,11 @@ struct StudyDetailView: View {
                                     }
                                     Button {
                                         isSavedBookmark.toggle()
+                                        if isSavedBookmark {
+                                            viewModel.updateBookmark(studyID: study.id ?? "")
+                                        } else {
+                                            viewModel.removeBookmark(studyID: study.id ?? "")
+                                        }
                                     } label: {
                                         Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
                                             .font(.system(size: 30))

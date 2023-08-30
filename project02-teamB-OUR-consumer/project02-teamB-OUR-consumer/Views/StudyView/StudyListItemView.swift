@@ -65,6 +65,11 @@ struct StudyListItemView: View {
                     
                     Button {
                         isSavedBookmark.toggle()
+                        if isSavedBookmark {
+                            studyViewModel.updateBookmark(studyID: study.id ?? "")
+                        } else {
+                            studyViewModel.removeBookmark(studyID: study.id ?? "")
+                        }
                     } label: {
                         Label("", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
                             .font(.title2)

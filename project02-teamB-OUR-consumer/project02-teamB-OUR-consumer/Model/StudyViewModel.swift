@@ -58,7 +58,7 @@ class StudyViewModel: ObservableObject {
     
     // 전체 스터디 가져오기 => listview 호출
     func fetchStudy() {
-//        studyDetail = StudyDetail.defaultStudyDetail
+        //        studyDetail = StudyDetail.defaultStudyDetail
         dbRef.collection(.studyGroup).getDocuments { (snapshot, error) in
             if let snapshot {
                 var temp: [StudyDTO] = []
@@ -126,7 +126,6 @@ class StudyViewModel: ObservableObject {
             }
         }
     }
-
     // 유저 여러명 불러오기 => 댓글 단 사람전부 또는 참여한 사람 전부
     func getUsersInfo(userIds: [String], completion: @escaping ([User]) -> Void) {
         var members: [User] = []
@@ -172,13 +171,13 @@ class StudyViewModel: ObservableObject {
             }
         }
     }
-//    
-//    func isAlreadyReported() -> Bool {
-//        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-//            return false
-//        }
-//        dbRef.collection(.studyGroup).document(self.studyDetail.id).getDocument(as: StudyDTO.self)
-//    }
+    //
+    //        func isAlreadyReported() -> Bool {
+    //            guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+    //                return false
+    //            }
+    //            dbRef.collection(.studyGroup).document(self.studyDetail.id).getDocument(as: StudyDTO.self)
+    //        }
     
     func reportStudy(report: ReportData) {
         guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
@@ -203,6 +202,25 @@ class StudyViewModel: ObservableObject {
     func addJoinStudy(_ study: StudyDTO) {
         
     }
+    
+    
+    func updateBookmark(studyID: String) {
+        
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        dbRef.collection(.users).document(userId).updateData(["savedStudyIDs": FieldValue.arrayUnion([studyID])])
+        print("update")
+    }
+    
+    func removeBookmark(studyID: String) {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        dbRef.collection(.users).document(userId).updateData(["savedStudyIDs": FieldValue.arrayRemove([studyID])])
+        print("remove")
+    }
+    
     
     func sortedStudy(sorted: StudyList) -> [StudyDTO] {
         switch sorted {
