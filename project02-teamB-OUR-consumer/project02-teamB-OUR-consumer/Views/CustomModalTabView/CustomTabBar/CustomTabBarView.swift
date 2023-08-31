@@ -93,16 +93,17 @@ struct CustomTabBarView: View {
                                     if tabBarImageNames[index] == "bell.fill" {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
                                         .frame(width: 20, height: 35, alignment: .bottom)
+                                        
                                     }
                                     else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 22, weight: .light))
-                                            .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(hex: "#a6a6a6"))
                                         
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
-
-                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
+                                            
                                         
                                     }
                                 }

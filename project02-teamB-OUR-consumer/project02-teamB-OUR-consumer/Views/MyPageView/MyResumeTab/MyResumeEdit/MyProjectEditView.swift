@@ -90,8 +90,8 @@ struct MyProjectEditView: View {
                         Text(" ~ ")
                         
                         DatePicker("", selection: $endDate,
-                                   displayedComponents: [.date]
-                        )
+                                   in: startDate..., displayedComponents: [.date])
+                        
                         .padding()
                         .datePickerStyle(.compact)
                         .labelsHidden()

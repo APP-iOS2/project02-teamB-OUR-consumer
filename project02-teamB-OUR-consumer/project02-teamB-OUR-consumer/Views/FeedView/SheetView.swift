@@ -20,7 +20,9 @@ extension Color {
 }
 
 struct SheetView: View {
-    var idStore: IdStore
+    var user: User
+    @State var userViewModel: UserViewModel
+    
     var frameWidth: Double = 355
     var frameHeight: Double = 120
     var frameCornerRadius: Double = 25
@@ -32,14 +34,14 @@ struct SheetView: View {
                     
                 } label: {
                     HStack {
-                        Image(idStore.profileImgString)
+                        Image(user.profileImage ?? "OUR_Logo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .background(Color.gray)
                             .clipShape(Circle())
                             .frame(width: 60, height: 60)
                         
-                        Text("@\(idStore.userID)")
+                        Text("\(user.name)")
                             .font(.system(size: 16))
                             .fontWeight(.bold)
                     }
@@ -62,27 +64,18 @@ struct SheetView: View {
             HStack {
                 VStack {
                     HStack {
-                        Text(idStore.name)
+                        Text(user.name)
                             .font(.system(size: 16))
                             .bold()
                             .padding(.leading, 33)
                         Spacer()
                     }
                     HStack {
-                        Text(idStore.profileMessage)
+                        Text(user.profileMessage ?? "")
                             .font(.system(size: 14))
                             .padding(.leading, 33)
                             .foregroundColor(Color(hex: 0x090580))
                         Spacer()
-                        Button {
-                            
-                        } label: {
-                            ZStack {
-                                FollowingButtonView()
-                                    .foregroundColor(Color(hex: 0x090580))
-                                    .padding(.trailing, 10)
-                            }
-                        }
                     }
                 }
                 
@@ -91,23 +84,23 @@ struct SheetView: View {
             
             ZStack {
                 HStack {
+//                    Spacer()
+//                    VStack {
+//                        Text(String(user.numberOfPosts))
+//                            .font(.title)
+//                            .bold()
+//                        Text("Posts")
+//                    }
                     Spacer()
                     VStack {
-                        Text(String(idStore.numberOfPosts))
-                            .font(.title)
-                            .bold()
-                        Text("Posts")
-                    }
-                    Spacer()
-                    VStack {
-                        Text(String(idStore.numberOfFollowrs))
+                        Text(String(user.numberOfFollower))
                             .font(.title)
                             .bold()
                         Text("Followers")
                     }
                     Spacer()
                     VStack {
-                        Text(String(idStore.numberOfFollowing))
+                        Text(String(user.numberOfFollowing))
                             .font(.title)
                             .bold()
                         Text("Following")
@@ -134,14 +127,16 @@ struct SheetView: View {
                     .bold()
                     .padding()
             }
-
-            
+//            .onAppear {
+//                userViewModel.fetchUser(userId: user.id ?? "")
+//            }
         }
+
     }
 }
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(idStore: IdStore(id: UUID(), name: "이승준", profileImgString: "Jun", userID: "leeseungjun", numberOfPosts: 120, numberOfFollowrs: 50000, numberOfFollowing: 4, numberOfComments: 100, profileMessage: "안녕하세요 이승준입니다.", isFollow: false))
+        SheetView(user: User.defaultUser, userViewModel: UserViewModel())
     }
 }

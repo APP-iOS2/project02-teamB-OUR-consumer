@@ -8,11 +8,26 @@
 import SwiftUI
 import FirebaseCore
 import GoogleSignIn
+import FirebaseStorage
+import FirebaseFirestore
+import FirebaseAuth
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        
+        //스토리지
+//        Storage.storage().useEmulator(withHost:"127.0.0.1", port:9199)
+        
+        //인증관련
+//        Auth.auth().useEmulator(withHost:"127.0.0.1", port:9099)
+        
+        //파이어스토어
+//        let settings = Firestore.firestore().settings
+//        settings.host = "127.0.0.1:8080"
+//        settings.isSSLEnabled = false
+//        Firestore.firestore().settings = settings
         
         
         UNUserNotificationCenter.current().delegate = self
