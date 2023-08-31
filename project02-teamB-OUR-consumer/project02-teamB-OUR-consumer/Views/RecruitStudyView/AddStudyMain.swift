@@ -12,6 +12,7 @@ struct AddStudyMain: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
     @EnvironmentObject var studyStoreViewModel: StudyRecruitStore
+    @EnvironmentObject var sharedViewModel: SharedViewModel
     
     @State var studyTitle: String = ""
     @State var addStudy: Bool = false
@@ -27,13 +28,14 @@ struct AddStudyMain: View {
     @State var studyCount: Int = 1
     @State var startDate: Date = Date()
     @State var dueDate: Date = Date()
-    @State var studyImagePath: [String] = []
+    @State var studyImagePath: [String]?
     @State var selectedItem: [PhotosPickerItem] = []
     @State var imageDataArray: [Data] = []
     
     
     
-    @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
+//    @ObservedObject var sharedViewModel: SharedViewModel = SharedViewModel()
+    
     
     var body: some View {
         NavigationStack {
@@ -82,10 +84,12 @@ struct AddStudyMain: View {
                     ButtonMainView(startDate: $startDate, endDate: $dueDate, number: $studyCount)
                     
                     // MARK: - 사진 선택
-                    StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
+//                    StudyImageView(viewModel: studyStoreViewModel, selectedItem: $selectedItem)
+                    StudyImageView(selectedItem: $selectedItem)
                     
                     // MARK: - 위치 선택
-                    StudyMapView(sharedViewModel: sharedViewModel)
+//                    StudyMapView(sharedViewModel: sharedViewModel)
+                    StudyMapView()
                     
                 }
                 .padding(20)
@@ -100,7 +104,7 @@ struct AddStudyMain: View {
                                 studyStoreViewModel.addFeed(newStudy)
                                 
                             } else {
-                                studyImagePath.removeAll()  // 이미지경로 배열 초기화
+//                                studyImagePath.removeAll()  // 이미지경로 배열 초기화
                                 Task {
                                     
                                     self.studyImagePath = try await studyStoreViewModel.returnImagePath(items: selectedItem)
@@ -136,8 +140,9 @@ struct AddStudyMain: View {
 
 struct AddStudyMain_Previews: PreviewProvider {
     static var previews: some View {
-        //        AddStudyMain(startDate: Date(), endDate: Date(), startTime: Date())
         AddStudyMain()
+            .environmentObject(StudyRecruitStore())
+            .environmentObject(SharedViewModel())
     }
 }
 

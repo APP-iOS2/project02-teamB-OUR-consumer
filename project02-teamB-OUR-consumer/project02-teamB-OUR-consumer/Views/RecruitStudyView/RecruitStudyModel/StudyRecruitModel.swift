@@ -23,9 +23,9 @@ struct StudyRecruitModel: Codable, Identifiable {
     var description: String?    //스터디 내용
     var isOnline: Bool?         //온,오프라인 여부
     var locationName: String? // 스터디 위치명
-    var studyImagePath = [String]()
+    var studyImagePath: [String]?
     var studyCount: Int?
-    var studyCoordinates = [Double]() //스터디 위치
+    var studyCoordinates: [Double]? //스터디 위치
     var currentMemberIds =  [String]()     //스터디 참여인원
     var createdAt: String = Date().dateToString()           //생성일자
     
