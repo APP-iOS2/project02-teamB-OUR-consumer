@@ -110,7 +110,7 @@ class StudyViewModel: ObservableObject {
                     continue
                 }
             }
-            let sortedArray = comments.sorted { $0.createdAt < $1.createdAt }
+            let sortedArray = comments.sorted { $0.createdAt.toDate() < $1.createdAt.toDate() }
             return sortedArray
 //            return comments
         } catch let error {
