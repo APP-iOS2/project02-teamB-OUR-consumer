@@ -18,14 +18,14 @@ struct MyEduEditView: View {
     @State var fieldOfStudy: String = ""
     @State var startDate = Date()
     @State var endDate = Date()
-    @State var degree = "졸업"
+    @State var degree = "Degree"
     @State var description: String = ""
-    
+  
     @State var isPressedBtn: Bool = false
-    @State var isSelectedToggle: Bool = false
     @State var isTextFieldEmpty: Bool = false
     @State var isDeleteItemAlert: Bool = false
     
+    let degreeOption = ["재학", "휴학", "졸업", "수료"]
     var isEditing: Bool
     var index: Int
     
@@ -95,41 +95,36 @@ struct MyEduEditView: View {
                         Text(" ~ ")
                         
                         DatePicker("", selection: $endDate,
-                                   displayedComponents: [.date]
-                        )
+                                   in: startDate..., displayedComponents: [.date])
                         .padding()
                         .datePickerStyle(.compact)
                         .labelsHidden()
                     }
-                    HStack {
-                        if !isSelectedToggle {
-                            Button {
-                                isSelectedToggle.toggle()
-                                
-                            } label: {
-                                Image(systemName: "square") // 모양 왤ㅋ ㅔ 별로지
-                                Text("재학 중")
-                                    .font(.system(size: 16))
-                                    .bold()
-                            }
-                            .buttonStyle(.plain)
-                        } else {
-                            Button {
-                                isSelectedToggle.toggle()
-                                
-                            } label: {
-                                Image(systemName: "checkmark.square")
-                                
-                                Text("재학 중")
-                                    .font(.system(size: 16))
-                                    .bold()
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                    .padding(.top, 5)
                 }
+                
                 Group {
+                    
+                        Text("재학 중")
+                            .font(.system(size: 16))
+                            .bold()
+                            .padding(.top, 5)
+                        
+                        Picker("Degree", selection: $degree) {
+                            ForEach(degreeOption, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .frame(width: 130)
+                        .accentColor(.black)
+                        .background(Color(red: 239/255 , green: 239/255, blue: 240/255))
+                        .cornerRadius(7)
+                        .padding(.vertical)
+                        .offset(x:15)
+                    }
+                
+                
+                Group {
+                    
                     if isPressedBtn {
                         Button {
                             isPressedBtn.toggle()
@@ -252,7 +247,6 @@ struct MyEduEditView: View {
         guard var resume = resumeViewModel.resume else {
             return
         }
-        
         resume.education[index].schoolName = schoolNameTextField
         resume.education[index].degree = degree
         resume.education[index].startDate = startDate
