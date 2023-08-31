@@ -70,6 +70,7 @@ struct project02_teamB_OUR_consumerApp: App {
     @StateObject var sharedViewModel = SharedViewModel()
     @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()
+    @StateObject var studyStoreViewModel = StudyRecruitStore()
     
     var body: some Scene {
         WindowGroup {
