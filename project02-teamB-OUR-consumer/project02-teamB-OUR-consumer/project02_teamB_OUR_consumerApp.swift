@@ -62,7 +62,6 @@ struct project02_teamB_OUR_consumerApp: App {
                 LoginView()
             }
             .environmentObject(alarmViewModel)
-
         }
     }
 }

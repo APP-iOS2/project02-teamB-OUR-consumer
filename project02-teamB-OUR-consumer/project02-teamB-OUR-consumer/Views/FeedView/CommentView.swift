@@ -97,7 +97,7 @@ struct CommentView: View {
                                 
                                 commentString = ""
                             } else {
-                                
+                                postViewModel.writeComment(content: commentString, postId: post.id ?? "")
                                 commentString = ""
                             }
                     } label: {
