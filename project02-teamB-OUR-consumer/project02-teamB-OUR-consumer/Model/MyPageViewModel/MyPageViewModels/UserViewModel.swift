@@ -128,7 +128,6 @@ extension UserViewModel {
 
         let storageRef = Storage.storage().reference().child("profileImages/\(userId).jpg")
 
-        // Upload the file to the path "profileImages/userId.jpg"
         storageRef.putData(imageData, metadata: nil) { (metadata, error) in
             if let error = error {
                 print("Error uploading image: \(error)")
@@ -159,5 +158,4 @@ extension UserViewModel {
             }
         }
     }
-
 }
