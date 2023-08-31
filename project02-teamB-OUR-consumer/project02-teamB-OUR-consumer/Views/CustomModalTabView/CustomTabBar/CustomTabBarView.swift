@@ -90,8 +90,9 @@ struct CustomTabBarView: View {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
-                                            .frame(width: 20, height: 35, alignment: .bottom)
-                                    } else {
+                                        .frame(width: 20, height: 35, alignment: .bottom)
+                                    }
+                                    else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 27, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
@@ -101,10 +102,6 @@ struct CustomTabBarView: View {
 
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
                                         
-                                        // 새로운 알림을 추가하는 버튼
-                                        Button("데이터 추가") {
-                                            alarmViewModel.addNewNotification()
-                                        }
                                     }
                                 }
                             }

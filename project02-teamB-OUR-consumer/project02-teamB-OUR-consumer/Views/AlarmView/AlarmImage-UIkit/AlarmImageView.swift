@@ -80,6 +80,15 @@ class AlarmImageView: UIView {
         }
     }
     
+    // 뱃지 상태 업데이트
+    func updateDot(hasUnreadData: Bool) {
+        if hasUnreadData {
+            addDot()
+        } else {
+            removeDot()
+        }
+    }
+    
     // 필수 초기화 함수 (Interface Builder 사용을 위함, 현재는 사용되지 않음)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

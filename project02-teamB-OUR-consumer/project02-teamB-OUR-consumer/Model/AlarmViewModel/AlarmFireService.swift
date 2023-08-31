@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Firebase
 import FirebaseFirestore
-
+import FirebaseFirestoreSwift
 
 enum REF: String{
     case Announcement
@@ -44,7 +43,7 @@ class AlarmFireService {
         let date = notification.timestamp
         guard var dto = notification.asDictionary else { return }
         
-        if let _ = dto["createdDate"]  {
+        if let _ = dto["createdDate"] {
             dto["createdDate"] = date
         }
         
@@ -63,18 +62,18 @@ class AlarmFireService {
     /// - Parameters:
     ///   - path: notification path
     ///   - completion: 모델 가져와서 뷰에 전달 역할
-    func read(path: String = "notification", completion: @escaping ([NotificationDTO]) -> ()) {
-        db.collection("\(path)").getDocuments() { (querySnapshot, err) in
+    func read(path: String = "notification",completion: @escaping (Result<[NotificationDTO],Error>) -> ()) {
+        db.collection("\(path)").getDocuments{ (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
-            } else {
-                let notifications = querySnapshot!.documents.compactMap{
-                    let data: [String: Any] = $0.data()
-                    return data.decodeDTO()
-                }
-                completion(notifications)
+            }
+            if let snapshot = querySnapshot {
+                
+                let dto = snapshot.documents.compactMap { snap in try? snap.data(as: NotificationDTO.self)}
+                completion(.success(dto))
             }
         }
+      
     }
     
     

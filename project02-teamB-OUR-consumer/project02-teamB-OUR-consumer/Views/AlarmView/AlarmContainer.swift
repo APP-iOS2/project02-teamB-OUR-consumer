@@ -11,10 +11,14 @@ import SwiftUI
 
 
 struct AlarmContainer: View {
+    
+    @EnvironmentObject var alarmViewModel: AlarmViewModel
+    
     @State private var selectedTab = 0
+    
     // 개인 및 공개 알림 샘플 데이터
-    @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
-    //    @StateObject var alarmFireService: AlarmFireService = AlarmFireService()
+    @EnvironmentObject var viewModel: AlarmViewModel
+    
     @State private var allClearAlertShowing = false
     let alertTitle: String = "알림을 전체 삭제하시겠습니까?"
     
@@ -25,7 +29,7 @@ struct AlarmContainer: View {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 
-                HStack {
+                VStack {
                     Button {
                         UNNotificationService.shared.requestSendNoti(seconds: 0.1)
                     } label: {
@@ -37,7 +41,6 @@ struct AlarmContainer: View {
                         Text("권한 설정")
                     }
                 }
-                
                 // 알림 뷰
                 switch selectedTab {
                 case 0:
@@ -54,6 +57,7 @@ struct AlarmContainer: View {
         }
         .onAppear{
             viewModel.fetchNotificationItem()
+            alarmViewModel.markAllAsRead()
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
@@ -89,6 +93,7 @@ struct AlarmContainer_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
             AlarmContainer()
+                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
         }
     }
 }

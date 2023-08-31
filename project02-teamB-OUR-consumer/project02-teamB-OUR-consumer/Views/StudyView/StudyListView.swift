@@ -16,7 +16,7 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @ObservedObject var studyViewModel = StudyViewModel()
+    @EnvironmentObject var studyViewModel: StudyViewModel
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
