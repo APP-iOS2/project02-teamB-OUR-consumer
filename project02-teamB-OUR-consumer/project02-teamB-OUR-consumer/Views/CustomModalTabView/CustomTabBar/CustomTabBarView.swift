@@ -14,6 +14,7 @@ struct CustomTabBarView: View {
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
     @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
+    @StateObject var resumeViewModel = ResumeViewModel()
     
     
     @State private var selectedIndex = 0
@@ -43,6 +44,7 @@ struct CustomTabBarView: View {
                     MyMain()
                         .environmentObject(userViewModel)
                         .environmentObject(studyViewModel)
+                        .environmentObject(resumeViewModel)
                 default:
                     EmptyView()
                 }
