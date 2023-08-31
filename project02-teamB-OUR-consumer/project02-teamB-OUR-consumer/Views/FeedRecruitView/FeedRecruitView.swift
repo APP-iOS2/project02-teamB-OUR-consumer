@@ -94,15 +94,20 @@ struct FeedRecruitView: View {
                         return
                     } else {
                         Task {
-                            feedImagePath.removeAll()
-                            try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                            //print("FeedImagePATH: \(feedImagePath)")
-                            let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                          
-                            self.newFeed = newFeed2
-                            //print("사진 있을 경우: \(newFeed)")
-                            feedStoreViewModel.addFeed(newFeed2)
-                            dismiss()
+                            do {
+                                feedImagePath.removeAll()
+                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                                //print("FeedImagePATH: \(feedImagePath)")
+                                let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                                
+                                self.newFeed = newFeed2
+                                //print("사진 있을 경우: \(newFeed)")
+                                //feedStoreViewModel.addFeed(newFeed2)
+                                dismiss()
+                            } catch {
+                                
+                                print("실패 \(error.localizedDescription)")
+                            }
                        
                             
                         }
@@ -113,7 +118,7 @@ struct FeedRecruitView: View {
                     isAlert = false
                 }
             } message: {
-                Text("등록하시겠습니까?")
+                Text("피드가 등록됩니다.")
                 
             }
             
