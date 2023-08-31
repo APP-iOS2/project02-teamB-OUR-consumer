@@ -19,6 +19,10 @@ struct StudyListView: View {
     @EnvironmentObject var studyViewModel: StudyViewModel
     
     @StateObject var userViewModel = UserViewModel()
+
+    @StateObject var userViewModel = UserViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
+
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
@@ -44,7 +48,7 @@ struct StudyListView: View {
             List {
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
                     NavigationLink(destination: {
-                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
+                        StudyDetailView(userViewModel: userViewModel, viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
                     }, label: {
                         StudyListItemView(userViewModel: userViewModel, isSavedBookmark: isSavedBookmark, study: study)
                     })

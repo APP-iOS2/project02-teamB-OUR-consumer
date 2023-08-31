@@ -48,6 +48,19 @@ struct StudyComment: Identifiable {
     var user: User
     var content: String
     var createdAt: String
+    
+    var isMine: Bool {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        return user.id == userId ? true : false
+    }
+}
+
+extension StudyComment {
+    static var defaultComment: StudyComment {
+        return StudyComment(user: User.defaultUser, content: "", createdAt: "")
+    }
 }
 
 class StudyViewModel: ObservableObject {
@@ -56,6 +69,8 @@ class StudyViewModel: ObservableObject {
     @Published var studyArray: [StudyDTO] = []
     @Published var selectedStudy: StudyDTO = StudyDTO.defaultStudy
     @Published var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
+    @Published var selectedComment: StudyComment = StudyComment.defaultComment
+    @Published var alertCase: StudyDetailAlert = .normal
     
     // MARK: 전체 스터디 불러오는 함수
     func fetchStudy() {
@@ -75,7 +90,7 @@ class StudyViewModel: ObservableObject {
             }
         }
     }
-
+    
     // MARK: StudyCommentDTO -> StudyComment로 바꾸면서 User 정보를 포함시키는 함수
     func fetchComments(documentId: String) async -> [StudyComment] {
         do {
@@ -95,14 +110,15 @@ class StudyViewModel: ObservableObject {
                     continue
                 }
             }
-            
-            return comments
+            let sortedArray = comments.sorted { $0.createdAt < $1.createdAt }
+            return sortedArray
+//            return comments
         } catch let error {
             print(error.localizedDescription)
             return []
         }
     }
-
+    
     
     // 데드라인에서 지났는지 체크, 지났으면 true 반환 => 현재는 string to date 변환 필요함
     func filterWithDeadline(deadline: String) -> Bool {
@@ -130,10 +146,10 @@ class StudyViewModel: ObservableObject {
             return nil
         }
     }
-
+    
     func getUsersInfo(userIds: [String]) async -> [User] {
         var members: [User] = []
-
+        
         for userId in userIds {
             do {
                 let documentSnapshot = try await dbRef.collection(.users).document(userId).getDocument()
@@ -146,10 +162,10 @@ class StudyViewModel: ObservableObject {
                 print("Error fetching user document: \(error)")
             }
         }
-
+        
         return members
     }
-
+    
     // MARK: DB에서 받아온 StudyDTO를 실제 view에서 사용할 StudyDetail로변환하는 함수
     @MainActor
     func makeStudyDetail(study: StudyDTO) async {
@@ -157,7 +173,7 @@ class StudyViewModel: ObservableObject {
         let currentMembers = await getUsersInfo(userIds: study.currentMemberIds)
         let comments = await fetchComments(documentId: study.id ?? "")
         let isJoned = await getMyInfo(studyId: study.id ?? "")
-
+        
         let studyDetail = study.toStudyDetail(creator: creator ?? User.defaultUser, currentMembers: currentMembers, comments: comments, isJoined: isJoned)
         self.studyDetail = studyDetail
     }
@@ -208,6 +224,14 @@ class StudyViewModel: ObservableObject {
         } catch {
             print("Error updating document: \(error)")
         }
+        
+        do {
+            try await dbRef.collection(.studyGroup).document(studyDetail.id).updateData([
+                "currentMemberIds": FieldValue.arrayUnion([userId])
+            ])
+        } catch {
+            print("Error updating currentMemberids: \(error)")
+        }
         await reloadStudyDetail()
     }
     
@@ -224,6 +248,22 @@ class StudyViewModel: ObservableObject {
         
         await reloadStudyDetail()
     }
+    
+    func deleteComment() async {
+        do {
+            try await dbRef.collection(.studyGroup)
+                            .document(studyDetail.id)
+                            .collection(.studyComments)
+                            .document(selectedComment.id)
+                            .delete()
+            print("Document successfully removed")
+        } catch {
+            print("Error removing document: \(error)")
+        }
+        
+        await reloadStudyDetail()
+    }
+
     
     // getMyInfo로 바꿀까 고민중
     func getMyInfo(studyId: String) async -> Bool {
@@ -253,7 +293,6 @@ class StudyViewModel: ObservableObject {
             return
         }
         dbRef.collection(.users).document(userId).updateData(["savedStudyIDs": FieldValue.arrayUnion([studyID])])
-        print("update")
     }
     
     func removeBookmark(studyID: String) {
@@ -261,7 +300,6 @@ class StudyViewModel: ObservableObject {
             return
         }
         dbRef.collection(.users).document(userId).updateData(["savedStudyIDs": FieldValue.arrayRemove([studyID])])
-        print("remove")
     }
     
     //스터디 피드 삭제
@@ -286,5 +324,8 @@ class StudyViewModel: ObservableObject {
             return sortedArray
         }
     }
+    
+    
+    
 }
 
