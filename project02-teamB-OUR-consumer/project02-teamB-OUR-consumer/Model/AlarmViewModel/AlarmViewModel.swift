@@ -254,7 +254,7 @@ struct DummyModel{
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
+                            content: "장수지님이 팔로우했습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             

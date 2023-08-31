@@ -26,9 +26,9 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
-//        .onAppear{
-//                    viewModel.fetchNotificationItem()
-//                }
+        .onAppear{
+                    viewModel.fetchNotificationItem()
+                }
         .refreshable {
             // 새로고침 로직
             viewModel.fetchNotificationItem()
@@ -137,6 +137,9 @@ struct NotificationRow: View {
                                 .onTapGesture {
                                     isFollowing.toggle()
                                     followTapped(tap: isFollowing)
+                                    
+                                    // 임시 푸시알림
+                                    UNNotificationService.shared.requestSendNoti(seconds: 0.1)
                                 }
                         }
                         
