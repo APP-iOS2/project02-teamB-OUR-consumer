@@ -9,7 +9,9 @@ import SwiftUI
 
 struct StudyReplyView: View {
     
+    var userViewModel: UserViewModel
     @StateObject var viewModel: StudyViewModel
+    
     
     @State var editComment: String = ""
     @State var isEditing: Bool = false
@@ -35,7 +37,7 @@ struct StudyReplyView: View {
             
             //List {
             ForEach(viewModel.studyDetail.comments) { comment in
-                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, editComment: $editComment, isEditing: $isEditing)
+                StudyReplyDetailView(studyViewModel: viewModel, userViewModel: userViewModel, comment: comment, index: 0, editComment: $editComment, isEditing: $isEditing)
             }
             // }
             .listStyle(.plain)
@@ -48,11 +50,12 @@ struct StudyReplyView: View {
             
             HStack {
                 //프로필 이미지
-                Image("OUR_Logo")
+                Image(userViewModel.user?.profileImage ?? "OUR_Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40)
                     .clipShape(Circle())
+                
                 //댓글입력창
                 if isEditing {
                     
@@ -86,6 +89,6 @@ struct StudyReplyView: View {
 
 struct StudyReplyView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyView(viewModel: StudyViewModel())
+        StudyReplyView(userViewModel: UserViewModel(), viewModel: StudyViewModel())
     }
 }

@@ -15,7 +15,7 @@ enum StudyList: String, CaseIterable, Identifiable {
 }
 
 struct StudyListView: View {
-    
+    @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
     
     @State var navigate: Bool = false
@@ -43,7 +43,7 @@ struct StudyListView: View {
 
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
                     NavigationLink(destination: {
-                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
+                        StudyDetailView(userViewModel: userViewModel, viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
                     }, label: {
                         StudyListItemView(isSavedBookmark: $isSavedBookmark, study: study)
                     })
