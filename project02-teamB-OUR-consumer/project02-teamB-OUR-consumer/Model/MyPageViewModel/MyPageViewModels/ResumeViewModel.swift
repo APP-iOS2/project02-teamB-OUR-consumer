@@ -1,5 +1,7 @@
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class ResumeViewModel: ObservableObject {
     @Published var resume: Resume?
