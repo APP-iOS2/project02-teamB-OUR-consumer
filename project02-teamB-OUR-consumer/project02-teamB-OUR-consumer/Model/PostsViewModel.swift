@@ -70,4 +70,17 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
+    func getMyPosts() {
+        fireStoreService.fetchMyPost { posts in
+            self.posts = posts
+        }
+    }
+    
+    func reportPost(postId: String, report: ReportData) {
+        fireStoreService.reportPost(report: report, postId: postId) {
+            
+        }
+    }
+    
 }

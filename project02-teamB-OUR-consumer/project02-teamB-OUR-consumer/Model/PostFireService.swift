@@ -293,4 +293,97 @@ class PostFireService {
             }
         }
     }
+    
+    func fetchMyPost(completion: @escaping ([Post]) -> ()) {
+        //        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        db.collection("posts")
+            .whereField("creator", isEqualTo: userId)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("error")
+                } else if let querySnapshot = querySnapshot {
+                        var posts: [Post] = []
+                        for document in querySnapshot.documents {
+                            do {
+                                let post = try document.data(as: Post.self)
+                                posts.append(post)
+                            } catch {
+                                print("fetchMyPostError: \(error)")
+                            }
+                        }
+                        completion(posts)
+                        print("자신의 게시물만 반환 \(posts)")
+                }
+            }
+    }
+    
+    func reportPost(report: ReportData, postId: String, completion: @escaping () -> ()) {
+//        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+//            return
+//        }
+        
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        
+        db.collection("posts").document(postId).updateData([
+            "reportCategory": [report.reason],
+            "reportId": [userId]
+        ]) { error in
+            if let error = error {
+                print("Error reportPost \(error)")
+            } else {
+                print("Report Success")
+            }
+        }
+    }
 }
+
+
+
+// func likePost(postID: String, completion: @escaping (Bool) -> ()) {
+////        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//     let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+//     print("포스트ID\(postID)")
+//
+//     let likeCollectionRef = db.collection("posts").document(postID)
+
+//     likeCollectionRef.getDocument { (document, error) in
+//         if let error = error {
+//             print("Error checking likes: \(error)")
+//         } else if let document = document {
+//             if var likes = document.data()?["like"] as? [String] {
+//                 if likes.contains(userId) {
+//                     // 이미 좋아요를 눌렀을 경우, userId를 배열에서 삭제
+//                     likes.removeAll(where: { $0 == userId })
+//                 } else {
+//                     // 좋아요를 누르지 않았을 경우, userId를 배열에 추가
+//                     likes.append(userId)
+//                 }
+//                 likeCollectionRef.updateData([
+//                     "like": likes
+//                 ]) { error in
+//                     if let error = error {
+//                         print("Error updating likes: \(error)")
+//                     } else {
+//                         print("Updated likes")
+//                         completion(true)
+//                     }
+//                 }
+//             } else {
+//                 // like 필드가 존재하지 않을 경우, 새로운 배열 생성 후 userId 추가
+//                 let newLikes = [userId]
+//                 likeCollectionRef.updateData([
+//                     "like": newLikes
+//                 ]) { error in
+//                     if let error = error {
+//                         print("Error creating likes: \(error)")
+//                     } else {
+//                         print("Created likes")
+//                         completion(true)
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+

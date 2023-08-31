@@ -8,26 +8,45 @@
 import SwiftUI
 
 struct MyBoardView: View {
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
+    @State private var isShowingSheet: Bool = false
+    @State private var isShowingPostOptionSheet: Bool = false
+    @State private var isScrapFeed: Bool = false
+    @State private var isShowingModifyDetailView: Bool = false
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(0..<5) { _ in
-                    VStack(alignment: .leading) {
+                ForEach(postViewModel.posts) { post in
+                    VStack {
                         HStack {
-                            Text("\n게시물\n")
-                                .font(.system(size: 16))
-                                .bold()
-                            Spacer()
+                            PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                                
+                            Button {
+                                isShowingPostOptionSheet.toggle()
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .padding(2)
+                            }
+                            .foregroundColor(.gray)
                         }
+                        .padding()
+                        PostView(post: post, isScrapFeed: $isScrapFeed)
+                        
+    //                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
+                        
                     }
-                    .padding(.top, 11)
-                    .padding(.horizontal)
-                    .foregroundColor(.black)
+//                    .sheet(isPresented: $isShowingPostOptionSheet) {
+//                        PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+//                                        .presentationDetents([.height(350), .height(350)])
+//                    }
                     Rectangle()
                         .fill(Color("DefaultGray"))
                 }
                 
             }
+        }
+        .onAppear {
+            postViewModel.getMyPosts()
         }
     }
 }

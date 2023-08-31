@@ -33,7 +33,7 @@ struct PostView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(height: 600)
+                                .frame(height: 500)
                             
                         } placeholder: {
                             ProgressView()
@@ -42,7 +42,7 @@ struct PostView: View {
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
-                .frame(height: 550)
+                .frame(height: 500)
                 //                .background(Color.black)
             }
             
