@@ -29,7 +29,6 @@ struct StudyDetailView: View {
     @Binding var isSavedBookmark: Bool
     @State var showAlert: Bool = false
     @State var alertText: String = ""
-//    @State var alertCase:StudyDetailAlert = .normal
     
     var body: some View {
         NavigationStack {
@@ -43,7 +42,12 @@ struct StudyDetailView: View {
                                 .frame(height: 200)
                                 .clipped()
                         } placeholder: {
-                            ProgressView()
+                            Image("OUR_Logo")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
                         }
                         .frame(maxWidth: .infinity)
                         .overlay(alignment:.bottom) {
@@ -100,7 +104,7 @@ struct StudyDetailView: View {
                             HStack {
                                 Image(systemName: viewModel.studyDetail.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse" )
                                     .frame(width: 20)
-                                Text(viewModel.studyDetail.isOnline ? "\(viewModel.studyDetail.linkString ?? "")" : "\(viewModel.studyDetail.locationName ?? "정보없음")")
+                                Text(viewModel.studyDetail.isOnline ? "링크 추후 안내" : "\(viewModel.studyDetail.locationName ?? "위치정보없음")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 if !viewModel.studyDetail.isOnline {
@@ -165,13 +169,12 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        if viewModel.studyDetail.currentMembers.isEmpty {
-                                            viewModel.alertCase = .delete
-                                            showAlert = true
-                                        } else if viewModel.studyDetail.currentMembers.count >= 1 {
-                                           print("취소못해")
+                                        if viewModel.studyDetail.currentMembers.count >= 2 {
+                                            print("취소못해")
                                             alertText = "참석자가 있는 스터디는 삭제할 수 없습니다."
                                             viewModel.alertCase = .normal
+                                        } else {
+                                            viewModel.alertCase = .delete
                                             showAlert = true
                                         }
                                     } label: {
