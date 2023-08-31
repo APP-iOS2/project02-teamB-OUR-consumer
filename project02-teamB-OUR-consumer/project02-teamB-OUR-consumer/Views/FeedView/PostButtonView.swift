@@ -55,7 +55,7 @@ struct PostButtonView: View {
         .padding()
         // 댓글 시트
         .sheet(isPresented: $isShowingCommentSheet) {
-            CommentView(post: post)
+            CommentView(post: post, postViewModel: postViewModel)
         }
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {

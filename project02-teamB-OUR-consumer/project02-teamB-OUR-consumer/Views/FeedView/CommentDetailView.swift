@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CommentDetailView: View {
-    var comment: PostComment
+    var comment: PostCommentModel
     
     @State var isShowingAlert: Bool = false
     @Binding var isModifyComment: Bool
@@ -23,7 +23,7 @@ struct CommentDetailView: View {
                 .frame(width: 30, height: 30)
             VStack(alignment: .leading) {
                 HStack {
-                    Text("\(comment.userId)")
+                    Text("\(comment.user.name)")
                         .font(.system(size: 14))
                         .fontWeight(.bold)
                     HStack {
@@ -79,11 +79,14 @@ struct CommentDetailView: View {
                         },
                       secondaryButton: .cancel(Text("취소")))
             }
+        .onAppear {
+            
+        }
     }
 }
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentDetailView(comment: PostComment(userId: "leeseungjun", content: "안녕하세요"), isModifyComment: .constant(false))
+        CommentDetailView(comment: PostCommentModel(user: User.defaultUser, content: "", createdAt: ""), isModifyComment: .constant(false))
     }
 }

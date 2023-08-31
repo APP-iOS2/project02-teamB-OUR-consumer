@@ -10,6 +10,7 @@ import SwiftUI
 struct CommentView: View {
     
     var post: Post
+    var postViewModel: PostViewModel
     @State var postModel: PostModel = PostModel.samplePostModel
     
     @State var commentString: String = ""
@@ -104,13 +105,18 @@ struct CommentView: View {
                     }
                 }
                 .padding()
+                .onAppear {
+                    postViewModel.getPost(of: post) { postModel in
+                        self.postModel = postModel
+                    }
+                }
             }
     }
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CommentView(post: Post.samplePost,isReviseComment: false)
+            CommentView(post: Post.samplePost, postViewModel: PostViewModel(), isReviseComment: false)
         }
     }
 }

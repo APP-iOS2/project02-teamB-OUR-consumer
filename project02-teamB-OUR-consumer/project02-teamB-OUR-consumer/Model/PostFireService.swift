@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import Foundation
 import Firebase
 import FirebaseFirestore
@@ -71,21 +65,26 @@ class PostFireService {
 //        print("작성자 \(post.creator)")
         getUserInfo(userId: post.creator) { creator in
             self.isLikedPost(post: post) { bool in
+//                print("\(bool)")
                 self.getLikedUser(post: post) { users in
-                    let postModel = PostModel(
-                        creator: creator ?? User(name: "", email: ""),
-                        privateSetting: post.privateSetting,
-                        content: post.content,
-                        createdAt: post.createdAt,
-                        location: post.location,
-                        postImagePath: post.postImagePath,
-                        reportCount: post.reportCount,
-                        numberOfLike: post.like?.count ?? 0 ,
-                        isLiked: bool,
-                        likedUsers: users
-                    )
-                    completion(postModel)
-                    print("포스트 모델: \(postModel)")
+//                    print("유저\(users)")
+                    self.fetchComments(postId: post.id ?? "") { postComments in
+                        let postModel = PostModel(
+                            creator: creator ?? User(name: "", email: ""),
+                            privateSetting: post.privateSetting,
+                            content: post.content,
+                            createdAt: post.createdAt,
+                            location: post.location,
+                            postImagePath: post.postImagePath,
+                            reportCount: post.reportCount,
+                            numberOfLike: post.like?.count ?? 0 ,
+                            isLiked: bool,
+                            comment: postComments,
+                            likedUsers: users
+                        )
+                        completion(postModel)
+//                        print("\(postModel)")
+                    }
                 }
             }
         }
@@ -107,12 +106,15 @@ class PostFireService {
     }
     
     func getLikedUser(post: Post, completion: @escaping ([User]) -> ()) {
+        guard let user = post.like else {
+            completion([])
+            return
+        }
+        
         var likedUser: [User] = []
-        getUserInfo(userIds: post.like ?? [""]) { users in
-//            print("유저들\(users)")
+        getUserInfo(userIds: user) { users in
             likedUser = users.compactMap { $0 }
             completion(likedUser)
-//            print("좋아요 한사람들\(likedUser)")
         }
     }
     
@@ -125,11 +127,14 @@ class PostFireService {
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
 
         db.collection("posts").document(postId).getDocument { (document, error) in
+            guard let document = document?.data() else {
+                completion(false)
+                return
+            }
             if let error = error {
                 print("Error checking if post is liked: \(error)")
                 completion(false)
-            } else if let postData = document?.data(),
-                      let likedUserIds = postData["like"] as? [String] {
+            } else if let likedUserIds = document["like"] as? [String] {
                 completion(likedUserIds.contains(userId))
             } else {
                 completion(false)
@@ -149,6 +154,7 @@ class PostFireService {
     }
     
     func likePost(postID: String) {
+//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
 
         let likeCollectionRef = db.collection("posts").document(postID)
@@ -223,6 +229,40 @@ class PostFireService {
                 // 모든 클로저가 완료되었을 때만 호출
                 if members.count == userIds.count {
                     completion(members)
+                }
+            }
+        }
+    }
+    
+    func fetchComments(postId: String, completion: @escaping ([PostCommentModel]) -> ()) {
+        db.collection("posts").document(postId).collection("comments").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching comments: \(error)")
+                completion([])
+            } else {
+                if let querySnapshot {
+                    guard !querySnapshot.documents.isEmpty else {
+                        completion([])
+                        return
+                    }
+                    var comments: [PostCommentModel] = []
+                    for document in querySnapshot.documents {
+                        do {
+                            let postComment = try document.data(as: PostComment.self)
+                            print("포스트\(postComment)")
+                            self.getUserInfo(userId: postComment.userId) { user in
+                                let postCommentModel = PostCommentModel(user: user!, content: postComment.content, createdAt: postComment.createdAt)
+                                comments.append(postCommentModel)
+                                if comments.count == querySnapshot.count {
+                                    completion(comments)
+                                }
+                            }
+                        } catch {
+                            print("FetchComments() Error: \(error)")
+                        }
+                    }
+                } else {
+                    completion([])
                 }
             }
         }

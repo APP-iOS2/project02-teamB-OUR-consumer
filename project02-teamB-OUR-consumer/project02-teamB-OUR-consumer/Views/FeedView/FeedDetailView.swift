@@ -22,7 +22,7 @@ struct FeedDetailView: View {
                     .padding(.leading, 15)
                 PostView(post: post, postViewModel: postViewModel)
                 PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
-                CommentView(post: post)
+                CommentView(post: post, postViewModel: postViewModel)
             }
         }
     }

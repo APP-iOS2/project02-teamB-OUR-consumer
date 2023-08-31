@@ -28,7 +28,7 @@ struct Post: Codable, Identifiable {
 
 
 struct PostModel: Identifiable {
-    var id: String?
+    var id: String = UUID().uuidString
     var creator: User
     var privateSetting: Bool
     var content: String
@@ -41,7 +41,7 @@ struct PostModel: Identifiable {
     var numberOfLike: Int
     var numberOfRepost: Int?
     var isLiked: Bool
-    var comment: [PostComment] = []
+    var comment: [PostCommentModel] = []
     var likedUsers: [User]
 }
 
@@ -59,6 +59,13 @@ struct PostComment: Codable, Identifiable {
         self.createdAt = formatter.string(from: timestamp.dateValue())
         self.content = content
     }
+}
+
+struct PostCommentModel: Identifiable {
+    var id: String = UUID().uuidString
+    var user: User
+    var content: String
+    var createdAt: String
 }
 
 extension Post {

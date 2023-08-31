@@ -14,7 +14,7 @@ class PostViewModel: ObservableObject {
     private var fireStoreService: PostFireService
     
     @Published var posts: [Post] = []
-    @Published var postInfo: [PostModel] = []
+    @Published var postInfo: PostModel = PostModel.samplePostModel
     
     init(fireStoreService: PostFireService = PostFireService()) {
         self.fireStoreService = fireStoreService
@@ -49,7 +49,7 @@ class PostViewModel: ObservableObject {
     func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
         fireStoreService.getPostInfo(post: post) { post in
             completion(post)
-            self.postInfo.append(post)
+            self.postInfo = post
         }
     }
     
