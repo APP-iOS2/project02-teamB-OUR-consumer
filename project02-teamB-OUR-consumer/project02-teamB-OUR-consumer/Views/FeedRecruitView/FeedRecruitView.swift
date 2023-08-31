@@ -27,6 +27,7 @@ struct FeedRecruitView: View {
     @State var createdDate: Date = Date()
     @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
     
+    let userID: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue ) ?? ""
     
     var body: some View {
         
@@ -81,31 +82,29 @@ struct FeedRecruitView: View {
                   
                     if selectedItem.isEmpty {
                         feedImagePath.removeAll()
-                        let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                        let newFeed1 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                         
                         self.newFeed = newFeed1
                         
                         //isAlert = false
-                        print("사진 없을 경우 : \(newFeed)")
+                        //print("사진 없을 경우 : \(newFeed)")
+                        feedStoreViewModel.addFeed(newFeed)
                         dismiss()
-                    print("\(isAlert)")
          
                         return
                     } else {
                         Task {
                             feedImagePath.removeAll()
                             try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                            print("FeedImagePATH: \(feedImagePath)")
-                            let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                            //print("FeedImagePATH: \(feedImagePath)")
+                            let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                           
                             self.newFeed = newFeed2
-                            print("사진 있을 경우: \(newFeed)")
-                  
-                       
-                         
+                            //print("사진 있을 경우: \(newFeed)")
+                            feedStoreViewModel.addFeed(newFeed2)
                             dismiss()
                        
-                            //feedStoreViewModel.addFeed(newFeed2)
+                            
                         }
                     }
 
