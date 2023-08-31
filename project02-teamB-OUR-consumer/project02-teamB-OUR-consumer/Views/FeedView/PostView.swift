@@ -9,17 +9,33 @@ import SwiftUI
 
 struct PostView: View {
     
-    @ObservedObject var post: FeedStore
+    var post: Post
+    @StateObject var postViewModel: PostViewModel
+    @State private var postModel: PostModel = PostModel.samplePostModel
     
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
-    
-    @State var likeCount: Int = 0
-    @State var commentCount: Int = 0
-    @State var rePostCount: Int = 0
-    
+    @State private var isSheet: Bool = false
+ 
     var body: some View {
-        VStack {
+        Group {
+            if post.postImagePath.isEmpty == false {
+                TabView {
+                    ForEach(postModel.postImagePath, id: \.self) { imagePath in
+                        AsyncImage(url: URL(string: imagePath)) { image in
+                            image
+                                .resizable()
+                                .frame(height: 400)
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle())
+                .frame(height: 350)
+            }
+ 
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
                     Text("\(post.content)")
@@ -36,15 +52,28 @@ struct PostView: View {
                 }
                 .padding()
                 HStack() {
+                    Text("\(post.createdAt)")
                     Spacer()
-                    Text("좋아요 \(post.numberOfLike)")
-                        
-                    Text("댓글 \(post.numberOfComments)")
-                    Text("퍼감 \(post.numberOfRepost)")
+                    Button {
+                        isSheet.toggle()
+                    } label: {
+                        Text("좋아요 \(postModel.numberOfLike)")
+                    }
+                    .sheet(isPresented: $isSheet) {
+                        LikeListView(post: post, postViewModel: postViewModel, isToggle: $isSheet)
+                    }
+         
+//                    Text("댓글 \(postModel.numberOfComments)")
+//                    Text("퍼감 \(postModel.numberOfRepost)")
                 }
                 .font(.system(size: 14))
                 .foregroundColor(.gray)
                 .padding()
+            }
+        }
+        .onAppear {
+            postViewModel.getPost(of: post) { postmodel in
+                self.postModel = postmodel
             }
         }
         
@@ -52,11 +81,10 @@ struct PostView: View {
     }
 }
 
-
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."))
+            PostView(post: Post.samplePost, postViewModel: PostViewModel())
         }
     }
 }

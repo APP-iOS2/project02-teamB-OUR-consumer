@@ -8,28 +8,31 @@
 import SwiftUI
 
 struct PostButtonView: View {
-    var post: FeedStore
-    @ObservedObject var idData: IdData = IdData()
-    @ObservedObject var postData: PostData
+    var post: Post
     
-    @State var isLikeButton: Bool = false
+    @StateObject var postViewModel: PostViewModel
+    
+    @State private var postModel: PostModel = PostModel.samplePostModel
+    
     @State var isShowingCommentSheet: Bool = false
     @State var isShowingScrapSheet: Bool = false
     @State var isShowingShareSheet: Bool = false
+    
+    @Binding var isScrapFeed: Bool
+    
+    @StateObject var idData: IdData = IdData()
+    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
     
     var body: some View {
         HStack(spacing: 75) {
             Button {
                 // 좋아요 버튼
-                isLikeButton.toggle()
-                if isLikeButton == true {
-                    post.numberOfLike += 1
-//                    postData.pressLikeButton(post: post)
-                } else {
-                    post.numberOfLike -= 1
-                }
+                postViewModel.likePost(postID: post.id ?? "")
+                postModel.isLiked.toggle()
+                print("\(postModel.isLiked)")
+
             } label: {
-                isLikeButton ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
+                postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
             }
             Button {
                 isShowingCommentSheet.toggle()
@@ -52,23 +55,25 @@ struct PostButtonView: View {
         .padding()
         // 댓글 시트
         .sheet(isPresented: $isShowingCommentSheet) {
-            CommentView(post: post, idData: idData)
+            CommentView(post: post)
         }
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {
-            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet)
+            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
                 .presentationDetents([.height(180), .height(180)])
         }
-        .sheet(isPresented: $isShowingShareSheet) {
+        .onAppear {
+            postViewModel.getPost(of: post) { postModel in
+                self.postModel = postModel
+            }
         }
-
     }
 }
 
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, content: "축구...어렵네..."), postData: PostData())
+            PostButtonView(post: Post.samplePost, postViewModel: PostViewModel(), isScrapFeed: .constant(false))
         }
     }
 }

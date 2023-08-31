@@ -53,6 +53,7 @@ class UserViewModel: ObservableObject {
     }
 }
 
+// 마이페이지 뷰 팔로우 팔로잉
 extension UserViewModel {
     func followUser(targetUserId: String) {
    
