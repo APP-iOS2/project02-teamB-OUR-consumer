@@ -45,10 +45,7 @@ struct FeedView: View {
                 }
                 .sheet(isPresented: $isShowingPostOptionSheet) {
                     PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
-                                    .presentationDetents([.height(220), .height(220)])
-                }
-                .sheet(isPresented: $isShowingModifyDetailView) {
-                    PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
+                                    .presentationDetents([.height(350), .height(350)])
                 }
             }
         }

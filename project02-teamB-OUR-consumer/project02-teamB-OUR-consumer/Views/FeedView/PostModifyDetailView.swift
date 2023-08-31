@@ -6,70 +6,83 @@
 //
 
 import SwiftUI
+import _PhotosUI_SwiftUI
 
 struct PostModifyDetailView: View {
+    @Environment(\.dismiss) private var dismiss: DismissAction
     
     var post: Post
     @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
-    
     @Binding var isShowingModifyDetailView: Bool
-    
     @State private var tempContent: String = ""
+    @State var isAlert: Bool = false
+    
+    @State var selectedImages: [UIImage] = []
+    @State var selectedItem: [PhotosPickerItem] = []
+    
+    @State var privacySetting: Bool = false
+    @State var locationAddress: String = ""
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section("게시물 사진") {
-                    if postModel.postImagePath.isEmpty == false {
-                        TabView {
-                            ForEach(postModel.postImagePath, id: \.self) { imagePath in
-                                AsyncImage(url: URL(string: imagePath)) { image in
-                                    image
-                                        .resizable()
-                                        .frame(height: 400)
-                                        .aspectRatio(contentMode: .fit)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                            }
-                        }
-                        .tabViewStyle(PageTabViewStyle())
-                        .frame(height: 350)
-                    }
+            VStack {
+                
+                VStack(alignment: .leading) {
+                    PostRecruitPrivateSettingView(privacySetting: $privacySetting)
+                    PostRecruitLocationView(locationAddress: $locationAddress)
                 }
-                Section("게시물 내용"){
-                    TextField("게시물의 내용을 입력해주세요.", text: $postModel.content)
-                        .font(.system(size: 16))
-                }
+                TextEditor(text: $postViewModel.postModel.content)
+                    .frame(minHeight:350, maxHeight:350)
+                    .buttonBorderShape(.roundedRectangle)
+                    .border(Color.secondary)
+                
+                PostModifyDetailPhotoEditorView(selectedImages: $selectedImages, selectedItem: $selectedItem)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         // 완료
                         // 수정된 데이터를 넣어줘야함
+                        isAlert = true
+                        
                         isShowingModifyDetailView.toggle()
                     } label: {
                         Text("완료")
                     }
+                    .disabled(postViewModel.postModel.content.isEmpty)
 
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         //취소
-                        isShowingModifyDetailView.toggle()
+//                        isShowingModifyDetailView.toggle()
+                        dismiss()
                     } label: {
                         Text("취소")
                     }
                 }
             }
+            .padding()
+            .navigationTitle("게시물 수정")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            
+            .alert("피드", isPresented: $isAlert) {
+               
+                Button("등록" ,role: .destructive) {
+                    // 수정된 사항 뷰모델에 적용시키는 기능 넣기
+
+                    dismiss()
+                }
+                Button("취소" ,role: .cancel) {
+                    isAlert = false
+                }
+            } message: {
+                Text("수정하시겠습니까?")
+            }
         }
-        .padding()
-        .navigationTitle("게시물 수정")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        
     }
 }
 

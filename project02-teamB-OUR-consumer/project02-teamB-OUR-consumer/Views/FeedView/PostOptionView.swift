@@ -17,27 +17,64 @@ struct PostOptionView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                VStack(alignment: .leading, spacing: 30) {
+            VStack {
+                Divider()
+                VStack {
                     Button {
-                        isShowingPostOptionSheet = false
                         isShowingModifyDetailView.toggle()
                     } label: {
-                        Label("수정", systemImage: "square.and.pencil")
-                            .foregroundColor(Color(hex: 0x090580))
+                        HStack {
+                            ZStack {
+                                Circle()
+                                    .stroke(Color("AccentColor"), lineWidth: 2)
+                                    .frame(height: 80)
+                                    .foregroundColor(Color.clear)
+                                    .shadow(radius: 8)
+                                
+                                Image(systemName: "square.and.pencil")
+                                    .font(.largeTitle)
+                                    .foregroundColor(Color("AccentColor"))
+                            }
+                            Spacer()
+                            Text("수정")
+                                .foregroundColor(Color("AccentColor"))
+                                .font(.title2)
+                        }
+                        .padding()
+                    }
+                    .fullScreenCover(isPresented: $isShowingModifyDetailView) {
+                        PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
                     }
                 }
-                VStack(alignment: .leading, spacing: 30) {
+                Divider()
+                VStack {
                     Button {
                         //게시물 삭제 함수!!!
                         isShowingPostOptionSheet = false
                     } label: {
-                        Label("삭제", systemImage: "trash")
-                            .foregroundColor(.red)
+                        HStack {
+                            ZStack {
+                                Circle()
+                                    .stroke(Color(.red), lineWidth: 2)
+                                    .frame(height: 80)
+                                    .foregroundColor(Color.clear)
+                                    .shadow(radius: 8)
+                                
+                                Image(systemName: "trash")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.red)
+                            }
+                            Spacer()
+                            Text("삭제")
+                                .foregroundColor(.red)
+                                .font(.title2)
+                        }
+                        .padding()
                     }
+                    Divider()
                 }
             }
-            .font(.title)
+            .padding()
         }
     }
 }
