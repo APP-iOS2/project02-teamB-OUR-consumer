@@ -56,6 +56,7 @@ struct AlarmContainer: View {
                 } label: {
                     Label("전체 삭제", systemImage: "trash.fill")
                 }
+                .foregroundColor(.black)
                 .font(.system(size: 14, weight: .medium))
                 .alert(
                     alertTitle,
