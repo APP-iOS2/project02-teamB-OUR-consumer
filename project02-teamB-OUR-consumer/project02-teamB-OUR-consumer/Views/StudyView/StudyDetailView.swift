@@ -11,6 +11,7 @@ import CoreLocation
 enum StudyDetailAlert {
     case delete
     case normal
+    case commentDelete
 }
 
 struct StudyDetailView: View {
@@ -28,7 +29,7 @@ struct StudyDetailView: View {
     @Binding var isSavedBookmark: Bool
     @State var showAlert: Bool = false
     @State var alertText: String = ""
-    @State var alertCase:StudyDetailAlert = .normal
+//    @State var alertCase:StudyDetailAlert = .normal
     
     var body: some View {
         NavigationStack {
@@ -165,12 +166,12 @@ struct StudyDetailView: View {
                                     }
                                     Button {
                                         if viewModel.studyDetail.currentMembers.isEmpty {
-                                            alertCase = .delete
+                                            viewModel.alertCase = .delete
                                             showAlert = true
                                         } else if viewModel.studyDetail.currentMembers.count >= 1 {
                                            print("취소못해")
                                             alertText = "참석자가 있는 스터디는 삭제할 수 없습니다."
-                                            alertCase = .normal
+                                            viewModel.alertCase = .normal
                                             showAlert = true
                                         }
                                     } label: {
@@ -211,7 +212,7 @@ struct StudyDetailView: View {
                                             Task {
                                                 await viewModel.joinStudy()
                                                 alertText = "스터디에 참여하였습니다."
-                                                alertCase = .normal
+                                                viewModel.alertCase = .normal
                                                 showAlert = true
                                             }
                                         } label: {
@@ -243,7 +244,7 @@ struct StudyDetailView: View {
                     }
                     .padding(15)
                     
-                    StudyReplyView(userViewModel: userViewModel, viewModel: viewModel)
+                    StudyReplyView(userViewModel: userViewModel, viewModel: viewModel, showAlert: $showAlert)
                 }
             }
         }
@@ -265,7 +266,7 @@ struct StudyDetailView: View {
                     Button(action: {
                         if isAlreadyReported() {
                             alertText = "이미 신고한 스터디입니다."
-                            alertCase = .normal
+                            viewModel.alertCase = .normal
                             showAlert = true
                         } else {
                             isShowingReportSheet = true
@@ -290,17 +291,25 @@ struct StudyDetailView: View {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
         .alert(isPresented: $showAlert, content: {
-            if alertCase == .normal {
+            if viewModel.alertCase == .normal {
                 return Alert(title: Text("알림"),
                       message: Text(alertText),
                       dismissButton: .destructive(Text("확인")) {
                 })
-            } else {
+            } else if viewModel.alertCase == .delete {
                 return Alert(title: Text("게시물을 삭제하겠습니까?"),
                       message: Text("게시물을 삭제합니다"),
                       primaryButton: .destructive(Text("삭제")) {
                     viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
                     dismiss()
+                }, secondaryButton: .cancel(Text("취소")))
+            } else {
+                return Alert(title: Text("댓글을 삭제하겠습니까?"),
+                      message: Text("댓글을 삭제합니다"),
+                      primaryButton: .destructive(Text("삭제")) {
+                    Task {
+                        await self.viewModel.deleteComment()
+                    }
                 }, secondaryButton: .cancel(Text("취소")))
             }
         })
