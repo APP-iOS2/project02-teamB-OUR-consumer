@@ -65,9 +65,7 @@ struct PostButtonView: View {
                 .presentationDetents([.height(180), .height(180)])
         }
         .onAppear {
-            postViewModel.getPost(of: post) { postModel in
-                self.postModel = postModel
-            }
+            postViewModel.getPost(of: post)
         }
     }
 }

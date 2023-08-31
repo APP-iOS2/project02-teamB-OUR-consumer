@@ -37,8 +37,14 @@ class PostFireService {
     
     /// 로그인한 유저의 팔로워들의 게시물만 가져옴
     func fetchPosts(for followerUIDs: [String], path: String, amount: Int, completion: @escaping ([Post]) -> ()) {
+        var allUIds = followerUIDs
+//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        allUIds.append(userId)
+        let uniqueUIds = Array(Set(allUIds))
+        
         db.collection("\(path)")
-            .whereField("creator", in: followerUIDs)
+            .whereField("creator", in: uniqueUIds)
             .order(by: "createdAt", descending: true)
             .limit(to: amount)
             .getDocuments { (querySnapshot, error) in
@@ -154,9 +160,10 @@ class PostFireService {
         }
     }
     
-    func likePost(postID: String, completion: @escaping () -> ()) {
+    func likePost(postID: String, completion: @escaping (Bool) -> ()) {
 //        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        print("포스트ID\(postID)")
 
         let likeCollectionRef = db.collection("posts").document(postID)
 
@@ -179,6 +186,7 @@ class PostFireService {
                             print("Error updating likes: \(error)")
                         } else {
                             print("Updated likes")
+                            completion(true)
                         }
                     }
                 } else {
@@ -191,6 +199,7 @@ class PostFireService {
                             print("Error creating likes: \(error)")
                         } else {
                             print("Created likes")
+                            completion(true)
                         }
                     }
                 }

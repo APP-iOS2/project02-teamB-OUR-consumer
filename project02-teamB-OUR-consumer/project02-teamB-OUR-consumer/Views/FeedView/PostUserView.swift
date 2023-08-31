@@ -11,7 +11,7 @@ struct PostUserView: View {
     @State var user: User = User.defaultUser
     @State var userViewModel: UserViewModel = UserViewModel()
     var post: Post
-    @EnvironmentObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -31,7 +31,7 @@ struct PostUserView: View {
                         .clipShape(Circle())
                         .frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
-                        Text("\(postModel.creator.name)")
+                        Text("\(postViewModel.postModel.creator.name)")
                             .font(.system(size: 16))
                             .foregroundColor(.black)
                             .bold()
@@ -50,9 +50,7 @@ struct PostUserView: View {
             }
         }
         .onAppear {
-            postViewModel.getPost(of: post) { postModel in
-                self.postModel = postModel
-            }
+            postViewModel.getPost(of: post)
         }
     }
 }

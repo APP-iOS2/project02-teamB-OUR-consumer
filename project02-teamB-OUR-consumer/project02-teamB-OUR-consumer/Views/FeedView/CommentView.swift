@@ -106,9 +106,7 @@ struct CommentView: View {
                 }
                 .padding()
                 .onAppear {
-                    postViewModel.getPost(of: post) { postModel in
-                        self.postModel = postModel
-                    }
+                    postViewModel.getPost(of: post)
                 }
             }
     }

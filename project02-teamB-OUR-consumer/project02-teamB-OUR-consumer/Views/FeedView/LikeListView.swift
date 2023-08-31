@@ -62,9 +62,7 @@ struct LikeListView: View {
                 }
             }
             .onAppear {
-                postViewModel.getPost(of: post) { post in
-                    self.postModel = post
-                }
+                postViewModel.getPost(of: post)
             }
         }
         

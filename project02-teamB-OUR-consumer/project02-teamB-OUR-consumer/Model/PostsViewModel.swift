@@ -43,7 +43,7 @@ class PostViewModel: ObservableObject {
     }
     
     func likePost(postID: String) {
-        fireStoreService.likePost(postID: postID) {
+        fireStoreService.likePost(postID: postID) { result in
             self.fireStoreService.refreshPostModel(postId: postID) { postModel in
                 self.postModel = postModel
                 print("PostModel: \(postModel)")
@@ -51,9 +51,8 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
+    func getPost(of post: Post) {
         fireStoreService.getPostInfo(post: post) { post in
-            completion(post)
             self.postModel = post
         }
     }

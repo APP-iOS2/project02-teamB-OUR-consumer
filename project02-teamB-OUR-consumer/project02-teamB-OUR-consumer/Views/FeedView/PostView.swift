@@ -23,7 +23,7 @@ struct PostView: View {
     @State var isShowingShareSheet: Bool = false
     
     @Binding var isScrapFeed: Bool
- 
+    
     var body: some View {
         Group {
             if post.postImagePath.isEmpty == false {
@@ -34,7 +34,7 @@ struct PostView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: 600)
-                                
+                            
                         } placeholder: {
                             ProgressView()
                         }
@@ -43,9 +43,9 @@ struct PostView: View {
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .frame(height: 550)
-//                .background(Color.black)
+                //                .background(Color.black)
             }
- 
+            
             VStack(alignment: .leading) {
                 HStack(alignment: .bottom, spacing: 10) {
                     Text("\(post.content)")
@@ -53,7 +53,7 @@ struct PostView: View {
                         .lineLimit(lineLimitNumber)
                     Button {
                         isSpreadBtn.toggle()
-                        lineLimitNumber = isSpreadBtn ? 10 : 2
+                        lineLimitNumber = isSpreadBtn ? 10 : 1
                     } label: {
                         Text("\(isSpreadBtn ? "접기" : "더보기")")
                             .font(.system(size: 12))
@@ -68,13 +68,18 @@ struct PostView: View {
                         isSheet.toggle()
                     } label: {
                         Text("좋아요 \(postViewModel.postModel.numberOfLike)")
+                            .padding(.trailing, 10)
                     }
                     .sheet(isPresented: $isSheet) {
                         LikeListView(post: post, isToggle: $isSheet)
                     }
-         
-//                    Text("댓글 \(postModel.numberOfComments)")
-//                    Text("퍼감 \(postModel.numberOfRepost)")
+                    
+                    Button {
+                        isShowingCommentSheet.toggle()
+                    } label: {
+                        Text("댓글 \(postViewModel.postModel.numberOfComments)")
+                    }
+                    //                    Text("퍼감 \(postModel.numberOfRepost)")
                 }
                 .font(.system(size: 14))
                 .foregroundColor(.gray)
@@ -92,7 +97,7 @@ struct PostView: View {
                         postViewModel.postModel.numberOfLike -= 1
                     }
                     print("\(postViewModel.postModel.isLiked)")
-
+                    
                 } label: {
                     postViewModel.postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
                 }
@@ -126,9 +131,7 @@ struct PostView: View {
             }
         }
         .onAppear {
-            postViewModel.getPost(of: post) { postmodel in
-                self.postModel = postmodel
-            }
+            postViewModel.getPost(of: post)
         }
         
         
