@@ -13,6 +13,7 @@ struct StudyDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    var userViewModel: UserViewModel
     @StateObject var viewModel: StudyViewModel
     var study: StudyDTO
     
@@ -233,7 +234,7 @@ struct StudyDetailView: View {
                     }
                     .padding(15)
                     
-                    StudyReplyView(viewModel: viewModel)
+                    StudyReplyView(userViewModel: userViewModel, viewModel: viewModel)
                 }
             }
         }
@@ -325,7 +326,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy, isSavedBookmark: .constant(false))
+            StudyDetailView(userViewModel: UserViewModel(), viewModel: StudyViewModel(), study: StudyDTO.defaultStudy, isSavedBookmark: .constant(false))
         }
     }
     
