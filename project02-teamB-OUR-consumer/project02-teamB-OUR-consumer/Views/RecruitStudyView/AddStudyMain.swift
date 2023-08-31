@@ -11,7 +11,7 @@ import PhotosUI
 struct AddStudyMain: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
-    @StateObject var studyStoreViewModel: StudyRecruitStore = StudyRecruitStore()
+    @EnvironmentObject var studyStoreViewModel: StudyRecruitStore
     
     @State var studyTitle: String = ""
     @State var addStudy: Bool = false
