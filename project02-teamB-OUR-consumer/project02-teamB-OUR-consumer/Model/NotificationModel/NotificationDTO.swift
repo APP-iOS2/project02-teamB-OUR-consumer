@@ -7,13 +7,14 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct NotificationDTO: Identifiable,Codable{
-    let id: ID
+    @DocumentID var id: ID?
     let userId: ID
     let type: String
     let content: String
-    // let isHidden: Bool
     let isRead: Bool
     let createdDate: Date // 알림 시간
     
@@ -43,7 +44,7 @@ struct NotificationDTO: Identifiable,Codable{
 extension NotificationDTO{
     func toDomain(user: User) -> NotificationItem{
         let type = NotificationType(rawValue: self.type) ?? .none
-        return NotificationItem(id: self.id,
+        return NotificationItem(id: self.id ?? "",
                                 user: user ,
                                 type: type,
                                 content: self.content,
