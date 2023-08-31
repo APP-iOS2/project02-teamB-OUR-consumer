@@ -40,6 +40,7 @@ class AlarmImageContainer: UIView{
     }
     
     func unSelected(color: Color){
+        alarmTabBarImage.settingColor(color: UIColor(color))
         titleLabel.textColor = UIColor(color)
     }
     

@@ -73,7 +73,6 @@ class AlarmFireService {
                 completion(.success(dto))
             }
         }
-      
     }
     
     

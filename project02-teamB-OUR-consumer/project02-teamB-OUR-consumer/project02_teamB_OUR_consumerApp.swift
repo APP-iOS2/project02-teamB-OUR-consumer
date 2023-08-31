@@ -57,6 +57,7 @@ struct project02_teamB_OUR_consumerApp: App {
     
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(),
                                                                       userViewModel: UserViewModel()) )
+    @StateObject var studyViewModel = StudyViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -65,6 +66,7 @@ struct project02_teamB_OUR_consumerApp: App {
                 LoginView()
             }
             .environmentObject(alarmViewModel)
+            .environmentObject(studyViewModel)
         }
     }
 }

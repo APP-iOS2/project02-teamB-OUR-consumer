@@ -53,6 +53,14 @@ class AlarmViewModel: ObservableObject{
     func sendNotification(type: NotificationType, content: String){
         let uuid = UUID().uuidString
         guard let userId = userViewModel.user?.id else { return }
+        var content = content
+        
+        if let userName = userViewModel.user?.name {
+            content = userName + " 님이 \(content)"
+        }else{
+            content = "익명 님이 \(content)"
+        }
+        
         let dto = NotificationDTO(id: uuid, userId: userId, type: type.value, content: content, isRead: false, createdDate: Date())
         service.create(send: dto, completion: { result in
             print("저장성공")
