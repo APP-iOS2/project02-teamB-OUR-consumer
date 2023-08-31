@@ -26,9 +26,9 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
-        .onAppear{
-            alarmViewModel.fetchNotificationItem()
-        }
+//        .onAppear{
+//            alarmViewModel.fetchNotificationItem()
+//        }
         .refreshable {
             // 새로고침 로직
             alarmViewModel.fetchNotificationItem()
@@ -148,6 +148,10 @@ struct NotificationRow: View {
                                     isFollowing.toggle()
                                     sound(is: isFollowing)
                                     following(is: isFollowing)
+                                    // 임시 푸시알림
+                                    UNNotificationService.shared.requestSendNoti(seconds: 0.1,
+                                                                                 type: notification.type,
+                                                                                 body: notification.content)
                                 }
                         }
                         
@@ -203,7 +207,7 @@ struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
             NotificationsListView(access: .personal)
-                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
+                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService())))
         }
     }
 }

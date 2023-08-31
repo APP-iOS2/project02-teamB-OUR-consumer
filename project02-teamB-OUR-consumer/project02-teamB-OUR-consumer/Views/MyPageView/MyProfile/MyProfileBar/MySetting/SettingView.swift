@@ -40,17 +40,17 @@ struct SettingView: View {
                     
                     Group {
                         HStack {
-                            Text("알림 설정")
-                                .font(.headline)
-                            
-                            Toggle(isOn: $notificationsEnabled) {
-                                // 상태 변화
+                            Button {
+                                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                                }
+                            } label: {
+                                Text("알림 설정")
                             }
-                            .offset(y: 10)
+                            .font(.headline)
+                            .foregroundColor(.black)
                         }
-                        Text("게시물, 추천 알림")
-                            .font(.footnote)
-                            .padding(.bottom, 10)
+                        .padding(.vertical)
                         Divider()
                     }
                     

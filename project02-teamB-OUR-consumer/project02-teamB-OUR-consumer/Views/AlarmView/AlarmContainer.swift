@@ -12,15 +12,13 @@ import SwiftUI
 
 struct AlarmContainer: View {
     
-    @EnvironmentObject var alarmViewModel: AlarmViewModel
+    @EnvironmentObject var viewModel: AlarmViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @State private var selectedTab = 0
     
-    // 개인 및 공개 알림 샘플 데이터
-    @EnvironmentObject var viewModel: AlarmViewModel
-    
     @State private var allClearAlertShowing = false
-    let alertTitle: String = "알림을 전체 삭제하시겠습니까?"
+    let alertTitle: String = "알림 전체 삭제"
     
     // 본문 뷰
     var body: some View {
@@ -45,10 +43,10 @@ struct AlarmContainer: View {
                 switch selectedTab {
                 case 0:
                     NotificationsListView(access: .personal) // 개인 알림
-                        .environmentObject(viewModel)
+                       
                 case 1:
                     NotificationsListView(access: .public) // 공개 알림
-                        .environmentObject(viewModel)
+                       
                 default:
                     Text("알림 뷰")
                 }
@@ -57,7 +55,7 @@ struct AlarmContainer: View {
         }
         .onAppear{
             viewModel.fetchNotificationItem()
-            alarmViewModel.markAllAsRead()
+            viewModel.markAllAsRead()
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
@@ -93,7 +91,7 @@ struct AlarmContainer_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
             AlarmContainer()
-                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
+                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService())))
         }
     }
 }

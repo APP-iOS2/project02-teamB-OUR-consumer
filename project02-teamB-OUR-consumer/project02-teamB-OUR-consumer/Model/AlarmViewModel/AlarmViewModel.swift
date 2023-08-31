@@ -16,7 +16,7 @@ typealias NotiItem = [ASection : [NotificationItem]]
 class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
-    private var userViewModel: UserViewModel
+
     
     @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
@@ -24,24 +24,26 @@ class AlarmViewModel: ObservableObject{
     
     struct Dependency{
         let alarmFireSerivce: AlarmFireService
-        let userViewModel: UserViewModel
+
     }
     
     init(dependency: Dependency){
         self.service = dependency.alarmFireSerivce
-        self.userViewModel = dependency.userViewModel
+
 
         if let hasUnreadData = UserDefaults.standard.value(forKey: "hasUnreadData") as? Bool {
             self.hasUnreadData = hasUnreadData
         }
     }
     
+    
+    
     func followButtonTapped(user id: ID) {
-        userViewModel.followUser(targetUserId: id)
+//        userViewModel.followUser(targetUserId: id)
     }
     
     func unfollowButtonTapped(user id: ID) {
-        userViewModel.unfollowUser(targetUserId: id)
+//        userViewModel.unfollowUser(targetUserId: id)
     }
     
     
@@ -52,10 +54,10 @@ class AlarmViewModel: ObservableObject{
     ///   - content: 알림 메시지 Content
     func sendNotification(type: NotificationType, content: String){
         let uuid = UUID().uuidString
-        guard let userId = userViewModel.user?.id else { return }
+        let userId =  "" //userViewModel.user?.id else { return }
         var content = content
         
-        if let userName = userViewModel.user?.name {
+        if let userName = .some("value") {
             content = userName + " 님이 \(content)"
         }else{
             content = "익명 님이 \(content)"
@@ -260,7 +262,7 @@ struct DummyModel{
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
+                            content: "장수지님이 팔로우했습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             
