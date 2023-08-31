@@ -10,8 +10,9 @@ import SwiftUI
 struct PostView: View {
     
     var post: Post
-    @EnvironmentObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
     @State private var postModel: PostModel = PostModel.samplePostModel
+    var postFireService: PostFireService = PostFireService()
     
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
@@ -27,19 +28,22 @@ struct PostView: View {
         Group {
             if post.postImagePath.isEmpty == false {
                 TabView {
-                    ForEach(postModel.postImagePath, id: \.self) { imagePath in
+                    ForEach(postViewModel.postModel.postImagePath, id: \.self) { imagePath in
                         AsyncImage(url: URL(string: imagePath)) { image in
                             image
                                 .resizable()
-                                .frame(height: 400)
-                                .aspectRatio(contentMode: .fit)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 600)
+                                
                         } placeholder: {
                             ProgressView()
                         }
+                        
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
-                .frame(height: 350)
+                .frame(height: 550)
+//                .background(Color.black)
             }
  
             VStack(alignment: .leading) {
@@ -81,13 +85,13 @@ struct PostView: View {
                 Button {
                     // 좋아요 버튼
                     postViewModel.likePost(postID: post.id ?? "")
-                    postModel.isLiked.toggle()
-                    if postModel.isLiked {
-                        postModel.numberOfLike += 1
+                    postViewModel.postModel.isLiked.toggle()
+                    if postViewModel.postModel.isLiked {
+                        postViewModel.postModel.numberOfLike += 1
                     } else {
-                        postModel.numberOfLike -= 1
+                        postViewModel.postModel.numberOfLike -= 1
                     }
-                    print("\(postModel.isLiked)")
+                    print("\(postViewModel.postModel.isLiked)")
 
                 } label: {
                     postViewModel.postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")

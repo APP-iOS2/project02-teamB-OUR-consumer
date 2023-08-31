@@ -10,7 +10,7 @@ import SwiftUI
 struct LikeListView: View {
     
     var post: Post
-    @EnvironmentObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
     var postFireService: PostFireService = PostFireService()
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -21,7 +21,7 @@ struct LikeListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                ForEach(postModel.likedUsers) { like in
+                ForEach(postViewModel.postModel.likedUsers) { like in
                     HStack{
                         Image("OUR_Logo")
                             .resizable()
@@ -62,8 +62,8 @@ struct LikeListView: View {
                 }
             }
             .onAppear {
-                postFireService.getLikedUser(post: post) { postModel in
-                    self.postModel.likedUsers = postModel
+                postViewModel.getPost(of: post) { post in
+                    self.postModel = post
                 }
             }
         }

@@ -31,12 +31,15 @@ struct PostUserView: View {
                         .clipShape(Circle())
                         .frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
-                        HStack {
-                            Text("\(postModel.creator.name)")
-                                .font(.system(size: 16))
-                                .foregroundColor(.black)
-                                .bold()
-                        }
+                        Text("\(postModel.creator.name)")
+                            .font(.system(size: 16))
+                            .foregroundColor(.black)
+                            .bold()
+                        Text("\(postViewModel.postModel.location)")
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
                     }
                 }
                 Spacer()
