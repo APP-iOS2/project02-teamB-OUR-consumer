@@ -37,6 +37,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         return true
     }
+
     
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
@@ -74,10 +75,10 @@ struct project02_teamB_OUR_consumerApp: App {
     @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()        //피드  등록모델
     @StateObject var studyStoreViewModel = StudyRecruitStore()      //스터디 등록모델
+
     
     var body: some Scene {
         WindowGroup {
-
             NavigationStack {
                 LoginView()
             }

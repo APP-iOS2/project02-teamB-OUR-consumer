@@ -38,15 +38,17 @@ import FirebaseFirestoreSwift
 let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
-    @StateObject private var studyViewModel = StudyViewModel()
+    
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
     @State private var isFollowing: Bool = true
     
-    @ObservedObject var userViewModel = UserViewModel()
-    @ObservedObject var resumeViewModel = ResumeViewModel()
-    //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
+    @EnvironmentObject var studyViewModel: StudyViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
+    @ObservedObject var resumeViewModel = ResumeViewModel()
+    
+    //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -88,6 +90,7 @@ struct MyMain: View {
                 }
             }
             .padding(.top, 1)
+            .navigationTitle("")
         }
         .onAppear(){
             userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
@@ -117,6 +120,8 @@ struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             MyMain()
+                .environmentObject(UserViewModel())
+                .environmentObject(StudyViewModel())
         }
     }
 }

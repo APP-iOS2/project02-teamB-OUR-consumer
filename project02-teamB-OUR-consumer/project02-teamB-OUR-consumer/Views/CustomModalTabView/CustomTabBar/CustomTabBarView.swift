@@ -9,12 +9,18 @@ import SwiftUI
 
 struct CustomTabBarView: View {
 
-    @StateObject var model = CustomTabBarViewModel()    //여기서만 씁니다.
-    @EnvironmentObject var alarmViewModel: AlarmViewModel
+
+    @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
+    
+    @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
+    @StateObject var userViewModel = UserViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
+    
 
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
-    
+
+
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
     let tabBarTextNames = ["피드", "스터디", "", "알림", "프로필"]
     
@@ -32,14 +38,19 @@ struct CustomTabBarView: View {
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 case 3:
                     AlarmContainer()
+                        .environmentObject(alarmViewModel)
+                        .environmentObject(
+                        )
                 case 4:
                     MyMain()
+                        .environmentObject(userViewModel)
+                        .environmentObject(studyViewModel)
                 default:
                     EmptyView()
                 }
             }
 
-            
+            Spacer()
             
             ZStack {
                 
@@ -86,8 +97,6 @@ struct CustomTabBarView: View {
                                         .presentationDetents([.fraction(0.45)])
                                         .presentationDragIndicator(.visible)
                                 }
-                                
-                                
                             } else {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
@@ -105,6 +114,7 @@ struct CustomTabBarView: View {
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
                                             
                                         
+
                                     }
                                 }
                             }
@@ -134,6 +144,5 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBarView()
-            .environmentObject(AlarmViewModel())
     }
 }
