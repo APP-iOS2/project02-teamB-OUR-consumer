@@ -46,7 +46,7 @@ struct StudyListView: View {
                     NavigationLink(destination: {
                         StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
                     }, label: {
-                        StudyListItemView(isSavedBookmark: $isSavedBookmark, study: study)
+                        StudyListItemView(userViewModel: userViewModel, isSavedBookmark: isSavedBookmark, study: study)
                     })
                 }
                 .listRowSeparator(.hidden)
@@ -66,6 +66,7 @@ struct StudyListView: View {
             }
             .onAppear {
                 studyViewModel.fetchStudy()
+                userViewModel.fetchUser(userId: "9ZGLxCgsBDdFFwGgezBH6FXnXAx2")
             }
         }
     }
