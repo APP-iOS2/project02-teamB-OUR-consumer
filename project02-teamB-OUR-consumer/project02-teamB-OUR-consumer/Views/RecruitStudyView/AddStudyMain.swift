@@ -95,20 +95,20 @@ struct AddStudyMain: View {
                             print("등록 버튼 tapped")
                             
                             if selectedItem.isEmpty {
-                                let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue,  locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                let newStudy = StudyRecruitModel(studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue,  locationName: sharedViewModel.selectedLocality, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                 
                                 studyStoreViewModel.addFeed(newStudy)
                                 
                             } else {
                                 studyImagePath.removeAll()  // 이미지경로 배열 초기화
                                 Task {
-                                    for item in selectedItem {
-                                        studyImagePath.append( await studyStoreViewModel.returnImagePath(item: item) )
-                                        
-                                    }
-                                    print("추가된 사진배열: \(studyImagePath)")
                                     
-                                    let newStudy = StudyRecruitModel(creator: "", studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue, locationName: sharedViewModel.selectedLocality, reportCount: 0, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
+                                    self.studyImagePath = try await studyStoreViewModel.returnImagePath(items: selectedItem)
+       
+                                    
+                                    print("추가된 이미지배열 :\n\(studyImagePath)")
+                                    
+                                    let newStudy = StudyRecruitModel(studyTitle: studyTitle, startAt: startDate.toString(), dueAt: dueDate.toString(), description: studyText, isOnline: selectValue, locationName: sharedViewModel.selectedLocality, studyImagePath: studyImagePath, studyCount: studyCount, studyCoordinates: sharedViewModel.selectedCoordinates)
                                     
                                     studyStoreViewModel.addFeed(newStudy)
                                 }
