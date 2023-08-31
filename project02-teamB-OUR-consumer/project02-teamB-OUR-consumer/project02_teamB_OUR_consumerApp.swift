@@ -54,6 +54,7 @@ struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
     @StateObject var alarmViewModel = AlarmViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -62,6 +63,7 @@ struct project02_teamB_OUR_consumerApp: App {
                 LoginView()
             }
             .environmentObject(alarmViewModel)
+            .environmentObject(studyViewModel)
 
         }
     }
