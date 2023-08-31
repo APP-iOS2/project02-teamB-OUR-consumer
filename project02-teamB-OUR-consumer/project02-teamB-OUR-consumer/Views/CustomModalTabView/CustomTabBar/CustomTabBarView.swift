@@ -34,7 +34,9 @@ struct CustomTabBarView: View {
                 case 0:
                     FeedTabView()
                 case 1:
-                    StudyListView(studyViewModel: StudyViewModel())
+                    StudyListView()
+                        .environmentObject(userViewModel)
+                        .environmentObject(studyViewModel)
                 case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 case 3:

@@ -97,7 +97,7 @@ struct NotificationRow: View {
                     
                     
                     if notification.type == .studyReply || notification.type == .studyAutoJoin {
-                        NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: .constant(true)))
+                        NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: true))
                         {
                             EmptyView()
                         }

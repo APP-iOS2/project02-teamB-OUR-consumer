@@ -26,7 +26,7 @@ struct StudyDetailView: View {
     @State private var isShowingStudyMemberSheet: Bool = false
     @State var isShowingLocationSheet: Bool = false
     @State var isShowingReportSheet: Bool = false
-    @Binding var isSavedBookmark: Bool
+    @State var isSavedBookmark: Bool
     @State var showAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State var alertText: String = ""
@@ -350,7 +350,7 @@ struct StudyDetailView: View {
 struct StudyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy, isSavedBookmark: .constant(false))
+            StudyDetailView(viewModel: StudyViewModel(), study: StudyDTO.defaultStudy, isSavedBookmark: false)
         }
     }
     

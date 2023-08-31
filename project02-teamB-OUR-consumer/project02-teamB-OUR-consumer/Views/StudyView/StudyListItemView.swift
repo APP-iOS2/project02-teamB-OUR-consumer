@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct StudyListItemView: View {
+    
+    @EnvironmentObject var userViewModel: UserViewModel
 
     @ObservedObject var studyViewModel: StudyViewModel = StudyViewModel()
     
-    @Binding var isSavedBookmark: Bool
+    @State var isSavedBookmark: Bool
     
     var study: StudyDTO
     
@@ -92,6 +94,17 @@ struct StudyListItemView: View {
         .padding(.leading)
         .onAppear {
             studyViewModel.fetchStudy()
+//            guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+//                        return
+//                    }
+//            userViewModel.fetchUser(userId: userId)
+//            if let studyIDs = userViewModel.user?.savedStudyIDs {
+//                if studyIDs.contains(where: { studyId in
+//                    study.id == studyId
+//                }) {
+//                    isSavedBookmark = true
+//              }
+//            }
         }
     }
 }
@@ -99,6 +112,6 @@ struct StudyListItemView: View {
 struct StudyListItemView_Previews: PreviewProvider {
     static var previews: some View {
 
-        StudyListItemView(isSavedBookmark: .constant(false), study: StudyDTO( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5, createdAt: "2023.08.28"))
+        StudyListItemView(isSavedBookmark: false, study: StudyDTO( creatorId: "", title: "iOS 개발자 면접", description: "", studyDate: "8월 24일", deadline: "8월 23일", isOnline: false, currentMemberIds: [""], totalMemberCount: 5, createdAt: "2023.08.28"))
     }
 }
