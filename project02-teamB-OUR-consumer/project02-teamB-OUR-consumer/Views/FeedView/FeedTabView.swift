@@ -21,7 +21,13 @@ struct FeedTabView: View {
                     Divider()
 //                    RecommendFriendView()
                 }
+                
+                // 알림 권한 요청때문에 추가했습니다
+                .onAppear{
+                    UNNotificationService.shared.requestAuthNoti()
+                }
             }
+            .navigationTitle("")
         }
     }
 }

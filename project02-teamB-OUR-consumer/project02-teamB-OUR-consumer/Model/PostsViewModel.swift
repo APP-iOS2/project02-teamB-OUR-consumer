@@ -1,3 +1,6 @@
+
+
+
 //
 //  PostsViewModel.swift
 //  project02-teamB-OUR-consumer
@@ -11,6 +14,7 @@ class PostViewModel: ObservableObject {
     private var fireStoreService: PostFireService
     
     @Published var posts: [Post] = []
+    @Published var postInfo: [PostModel] = []
     
     init(fireStoreService: PostFireService = PostFireService()) {
         self.fireStoreService = fireStoreService
@@ -45,6 +49,17 @@ class PostViewModel: ObservableObject {
     func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
         fireStoreService.getPostInfo(post: post) { post in
             completion(post)
+            self.postInfo.append(post)
+        }
+    }
+    
+    func writeComment(content: String, postId: String) {
+        fireStoreService.writeComment(content: content, postId: postId) { success in
+            if success {
+                print("댓글 작성 성공")
+            } else {
+                print("댓글 작성 실패")
+            }
         }
     }
 }

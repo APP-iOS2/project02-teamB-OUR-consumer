@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class UserViewModel: ObservableObject {
     @Published var user: User?
@@ -52,6 +53,7 @@ class UserViewModel: ObservableObject {
     }
 }
 
+// 마이페이지 뷰 팔로우 팔로잉
 extension UserViewModel {
     func followUser(targetUserId: String) {
    
@@ -110,4 +112,52 @@ extension UserViewModel {
 enum FollowType: String {
     case following
     case follower
+}
+
+extension UserViewModel {
+    func uploadProfileImage(_ image: UIImage, completion: @escaping (Bool) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            completion(false)
+            return
+        }
+
+        guard let userId = user?.id else {
+            completion(false)
+            return
+        }
+
+        let storageRef = Storage.storage().reference().child("profileImages/\(userId).jpg")
+
+        // Upload the file to the path "profileImages/userId.jpg"
+        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                print("Error uploading image: \(error)")
+                completion(false)
+                return
+            }
+            
+            storageRef.downloadURL { (url, error) in
+                guard let downloadURL = url else {
+                    print("Error download URL: \(error?.localizedDescription ?? "No error description.")")
+                    completion(false)
+                    return
+                }
+    
+                self.user?.profileImage = downloadURL.absoluteString
+            }
+        }
+    }
+    
+    func fetchProfileImage(userId: String, completion: @escaping (URL?) -> Void) {
+        let storageRef = Storage.storage().reference().child("profileImages/\(userId).jpg")
+        storageRef.downloadURL { (url, error) in
+            if let error = error {
+                print("Error fetching profile image: \(error)")
+                completion(nil)
+            } else {
+                completion(url)
+            }
+        }
+    }
+
 }

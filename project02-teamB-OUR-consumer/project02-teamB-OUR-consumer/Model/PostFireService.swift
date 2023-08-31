@@ -1,3 +1,9 @@
+
+
+
+
+
+
 import Foundation
 import Firebase
 import FirebaseFirestore
@@ -62,22 +68,51 @@ class PostFireService {
     }
     
     func getPostInfo(post: Post, completion: @escaping (PostModel) -> ()) {
+//        print("작성자 \(post.creator)")
         getUserInfo(userId: post.creator) { creator in
             self.isLikedPost(post: post) { bool in
-                let postModel = PostModel(
-                    creator: creator ?? User(name: "", email: ""),
-                    privateSetting: post.privateSetting,
-                    content: post.content,
-                    createdAt: post.createdAt,
-                    location: post.location,
-                    postImagePath: post.postImagePath,
-                    reportCount: post.reportCount,
-                    numberOfLike: post.like?.count ?? 0 ,
-                    isLiked: bool // You can set this value as needed
-                )
-                completion(postModel)
-                print("PostModel: \(postModel)")
+                self.getLikedUser(post: post) { users in
+                    let postModel = PostModel(
+                        creator: creator ?? User(name: "", email: ""),
+                        privateSetting: post.privateSetting,
+                        content: post.content,
+                        createdAt: post.createdAt,
+                        location: post.location,
+                        postImagePath: post.postImagePath,
+                        reportCount: post.reportCount,
+                        numberOfLike: post.like?.count ?? 0 ,
+                        isLiked: bool,
+                        likedUsers: users
+                    )
+                    completion(postModel)
+                    print("포스트 모델: \(postModel)")
+                }
             }
+        }
+    }
+    
+    func writeComment(content: String, postId: String, completion: @escaping (Bool) -> ()) {
+//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        
+        let postComment = PostComment(userId: userId, content: content)
+        
+        do {
+            try db.collection("posts").document(postId).collection("comments").addDocument(from: postComment)
+            completion(true)
+        } catch {
+            print("Error writeComment")
+            completion(false)
+        }
+    }
+    
+    func getLikedUser(post: Post, completion: @escaping ([User]) -> ()) {
+        var likedUser: [User] = []
+        getUserInfo(userIds: post.like ?? [""]) { users in
+//            print("유저들\(users)")
+            likedUser = users.compactMap { $0 }
+            completion(likedUser)
+//            print("좋아요 한사람들\(likedUser)")
         }
     }
     
@@ -165,6 +200,30 @@ class PostFireService {
             case .failure(let error):
                 print("Error decoding users: \(error)")
                 completion(nil)
+            }
+        }
+    }
+    
+    func getUserInfo(userIds: [String], completion: @escaping ([User?]) -> ()) {
+        guard !userIds.isEmpty else {
+            completion([]) // 빈 배열 반환
+            return
+        }
+        
+        var members: [User] = []
+        for userId in userIds {
+            db.collection("users").document(userId).getDocument(as: User.self) { result in
+                switch result {
+                case .success(let response):
+                    members.append(response)
+                case .failure(let error):
+                    print("Error decoding users: \(error)")
+                }
+                
+                // 모든 클로저가 완료되었을 때만 호출
+                if members.count == userIds.count {
+                    completion(members)
+                }
             }
         }
     }

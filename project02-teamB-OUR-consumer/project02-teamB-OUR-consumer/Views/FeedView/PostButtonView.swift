@@ -10,7 +10,7 @@ import SwiftUI
 struct PostButtonView: View {
     var post: Post
     
-    @ObservedObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -19,6 +19,9 @@ struct PostButtonView: View {
     @State var isShowingShareSheet: Bool = false
     
     @Binding var isScrapFeed: Bool
+    
+    @StateObject var idData: IdData = IdData()
+    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
     
     var body: some View {
         HStack(spacing: 75) {
@@ -50,15 +53,15 @@ struct PostButtonView: View {
         .bold()
         .foregroundColor(Color(hex: 0x090580))
         .padding()
-//        // 댓글 시트
-//        .sheet(isPresented: $isShowingCommentSheet) {
-//            CommentView(post: post, idData: idData)
-//        }
-//        // 퍼가기 시트
-//        .sheet(isPresented: $isShowingScrapSheet) {
-//            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
-//                .presentationDetents([.height(180), .height(180)])
-//        }
+        // 댓글 시트
+        .sheet(isPresented: $isShowingCommentSheet) {
+            CommentView(post: post)
+        }
+        // 퍼가기 시트
+        .sheet(isPresented: $isShowingScrapSheet) {
+            ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
+                .presentationDetents([.height(180), .height(180)])
+        }
         .onAppear {
             postViewModel.getPost(of: post) { postModel in
                 self.postModel = postModel
