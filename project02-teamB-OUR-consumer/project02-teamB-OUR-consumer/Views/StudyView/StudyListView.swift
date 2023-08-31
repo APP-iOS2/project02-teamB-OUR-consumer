@@ -15,8 +15,14 @@ enum StudyList: String, CaseIterable, Identifiable {
 }
 
 struct StudyListView: View {
+    
+    @EnvironmentObject var studyViewModel: StudyViewModel
+    
+    @StateObject var userViewModel = UserViewModel()
+
     @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
+
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
@@ -40,12 +46,11 @@ struct StudyListView: View {
             }
             
             List {
-
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
                     NavigationLink(destination: {
                         StudyDetailView(userViewModel: userViewModel, viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
                     }, label: {
-                        StudyListItemView(isSavedBookmark: $isSavedBookmark, study: study)
+                        StudyListItemView(userViewModel: userViewModel, isSavedBookmark: isSavedBookmark, study: study)
                     })
                 }
                 .listRowSeparator(.hidden)
@@ -65,6 +70,7 @@ struct StudyListView: View {
             }
             .onAppear {
                 studyViewModel.fetchStudy()
+                userViewModel.fetchUser(userId: "9ZGLxCgsBDdFFwGgezBH6FXnXAx2")
             }
         }
     }
