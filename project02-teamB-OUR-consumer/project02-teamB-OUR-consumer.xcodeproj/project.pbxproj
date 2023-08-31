@@ -43,6 +43,7 @@
 		649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B72A96067A00506F46 /* RecommendFriendView.swift */; };
 		649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649085B92A96068600506F46 /* RecommendDetailView.swift */; };
 		64D4CA952A9F8E1B0039EA30 /* FeedDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D4CA942A9F8E1B0039EA30 /* FeedDetailView.swift */; };
+		84B7E46A2AA0D106008702A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84B7E4692AA0D106008702A1 /* GoogleService-Info.plist */; };
 		84BC2B372A94910900B0E270 /* StudyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC2B362A94910900B0E270 /* StudyListView.swift */; };
 		84BC2B392A94916A00B0E270 /* StudyListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC2B382A94916A00B0E270 /* StudyListItemView.swift */; };
 		960358992A98601300C14D68 /* AlarmTabBarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960358982A98601300C14D68 /* AlarmTabBarImage.swift */; };
@@ -207,6 +208,7 @@
 		649085B72A96067A00506F46 /* RecommendFriendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommendFriendView.swift; path = ../RecommendFriendView.swift; sourceTree = "<group>"; };
 		649085B92A96068600506F46 /* RecommendDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommendDetailView.swift; path = ../RecommendDetailView.swift; sourceTree = "<group>"; };
 		64D4CA942A9F8E1B0039EA30 /* FeedDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailView.swift; sourceTree = "<group>"; };
+		84B7E4692AA0D106008702A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84BC2B362A94910900B0E270 /* StudyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListView.swift; sourceTree = "<group>"; };
 		84BC2B382A94916A00B0E270 /* StudyListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListItemView.swift; sourceTree = "<group>"; };
 		960358982A98601300C14D68 /* AlarmTabBarImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTabBarImage.swift; sourceTree = "<group>"; };
@@ -678,8 +680,8 @@
 		9E99CCEC2A944A5700699B6A /* project02-teamB-OUR-consumer */ = {
 			isa = PBXGroup;
 			children = (
+				84B7E4692AA0D106008702A1 /* GoogleService-Info.plist */,
 				3AF70F382A95199B008E9CAB /* Info.plist */,
-				460E6ED52AA0CC1B006361EC /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
 				FAB51C772A9676720047A725 /* Extension */,
@@ -905,7 +907,7 @@
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
-				460E6ED62AA0CC1B006361EC /* GoogleService-Info.plist in Resources */,
+				84B7E46A2AA0D106008702A1 /* GoogleService-Info.plist in Resources */,
 				FAB51C1B2A96568D0047A725 /* (null) in Resources */,
 				96C3A8A32AA05C4E00BD74AC /* (null) in Resources */,
 			);
