@@ -21,8 +21,6 @@ struct User: Identifiable, Codable {
     }
 }
 
-extension User {
-    static var defaultUser: User {
-        return User(name: "test", email: "test@gamil.com")
-    }
+extension User{
+    static var defaultUser: User = User(name: "abc", email: "asdf@gmail.com")
 }

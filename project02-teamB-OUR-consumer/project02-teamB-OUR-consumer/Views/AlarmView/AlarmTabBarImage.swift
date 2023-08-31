@@ -23,9 +23,9 @@ struct AlarmTabBarImage: UIViewRepresentable{
          print("value: \(selectedIndex)")
 
         if selectedIndex == index {
-            uiView.settingColor(color: UIColor(named: "AccentColor")!)
+            uiView.selected(uicolor: UIColor(named: "AccentColor")!)
         } else {
-            uiView.settingColor(color: .tertiaryLabel)
+            uiView.unSelected(color: Color(.tertiaryLabel))
         }
         
         if hasUnreadData {
