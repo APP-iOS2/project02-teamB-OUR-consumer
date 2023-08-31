@@ -9,13 +9,14 @@ import SwiftUI
 
 struct CustomTabBarView: View {
 
-    @ObservedObject var model = CustomTabBarViewModel()
+
+    @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
     
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
     @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
     
-    
+
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
 
@@ -38,7 +39,7 @@ struct CustomTabBarView: View {
                 case 3:
                     AlarmContainer()
                         .environmentObject(alarmViewModel)
-                        .environmentObject(userViewModel)
+                        
                 case 4:
                     MyMain()
                         .environmentObject(userViewModel)
@@ -100,16 +101,19 @@ struct CustomTabBarView: View {
                                     if tabBarImageNames[index] == "bell.fill" {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
                                         .frame(width: 20, height: 35, alignment: .bottom)
+                                        
                                     }
                                     else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 22, weight: .light))
-                                            .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(hex: "#a6a6a6"))
                                         
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
+                                            
+                                        
 
-                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
                                     }
                                 }
                             }
