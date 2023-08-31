@@ -18,6 +18,7 @@
 		3AA4B6352A9DAAD200824313 /* Reports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA4B6342A9DAAD200824313 /* Reports.swift */; };
 		3AF70F3B2A951C2E008E9CAB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF70F3A2A951C2E008E9CAB /* Keys.swift */; };
 		3AFE39FA2A98387600E20755 /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE39F92A98387600E20755 /* StudyViewModel.swift */; };
+		460E6ED62AA0CC1B006361EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 460E6ED52AA0CC1B006361EC /* GoogleService-Info.plist */; };
 		4696CA042A95415D0027F3F6 /* StudyMemberSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */; };
 		46A050FA2A9F1487004157FF /* StudyDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A050F92A9F1487004157FF /* StudyDetailEditView.swift */; };
 		46C816AE2A949593003B2944 /* StudyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C816AD2A949593003B2944 /* StudyDetailView.swift */; };
@@ -182,6 +183,7 @@
 		3AF70F382A95199B008E9CAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF70F3A2A951C2E008E9CAB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		3AFE39F92A98387600E20755 /* StudyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
+		460E6ED52AA0CC1B006361EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4696CA032A95415D0027F3F6 /* StudyMemberSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyMemberSheetView.swift; sourceTree = "<group>"; };
 		46A050F92A9F1487004157FF /* StudyDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDetailEditView.swift; sourceTree = "<group>"; };
 		46C816AD2A949593003B2944 /* StudyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDetailView.swift; sourceTree = "<group>"; };
