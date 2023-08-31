@@ -24,7 +24,7 @@ struct MyEduCellView: View {
                 
                 if isMyProfile {
                     NavigationLink {
-                        MyEduEditView(resumeViewModel: resumeViewModel, isEditing: isMyProfile, index: 0)
+                        MyEduEditView(resumeViewModel: resumeViewModel, isEditing: isMyProfile, index: index)
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.black)
@@ -35,6 +35,7 @@ struct MyEduCellView: View {
             Text("2023.05 - 현재 | \(education.degree)")
                 .font(.system(size: 12))
                 .foregroundColor(.gray)
+            
             
             Text(education.description ?? "")
                 .font(.system(size: 14))
@@ -80,7 +81,7 @@ struct MyEduView: View {
                         // 최대 3개 보이도록
                         ForEach(0..<myEdus.count, id: \.self) { index in
                             if index < 3 {
-                                MyEduCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, education: myEdus[index], index: 0)
+                                MyEduCellView(resumeViewModel: resumeViewModel, isMyProfile: $isMyProfile, education: myEdus[index], index: index)
                                     .padding(.vertical, 8)
                                 Divider()
                             }

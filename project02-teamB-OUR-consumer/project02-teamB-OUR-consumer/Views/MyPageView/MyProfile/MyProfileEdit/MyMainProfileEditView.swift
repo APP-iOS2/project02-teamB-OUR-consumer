@@ -31,7 +31,7 @@ struct MyMainProfileEditView: View {
                                     .resizable()
                                     .frame(width: 120, height: 120)
                                     .cornerRadius(60)
-                            
+                                
                                 Image(systemName: "plus.circle.fill")
                                     .resizable()
                                     .frame(width: 24, height: 24)
@@ -50,14 +50,14 @@ struct MyMainProfileEditView: View {
                             .font(.system(size: 16))
                             .bold()
                             .padding(.vertical, 4)
-                            
+                        
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.gray, lineWidth: 2)
                             .overlay {
                                 TextField("이름을 입력해주세요.", text: $name)
                                     .padding()
                                 
-                                    
+                                
                             }
                             .frame(height: 50)
                     }
@@ -146,6 +146,13 @@ struct MyMainProfileEditView: View {
         if var updatedUser = userViewModel.user {
             updatedUser.name = name
             updatedUser.profileMessage = profileMessage
+            userViewModel.uploadProfileImage(image){ success in
+                if success {
+                    print("Profile image uploaded successfully!")
+                } else {
+                    print("Failed to upload profile image.")
+                }
+            }
             userViewModel.updateUser(user: updatedUser)
         }
     }
