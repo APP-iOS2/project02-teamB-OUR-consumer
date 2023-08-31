@@ -51,13 +51,16 @@ struct PostView: View {
                     Text("\(post.content)")
                         .font(.system(size: 16))
                         .lineLimit(lineLimitNumber)
-                    Button {
-                        isSpreadBtn.toggle()
-                        lineLimitNumber = isSpreadBtn ? 10 : 1
-                    } label: {
-                        Text("\(isSpreadBtn ? "접기" : "더보기")")
-                            .font(.system(size: 12))
-                            .foregroundColor(.gray)
+                    
+                    if post.content.count > 30 {
+                        Button {
+                            isSpreadBtn.toggle()
+                            lineLimitNumber = isSpreadBtn ? 10 : 1
+                        } label: {
+                            Text("\(isSpreadBtn ? "접기" : "더보기")")
+                                .font(.system(size: 12))
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
                 .padding()
@@ -71,7 +74,7 @@ struct PostView: View {
                             .padding(.trailing, 10)
                     }
                     .sheet(isPresented: $isSheet) {
-                        LikeListView(post: post, isToggle: $isSheet)
+                        LikeListView(post: post, postViewModel: postViewModel,  isToggle: $isSheet)
                     }
                     
                     Button {

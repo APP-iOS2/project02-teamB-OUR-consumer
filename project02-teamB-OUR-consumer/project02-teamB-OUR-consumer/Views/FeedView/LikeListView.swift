@@ -10,7 +10,7 @@ import SwiftUI
 struct LikeListView: View {
     
     var post: Post
-    @StateObject var postViewModel: PostViewModel = PostViewModel()
+    @StateObject var postViewModel: PostViewModel
     var postFireService: PostFireService = PostFireService()
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -61,9 +61,6 @@ struct LikeListView: View {
                     }
                 }
             }
-            .onAppear {
-                postViewModel.getPost(of: post)
-            }
         }
         
     }
@@ -71,7 +68,7 @@ struct LikeListView: View {
 
 struct LikeListView_Previews: PreviewProvider {
     static var previews: some View {
-        LikeListView(post: Post.samplePost, isToggle: .constant(true))
+        LikeListView(post: Post.samplePost, postViewModel: PostViewModel(), isToggle: .constant(true))
             .environmentObject(PostViewModel())
     }
 }
