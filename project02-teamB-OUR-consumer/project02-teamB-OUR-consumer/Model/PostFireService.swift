@@ -235,7 +235,7 @@ class PostFireService {
     }
     
     func fetchComments(postId: String, completion: @escaping ([PostCommentModel]) -> ()) {
-        db.collection("posts").document(postId).collection("comments").getDocuments { (querySnapshot, error) in
+        db.collection("posts").document(postId).collection("comments").order(by: "createdAt", descending: false).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching comments: \(error)")
                 completion([])
