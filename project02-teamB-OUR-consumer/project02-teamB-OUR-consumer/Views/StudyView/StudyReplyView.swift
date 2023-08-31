@@ -70,8 +70,8 @@ struct StudyReplyView: View {
                     Button("등록") {
                         Task {
                             await viewModel.addComments(content: content)
+                            content = ""
                         }
-                        content = ""
                     }
                 }
             }
