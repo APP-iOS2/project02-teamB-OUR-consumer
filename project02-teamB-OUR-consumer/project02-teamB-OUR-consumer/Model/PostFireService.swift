@@ -61,13 +61,12 @@ class PostFireService {
             }
     }
     
+    /// 실제로 뷰에서 사용하는 데이터 모델로 변환
     func getPostInfo(post: Post, completion: @escaping (PostModel) -> ()) {
 //        print("작성자 \(post.creator)")
         getUserInfo(userId: post.creator) { creator in
             self.isLikedPost(post: post) { bool in
-//                print("\(bool)")
                 self.getLikedUser(post: post) { users in
-//                    print("유저\(users)")
                     self.fetchComments(postId: post.id ?? "") { postComments in
                         let postModel = PostModel(
                             creator: creator ?? User(name: "", email: ""),
@@ -77,13 +76,14 @@ class PostFireService {
                             location: post.location,
                             postImagePath: post.postImagePath,
                             reportCount: post.reportCount,
+                            numberOfComments: postComments.count,
                             numberOfLike: post.like?.count ?? 0 ,
                             isLiked: bool,
                             comment: postComments,
                             likedUsers: users
                         )
                         completion(postModel)
-//                        print("\(postModel)")
+                        print(postComments.count)
                     }
                 }
             }
@@ -105,6 +105,7 @@ class PostFireService {
         }
     }
     
+    /// 특정 게시물에 좋아요를 누른 사람들의 정보를 User모델 배열로 가져옴
     func getLikedUser(post: Post, completion: @escaping ([User]) -> ()) {
         guard let user = post.like else {
             completion([])
@@ -118,6 +119,7 @@ class PostFireService {
         }
     }
     
+    /// 로그인한 유저가 특정 게시물에 좋아요를 눌렀는지 여부
     func isLikedPost(post: Post, completion: @escaping (Bool) -> ()) {
         guard let postId = post.id else {
             completion(false)
@@ -142,7 +144,6 @@ class PostFireService {
         }
     }
     
-    /// 이 게시물이 내 게시물인지
     func isMyFeed(post: PostModel) -> Bool {
         guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return false }
         
@@ -197,7 +198,7 @@ class PostFireService {
         }
     }
 
-    
+    /// 유저 한명의 정보 가져오기
     func getUserInfo(userId: String, completion: @escaping (User?) -> ()) {
         db.collection("users").document(userId).getDocument(as: User.self) { result in
             switch result {
@@ -210,6 +211,7 @@ class PostFireService {
         }
     }
     
+    /// 유저 여러명의 정보 가져오기
     func getUserInfo(userIds: [String], completion: @escaping ([User?]) -> ()) {
         guard !userIds.isEmpty else {
             completion([]) // 빈 배열 반환
@@ -234,6 +236,7 @@ class PostFireService {
         }
     }
     
+    /// 댓글 정보 가져오기
     func fetchComments(postId: String, completion: @escaping ([PostCommentModel]) -> ()) {
         db.collection("posts").document(postId).collection("comments").order(by: "createdAt", descending: false).getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -267,6 +270,7 @@ class PostFireService {
         }
     }
     
+    ///  PostModel에 대한 정보를 새로고침
     func refreshPostModel(postId: String, completion: @escaping (PostModel) -> ()) {
         db.collection("posts").document(postId).getDocument(as: Post.self) { result in
             switch result {

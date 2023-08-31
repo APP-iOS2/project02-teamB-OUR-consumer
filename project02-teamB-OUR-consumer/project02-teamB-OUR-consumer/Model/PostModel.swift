@@ -37,7 +37,7 @@ struct PostModel: Identifiable {
     var postImagePath: [String]
     var reportCount: Int
     var isRepost: Bool?
-    var numberOfComments: Int?
+    var numberOfComments: Int
     var numberOfLike: Int
     var numberOfRepost: Int?
     var isLiked: Bool
@@ -73,7 +73,7 @@ extension Post {
 }
 
 extension PostModel {
-    static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfLike: 0, isLiked: false, likedUsers: [User.defaultUser])
+    static var samplePostModel = PostModel(creator: User.defaultUser, privateSetting: false, content: "", createdAt: "", location: "", postImagePath: [""], reportCount: 0, numberOfComments: 0, numberOfLike: 0, isLiked: false, likedUsers: [User.defaultUser])
 }
 
 
