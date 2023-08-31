@@ -10,8 +10,12 @@ import SwiftUI
 struct CustomTabBarView: View {
 
     @ObservedObject var model = CustomTabBarViewModel()
-    @EnvironmentObject var alarmViewModel: AlarmViewModel
-
+    
+    @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
+    @StateObject var userViewModel = UserViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
+    
+    
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
 
@@ -33,8 +37,12 @@ struct CustomTabBarView: View {
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 case 3:
                     AlarmContainer()
+                        .environmentObject(alarmViewModel)
+                        .environmentObject(userViewModel)
                 case 4:
                     MyMain()
+                        .environmentObject(userViewModel)
+                        .environmentObject(studyViewModel)
                 default:
                     EmptyView()
                 }
@@ -131,6 +139,5 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBarView()
-            .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
     }
 }
