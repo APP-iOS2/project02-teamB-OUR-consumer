@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     
-    @StateObject var postViewModel: PostViewModel = PostViewModel()
+    @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -24,7 +24,7 @@ struct FeedView: View {
             ForEach(postViewModel.posts) { post in
                 VStack {
                     HStack {
-                        PostUserView(post: post, postViewModel: postViewModel, isShowingSheet: $isShowingSheet)
+                        PostUserView(post: post, isShowingSheet: $isShowingSheet)
                             
                         Button {
                             isShowingPostOptionSheet.toggle()
@@ -35,9 +35,9 @@ struct FeedView: View {
                         .foregroundColor(.gray)
                     }
                     .padding()
-                    PostView(post: post, postViewModel: postViewModel)
+                    PostView(post: post)
                     
-                    PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
+                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
                     
                     Divider()
                         .frame(height: 4)
@@ -48,7 +48,7 @@ struct FeedView: View {
                                     .presentationDetents([.height(220), .height(220)])
                 }
                 .sheet(isPresented: $isShowingModifyDetailView) {
-                    PostModifyDetailView(post: post, postViewModel: postViewModel, isShowingModifyDetailView: $isShowingModifyDetailView)
+                    PostModifyDetailView(post: post, isShowingModifyDetailView: $isShowingModifyDetailView)
                 }
             }
         }
@@ -65,5 +65,6 @@ struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         
         FeedView()
+            .environmentObject(PostViewModel())
     }
 }

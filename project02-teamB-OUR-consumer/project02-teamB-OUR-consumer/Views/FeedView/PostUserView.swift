@@ -11,7 +11,7 @@ struct PostUserView: View {
     @State var user: User = User.defaultUser
     @State var userViewModel: UserViewModel = UserViewModel()
     var post: Post
-    @StateObject var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -55,6 +55,7 @@ struct PostUserView: View {
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(post: Post.samplePost, postViewModel: PostViewModel(), isShowingSheet: .constant(false))
+        PostUserView(post: Post.samplePost, isShowingSheet: .constant(false))
+            .environmentObject(PostViewModel())
     }
 }

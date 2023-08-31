@@ -10,7 +10,7 @@ import SwiftUI
 struct PostButtonView: View {
     var post: Post
     
-    @StateObject var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -19,9 +19,6 @@ struct PostButtonView: View {
     @State var isShowingShareSheet: Bool = false
     
     @Binding var isScrapFeed: Bool
-    
-    @StateObject var idData: IdData = IdData()
-    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
     
     var body: some View {
         HStack(spacing: 75) {
@@ -55,7 +52,7 @@ struct PostButtonView: View {
         .padding()
         // 댓글 시트
         .sheet(isPresented: $isShowingCommentSheet) {
-            CommentView(post: post, postViewModel: postViewModel)
+            CommentView(post: post)
         }
         // 퍼가기 시트
         .sheet(isPresented: $isShowingScrapSheet) {
@@ -73,7 +70,8 @@ struct PostButtonView: View {
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: Post.samplePost, postViewModel: PostViewModel(), isScrapFeed: .constant(false))
+            PostButtonView(post: Post.samplePost, isScrapFeed: .constant(false))
+                .environmentObject(PostViewModel())
         }
     }
 }

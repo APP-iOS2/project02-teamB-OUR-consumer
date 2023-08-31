@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FeedTabView: View {
-    @StateObject private var idData: IdData = IdData()
+    
+    @EnvironmentObject var postViewModel: PostViewModel
     
     var body: some View {
         NavigationStack {
@@ -29,5 +30,6 @@ struct FeedTabView: View {
 struct FeedTabView_Previews: PreviewProvider {
     static var previews: some View {
         FeedTabView()
+            .environmentObject(PostViewModel())
     }
 }

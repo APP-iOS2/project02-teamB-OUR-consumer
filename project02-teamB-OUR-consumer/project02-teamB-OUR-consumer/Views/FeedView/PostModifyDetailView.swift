@@ -10,7 +10,7 @@ import SwiftUI
 struct PostModifyDetailView: View {
     
     var post: Post
-    var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -76,7 +76,8 @@ struct PostModifyDetailView: View {
 struct PostModifyDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostModifyDetailView(post: Post.samplePost, postViewModel: PostViewModel(), isShowingModifyDetailView: .constant(true))
+            PostModifyDetailView(post: Post.samplePost, isShowingModifyDetailView: .constant(true))
+                .environmentObject(PostViewModel())
         }
     }
 }

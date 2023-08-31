@@ -11,18 +11,18 @@ struct FeedDetailView: View {
     
     // 파이어베이스 연결되어 있는 모델
     var post: Post
-    @StateObject var postViewModel: PostViewModel = PostViewModel()
+    @EnvironmentObject var postViewModel: PostViewModel
     @State private var isShowingSheet: Bool = false
     @State private var isScrapFeed: Bool = false
     
     var body: some View {
         ScrollView {
             VStack {
-                PostUserView(post: post, postViewModel: postViewModel, isShowingSheet: $isShowingSheet)
+                PostUserView(post: post, isShowingSheet: $isShowingSheet)
                     .padding(.leading, 15)
-                PostView(post: post, postViewModel: postViewModel)
-                PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
-                CommentView(post: post, postViewModel: postViewModel)
+                PostView(post: post)
+                PostButtonView(post: post, isScrapFeed: $isScrapFeed)
+                CommentView(post: post)
             }
         }
     }
@@ -31,5 +31,6 @@ struct FeedDetailView: View {
 struct FeedDetailView_Previews: PreviewProvider {
     static var previews: some View {
         FeedDetailView(post: Post.samplePost)
+            .environmentObject(PostViewModel())
     }
 }

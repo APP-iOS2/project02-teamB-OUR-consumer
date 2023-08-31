@@ -10,7 +10,7 @@ import SwiftUI
 struct CommentView: View {
     
     var post: Post
-    var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     @State var postModel: PostModel = PostModel.samplePostModel
     
     @State var commentString: String = ""
@@ -71,7 +71,7 @@ struct CommentView: View {
                     .font(.headline)
                 Divider()
                 ScrollView {
-                    ForEach(postModel.comment) { comment in
+                    ForEach(postViewModel.postModel.comment) { comment in
                             CommentDetailView(comment: comment, isModifyComment: $isReviseComment)
                         }
                     }
@@ -84,7 +84,7 @@ struct CommentView: View {
                         .aspectRatio(contentMode: .fit)
                         .clipShape(Circle())
                         .frame(width: 45, height: 45)
-                    TextField("\(postModel.creator.name) (으)로 댓글 달기", text: $commentString, axis: .vertical)
+                    TextField("\(postViewModel.postModel.creator.name) (으)로 댓글 달기", text: $commentString, axis: .vertical)
                         .padding()
                         .background {
                             RoundedRectangle(cornerRadius: 15, style: .continuous)
@@ -116,7 +116,8 @@ struct CommentView: View {
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CommentView(post: Post.samplePost, postViewModel: PostViewModel(), isReviseComment: false)
+            CommentView(post: Post.samplePost, isReviseComment: false)
+                .environmentObject(PostViewModel())
         }
     }
 }

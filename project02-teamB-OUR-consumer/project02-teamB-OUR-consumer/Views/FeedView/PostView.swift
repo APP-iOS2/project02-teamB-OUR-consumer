@@ -10,7 +10,7 @@ import SwiftUI
 struct PostView: View {
     
     var post: Post
-    @StateObject var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     @State private var postModel: PostModel = PostModel.samplePostModel
     
     @State var isSpreadBtn: Bool = false
@@ -60,7 +60,7 @@ struct PostView: View {
                         Text("좋아요 \(postModel.numberOfLike)")
                     }
                     .sheet(isPresented: $isSheet) {
-                        LikeListView(post: post, postViewModel: postViewModel, isToggle: $isSheet)
+                        LikeListView(post: post, isToggle: $isSheet)
                     }
          
 //                    Text("댓글 \(postModel.numberOfComments)")
@@ -84,7 +84,8 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: Post.samplePost, postViewModel: PostViewModel())
+            PostView(post: Post.samplePost)
+                .environmentObject(PostViewModel())
         }
     }
 }
