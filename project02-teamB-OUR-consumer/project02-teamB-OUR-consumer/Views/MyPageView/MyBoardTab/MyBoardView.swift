@@ -18,27 +18,11 @@ struct MyBoardView: View {
             ScrollView {
                 ForEach(postViewModel.posts) { post in
                     VStack {
-                        HStack {
-                            PostUserView(post: post, isShowingSheet: $isShowingSheet)
-                                
-                            Button {
-                                isShowingPostOptionSheet.toggle()
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .padding(2)
-                            }
-                            .foregroundColor(.gray)
-                        }
-                        .padding()
+                        PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                            .padding()
+                        
                         PostView(post: post, isScrapFeed: $isScrapFeed)
-                        
-    //                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
-                        
                     }
-//                    .sheet(isPresented: $isShowingPostOptionSheet) {
-//                        PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
-//                                        .presentationDetents([.height(350), .height(350)])
-//                    }
                     Rectangle()
                         .fill(Color("DefaultGray"))
                 }

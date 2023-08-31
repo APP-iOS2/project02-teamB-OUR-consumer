@@ -59,7 +59,7 @@ class PostFireService {
                             feeds.append(feed)
                         }
                         completion(feeds)
-                        print("Feeds Count: \(feeds.count)")
+                        print("Feeds: \(feeds)")
                     }
                 } catch {
                     print("Fetchfeeds: \(error)")
@@ -318,15 +318,16 @@ class PostFireService {
             }
     }
     
-    func reportPost(report: ReportData, postId: String, completion: @escaping () -> ()) {
+    func reportPost(report: String, postId: String, completion: @escaping () -> ()) {
 //        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
 //            return
 //        }
         
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        print(postId)
         
         db.collection("posts").document(postId).updateData([
-            "reportCategory": [report.reason],
+            "reportCategory": [report],
             "reportId": [userId]
         ]) { error in
             if let error = error {

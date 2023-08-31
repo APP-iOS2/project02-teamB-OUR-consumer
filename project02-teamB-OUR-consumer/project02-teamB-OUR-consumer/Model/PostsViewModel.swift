@@ -77,7 +77,7 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func reportPost(postId: String, report: ReportData) {
+    func reportPost(postId: String, report: String) {
         fireStoreService.reportPost(report: report, postId: postId) {
             
         }

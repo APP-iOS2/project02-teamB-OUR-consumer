@@ -10,42 +10,22 @@ import SwiftUI
 struct FeedView: View {
     
     @EnvironmentObject var postViewModel: PostViewModel
-    
     @State private var postModel: PostModel = PostModel.samplePostModel
-    
     @State private var isShowingSheet: Bool = false
-    @State private var isShowingPostOptionSheet: Bool = false
     @State private var isScrapFeed: Bool = false
-    @State private var isShowingModifyDetailView: Bool = false
-    @State private var isShowingPostReportView: Bool = false
     
     var body: some View {
         VStack {
             ForEach(postViewModel.posts) { post in
                 VStack {
-                    HStack {
-                        PostUserView(post: post, isShowingSheet: $isShowingSheet)
-                            
-                        Button {
-                            isShowingPostOptionSheet.toggle()
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .padding(2)
-                        }
-                        .foregroundColor(.gray)
-                    }
-                    .padding()
-                    PostView(post: post, isScrapFeed: $isScrapFeed)
+                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
+                        .padding()
                     
-//                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
+                    PostView(post: post, isScrapFeed: $isScrapFeed)
                     
                     Divider()
                         .frame(height: 4)
                         .overlay((Color("FeedViewDividerColor")))
-                }
-                .sheet(isPresented: $isShowingPostOptionSheet) {
-                    PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
-                                    .presentationDetents([.height(350), .height(350)])
                 }
             }
         }
@@ -60,7 +40,6 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        
         FeedView()
             .environmentObject(PostViewModel())
     }

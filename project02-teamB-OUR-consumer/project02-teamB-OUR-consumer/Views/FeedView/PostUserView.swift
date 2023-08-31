@@ -16,6 +16,9 @@ struct PostUserView: View {
     @State private var postModel: PostModel = PostModel.samplePostModel
     
     @Binding var isShowingSheet: Bool
+    @State private var isShowingPostOptionSheet: Bool = false
+    @State private var isShowingPostReportView: Bool = false
+    @State private var isShowingModifyDetailView: Bool = false
     
     var body: some View {
         
@@ -42,11 +45,34 @@ struct PostUserView: View {
                             .foregroundColor(.gray)
                     }
                 }
+                
                 Spacer()
+                
+                Button {
+                    if post.creator == "eYebZXFIGGQFqYt1fI4v4M3efSv2" {
+                        isShowingPostOptionSheet.toggle()
+                    } else {
+                        isShowingPostReportView.toggle()
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .padding(2)
+                }
+                .foregroundColor(.gray)
             }
             .sheet(isPresented: $isShowingSheet) {
                 SheetView(user: user, userViewModel: userViewModel)
                     .presentationDetents([.medium, .medium])
+            }
+            // 수정, 삭제
+            .sheet(isPresented: $isShowingPostOptionSheet) {
+                PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+                    .presentationDetents([.height(350), .height(350)])
+            }
+            // 신고
+            .sheet(isPresented: $isShowingPostReportView) {
+                PostReportView(post: post, isShowingPostReportView: $isShowingPostReportView)
+                    .presentationDetents([.height(300), .height(300)])
             }
         }
         .onAppear {
