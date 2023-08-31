@@ -49,7 +49,7 @@ struct StudyListItemView: View {
                         .lineLimit(2)
                     VStack(alignment: .leading, spacing: 5) {
                         Text(study.studyDate)
-                        Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
+                        Label(study.isOnline ? "링크 추후 안내" : "\(study.locationName ?? "위치정보없음")", systemImage: study.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse")
                     }
                     .font(.system(size: 12))
                     .bold()

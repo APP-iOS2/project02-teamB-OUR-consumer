@@ -11,7 +11,6 @@ struct StudyReplyView: View {
     
     @StateObject var viewModel: StudyViewModel
     
-    @State var isEditing: Bool = false
     @State var editComment: String = ""
     @Binding var showAlert: Bool
     @State var content: String = ""
@@ -35,7 +34,7 @@ struct StudyReplyView: View {
             
             //List {
             ForEach(viewModel.studyDetail.comments) { comment in
-                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, editComment: $editComment, isEditing: $isEditing)
+                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, showAlert: $showAlert)
             }
             // }
             .listStyle(.plain)
@@ -53,25 +52,11 @@ struct StudyReplyView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 40)
                     .clipShape(Circle())
-                //댓글입력창
-                if isEditing {
-                    
-                    TextField("Edit reply",text: $editComment)
-                        .onTapGesture {
-                            editComment = ""
-                        }
-                    Button("Edit") {
-                        
-                        //댓글 edit 함수 자리
-                        isEditing = false
-                    }
-                } else {
-                    TextField("댓글을 입력하세요", text: $content, axis: .vertical)
-                    Button("등록") {
-                        Task {
-                            await viewModel.addComments(content: content)
-                            content = ""
-                        }
+                TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+                Button("등록") {
+                    Task {
+                        await viewModel.addComments(content: content)
+                        content = ""
                     }
                 }
             }

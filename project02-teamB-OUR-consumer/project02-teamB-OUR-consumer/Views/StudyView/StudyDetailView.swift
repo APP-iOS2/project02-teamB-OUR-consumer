@@ -20,7 +20,6 @@ struct StudyDetailView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @StateObject var viewModel: StudyViewModel
-//    var userViewModel: UserViewModel
     var study: StudyDTO
     
     @State private var isShowingStudyMemberSheet: Bool = false
@@ -28,14 +27,13 @@ struct StudyDetailView: View {
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool
     @State var showAlert: Bool = false
-    @State private var showDeleteAlert: Bool = false
     @State var alertText: String = ""
     
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
-                    if viewModel.studyDetail.imageString != nil {
+                    if viewModel.studyDetail.imageString?.isEmpty == false {
                         AsyncImage(url: URL(string: viewModel.studyDetail.imageString?[0] ?? "")) { image in
                             image
                                 .resizable()
@@ -92,6 +90,7 @@ struct StudyDetailView: View {
                     
                     VStack {
                         VStack {
+                            //TODO: 텍스트가 가로로 꽉 차게 나왔으면 좋겠다.
                             Spacer(minLength: 20)
                             Text(viewModel.studyDetail.description)
                                 .font(.system(size: 14))
@@ -158,9 +157,14 @@ struct StudyDetailView: View {
                             HStack {
                                 //MARK: 1 - 내가 작성한 글
                                 if isMyStudy()  {
-                                    NavigationLink {
-                                        //TODO: 수정페이지로 이동
-                                        StudyDetailEditView(viewModel: viewModel, study: study)
+//                                    NavigationLink {
+//                                        //TODO: 수정페이지로 이동
+//                                        StudyDetailEditView(viewModel: viewModel, study: study)
+//                                    }
+                                    Button {
+                                        alertText = "할거에여.."
+                                        viewModel.alertCase = .normal
+                                        showAlert = true
                                     } label: {
                                         Text("수정")
                                             .bold()
@@ -173,7 +177,7 @@ struct StudyDetailView: View {
                                         if viewModel.studyDetail.currentMembers.count >= 2 {
                                             alertText = "참석자가 있는 스터디는 삭제할 수 없습니다."
                                             viewModel.alertCase = .normal
-                                            showDeleteAlert = true
+                                            showAlert = true
                                         } else {
                                             viewModel.alertCase = .delete
                                             showAlert = true
@@ -229,7 +233,6 @@ struct StudyDetailView: View {
                                         }
                                     }
                                     Button {
-                                        //TODO: isSaved 변수 업데이트
                                         isSavedBookmark.toggle()
                                         if isSavedBookmark {
                                             viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
@@ -248,7 +251,7 @@ struct StudyDetailView: View {
                     }
                     .padding(15)
                     
-                    StudyReplyView( viewModel: viewModel, showAlert: $showAlert)
+                    StudyReplyView(viewModel: viewModel ,showAlert: $showAlert)
                 }
             }
         }
