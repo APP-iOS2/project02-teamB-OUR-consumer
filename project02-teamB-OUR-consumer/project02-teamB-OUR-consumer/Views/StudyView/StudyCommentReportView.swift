@@ -85,7 +85,9 @@ struct StudyCommentReportView: View {
                     guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                         return
                     }
-                    viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    Task {
+                        await viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    }
                 }
                 dismiss()//뷰 닫기
             },
