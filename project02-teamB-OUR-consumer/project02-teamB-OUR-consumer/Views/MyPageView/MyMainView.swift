@@ -40,8 +40,8 @@ let mainColor = Color(hex: "#090580")
 struct MyMain: View {
     @StateObject private var studyViewModel = StudyViewModel()
     @State private var currentTab: Int = 0
-    @State private var isMyProfile: Bool = true
-    @State private var isFollowing: Bool = false
+    @State private var isMyProfile: Bool = false
+    @State private var isFollowing: Bool = true
     
     @ObservedObject var userViewModel = UserViewModel()
     @ObservedObject var resumeViewModel = ResumeViewModel()
