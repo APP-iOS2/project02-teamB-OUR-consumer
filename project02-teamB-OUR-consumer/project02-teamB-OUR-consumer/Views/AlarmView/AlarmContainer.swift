@@ -18,7 +18,7 @@ struct AlarmContainer: View {
     @StateObject var viewModel: AlarmViewModel = AlarmViewModel()
     //    @StateObject var alarmFireService: AlarmFireService = AlarmFireService()
     @State private var allClearAlertShowing = false
-    let alertTitle: String = "알림을 전체 삭제하시겠습니까?"
+    let alertTitle: String = "알림 전체 삭제"
     
     // 본문 뷰
     var body: some View {

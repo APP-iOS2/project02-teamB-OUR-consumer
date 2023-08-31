@@ -29,8 +29,8 @@ class UNNotificationService{
       // 알림 전송
       func requestSendNoti(seconds: Double) {
           let notiContent = UNMutableNotificationContent()
-          notiContent.title = "알림 title"
-          notiContent.body = "알림 body"
+          notiContent.title = "OUR"
+          notiContent.body = "장수지님이 팔로우했습니다."
           notiContent.userInfo = ["targetScene": "splash"] // 푸시 받을때 오는 데이터
 
           // 알림이 trigger되는 시간 설정
