@@ -90,7 +90,7 @@ class StudyViewModel: ObservableObject {
             }
         }
     }
-
+    
     // MARK: StudyCommentDTO -> StudyComment로 바꾸면서 User 정보를 포함시키는 함수
     func fetchComments(documentId: String) async -> [StudyComment] {
         do {
@@ -110,14 +110,15 @@ class StudyViewModel: ObservableObject {
                     continue
                 }
             }
-            
-            return comments
+            let sortedArray = comments.sorted { $0.createdAt < $1.createdAt }
+            return sortedArray
+//            return comments
         } catch let error {
             print(error.localizedDescription)
             return []
         }
     }
-
+    
     
     // 데드라인에서 지났는지 체크, 지났으면 true 반환 => 현재는 string to date 변환 필요함
     func filterWithDeadline(deadline: String) -> Bool {
@@ -145,10 +146,10 @@ class StudyViewModel: ObservableObject {
             return nil
         }
     }
-
+    
     func getUsersInfo(userIds: [String]) async -> [User] {
         var members: [User] = []
-
+        
         for userId in userIds {
             do {
                 let documentSnapshot = try await dbRef.collection(.users).document(userId).getDocument()
@@ -161,10 +162,10 @@ class StudyViewModel: ObservableObject {
                 print("Error fetching user document: \(error)")
             }
         }
-
+        
         return members
     }
-
+    
     // MARK: DB에서 받아온 StudyDTO를 실제 view에서 사용할 StudyDetail로변환하는 함수
     @MainActor
     func makeStudyDetail(study: StudyDTO) async {
@@ -172,7 +173,7 @@ class StudyViewModel: ObservableObject {
         let currentMembers = await getUsersInfo(userIds: study.currentMemberIds)
         let comments = await fetchComments(documentId: study.id ?? "")
         let isJoned = await getMyInfo(studyId: study.id ?? "")
-
+        
         let studyDetail = study.toStudyDetail(creator: creator ?? User.defaultUser, currentMembers: currentMembers, comments: comments, isJoined: isJoned)
         self.studyDetail = studyDetail
     }
@@ -323,5 +324,8 @@ class StudyViewModel: ObservableObject {
             return sortedArray
         }
     }
+    
+    
+    
 }
 
