@@ -34,64 +34,6 @@ class FeedRecruitStore: ObservableObject {
         service.update(collection: .posts, documentID: docID, data: data)
     }
     
-    
-    
-    
-    //    func fetchFeeds() {
-    //
-    //        dbRef.getDocuments { (snapshot, error) in
-    //
-    //            self.feedStores.removeAll()
-    //
-    //            if let snapshot {
-    //                var tempFeeds: [FeedRecruitModel] = []
-    //
-    //                for document in snapshot.documents {
-    //                    let id: String = document.documentID
-    //                    let docData: [String: Any] = document.data()
-    //                    let creator: String = docData["creator"] as? String ?? ""
-    //                    let content: String = docData["content"] as? String ?? ""
-    //                    let location: String = docData["location"] as? String ?? ""
-    //                    let privateSetting: Bool = docData["privateSetting"] as? Bool ?? false
-    //                    let createdAt: Double = docData["createdDate"] as? Double ?? 0.0
-    //                    let reportCount: Int  = docData["reportCount"] as? Int ?? 0
-    //                    let studyImagePath: String = docData["studyImagePath"] as? String ?? ""
-    //
-    //                    let feeds = FeedRecruitModel(id: id, creator: creator, content: content, location: location, privateSetting: privateSetting, reportCount: reportCount , createdAt: createdAt, feedImagePath: studyImagePath)
-    //
-    //                    tempFeeds.append(feeds)
-    //                }
-    //
-    //                self.feedStores  = tempFeeds
-    //            }
-    //        }
-    //    }
-    //
-    //
-    //    func addFeed(_ feed: FeedRecruitModel) {
-    //
-    //        dbRef.document(feed.id)
-    //            .setData([
-    //                "id": feed.id,
-    //                "creator": feed.creator,
-    //                "content": feed.content,
-    //                "location": feed.location,
-    //                "privateSetting": feed.privateSetting,
-    //                "createdAt": feed.createdDate,
-    //                "reportCount": feed.reportCount,
-    //                "studyImagePath": feed.feedImagePath])
-    //
-    //        fetchFeeds()
-    //    }
-    //
-    //
-    //    func removeFeed(_ feed: FeedRecruitModel) {
-    //
-    //        dbRef.document(feed.id).delete()
-    //
-    //        fetchFeeds()
-    //    }
-    
     //이미지 FireBase Storage에 Save.
     
     
@@ -101,17 +43,28 @@ class FeedRecruitStore: ObservableObject {
         var urlString:[String] = []
         
         for item in items {
+            
             guard let data = try? await item.loadTransferable(type: Data.self) else {return urlString}
-            let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
-            urlString.append(url.absoluteString)
+            print("원래데이터 크기:\(data.count)")
+            
+            guard let uiImage = UIImage(data: data) else {return urlString}
+            guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {return urlString}
+            print("변형된 데이터 크기:\(compressImage.count)")
+                       
+            do {
+                
+                let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
+                
+                urlString.append(url.absoluteString)
+            } catch {
+                print("리턴이미지패스\(error.localizedDescription)")
+            }
+           
         }
-    
+        
         return urlString
-        
-        
-        
     }
-
+    
     func saveStudyImage(item: PhotosPickerItem) {
         Task {
             guard let data = try await item.loadTransferable(type: Data.self) else { return }
@@ -122,27 +75,5 @@ class FeedRecruitStore: ObservableObject {
             print("url : \(url)")
         }
     }
-    
-    //
-    //    func convertLocationToAddress(location: CLLocation) async throws -> String {
-    //
-    //        var test:String = ""
-    //        let geocoder = CLGeocoder()
-    //        let locale = Locale(identifier: "en_US_POSIX")
-    //
-    //        let data = try await geocoder.reverseGeocodeLocation(location, preferredLocale: locale)
-    //
-    //        test = "\(data.first?.country ?? ""), \(data.first?.locality ?? ""), \(data.first?.name ?? "")"
-    //        print(test)
-    //        return test
-    //    }
-    //
-    
-    
-    
-    
-    
-    
-    
     
 }
