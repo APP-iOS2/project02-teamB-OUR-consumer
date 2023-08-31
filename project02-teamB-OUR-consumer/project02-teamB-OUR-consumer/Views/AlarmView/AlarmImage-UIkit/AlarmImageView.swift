@@ -13,9 +13,9 @@ import SnapKit
 private enum Const {
     static let borderWidth: Double = 1  // 테두리의 두께
     static let imageOuterSpacing = Self.borderWidth + 4.0  // 이미지 외부 여백
-    static let greenDotOuterSpacing = 1  // 빨간색 점의 외부 여백
-    static let greenDotViewInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 2)  // 빨간색 점의 여백
-    static let greenDotViewSize = CGSize(width: 6, height: 6)  // 빨간색 점의 크기
+    static let redDotOuterSpacing = 1  // 빨간색 점의 외부 여백
+    static let redDotViewInset = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 2)  // 빨간색 점의 여백
+    static let redDotViewSize = CGSize(width: 6, height: 6)  // 빨간색 점의 크기
 }
 
 // 알람 아이콘과 빨간색 점(뱃지)을 표시하기 위한 UIView 클래스
@@ -55,7 +55,7 @@ class AlarmImageView: UIView {
         roundView.addSubview(greenDotView)
         
         greenDotView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(Const.greenDotOuterSpacing)
+            $0.edges.equalToSuperview().inset(Const.redDotOuterSpacing)
         }
         
         return roundView
@@ -75,8 +75,8 @@ class AlarmImageView: UIView {
     func addDot(){
         self.addSubview(self.greenDotContainerView)
         self.greenDotContainerView.snp.makeConstraints {
-            $0.right.top.equalToSuperview().inset(Const.greenDotViewInset)
-            $0.size.equalTo(Const.greenDotViewSize)
+            $0.right.top.equalToSuperview().inset(Const.redDotViewInset)
+            $0.size.equalTo(Const.redDotViewSize)
         }
     }
     
@@ -114,8 +114,8 @@ class AlarmImageView: UIView {
         }
         
         self.greenDotContainerView.snp.makeConstraints {
-            $0.right.top.equalToSuperview().inset(Const.greenDotViewInset)
-            $0.size.equalTo(Const.greenDotViewSize)
+            $0.right.top.equalToSuperview().inset(Const.redDotViewInset)
+            $0.size.equalTo(Const.redDotViewSize)
         }
     }
 }
