@@ -41,7 +41,6 @@ struct CustomTabBarView: View {
                 }
             }
 
-            
             Spacer()
             
             ZStack {
@@ -84,8 +83,6 @@ struct CustomTabBarView: View {
                                         .presentationDetents([.fraction(0.45)])
                                         .presentationDragIndicator(.visible)
                                 }
-                                
-                                
                             } else {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
@@ -101,7 +98,6 @@ struct CustomTabBarView: View {
                                             .font(.system(size: 12))
 
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
-                                        
                                     }
                                 }
                             }
@@ -128,5 +124,6 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBarView()
+            .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
     }
 }
