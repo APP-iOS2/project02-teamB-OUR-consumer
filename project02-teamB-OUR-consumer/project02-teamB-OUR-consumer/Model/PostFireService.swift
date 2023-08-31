@@ -153,7 +153,7 @@ class PostFireService {
         }
     }
     
-    func likePost(postID: String) {
+    func likePost(postID: String, completion: @escaping () -> ()) {
 //        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
         let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
 
@@ -249,7 +249,6 @@ class PostFireService {
                     for document in querySnapshot.documents {
                         do {
                             let postComment = try document.data(as: PostComment.self)
-                            print("포스트\(postComment)")
                             self.getUserInfo(userId: postComment.userId) { user in
                                 let postCommentModel = PostCommentModel(user: user!, content: postComment.content, createdAt: postComment.createdAt)
                                 comments.append(postCommentModel)
@@ -264,6 +263,20 @@ class PostFireService {
                 } else {
                     completion([])
                 }
+            }
+        }
+    }
+    
+    func refreshPostModel(postId: String, completion: @escaping (PostModel) -> ()) {
+        db.collection("posts").document(postId).getDocument(as: Post.self) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                self.getPostInfo(post: response) { postModel in
+                    completion(postModel)
+                }
+            case .failure(let error):
+                print("refreshError: \(error)")
             }
         }
     }

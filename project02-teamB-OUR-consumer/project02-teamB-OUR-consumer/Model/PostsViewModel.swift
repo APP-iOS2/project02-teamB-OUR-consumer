@@ -14,7 +14,7 @@ class PostViewModel: ObservableObject {
     private var fireStoreService: PostFireService
     
     @Published var posts: [Post] = []
-    @Published var postInfo: PostModel = PostModel.samplePostModel
+    @Published var postModel: PostModel = PostModel.samplePostModel
     
     init(fireStoreService: PostFireService = PostFireService()) {
         self.fireStoreService = fireStoreService
@@ -43,19 +43,28 @@ class PostViewModel: ObservableObject {
     }
     
     func likePost(postID: String) {
-        fireStoreService.likePost(postID: postID)
+        fireStoreService.likePost(postID: postID) {
+            self.fireStoreService.refreshPostModel(postId: postID) { postModel in
+                self.postModel = postModel
+                print("PostModel: \(postModel)")
+            }
+        }
     }
     
     func getPost(of post: Post, completion: @escaping (PostModel) -> ()) {
         fireStoreService.getPostInfo(post: post) { post in
             completion(post)
-            self.postInfo = post
+            self.postModel = post
         }
     }
     
     func writeComment(content: String, postId: String) {
         fireStoreService.writeComment(content: content, postId: postId) { success in
             if success {
+                self.fireStoreService.refreshPostModel(postId: postId) { postModel in
+                    self.postModel = postModel
+                    print("PostModel: \(postModel)")
+                }
                 print("댓글 작성 성공")
             } else {
                 print("댓글 작성 실패")
