@@ -46,7 +46,11 @@ struct StudyListItemView: View {
                         .lineLimit(2)
                     VStack(alignment: .leading, spacing: 5) {
                         Text(study.studyDate)
-                        Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
+                        if study.isOnline {
+                            Text("온라인 스터디")
+                        } else {
+                            Label(study.locationName ?? "", systemImage: "mappin.and.ellipse")
+                        }
                     }
                     .font(.system(size: 12))
                     .bold()
@@ -89,9 +93,6 @@ struct StudyListItemView: View {
                .opacity(0.3)
            )
         .padding(.leading)
-        .onAppear {
-            studyViewModel.fetchStudy()
-        }
     }
 }
 

@@ -11,6 +11,7 @@ struct User: Identifiable, Codable {
     var follower: [String]?
     var following: [String]?
     var joinedStudy: [String]?
+    var savedStudyIds: [String]?
     
     var numberOfFollower: Int {
         follower?.count ?? 0
