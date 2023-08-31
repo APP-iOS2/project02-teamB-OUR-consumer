@@ -27,7 +27,7 @@ class UNNotificationService{
     }
     
     // 알림 전송
-    func requestSendNoti(seconds: Double ,type: NotificationType = .none, body: String = "장수지님이 팔로잉 하였습니당") {
+    func requestSendNoti(seconds: Double ,type: NotificationType = .none, body: String = "장수지님이 팔로잉 했습니다.") {
         let notiContent = UNMutableNotificationContent()
         notiContent.title = "\(type.value)"
         notiContent.body = "\(body)"
