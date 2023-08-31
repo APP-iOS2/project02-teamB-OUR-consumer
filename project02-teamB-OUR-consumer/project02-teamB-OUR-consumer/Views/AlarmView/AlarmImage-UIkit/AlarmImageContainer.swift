@@ -13,7 +13,7 @@ import SnapKit
 class AlarmImageContainer: UIView{
     
     // 선언
-    private let testView: AlarmImageView = {
+    private let alarmTabBarImage: AlarmImageView = {
         let view = AlarmImageView(frame: .zero)
         return view
     }()
@@ -27,18 +27,19 @@ class AlarmImageContainer: UIView{
     }()
     
     func addDot() {
-        testView.addDot()
+        alarmTabBarImage.addDot()
     }
 
     func removeDot() {
-        testView.removeDot()
+        alarmTabBarImage.removeDot()
     }
 
-    func settingColor(color: UIColor){
-        testView.settingColor(color: color)
-        titleLabel.textColor = color
+    func selected(uicolor: UIColor){
+        alarmTabBarImage.settingColor(color: uicolor)
+        titleLabel.textColor = uicolor
     }
-    func settingColor(color: Color){
+    
+    func unSelected(color: Color){
         titleLabel.textColor = UIColor(color)
     }
     
@@ -47,20 +48,21 @@ class AlarmImageContainer: UIView{
         super.init(frame: frame)
         
         // add SubView
-        self.addSubview(testView)
+        self.addSubview(alarmTabBarImage)
         self.addSubview(titleLabel)
         
-        testView.snp.makeConstraints { make in
+        alarmTabBarImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(-1)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(20)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(testView.snp.bottom).offset(1)
-            make.centerX.equalTo(testView.snp.centerX)
+            make.top.equalTo(alarmTabBarImage.snp.bottom).offset(1)
+            make.centerX.equalTo(alarmTabBarImage.snp.centerX)
             make.bottom.equalToSuperview()
         }
     }
+    
     required init?(coder: NSCoder) {
         fatalError("required init fatalError")
         
