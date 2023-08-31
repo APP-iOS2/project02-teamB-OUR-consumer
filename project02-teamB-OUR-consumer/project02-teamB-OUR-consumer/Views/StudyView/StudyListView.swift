@@ -16,7 +16,8 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @StateObject var studyViewModel = StudyViewModel()
+    @StateObject var studyViewModel: StudyViewModel
+    @StateObject var userViewModel = UserViewModel()
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
@@ -72,6 +73,6 @@ struct StudyListView: View {
 
 struct StudyListView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyListView()
+        StudyListView(studyViewModel: StudyViewModel())
     }
 }

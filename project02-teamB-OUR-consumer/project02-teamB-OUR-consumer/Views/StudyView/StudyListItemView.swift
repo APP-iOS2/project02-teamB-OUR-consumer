@@ -17,26 +17,27 @@ struct StudyListItemView: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            
-            if study.imageString == nil {
+            if study.imageString?.isEmpty == false {
+                AsyncImage(url: URL(string: study.imageString?[0] ?? "")) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
+                } placeholder: {
+                    Image("OUR_Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
+                }
+            } else{
                 Image("OUR_Logo")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 100)
                     .cornerRadius(10)
-            } else {
-                    AsyncImage(url: URL(string: study.imageString?[0] ?? "")) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(10)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    
-                }
-                
+            }
                 
                 VStack(alignment: .leading) {
                     Text(study.title)

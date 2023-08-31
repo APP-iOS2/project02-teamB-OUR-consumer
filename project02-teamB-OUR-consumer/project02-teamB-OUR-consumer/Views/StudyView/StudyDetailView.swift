@@ -8,12 +8,19 @@
 import SwiftUI
 import CoreLocation
 
+enum StudyDetailAlert {
+    case delete
+    case normal
+    case commentDelete
+}
+
 struct StudyDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @StateObject var viewModel: StudyViewModel
+//    var userViewModel: UserViewModel
     var study: StudyDTO
     
     @State private var isShowingStudyMemberSheet: Bool = false
@@ -36,7 +43,12 @@ struct StudyDetailView: View {
                                 .frame(height: 200)
                                 .clipped()
                         } placeholder: {
-                            ProgressView()
+                            Image("OUR_Logo")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 200)
+                                .frame(maxWidth: .infinity)
+                                .clipped()
                         }
                         .frame(maxWidth: .infinity)
                         .overlay(alignment:.bottom) {
@@ -93,7 +105,7 @@ struct StudyDetailView: View {
                             HStack {
                                 Image(systemName: viewModel.studyDetail.isOnline ? "macbook.and.iphone" : "mappin.and.ellipse" )
                                     .frame(width: 20)
-                                Text(viewModel.studyDetail.isOnline ? "\(viewModel.studyDetail.linkString ?? "")" : "\(viewModel.studyDetail.locationName ?? "정보없음")")
+                                Text(viewModel.studyDetail.isOnline ? "링크 추후 안내" : "\(viewModel.studyDetail.locationName ?? "위치정보없음")")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.black)
                                 if !viewModel.studyDetail.isOnline {
@@ -147,6 +159,7 @@ struct StudyDetailView: View {
                                 //MARK: 1 - 내가 작성한 글
                                 if isMyStudy()  {
                                     NavigationLink {
+                                        //TODO: 수정페이지로 이동
                                         StudyDetailEditView(viewModel: viewModel, study: study)
                                     } label: {
                                         Text("수정")
@@ -157,10 +170,13 @@ struct StudyDetailView: View {
                                             .cornerRadius(5)
                                     }
                                     Button {
-                                        if viewModel.studyDetail.currentMembers.isEmpty {
+                                        if viewModel.studyDetail.currentMembers.count >= 2 {
+                                            alertText = "참석자가 있는 스터디는 삭제할 수 없습니다."
+                                            viewModel.alertCase = .normal
                                             showDeleteAlert = true
-                                        } else if viewModel.studyDetail.currentMembers.count >= 1 {
-                                            //TODO: 참석자가 한 명 이상이라면 삭제할 수 없다는 알럿
+                                        } else {
+                                            viewModel.alertCase = .delete
+                                            showAlert = true
                                         }
                                     } label: {
                                         Text("삭제")
@@ -170,48 +186,47 @@ struct StudyDetailView: View {
                                             .background(Color(red: 215 / 255, green: 215 / 255, blue: 215 / 255))
                                             .cornerRadius(5)
                                     }
-                                } else if viewModel.studyDetail.isJoined {
-                                    //MARK: 2 - 이미 참석한 스터디
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        Text("이미 참석한 스터디입니다.")
-                                            .bold()
-                                            .frame(width: 290, height: 40)
-                                            .foregroundColor(.white)
-                                            .background(.gray)
-                                            .cornerRadius(5)
-                                    }).disabled(true)
-                                    Button {
-                                        //TODO: isSaved 변수 업데이트
-                                        isSavedBookmark.toggle()
-                                        if isSavedBookmark {
-                                            viewModel.updateBookmark(studyID: viewModel.studyDetail.id)
-                                        } else {
-                                            viewModel.removeBookmark(studyID: viewModel.studyDetail.id)
-                                        }
-                                    } label: {
-                                        Image(systemName: isSavedBookmark ? "bookmark.fill" : "bookmark")
-                                            .font(.system(size: 30))
-                                            .frame(width: 60, height: 40)
-                                            .foregroundColor(Color(red: 251 / 255, green: 55 / 255, blue: 65 / 255))
-                                    }
                                 } else {
-                                    //MARK: 3 - 아무 케이스도 해당x
-                                    Button {
-                                        //TODO: 참석 프로세스-디비저장-알럿
-                                        Task {
-                                            await viewModel.joinStudy()
-                                            alertText = "스터디에 참여하였습니다."
-                                            showAlert = true
+                                    if viewModel.studyDetail.isJoined {
+                                        //MARK: 2 - 이미 참석한 스터디
+                                        Button(action: {
+                                            //TODO: 참석 취소를 할까말까
+                                        }, label: {
+                                            Text("이미 참석한 스터디입니다.")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(.gray)
+                                                .cornerRadius(5)
+                                        }).disabled(true)
+                                    } else if viewModel.studyDetail.currentMembers.count == viewModel.studyDetail.totalMemberCount {
+                                        //MARK: 3 - 인원이 다 찼을 때 모집마감
+                                        Button(action: {
+                                        }, label: {
+                                            Text("모집 마감된 스터디입니다.")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(.gray)
+                                                .cornerRadius(5)
+                                        }).disabled(true)
+                                    } else {
+                                        //MARK: 4 - 아무 케이스도 해당x
+                                        Button {
+                                            Task {
+                                                await viewModel.joinStudy()
+                                                alertText = "스터디에 참여하였습니다."
+                                                viewModel.alertCase = .normal
+                                                showAlert = true
+                                            }
+                                        } label: {
+                                            Text("참석")
+                                                .bold()
+                                                .frame(width: 290, height: 40)
+                                                .foregroundColor(.white)
+                                                .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
+                                                .cornerRadius(5)
                                         }
-                                    } label: {
-                                        Text("참석")
-                                            .bold()
-                                            .frame(width: 290, height: 40)
-                                            .foregroundColor(.white)
-                                            .background(Color(red: 9 / 255, green: 5 / 255, blue: 128 / 255))
-                                            .cornerRadius(5)
                                     }
                                     Button {
                                         //TODO: isSaved 변수 업데이트
@@ -233,7 +248,7 @@ struct StudyDetailView: View {
                     }
                     .padding(15)
                     
-                    StudyReplyView(viewModel: viewModel)
+                    StudyReplyView( viewModel: viewModel, showAlert: $showAlert)
                 }
             }
         }
@@ -255,6 +270,7 @@ struct StudyDetailView: View {
                     Button(action: {
                         if isAlreadyReported() {
                             alertText = "이미 신고한 스터디입니다."
+                            viewModel.alertCase = .normal
                             showAlert = true
                         } else {
                             isShowingReportSheet = true
@@ -278,20 +294,29 @@ struct StudyDetailView: View {
         .sheet(isPresented: $isShowingReportSheet) {
             StudyCommentReportView(viewModel: viewModel, isStudy: true)
         }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("알림"),
-                  message: Text(alertText),
-                  dismissButton: .destructive(Text("확인")) {
-            })
-        }
-        .alert(isPresented: $showDeleteAlert) {
-            Alert(title: Text("게시물을 삭제하겠습니까?"),
-                  message: Text("게시물을 삭제합니다"),
-                  primaryButton: .destructive(Text("삭제")) {
-                viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
-                dismiss()
-            }, secondaryButton: .cancel(Text("취소")))
-        }
+        .alert(isPresented: $showAlert, content: {
+            if viewModel.alertCase == .normal {
+                return Alert(title: Text("알림"),
+                             message: Text(alertText),
+                             dismissButton: .destructive(Text("확인")) {
+                })
+            } else if viewModel.alertCase == .delete {
+                return Alert(title: Text("게시물을 삭제하겠습니까?"),
+                             message: Text("게시물을 삭제합니다"),
+                             primaryButton: .destructive(Text("삭제")) {
+                    viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
+                    dismiss()
+                }, secondaryButton: .cancel(Text("취소")))
+            } else {
+                return Alert(title: Text("댓글을 삭제하겠습니까?"),
+                             message: Text("댓글을 삭제합니다"),
+                             primaryButton: .destructive(Text("삭제")) {
+                    Task {
+                        await self.viewModel.deleteComment()
+                    }
+                }, secondaryButton: .cancel(Text("취소")))
+            }
+        })
         .onAppear(){
             Task {
                 await viewModel.makeStudyDetail(study: study)

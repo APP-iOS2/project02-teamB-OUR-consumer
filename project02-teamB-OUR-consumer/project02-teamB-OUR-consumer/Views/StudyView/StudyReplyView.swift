@@ -11,9 +11,9 @@ struct StudyReplyView: View {
     
     @StateObject var viewModel: StudyViewModel
     
-    @State var editComment: String = ""
     @State var isEditing: Bool = false
-    
+    @State var editComment: String = ""
+    @Binding var showAlert: Bool
     @State var content: String = ""
     //현재 로그인 된 아이디
     @State var commentUserId: String = "test"
@@ -86,6 +86,6 @@ struct StudyReplyView: View {
 
 struct StudyReplyView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyReplyView(viewModel: StudyViewModel())
+        StudyReplyView(viewModel: StudyViewModel(), showAlert: .constant(false))
     }
 }
