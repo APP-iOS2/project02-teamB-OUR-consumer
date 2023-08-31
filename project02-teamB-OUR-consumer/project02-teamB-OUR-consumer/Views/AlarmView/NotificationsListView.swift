@@ -26,6 +26,9 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
+        .onAppear{
+            alarmViewModel.fetchNotificationItem()
+        }
         .refreshable {
             // 새로고침 로직
             alarmViewModel.fetchNotificationItem()
@@ -111,11 +114,8 @@ struct NotificationRow: View {
                         // 텍스트
                         VStack(alignment: .leading) {
                             HStack{
-                                
                                 styledText(content: notification.content)
                                     .font(.system(size: 12, weight: .medium))
-                                
-                                Spacer()
                             }
                             
                             Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
@@ -128,11 +128,11 @@ struct NotificationRow: View {
                             Spacer()
                             
                             // 팔로우 버튼만 오른쪽으로 밀기
-                            Spacer()
+//                            Spacer()
                             Text(isFollowing ? "팔로잉" : "팔로우")
                                 .font(.system(size: 14, weight: .bold))
                                 .foregroundColor(isFollowing ? AColor.main.color : Color.white)
-                                .frame(width: 90.05, height: 27.85)
+                                .frame(width: 80, height: 27.85)
                                 .background(isFollowing ? Color.white : AColor.main.color)
                                 .cornerRadius(5)
                                 .overlay(RoundedRectangle(cornerRadius: 5)
@@ -147,6 +147,7 @@ struct NotificationRow: View {
                         // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
                         if notification.type == .like || notification.type == .comment,
                            let imageUrl = notification.imageURL {
+                            Spacer()
                             RemoteImage(url: imageUrl)
                                 .frame(width: 40, height: 40)
                         }
@@ -163,6 +164,7 @@ struct NotificationRow: View {
         }else{
             print("\(#function) not exist USER ID")
         }
+//        alarmViewModel.sendNotification(type: ``, content: <#T##String#>)
     }
     
     func sound(is following: Bool) {
@@ -179,24 +181,11 @@ struct NotificationRow: View {
         let components = content.tokenize("@#. ")
         for component in components {
             if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
+                print("styledText: \(component)")
                 output = output + Text(component).foregroundColor(.accentColor)
             } else {
+                print("styledText2: \(component)")
                 output = output + Text(component)
-            }
-        }
-        return output
-    }
-    
-    
-    
-    func styledText(text: String) -> some View {
-        var output = AnyView(Text(""))
-        let components = text.tokenize("@#. ")
-        for component in components {
-            if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
-                output = output + AnyView(Text(component))//.foregroundColor(.accentColor)
-            } else {
-                output = output + AnyView(Text(component))
             }
         }
         return output
@@ -207,7 +196,7 @@ struct NotificationsListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
             NotificationsListView(access: .personal)
-//                .environmentObject(AlarmViewModel())
+                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(), userViewModel: UserViewModel())))
         }
     }
 }
