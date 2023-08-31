@@ -12,7 +12,7 @@ import AVFoundation
 struct NotificationsListView: View {
     
     @EnvironmentObject var alarmViewModel: AlarmViewModel
-    
+    @StateObject var study: StudyViewModel = StudyViewModel()
     var access: NotificationType.Access
     
     var body: some View {
@@ -47,7 +47,8 @@ struct NotificationsListView: View {
                     .foregroundColor(Color.black),
                         content:  {
                     ForEach(items[key]!, id: \.id) { notification in
-                        NotificationRow(notification: notification)
+                        NotificationRow(notification: notification,access: access)
+                            .environmentObject(study)
                     }.onDelete(perform: { offset in
                         // key
                         alarmViewModel.delete(notification: offset, access: access, key: key)
@@ -64,6 +65,7 @@ struct NotificationRow: View {
     @State private var isFollowing: Bool = false // 팔로우 상태 추적
     @EnvironmentObject var studyViewModel: StudyViewModel
     @EnvironmentObject var alarmViewModel: AlarmViewModel
+    var access: NotificationType.Access
     
     var body: some View {
             HStack {
@@ -93,8 +95,9 @@ struct NotificationRow: View {
                         }
                     }
                     
+                    
                     if notification.type == .studyReply || notification.type == .studyAutoJoin {
-                        NavigationLink(destination: StudyDetailView(studyViewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy))
+                        NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: .constant(true)))
                         {
                             EmptyView()
                         }
@@ -116,6 +119,10 @@ struct NotificationRow: View {
                             HStack{
                                 styledText(content: notification.content)
                                     .font(.system(size: 12, weight: .medium))
+                                
+                                if access == .public{
+                                    Spacer()
+                                }
                             }
                             
                             Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
@@ -164,7 +171,7 @@ struct NotificationRow: View {
         }else{
             print("\(#function) not exist USER ID")
         }
-//        alarmViewModel.sendNotification(type: ``, content: <#T##String#>)
+//        alarmViewModel.sendNotification(type: ``, content: asdf)
     }
     
     func sound(is following: Bool) {

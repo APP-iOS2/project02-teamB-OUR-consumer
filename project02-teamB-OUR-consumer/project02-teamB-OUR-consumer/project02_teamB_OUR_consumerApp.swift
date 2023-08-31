@@ -55,7 +55,6 @@ struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
     
-    @StateObject var studyViewModel = StudyViewModel()
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService(),
                                                                       userViewModel: UserViewModel()) )
     
@@ -66,8 +65,6 @@ struct project02_teamB_OUR_consumerApp: App {
                 LoginView()
             }
             .environmentObject(alarmViewModel)
-            .environmentObject(studyViewModel)
-
         }
     }
 }

@@ -15,4 +15,9 @@ class IdData: ObservableObject {
         IdStore(id: UUID(), name: "김튜나", profileImgString: "Tuna", userID: "kimtuna", numberOfPosts: 21, numberOfFollowrs: 3, numberOfFollowing: 99, numberOfComments: 34, profileMessage: "참치는 맛있옹", isFollow: false)
     ]
     
+    func followToggle(_ target: IdStore) {
+        if let idIndex = idStore.firstIndex(where: { $0.id == target.id }) {
+            idStore[idIndex].isFollow.toggle()
+        }
+    }
 }

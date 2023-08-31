@@ -120,7 +120,6 @@ class AuthViewModel: ObservableObject {
 
          let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
 
-         let firebaseAuth = Auth.auth()
          Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
              if let error = error {
                  print(error.localizedDescription)
@@ -131,6 +130,7 @@ class AuthViewModel: ObservableObject {
                  UserDefaults.standard.set(result.user.uid, forKey: Keys.userId.rawValue)
                  UserDefaults.standard.set(result.user.email, forKey: Keys.email.rawValue)
              }
+             completion()
          }
      }
     

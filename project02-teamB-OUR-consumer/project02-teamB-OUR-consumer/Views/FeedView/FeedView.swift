@@ -9,40 +9,61 @@ import SwiftUI
 
 struct FeedView: View {
     
-    @ObservedObject var postData: PostData = PostData()
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
+    
+    @State private var postModel: PostModel = PostModel.samplePostModel
+    
     @State private var isShowingSheet: Bool = false
-    @State private var isShowingPostModifySheet: Bool = false
+    @State private var isShowingPostOptionSheet: Bool = false
+    @State private var isScrapFeed: Bool = false
+    @State private var isShowingModifyDetailView: Bool = false
+    @State private var isShowingPostReportView: Bool = false
+    
     var body: some View {
-        ForEach(postData.postStore) { post in
-            VStack {
-                HStack {
-                    PostUserView(post: post, isShowingSheet: $isShowingSheet)
-                    Button {
-                        isShowingPostModifySheet.toggle()
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .padding(2)
+        VStack {
+            ForEach(postViewModel.posts) { post in
+                VStack {
+                    HStack {
+                        PostUserView(post: post, postViewModel: postViewModel, isShowingSheet: $isShowingSheet)
+                            
+                        Button {
+                            isShowingPostOptionSheet.toggle()
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .padding(2)
+                        }
+                        .foregroundColor(.gray)
                     }
-                    .foregroundColor(.gray)
-
-                }
-                PostView(post: post)
-                PostButtonView(post: post, postData: postData)
-                Divider()
-                    .frame(height: 4)
-                    .overlay((Color("FeedViewDividerColor")))
+                    .padding()
+                    PostView(post: post, postViewModel: postViewModel)
                     
+                    PostButtonView(post: post, postViewModel: postViewModel, isScrapFeed: $isScrapFeed)
+                    
+                    Divider()
+                        .frame(height: 4)
+                        .overlay((Color("FeedViewDividerColor")))
+                }
+                .sheet(isPresented: $isShowingPostOptionSheet) {
+                    PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+                                    .presentationDetents([.height(220), .height(220)])
+                }
+                .sheet(isPresented: $isShowingModifyDetailView) {
+                    PostModifyDetailView(post: post, postViewModel: postViewModel, isShowingModifyDetailView: $isShowingModifyDetailView)
+                }
             }
-            .padding()
-            .sheet(isPresented: $isShowingPostModifySheet) {
-                PostModifyView(isShowingPostModifySheet: $isShowingPostModifySheet)
-            }
+        }
+        .onAppear{
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+        }
+        .refreshable {
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
         }
     }
 }
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
+        
         FeedView()
     }
 }

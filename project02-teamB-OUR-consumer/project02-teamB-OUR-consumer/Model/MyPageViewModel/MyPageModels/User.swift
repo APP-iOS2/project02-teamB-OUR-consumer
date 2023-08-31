@@ -10,6 +10,7 @@ struct User: Identifiable, Codable {
     var profileMessage: String?
     var follower: [String]?
     var following: [String]?
+    var joinedStudy: [String]?
     
     var numberOfFollower: Int {
         follower?.count ?? 0

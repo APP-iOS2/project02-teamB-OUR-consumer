@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct CommentDetailView: View {
-    var comment: PostCommentStore
-    var userId: String = "leeseungjun"
+    var comment: PostComment
     
     @State var isShowingAlert: Bool = false
     @Binding var isModifyComment: Bool
     
     var body: some View {
         HStack {
-            Image("")
+            Image("OUR_Logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .background(.gray)
@@ -28,7 +27,7 @@ struct CommentDetailView: View {
                         .font(.system(size: 14))
                         .fontWeight(.bold)
                     HStack {
-                        Text("\(comment.createdDate)")
+                        Text("\(comment.createdAt)")
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
                     }
@@ -40,33 +39,33 @@ struct CommentDetailView: View {
                 }
             }
             Spacer()
-            Menu {
-                if comment.userId == userId {
-                    Button {
-                        isModifyComment.toggle()
-                    } label: {
-                        Text("수정하기")
-                    }
-                    // 삭제 : 포스트 아이디가 같은경우도 !!해보기
-                    Button {
-                        isShowingAlert = true
-                        //삭제하는 func 만들어서 호출은 alert에서
-                    } label: {
-                        Text("삭제하기")
-                    }
-                } else {
-                    NavigationLink {
-//                        StudyCommentReportView(userId: userId, comment: comment)
-                        // 중복해서 또 만들지 말지 모르니까 일단 보류
-                    } label: {
-                        Text("신고하기")
-                            .foregroundColor(.red)
-                    }
-                }
-            } label: {
-                Image(systemName: "ellipsis")
-            }
-            .foregroundColor(.gray)
+//            Menu {
+//                if comment.userId == userId {
+//                    Button {
+//                        isModifyComment.toggle()
+//                    } label: {
+//                        Text("수정하기")
+//                    }
+//                    // 삭제 : 포스트 아이디가 같은경우도 !!해보기
+//                    Button {
+//                        isShowingAlert = true
+//                        //삭제하는 func 만들어서 호출은 alert에서
+//                    } label: {
+//                        Text("삭제하기")
+//                    }
+//                } else {
+//                    NavigationLink {
+////                        StudyCommentReportView(userId: userId, comment: comment)
+//                        // 중복해서 또 만들지 말지 모르니까 일단 보류
+//                    } label: {
+//                        Text("신고하기")
+//                            .foregroundColor(.red)
+//                    }
+//                }
+//            } label: {
+//                Image(systemName: "ellipsis")
+//            }
+//            .foregroundColor(.gray)
         }
         .padding()
 //        .background(Color("FeedViewBackgroundColor"))
@@ -85,6 +84,6 @@ struct CommentDetailView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentDetailView(comment: PostCommentStore(id: UUID(), postId: "leeseungjun", userId: "leeseungjun", content: "축구가 어렵나?", createdAt: Date().timeIntervalSince1970), isModifyComment: .constant(false))
+        CommentDetailView(comment: PostComment(userId: "leeseungjun", content: "안녕하세요"), isModifyComment: .constant(false))
     }
 }

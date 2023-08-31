@@ -80,6 +80,7 @@ struct ProfileHeaderView: View {
                     
                     Button {
                         // TODO: 공유 페이지로 이동
+                        
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 5)
@@ -109,6 +110,6 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(userViewModel: UserViewModel(), isMyProfile: .constant(false), isFollowing: .constant(false))
+        ProfileHeaderView(userViewModel: UserViewModel(), isMyProfile: .constant(true), isFollowing: .constant(false))
     }
 }

@@ -54,4 +54,8 @@ extension String {
     static var studyGroup: String {
         return "studyGroup"
     }
+    
+    static var studyComments: String {
+        return "comments"
+    }
 }

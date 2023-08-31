@@ -29,19 +29,6 @@ struct LoginView: View {
                         .padding(.bottom, 10)
                     
                     // 2번안
-//                    Image("OurSimpleLogo")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: 190)
-//                        .padding(.bottom, 10)
-                    
-                    // 1번안
-//                    Text("OUR")
-//                        .font(.system(size: 25))
-//                        .fontWeight(.black)
-//                    Text(": 우리들의 취업 / 스터디 플랫폼")
-                    
-                    // 2번안
                     Text("우리들의 취업 / 스터디 플랫폼")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
@@ -50,24 +37,24 @@ struct LoginView: View {
                 Spacer()
                 
                 Group {
-                    NavigationLink {
-                        //                        LoginSecondView()
-                    } label: {
-                        HStack {
-                            Image("FacebookLogo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                            Text("Facebook 로그인")
-                        }
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                        .frame(width: 300, height: 40)
-                        .background(Color(hex: 0x006FFF))
-                        .cornerRadius(10)
-                    }.disabled(true)
+//                    NavigationLink {
+//                        //                        LoginSecondView()
+//                    } label: {
+//                        HStack {
+//                            Image("FacebookLogo")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                            Text("Facebook 로그인")
+//                        }
+//                        .fontWeight(.medium)
+//                        .foregroundColor(.white)
+//                        .frame(width: 300, height: 40)
+//                        .background(Color(hex: 0x006FFF))
+//                        .cornerRadius(10)
+//                    }.disabled(true)
                     Button {
                         isLoading = true
-                        viewModel.signOut()
+//                        viewModel.signOut()
                         viewModel.signIn() {
                             if viewModel.state != .signedOut {
                                 navigate = true
@@ -94,23 +81,23 @@ struct LoginView: View {
                             .cornerRadius(8)
                         }
                     }
-                    NavigationLink {
-                        //                    LoginSecondView(viewModel: viewModel)
-                    } label: {
-                        HStack {
-                            Image("AppleLogo")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 25)
-                            Text("Apple 로그인")
-                        }
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                        .frame(width: 300, height: 40)
-                        .background(Color.black)
-                        .cornerRadius(10)
-                    }
-                    .disabled(true)
+//                    NavigationLink {
+//                        //                    LoginSecondView(viewModel: viewModel)
+//                    } label: {
+//                        HStack {
+//                            Image("AppleLogo")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: 25)
+//                            Text("Apple 로그인")
+//                        }
+//                        .fontWeight(.medium)
+//                        .foregroundColor(.white)
+//                        .frame(width: 300, height: 40)
+//                        .background(Color.black)
+//                        .cornerRadius(10)
+//                    }
+//                    .disabled(true)
                     
                     Spacer()
                     

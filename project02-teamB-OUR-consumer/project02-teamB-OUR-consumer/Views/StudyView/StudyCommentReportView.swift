@@ -14,7 +14,7 @@ struct StudyCommentReportView: View {
     
     //    var commentUserId: String // 신고하는 사람..?
     var viewModel: StudyViewModel
-    var study: StudyDetail?
+    var isStudy: Bool
     var comment: StudyComment?
     let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue)
     
@@ -48,8 +48,8 @@ struct StudyCommentReportView: View {
                     .fontWeight(.heavy)
                     .padding([.bottom, .top], 5)
                 ForEach(reports, id: \.self) { report in
-                    
                     Button {
+                        showAlert = true
                         reportCategory = Report.getReport(for: report)
                     } label: {
                         Text("\(Report.getReport(for: report))")
@@ -81,6 +81,14 @@ struct StudyCommentReportView: View {
             Alert(title: Text("신고하시겠습니까?"),
                   message: Text("\"\(reportCategory)\" 사유로 신고합니다"),
                   primaryButton: .destructive(Text("신고하기")) {
+                if isStudy {
+                    guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                        return
+                    }
+                    Task {
+                        await viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    }
+                }
                 dismiss()//뷰 닫기
             },
                   secondaryButton: .cancel(Text("취소")))
@@ -91,7 +99,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(viewModel: StudyViewModel(), comment: StudyComment(user: User.defaultUser, content: "어쩌구", createdAt: "23-02-12"))
+            StudyCommentReportView(viewModel: StudyViewModel(), isStudy: true)
         }
     }
 }

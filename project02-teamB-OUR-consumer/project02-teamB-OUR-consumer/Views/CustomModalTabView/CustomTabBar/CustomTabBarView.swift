@@ -17,9 +17,8 @@ struct CustomTabBarView: View {
 
 
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
-    let tabBarTextNames = ["피드", "스터디", "", "알림", "마이페이지"]
+    let tabBarTextNames = ["피드", "스터디", "", "알림", "프로필"]
     
-    @State var reportCount: Int = 3
     @State private var isReportPresent = false
     
     var body: some View {
@@ -44,14 +43,19 @@ struct CustomTabBarView: View {
             Spacer()
             
             ZStack {
+                
                 Rectangle()
-                    .frame(width: .infinity, height: 55)
+                    .frame(height: 55)
                     .foregroundColor(Color.white)
                     .cornerRadius(20)
-                    .shadow(radius: 8)
+//                    .shadow(radius: 8)
                     .padding(.horizontal, 10)
+                    .overlay(alignment: .top) {
+                        Divider()
+                            .background(Color("DefaultGray"))
+                    }
                     
-                
+
                 HStack {
                     Spacer()
                     
@@ -91,11 +95,11 @@ struct CustomTabBarView: View {
                                     }
                                     else {
                                         Image(systemName: tabBarImageNames[index])
-                                            .font(.system(size: 27, weight: .light))
+                                            .font(.system(size: 22, weight: .light))
                                             .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
                                         
                                         Text("\(tabBarTextNames[index])")
-                                            .font(.system(size: 12))
+                                            .font(.system(size: 14))
 
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
                                     }
@@ -111,6 +115,9 @@ struct CustomTabBarView: View {
                         Spacer()
                     }
                 }
+                .offset(y:10)
+                
+                
             }
             .onAppear {
                 model.getReportCount()
