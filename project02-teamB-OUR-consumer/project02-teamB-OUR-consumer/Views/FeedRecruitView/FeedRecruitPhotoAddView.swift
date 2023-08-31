@@ -99,13 +99,13 @@ struct FeedRecruitPhotoAddView: View {
                     if let data =  try await image.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
                             images.append(uiImage)
-                            print("온체인지-1\(uiImage)")
+                            //print("온체인지-1\(uiImage)")
                             
                         }
                     }
                 }
                 imageData = images
-                print("온체인지 \(imageData)")
+                //print("온체인지 \(imageData)")
             }
 
             
