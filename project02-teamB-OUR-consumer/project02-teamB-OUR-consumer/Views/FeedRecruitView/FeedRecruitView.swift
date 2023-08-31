@@ -15,7 +15,7 @@ struct FeedRecruitView: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
     
-    @StateObject var feedStoreViewModel: FeedRecruitStore = FeedRecruitStore()
+    @EnvironmentObject var feedStoreViewModel: FeedRecruitStore
     
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
     @State var content: String = ""
@@ -79,6 +79,8 @@ struct FeedRecruitView: View {
                 
                 Button("등록" ,role: .destructive) {
                     
+                   
+                    
                   
                     if selectedItem.isEmpty {
                         feedImagePath.removeAll()
@@ -96,13 +98,13 @@ struct FeedRecruitView: View {
                         Task {
                             do {
                                 feedImagePath.removeAll()
-                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
+                                feedImagePath = try await feedStoreViewModel.returnImagePath(items: selectedItem)
                                 //print("FeedImagePATH: \(feedImagePath)")
                                 let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                                 
                                 self.newFeed = newFeed2
                                 //print("사진 있을 경우: \(newFeed)")
-                                //feedStoreViewModel.addFeed(newFeed2)
+                                feedStoreViewModel.addFeed(newFeed2)
                                 dismiss()
                             } catch {
                                 
