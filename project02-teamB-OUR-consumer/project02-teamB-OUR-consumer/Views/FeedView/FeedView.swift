@@ -35,9 +35,9 @@ struct FeedView: View {
                         .foregroundColor(.gray)
                     }
                     .padding()
-                    PostView(post: post)
+                    PostView(post: post, isScrapFeed: $isScrapFeed)
                     
-                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
+//                    PostButtonView(post: post, isScrapFeed: $isScrapFeed)
                     
                     Divider()
                         .frame(height: 4)

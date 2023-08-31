@@ -20,8 +20,8 @@ struct FeedDetailView: View {
             VStack {
                 PostUserView(post: post, isShowingSheet: $isShowingSheet)
                     .padding(.leading, 15)
-                PostView(post: post)
-                PostButtonView(post: post, isScrapFeed: $isScrapFeed)
+                PostView(post: post, isScrapFeed: $isScrapFeed)
+//                PostButtonView(post: post, isScrapFeed: $isScrapFeed)
                 CommentView(post: post)
             }
         }

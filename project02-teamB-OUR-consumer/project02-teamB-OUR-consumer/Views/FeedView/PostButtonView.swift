@@ -26,6 +26,11 @@ struct PostButtonView: View {
                 // 좋아요 버튼
                 postViewModel.likePost(postID: post.id ?? "")
                 postModel.isLiked.toggle()
+                if postModel.isLiked {
+                    postModel.numberOfLike += 1
+                } else {
+                    postModel.numberOfLike -= 1
+                }
                 print("\(postModel.isLiked)")
 
             } label: {

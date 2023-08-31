@@ -87,7 +87,7 @@ struct CommentView: View {
                     TextField("\(postViewModel.postModel.creator.name) (으)로 댓글 달기", text: $commentString, axis: .vertical)
                         .padding()
                         .background {
-                            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .fill(Color.gray.opacity(0.1))
                         }
                     

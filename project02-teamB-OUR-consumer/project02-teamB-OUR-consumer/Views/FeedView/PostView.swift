@@ -16,6 +16,12 @@ struct PostView: View {
     @State var isSpreadBtn: Bool = false
     @State var lineLimitNumber: Int = 2
     @State private var isSheet: Bool = false
+    
+    @State var isShowingCommentSheet: Bool = false
+    @State var isShowingScrapSheet: Bool = false
+    @State var isShowingShareSheet: Bool = false
+    
+    @Binding var isScrapFeed: Bool
  
     var body: some View {
         Group {
@@ -57,7 +63,7 @@ struct PostView: View {
                     Button {
                         isSheet.toggle()
                     } label: {
-                        Text("좋아요 \(postModel.numberOfLike)")
+                        Text("좋아요 \(postViewModel.postModel.numberOfLike)")
                     }
                     .sheet(isPresented: $isSheet) {
                         LikeListView(post: post, isToggle: $isSheet)
@@ -69,6 +75,50 @@ struct PostView: View {
                 .font(.system(size: 14))
                 .foregroundColor(.gray)
                 .padding()
+            }
+            
+            HStack(spacing: 75) {
+                Button {
+                    // 좋아요 버튼
+                    postViewModel.likePost(postID: post.id ?? "")
+                    postModel.isLiked.toggle()
+                    if postModel.isLiked {
+                        postModel.numberOfLike += 1
+                    } else {
+                        postModel.numberOfLike -= 1
+                    }
+                    print("\(postModel.isLiked)")
+
+                } label: {
+                    postViewModel.postModel.isLiked ? Image(systemName: "hand.thumbsup.fill") : Image(systemName: "hand.thumbsup")
+                }
+                Button {
+                    isShowingCommentSheet.toggle()
+                } label: {
+                    Image(systemName: "bubble.left")
+                }
+                Button {
+                    isShowingScrapSheet.toggle()
+                } label: {
+                    Image(systemName: "arrow.2.squarepath")
+                }
+                // 쉐어링크 수정
+                ShareLink(item: post.content) {
+                    Label("", systemImage: "arrowshape.turn.up.right")
+                }
+            }
+            .font(.title2)
+            .bold()
+            .foregroundColor(Color(hex: 0x090580))
+            .padding()
+            // 댓글 시트
+            .sheet(isPresented: $isShowingCommentSheet) {
+                CommentView(post: post)
+            }
+            // 퍼가기 시트
+            .sheet(isPresented: $isShowingScrapSheet) {
+                ScrapView(post: post, isShowingScrapSheet: $isShowingScrapSheet, isScrapFeed: $isScrapFeed)
+                    .presentationDetents([.height(180), .height(180)])
             }
         }
         .onAppear {
@@ -84,7 +134,7 @@ struct PostView: View {
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostView(post: Post.samplePost)
+            PostView(post: Post.samplePost, isScrapFeed: .constant(false))
                 .environmentObject(PostViewModel())
         }
     }

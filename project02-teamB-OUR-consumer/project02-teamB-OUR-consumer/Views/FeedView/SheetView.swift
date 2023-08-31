@@ -94,14 +94,14 @@ struct SheetView: View {
                     Spacer()
                     VStack {
                         Text(String(user.numberOfFollower))
-                            .font(.title)
+                            .font(.system(size: 20))
                             .bold()
                         Text("Followers")
                     }
                     Spacer()
                     VStack {
                         Text(String(user.numberOfFollowing))
-                            .font(.title)
+                            .font(.system(size: 20))
                             .bold()
                         Text("Following")
                     }
@@ -119,10 +119,10 @@ struct SheetView: View {
                 
             } label: {
                 Text("프로필 방문하기")
-                    .frame(width: 355)
+                    .frame(width: 355, height: 40)
                     .background(Color(hex: 0x090580))
                     .cornerRadius(8)
-                    .font(.largeTitle)
+                    .font(.system(size: 16))
                     .foregroundColor(Color.white)
                     .bold()
                     .padding()
