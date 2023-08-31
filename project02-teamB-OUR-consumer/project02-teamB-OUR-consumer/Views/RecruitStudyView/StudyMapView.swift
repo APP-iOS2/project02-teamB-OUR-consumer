@@ -10,13 +10,14 @@ import MapKit
 
 class SharedViewModel: ObservableObject {
     @Published var selectedLocality: String = ""
-    @Published var selectedCoordinates: [Double]  = []
+    @Published var selectedCoordinates: [Double]?
 }
 
 struct StudyMapView: View {
-    @StateObject var locationManger: StudyLocationManager = .init()
+    @StateObject var locationManger: StudyLocationManager = .init() // 여기서만 씀
     @State var navigationTage: String?
-    @ObservedObject var sharedViewModel: SharedViewModel
+//    @ObservedObject var sharedViewModel: SharedViewModel
+    @EnvironmentObject var sharedViewModel: SharedViewModel
     
     var body: some View {
         NavigationView {
@@ -33,13 +34,6 @@ struct StudyMapView: View {
                             navigationTage = "MAPVIEW"
                         }
                     } label: {
-//                        Label {
-//                            Text("현재 위치 사용")
-//                                .font(.system(size: 18, weight: .semibold))
-//                        } icon: {
-//                            Image(systemName: "location.north.circle.fill")
-//                        }
-//                        .foregroundColor(mainColor)
                         HStack(spacing: 3){
                             Image(systemName: "location.north.circle.fill")
                                 .font(.system(size: 18))
@@ -111,7 +105,7 @@ struct StudyMapView: View {
                 
                 .background {
                     NavigationLink(tag: "MAPVIEW", selection: $navigationTage) {
-                        MapViewSelection(sharedViewModel: sharedViewModel).environmentObject(locationManger)
+                        MapViewSelection(locationManager: locationManger)
                     } label: {}
                         .labelsHidden()
                 }
@@ -125,13 +119,15 @@ struct StudyMapView: View {
 
 //struct StudyMapView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StudyMapView(sharedViewModel: sharedViewModel)
+//        StudyMapView()
+//              .environmentObject( SharedViewModel() )
 //    }
 //}
 
 struct MapViewSelection: View {
-    @ObservedObject var sharedViewModel: SharedViewModel
-    @EnvironmentObject var locationManager: StudyLocationManager
+//    @ObservedObject var sharedViewModel: SharedViewModel
+    @EnvironmentObject var sharedViewModel: SharedViewModel
+    @StateObject var locationManager: StudyLocationManager
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -171,8 +167,14 @@ struct MapViewSelection: View {
 //                        selectedName = place.name
                         if let locality = place.locality, let name = place.name, let locationLatitude = place.location?.coordinate.latitude, let locationLongitude = place.location?.coordinate.longitude  {
                             sharedViewModel.selectedLocality = locality + ", " + name
-                            sharedViewModel.selectedCoordinates.append(locationLatitude)
-                            sharedViewModel.selectedCoordinates.append(locationLongitude)
+                            
+                        
+                            if sharedViewModel.selectedCoordinates == nil {
+                                sharedViewModel.selectedCoordinates = []
+                            }
+                            
+                            sharedViewModel.selectedCoordinates?.append(locationLatitude)
+                            sharedViewModel.selectedCoordinates?.append(locationLongitude)
                             
                         }
 //                        sharedViewModel.selectedLocality = place.locality ?? ""
