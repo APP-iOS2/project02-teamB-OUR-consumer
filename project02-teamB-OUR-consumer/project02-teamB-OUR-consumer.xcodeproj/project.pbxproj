@@ -116,6 +116,7 @@
 		B786FC3C2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */; };
 		B786FC3E2A9D762300E3C1E9 /* FeedRecruitLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */; };
 		B786FC402A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */; };
+		B7AE095E2AA05C8500E044DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7AE095D2AA05C8500E044DA /* GoogleService-Info.plist */; };
 		B7C4A51C2A95C10A00CB05C8 /* FeedRecruitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */; };
 		B7C4A51E2A95C3DB00CB05C8 /* FeedRecruitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */; };
 		D55D36612A95E16200A7BE14 /* AddStudyMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D36602A95E16200A7BE14 /* AddStudyMain.swift */; };
@@ -129,7 +130,6 @@
 		D857291A2A9C57CA00FA90FB /* PostFireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85729192A9C57CA00FA90FB /* PostFireService.swift */; };
 		D857291C2A9D71CA00FA90FB /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857291B2A9D71CA00FA90FB /* PostModel.swift */; };
 		D857291E2A9D754200FA90FB /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857291D2A9D754200FA90FB /* PostsViewModel.swift */; };
-		F405273C2A9F31BF00B02F34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F405273B2A9F31BF00B02F34 /* GoogleService-Info.plist */; };
 		F43988242A98C9E600436844 /* RecruitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43988232A98C9E600436844 /* RecruitService.swift */; };
 		F496DA1B2A9C32D5003CBD1A /* RecruitServiceExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */; };
 		F496DA1D2A9DF23D003CBD1A /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */; };
@@ -276,6 +276,7 @@
 		B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPrivateSettingView.swift; sourceTree = "<group>"; };
 		B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitLocationView.swift; sourceTree = "<group>"; };
 		B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitTextEditorView.swift; sourceTree = "<group>"; };
+		B7AE095D2AA05C8500E044DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7C4A51B2A95C10A00CB05C8 /* FeedRecruitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitModel.swift; sourceTree = "<group>"; };
 		B7C4A51D2A95C3DB00CB05C8 /* FeedRecruitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitStore.swift; sourceTree = "<group>"; };
 		D55D36602A95E16200A7BE14 /* AddStudyMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyMain.swift; sourceTree = "<group>"; };
@@ -289,7 +290,6 @@
 		D85729192A9C57CA00FA90FB /* PostFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFireService.swift; sourceTree = "<group>"; };
 		D857291B2A9D71CA00FA90FB /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		D857291D2A9D754200FA90FB /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
-		F405273B2A9F31BF00B02F34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F43988232A98C9E600436844 /* RecruitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecruitService.swift; sourceTree = "<group>"; };
 		F496DA1A2A9C32D5003CBD1A /* RecruitServiceExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitServiceExample.swift; sourceTree = "<group>"; };
 		F496DA1C2A9DF23D003CBD1A /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
@@ -671,8 +671,8 @@
 			isa = PBXGroup;
 			children = (
 				3AF70F382A95199B008E9CAB /* Info.plist */,
+				B7AE095D2AA05C8500E044DA /* GoogleService-Info.plist */,
 				9E99CCED2A944A5700699B6A /* project02_teamB_OUR_consumerApp.swift */,
-				F405273B2A9F31BF00B02F34 /* GoogleService-Info.plist */,
 				B77A48722A95AAC9002BA95F /* FeedRecruitModel+Extension */,
 				FAB51C772A9676720047A725 /* Extension */,
 				842192092A95DB3C007224EE /* Views */,
@@ -896,7 +896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
-				F405273C2A9F31BF00B02F34 /* GoogleService-Info.plist in Resources */,
+				B7AE095E2AA05C8500E044DA /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				FAB51C1B2A96568D0047A725 /* (null) in Resources */,
 			);
