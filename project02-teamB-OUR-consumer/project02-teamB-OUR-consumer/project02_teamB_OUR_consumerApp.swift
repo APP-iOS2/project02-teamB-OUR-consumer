@@ -31,8 +31,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //        settings.host = "127.0.0.1:8080"
 //        settings.isSSLEnabled = false
 //        Firestore.firestore().settings = settings
-        
-        
+
         UNUserNotificationCenter.current().delegate = self
         
         return true

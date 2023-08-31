@@ -27,18 +27,6 @@ struct AlarmContainer: View {
                 // 사용자 지정 탭 뷰
                 CustomTabView(selectedTab: $selectedTab)
                 
-                VStack {
-                    Button {
-                        UNNotificationService.shared.requestSendNoti(seconds: 0.1)
-                    } label: {
-                        Text("푸쉬 알림")
-                    }
-                    Button {
-                        UNNotificationService.shared.requestAuthNoti()
-                    } label: {
-                        Text("권한 설정")
-                    }
-                }
                 // 알림 뷰
                 switch selectedTab {
                 case 0:
@@ -68,6 +56,7 @@ struct AlarmContainer: View {
                 } label: {
                     Label("전체 삭제", systemImage: "trash.fill")
                 }
+                .foregroundColor(.black)
                 .font(.system(size: 14, weight: .medium))
                 .alert(
                     alertTitle,
