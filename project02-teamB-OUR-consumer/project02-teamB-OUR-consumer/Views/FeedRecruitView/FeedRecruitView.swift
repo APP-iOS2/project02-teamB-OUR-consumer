@@ -132,5 +132,6 @@ struct FeedRecruitView: View {
 struct FeedRecruitView_Previews: PreviewProvider {
     static var previews: some View {
         FeedRecruitView()
+            .environmentObject(FeedRecruitStore())
     }
 }

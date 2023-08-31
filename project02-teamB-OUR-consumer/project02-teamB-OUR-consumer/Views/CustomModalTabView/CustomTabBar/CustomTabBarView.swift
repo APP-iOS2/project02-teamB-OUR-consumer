@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomTabBarView: View {
 
-    @ObservedObject var model = CustomTabBarViewModel()
+    @StateObject var model = CustomTabBarViewModel()    //여기서만 씁니다.
     @EnvironmentObject var alarmViewModel: AlarmViewModel
 
     @State private var selectedIndex = 0

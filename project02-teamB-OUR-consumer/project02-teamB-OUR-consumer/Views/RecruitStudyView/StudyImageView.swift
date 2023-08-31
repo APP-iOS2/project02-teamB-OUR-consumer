@@ -11,7 +11,8 @@ import PhotosUI
 
 struct StudyImageView: View {
     
-    @StateObject var viewModel: StudyRecruitStore
+//    @StateObject var viewModel: StudyRecruitStore
+    @EnvironmentObject var viewModel: StudyRecruitStore
     @State private var openPhoto = false
     @State private var selectedImages: [UIImage] = []
     
@@ -86,8 +87,9 @@ struct StudyImageView: View {
     }
 }
 
-//struct StudyImageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StudyImageView(viewModel: <#StudyRecruitStore#>)
-//    }
-//}
+struct StudyImageView_Previews: PreviewProvider {
+    static var previews: some View {
+        StudyImageView(selectedItem: .constant([PhotosPickerItem]()))
+            .environmentObject(StudyRecruitStore())
+    }
+}
