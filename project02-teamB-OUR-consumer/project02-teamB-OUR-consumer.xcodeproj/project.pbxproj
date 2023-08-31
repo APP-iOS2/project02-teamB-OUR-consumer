@@ -80,6 +80,7 @@
 		968837922A9C3E1C004B98E1 /* ResumeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378E2A9C3E1C004B98E1 /* ResumeViewModel.swift */; };
 		968837942A9C4279004B98E1 /* ProfileBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968837932A9C4279004B98E1 /* ProfileBar.swift */; };
 		96A71E792A9D74CA00390B7A /* MyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BA2A9490D200E6A626 /* MyMainView.swift */; };
+		96C3A8A32AA05C4E00BD74AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96C3A8A22AA05C4E00BD74AC /* GoogleService-Info.plist */; };
 		9B35B2762A94590F00AD72D7 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2752A94590F00AD72D7 /* FeedTabView.swift */; };
 		9B35B2782A94593E00AD72D7 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2772A94593E00AD72D7 /* FeedView.swift */; };
 		9B35B27A2A94594C00AD72D7 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B35B2792A94594C00AD72D7 /* SheetView.swift */; };
@@ -905,9 +906,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E99CCF52A944A5A00699B6A /* Preview Assets.xcassets in Resources */,
-				9617B6A02AA06B6C00156A32 /* GoogleService-Info.plist in Resources */,
 				9E99CCF22A944A5A00699B6A /* Assets.xcassets in Resources */,
 				FAB51C1B2A96568D0047A725 /* (null) in Resources */,
+				96C3A8A32AA05C4E00BD74AC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
