@@ -27,6 +27,7 @@ struct FeedTabView: View {
                     UNNotificationService.shared.requestAuthNoti()
                 }
             }
+            .navigationTitle("")
         }
     }
 }
