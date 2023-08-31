@@ -19,10 +19,6 @@ struct StudyListView: View {
     @EnvironmentObject var studyViewModel: StudyViewModel
     
     @StateObject var userViewModel = UserViewModel()
-
-    @StateObject var userViewModel = UserViewModel()
-    @StateObject var studyViewModel = StudyViewModel()
-
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
