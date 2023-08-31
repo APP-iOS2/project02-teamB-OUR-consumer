@@ -32,7 +32,11 @@ struct StudyListItemView: View {
                             .frame(width: 100, height: 100)
                             .cornerRadius(10)
                     } placeholder: {
-                        ProgressView()
+                        Image("OUR_Logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
                     }
                     
                 }
