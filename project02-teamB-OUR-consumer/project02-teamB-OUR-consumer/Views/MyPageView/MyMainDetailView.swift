@@ -23,7 +23,7 @@ struct MyMainDetailView: View {
     
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     var body: some View {
-        NavigationStack {
+        VStack {
             ScrollView {
                 ProfileBar(isMyProfile: $isMyProfile)
                         .padding(.horizontal)
@@ -66,6 +66,8 @@ struct MyMainDetailView: View {
             .navigationTitle("")
         }
         .onAppear {
+            print("왜 호출안댐?")
+            isFollowingUser()
             userViewModel.fetchUser(userId: userId)
             resumeViewModel.fetchResume(userId: userId)
         }
@@ -73,6 +75,18 @@ struct MyMainDetailView: View {
             userViewModel.fetchUser(userId: userId)
             resumeViewModel.fetchResume(userId: userId)
         }
+    }
+    
+    private func isFollowingUser() {
+        guard let userFollowingList = userViewModel.user?.following else { return isFollowing = false }
+        if userFollowingList.contains(where: { user in
+            user == userId
+        }) {
+            isFollowing = true
+        } else {
+            isFollowing = false
+        }
+        print("isFollowing \(isFollowing)")
     }
     
     private func rightSwipeAction() {
