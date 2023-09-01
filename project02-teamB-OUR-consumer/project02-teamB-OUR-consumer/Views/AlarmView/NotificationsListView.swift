@@ -186,7 +186,7 @@ struct NotificationRow: View {
         .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
         .redacted(reason: isLoading ? .placeholder : [])
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.isLoading = false
             }
             if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
