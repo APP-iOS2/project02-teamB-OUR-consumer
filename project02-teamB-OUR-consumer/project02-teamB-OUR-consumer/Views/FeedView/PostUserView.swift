@@ -49,7 +49,7 @@ struct PostUserView: View {
                 Spacer()
                 
                 Button {
-                    if post.creator == "eYebZXFIGGQFqYt1fI4v4M3efSv2" {
+                    if post.creator == getCurrentUser() {
                         isShowingPostOptionSheet.toggle()
                     } else {
                         isShowingPostReportView.toggle()
@@ -78,6 +78,10 @@ struct PostUserView: View {
         .onAppear {
             postViewModel.getPost(of: post)
         }
+    }
+    func getCurrentUser() -> String {
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return "" }
+        return userId
     }
 }
 struct PostUserView_Previews: PreviewProvider {
