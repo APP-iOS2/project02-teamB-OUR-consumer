@@ -22,8 +22,7 @@ struct NotificationDTO: Identifiable,Codable{
         Timestamp(date: createdDate)
     }
     
-    init(id: ID, userId: ID, type: String, content: String, isRead: Bool, createdDate: Date) {
-        self.id = id
+    init(userId: ID, type: String, content: String, isRead: Bool, createdDate: Date) {
         self.userId = userId
         self.type = type
         self.content = content
@@ -31,8 +30,8 @@ struct NotificationDTO: Identifiable,Codable{
         self.createdDate = createdDate
     }
     
-    init(id: ID, userId: ID, type: String, content: String, isRead: Bool, createdDate: Timestamp) {
-        self.id = id
+    init( userId: ID, type: String, content: String, isRead: Bool, createdDate: Timestamp) {
+        self.id = nil
         self.userId = userId
         self.type = type
         self.content = content
@@ -45,7 +44,7 @@ extension NotificationDTO{
     func toDomain(user: User) -> NotificationItem{
         let type = NotificationType(rawValue: self.type) ?? .none
         return NotificationItem(id: self.id ?? "",
-                                user: user ,
+                                userId: self.userId,
                                 type: type,
                                 content: self.content,
                                 isRead: self.isRead,
@@ -56,24 +55,24 @@ extension NotificationDTO{
 
 extension Dictionary where Key == String{
     
-    func decodeDTO() -> NotificationDTO{
-        
-        let id = self["id"] as? String ?? ""
-        let userId = self["userId"] as? String ?? ""
-        let type = self["type"] as? String ?? "none"
-        let content = self["content"] as? String ?? ""
-        let isRead = self["isRead"] as? Bool ?? false
-        let createdDate = self["createdDate"] as? Timestamp ?? Timestamp(date: Date())
-        
-        let date = createdDate.dateValue().toString().toDate()
-        
-        return NotificationDTO(id: id,
-                               userId: userId,
-                               type: type,
-                               content: content,
-                               isRead: isRead,
-                               createdDate: date)
-    }
+//    func decodeDTO() -> NotificationDTO{
+//        
+//        let id = self["id"] as? String ?? ""
+//        let userId = self["userId"] as? String ?? ""
+//        let type = self["type"] as? String ?? "none"
+//        let content = self["content"] as? String ?? ""
+//        let isRead = self["isRead"] as? Bool ?? false
+//        let createdDate = self["createdDate"] as? Timestamp ?? Timestamp(date: Date())
+//        
+//        let date = createdDate.dateValue().toString().toDate()
+//        
+//        return NotificationDTO(id: id,
+//                               userId: userId,
+//                               type: type,
+//                               content: content,
+//                               isRead: isRead,
+//                               createdDate: date)
+//    }
     
 }
 
