@@ -20,6 +20,7 @@ struct StudyReplyDetailView: View {
     
     @State var isShowingProfileSheet: Bool = false
     @Binding var showAlert: Bool
+    @Binding var isShowingCommentReportSheet: Bool
 
     var body: some View {
         LazyVStack {
@@ -72,8 +73,14 @@ struct StudyReplyDetailView: View {
                             Text("삭제하기")
                         }
                     } else {
-                        NavigationLink {
-                            StudyReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
+                        Button {
+                            if isAlreadyReported() {
+                                studyViewModel.alertCase = .alreadyReportedComment
+                                showAlert = true
+                            } else {
+                                isShowingCommentReportSheet = true
+                                studyViewModel.selectedComment = comment
+                            }
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
@@ -88,13 +95,22 @@ struct StudyReplyDetailView: View {
             
         }
     }
+    func isAlreadyReported() -> Bool {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        if studyViewModel.selectedComment.reportUserIds.contains(userId) {
+            return true
+        }
+        return false
+    }
 }
 
 struct StudyReplyDetailView_Previews: PreviewProvider {
     
     
     static var previews: some View {
-        StudyReplyDetailView(studyViewModel: StudyViewModel(), comment: StudyComment(user: User.defaultUser, content: "", createdAt: ""), index: 0, showAlert: .constant(false))
+        StudyReplyDetailView(studyViewModel: StudyViewModel(), comment: StudyComment(user: User.defaultUser, content: "", createdAt: ""), index: 0, showAlert: .constant(false), isShowingCommentReportSheet: .constant(false))
         
     }
 }

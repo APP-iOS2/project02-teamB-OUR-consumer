@@ -80,12 +80,20 @@ struct StudyReportView: View {
         .alert(isPresented: $showAlert) {
             Alert(title:  Text("\"\(reportCategory)\" 사유로 신고합니다"),
                   primaryButton: .destructive(Text("신고하기")) {
+                
                 if isStudy {
                     guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                         return
                     }
                     Task {
                         await viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    }
+                } else {
+                    guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                        return
+                    }
+                    Task {
+                        await viewModel.reportComment(report: ReportData(reason: reportCategory, userId: userId))
                     }
                 }
                 dismiss()//뷰 닫기
