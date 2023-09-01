@@ -22,8 +22,6 @@ struct MyMain: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var resumeViewModel: ResumeViewModel
     
-//    @ObservedObject var resumeViewModel = ResumeViewModel()
-    
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     var body: some View {
         NavigationStack {

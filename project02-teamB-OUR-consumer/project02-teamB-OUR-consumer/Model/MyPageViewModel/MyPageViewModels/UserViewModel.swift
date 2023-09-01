@@ -166,3 +166,24 @@ extension UserViewModel {
         }
     }
 }
+
+extension UserViewModel {
+    func fetchMyPosts(userId: String, completion: @escaping ([Post]) -> Void) {
+        db.collection("posts").whereField("creator", isEqualTo: userId).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error)")
+                completion([])
+                return
+            }
+            
+            if let snapshot = snapshot, !snapshot.isEmpty {
+                let posts = snapshot.documents.compactMap { document -> Post? in
+                    try? document.data(as: Post.self)
+                }
+                completion(posts)
+            } else {
+                completion([])
+            }
+        }
+    }
+}
