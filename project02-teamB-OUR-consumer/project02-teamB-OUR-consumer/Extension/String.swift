@@ -59,3 +59,19 @@ extension String {
         return "comments"
     }
 }
+
+extension String {
+    
+    func compareDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy년 MM월 dd일 HH:mm"
+        dateFormatter.locale = Locale(identifier: "ko_KR") // 날짜 포맷에 맞는 로케일 설정
+
+        if let date = dateFormatter.date(from: "23년 09월 01일 00:40") {
+            return date
+        } else {
+            return Date()
+        }
+    }
+    
+}
