@@ -17,6 +17,8 @@ struct StudyReplyView: View {
     //현재 로그인 된 아이디
     @State var commentUserId: String = "test"
     
+    @State var isShowingCommentReportSheet = false
+    
     var body: some View {
         VStack{
             
@@ -34,7 +36,7 @@ struct StudyReplyView: View {
             
             //List {
             ForEach(viewModel.studyDetail.comments) { comment in
-                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, showAlert: $showAlert)
+                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, showAlert: $showAlert, isShowingCommentReportSheet: $isShowingCommentReportSheet)
             }
             // }
             .listStyle(.plain)
@@ -43,27 +45,10 @@ struct StudyReplyView: View {
             }
             .padding([.horizontal, .bottom], 10)
             .padding([.leading,.trailing], 8)
-            
-            
-            HStack {
-                //프로필 이미지
-                Image("OUR_Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 40)
-                    .clipShape(Circle())
-                TextField("댓글을 입력하세요", text: $content, axis: .vertical)
-                Button("등록") {
-                    Task {
-                        await viewModel.addComments(content: content)
-                        content = ""
-                    }
-                }
+            .sheet(isPresented: $isShowingCommentReportSheet) {
+                StudyReportView(viewModel: viewModel, isStudy: false)
             }
-            .padding()
             
-        }
-        .onAppear {
         }
         
     }

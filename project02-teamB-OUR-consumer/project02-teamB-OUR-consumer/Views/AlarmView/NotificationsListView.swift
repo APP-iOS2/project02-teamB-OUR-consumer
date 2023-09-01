@@ -95,12 +95,15 @@ struct NotificationRow: View {
                     .opacity(0.0)
                     .buttonStyle(PlainButtonStyle())
                     
+
                     HStack {
+                        
                     }
+                    
                 }
                 
                 if notification.type == .follow{
-                    NavigationLink(destination: MyMain())
+                    NavigationLink(destination: MyMainDetailView(userId: notification.userId ?? "9o8gkYLUFHdsO877xqX9rvSVdI82"))
                     {
                         EmptyView()
                     }

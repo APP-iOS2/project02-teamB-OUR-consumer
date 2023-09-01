@@ -10,7 +10,7 @@ import SwiftUI
 struct PostButtonView: View {
     var post: Post
     
-    @StateObject var postViewModel: PostViewModel
+    @EnvironmentObject var postViewModel: PostViewModel
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
@@ -20,15 +20,17 @@ struct PostButtonView: View {
     
     @Binding var isScrapFeed: Bool
     
-    @StateObject var idData: IdData = IdData()
-    var feed: FeedStore = FeedStore(id: UUID(), postId: "leeseungjun", numberOfComments: 3, numberOfLike: 23, numberOfRepost: 4, postImageString: "postImg", content: "축구...어렵네...")
-    
     var body: some View {
         HStack(spacing: 75) {
             Button {
                 // 좋아요 버튼
                 postViewModel.likePost(postID: post.id ?? "")
                 postModel.isLiked.toggle()
+                if postModel.isLiked {
+                    postModel.numberOfLike += 1
+                } else {
+                    postModel.numberOfLike -= 1
+                }
                 print("\(postModel.isLiked)")
 
             } label: {
@@ -63,9 +65,7 @@ struct PostButtonView: View {
                 .presentationDetents([.height(180), .height(180)])
         }
         .onAppear {
-            postViewModel.getPost(of: post) { postModel in
-                self.postModel = postModel
-            }
+            postViewModel.getPost(of: post)
         }
     }
 }
@@ -73,7 +73,8 @@ struct PostButtonView: View {
 struct PostButtonView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostButtonView(post: Post.samplePost, postViewModel: PostViewModel(), isScrapFeed: .constant(false))
+            PostButtonView(post: Post.samplePost, isScrapFeed: .constant(false))
+                .environmentObject(PostViewModel())
         }
     }
 }

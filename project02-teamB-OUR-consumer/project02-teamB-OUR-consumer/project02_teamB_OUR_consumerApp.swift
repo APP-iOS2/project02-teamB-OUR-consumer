@@ -32,7 +32,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         settings.isSSLEnabled = false
         Firestore.firestore().settings = settings
         
-    
         UNUserNotificationCenter.current().delegate = self
         
         return true
@@ -72,9 +71,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
+
+    @StateObject var postViewModel = PostViewModel()
+
+//    @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()        //피드  등록모델
     @StateObject var studyStoreViewModel = StudyRecruitStore()      //스터디 등록모델
-    
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
     @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
@@ -92,7 +94,6 @@ struct project02_teamB_OUR_consumerApp: App {
             .environmentObject(userViewModel)
             .environmentObject(studyViewModel)
             .environmentObject(resumeViewModel)
-
         }
     }
 }

@@ -32,6 +32,9 @@
 		6332A6002A95A3640047E2DD /* PostButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A5FF2A95A3640047E2DD /* PostButtonView.swift */; };
 		6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A6022A95D1220047E2DD /* ScrapView.swift */; };
 		6332A60B2A98648E0047E2DD /* PostOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostOptionView.swift */; };
+		636272E72AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */; };
+		636272E92AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */; };
+		636272EB2AA0E06300CC78EB /* PostRecruitLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */; };
 		6377FA412A9F7A7A00D8816C /* PostReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6377FA402A9F7A7A00D8816C /* PostReportView.swift */; };
 		63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */; };
 		642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */; };
@@ -74,7 +77,7 @@
 		9650868B2A94D35900CDA0FC /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650868A2A94D35900CDA0FC /* NotificationDTO.swift */; };
 		9650868D2A95A86800CDA0FC /* UNNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */; };
 		965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965086912A95D29B00CDA0FC /* AlarmFireService.swift */; };
-		9660B4882AA0A955009D2FA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9660B4872AA0A954009D2FA6 /* GoogleService-Info.plist */; };
+		9660B48A2AA1BC15009D2FA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9660B4892AA1BC15009D2FA6 /* GoogleService-Info.plist */; };
 		9688378F2A9C3E1C004B98E1 /* Resume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378A2A9C3E1C004B98E1 /* Resume.swift */; };
 		968837902A9C3E1C004B98E1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378B2A9C3E1C004B98E1 /* User.swift */; };
 		968837912A9C3E1C004B98E1 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688378D2A9C3E1C004B98E1 /* UserViewModel.swift */; };
@@ -103,7 +106,6 @@
 		A05CDDA62A9C945900B4948C /* MyFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */; };
 		A05CDDA82A9C946200B4948C /* MyFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */; };
 		A07B07B92AA16688004AA349 /* MyMainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B07B82AA16688004AA349 /* MyMainDetailView.swift */; };
-		A07B07BF2AA1A84C004AA349 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A07B07BE2AA1A84B004AA349 /* GoogleService-Info.plist */; };
 		A09ED4BF2A949C2000E6A626 /* MyMainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */; };
 		A09ED4C12A94C24B00E6A626 /* MyMainProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */; };
 		A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09ED4C32A95BDDC00E6A626 /* ImagePicker.swift */; };
@@ -115,9 +117,6 @@
 		A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */; };
 		A0BCB8E02A9495BF00A47841 /* LocationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */; };
 		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
-
-		A0CE323D2A952C110019300F /* StudyCommentReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyCommentReportView.swift */; };
-		B0EA15322AA1A07D0062BDED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0EA15312AA1A07D0062BDED /* GoogleService-Info.plist */; };
 		A0CE323D2A952C110019300F /* StudyReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyReportView.swift */; };
 		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
 		B74E102B2AA16A310058636B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E102A2AA16A310058636B /* Toast.swift */; };
@@ -204,6 +203,9 @@
 		6332A5FF2A95A3640047E2DD /* PostButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButtonView.swift; sourceTree = "<group>"; };
 		6332A6022A95D1220047E2DD /* ScrapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapView.swift; sourceTree = "<group>"; };
 		6332A60A2A98648E0047E2DD /* PostOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOptionView.swift; sourceTree = "<group>"; };
+		636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailPhotoEditorView.swift; sourceTree = "<group>"; };
+		636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitPrivateSettingView.swift; sourceTree = "<group>"; };
+		636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitLocationView.swift; sourceTree = "<group>"; };
 		6377FA402A9F7A7A00D8816C /* PostReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportView.swift; sourceTree = "<group>"; };
 		63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailView.swift; sourceTree = "<group>"; };
 		642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAnnounceView.swift; sourceTree = "<group>"; };
@@ -245,7 +247,7 @@
 		9650868A2A94D35900CDA0FC /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		965086912A95D29B00CDA0FC /* AlarmFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFireService.swift; sourceTree = "<group>"; };
-		9660B4872AA0A954009D2FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9660B4892AA1BC15009D2FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9688378A2A9C3E1C004B98E1 /* Resume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resume.swift; sourceTree = "<group>"; };
 		9688378B2A9C3E1C004B98E1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9688378D2A9C3E1C004B98E1 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -274,7 +276,6 @@
 		A05CDDA52A9C945900B4948C /* MyFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowerCell.swift; sourceTree = "<group>"; };
 		A05CDDA72A9C946200B4948C /* MyFollowingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowingCell.swift; sourceTree = "<group>"; };
 		A07B07B82AA16688004AA349 /* MyMainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainDetailView.swift; sourceTree = "<group>"; };
-		A07B07BE2AA1A84B004AA349 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A09ED4BA2A9490D200E6A626 /* MyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainView.swift; sourceTree = "<group>"; };
 		A09ED4BE2A949C2000E6A626 /* MyMainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainTabBar.swift; sourceTree = "<group>"; };
 		A09ED4C02A94C24B00E6A626 /* MyMainProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMainProfileEditView.swift; sourceTree = "<group>"; };
@@ -287,9 +288,6 @@
 		A0BCB8DD2A94917F00A47841 /* StudyReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyView.swift; sourceTree = "<group>"; };
 		A0BCB8DF2A9495BF00A47841 /* LocationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSheetView.swift; sourceTree = "<group>"; };
 		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
-
-		A0CE323C2A952C110019300F /* StudyCommentReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCommentReportView.swift; sourceTree = "<group>"; };
-		B0EA15312AA1A07D0062BDED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0CE323C2A952C110019300F /* StudyReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReportView.swift; sourceTree = "<group>"; };
 		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		B74E102A2AA16A310058636B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -391,6 +389,9 @@
 				6377FA402A9F7A7A00D8816C /* PostReportView.swift */,
 				6332A60A2A98648E0047E2DD /* PostOptionView.swift */,
 				63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */,
+				636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */,
+				636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */,
+				636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */,
 				6332A5FF2A95A3640047E2DD /* PostButtonView.swift */,
 				9B35B2812A947C7100AD72D7 /* FollowingButtonView.swift */,
 				632883752A94F0ED004DC84E /* CommentView.swift */,
@@ -984,6 +985,7 @@
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
+				636272E72AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift in Sources */,
 				D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */,
 				642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */,
 				118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */,
@@ -1008,6 +1010,7 @@
 				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */,
+				636272E92AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift in Sources */,
 				FAB51C792A96771F0047A725 /* IdClassStore.swift in Sources */,
 				118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */,
 				962B7E1F2A95F05700083790 /* MyEduMoreView.swift in Sources */,
@@ -1043,6 +1046,7 @@
 				A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */,
 				FAB51C8B2A9678870047A725 /* Date.swift in Sources */,
 				A05CDDA32A9C8CD500B4948C /* MyFollowView.swift in Sources */,
+				636272EB2AA0E06300CC78EB /* PostRecruitLocationView.swift in Sources */,
 				A05CDD992A9C73C300B4948C /* ProfileHeaderView.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
 				649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */,

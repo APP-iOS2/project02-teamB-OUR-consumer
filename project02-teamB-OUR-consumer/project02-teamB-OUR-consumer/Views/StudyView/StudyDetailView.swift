@@ -12,6 +12,7 @@ enum StudyDetailAlert {
     case delete
     case normal
     case commentDelete
+    case alreadyReportedComment
 }
 
 struct StudyDetailView: View {
@@ -26,6 +27,7 @@ struct StudyDetailView: View {
     @State var isShowingLocationSheet: Bool = false
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool
+    @State var content: String = ""
     @State var showAlert: Bool = false
     @State var alertText: String = ""
     
@@ -157,10 +159,10 @@ struct StudyDetailView: View {
                             HStack {
                                 //MARK: 1 - 내가 작성한 글
                                 if isMyStudy()  {
-//                                    NavigationLink {
-//                                        //TODO: 수정페이지로 이동
-//                                        StudyDetailEditView(viewModel: viewModel, study: study)
-//                                    }
+                                    //                                    NavigationLink {
+                                    //                                        //TODO: 수정페이지로 이동
+                                    //                                        StudyDetailEditView(viewModel: viewModel, study: study)
+                                    //                                    }
                                     Button {
                                         alertText = "할거에여.."
                                         viewModel.alertCase = .normal
@@ -268,24 +270,41 @@ struct StudyDetailView: View {
                     Label("공유하기", systemImage: "square.and.arrow.up")
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    Button(action: {
-                        if isAlreadyReported() {
-                            alertText = "이미 신고한 스터디입니다."
-                            viewModel.alertCase = .normal
-                            showAlert = true
-                        } else {
-                            isShowingReportSheet = true
-                        }
-                    }, label: {
-                        Label("신고하기", systemImage: "exclamationmark.shield")
-                    })
-                } label: {
-                    Image(systemName: "ellipsis")
+            if !isMyStudy() {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button(action: {
+                            if isAlreadyReported() {
+                                alertText = "이미 신고한 스터디입니다."
+                                viewModel.alertCase = .normal
+                                showAlert = true
+                            } else {
+                                isShowingReportSheet = true
+                            }
+                        }, label: {
+                            Label("신고하기", systemImage: "exclamationmark.shield")
+                        })
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
                 }
             }
         }
+        
+        HStack {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40)
+                .clipShape(Circle())
+            TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+            Button("등록") {
+                Task {
+                    await viewModel.addComments(content: content)
+                    content = ""
+                }
+            }
+        }.padding()
         .sheet(isPresented: $isShowingStudyMemberSheet) {
             StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet, viewModel: viewModel)
                 .presentationDetents([.medium, .large])
@@ -310,7 +329,7 @@ struct StudyDetailView: View {
                     viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
                     dismiss()
                 }, secondaryButton: .cancel(Text("취소")))
-            } else {
+            } else if viewModel.alertCase == .commentDelete {
                 return Alert(title: Text("댓글을 삭제하겠습니까?"),
                              message: Text("댓글을 삭제합니다"),
                              primaryButton: .destructive(Text("삭제")) {
@@ -318,6 +337,11 @@ struct StudyDetailView: View {
                         await self.viewModel.deleteComment()
                     }
                 }, secondaryButton: .cancel(Text("취소")))
+            } else {
+                return Alert(title: Text("알림"),
+                             message: Text("이미 신고한 댓글입니다."),
+                             dismissButton: .destructive(Text("확인")) {
+                })
             }
         })
         .onAppear(){

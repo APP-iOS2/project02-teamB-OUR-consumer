@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct FeedTabView: View {
-    @StateObject private var idData: IdData = IdData()
+    
+    @EnvironmentObject var postViewModel: PostViewModel
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
                     TitleView()
-                        .padding(.top, -100)
+                        .padding(EdgeInsets(top: -100, leading: 0, bottom: 0, trailing: 0))
                     Divider()
                     FeedView()
-                    Divider()
 //                    RecommendFriendView()
                 }
                 
@@ -29,11 +29,15 @@ struct FeedTabView: View {
             }
             .navigationTitle("")
         }
+        .refreshable {
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+        }
     }
 }
 
 struct FeedTabView_Previews: PreviewProvider {
     static var previews: some View {
         FeedTabView()
+            .environmentObject(PostViewModel())
     }
 }
