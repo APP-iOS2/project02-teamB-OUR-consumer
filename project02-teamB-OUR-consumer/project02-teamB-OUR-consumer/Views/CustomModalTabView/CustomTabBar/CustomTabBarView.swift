@@ -13,8 +13,12 @@ struct CustomTabBarView: View {
     @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
     
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
+//    @StateObject var userViewModel = UserViewModel()
+//    @StateObject var resumeViewModel = ResumeViewModel()
     @StateObject var studyViewModel = StudyViewModel()
     
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var resumeViewModel: ResumeViewModel
     
 
     @State private var selectedIndex = 0
@@ -141,7 +145,6 @@ struct CustomTabBarView: View {
             }
             
         }
-//        .environmentObject(userViewModel)
         .navigationBarBackButtonHidden()
             
     }

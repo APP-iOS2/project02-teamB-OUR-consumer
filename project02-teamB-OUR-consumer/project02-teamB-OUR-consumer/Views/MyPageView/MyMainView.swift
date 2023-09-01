@@ -54,12 +54,15 @@ struct MyMain: View {
         NavigationStack {
             ScrollView {
                 ProfileBar(isMyProfile: $isMyProfile)
+                
                         .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 20) {
                     
                     ProfileHeaderView(userViewModel: userViewModel, isMyProfile: $isMyProfile, isFollowing: $isFollowing)
+                        .environmentObject(UserViewModel())
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
+                        //무슨 오류..?
                         Section {
                             switch currentTab {
                             case 0:
