@@ -55,33 +55,31 @@ struct AlarmContainer: View {
         .navigationBarTitleDisplayMode(.inline)
         
         // 전체 삭제
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    allClearAlertShowing = true
-                } label: {
-                    Label("전체 삭제", systemImage: "trash.fill")
-                }
-                .foregroundColor(.black)
-                .font(.system(size: 14, weight: .medium))
-                .alert(
-                    isPresented: $allClearAlertShowing
-                ) {
-                    Alert(
-                        title: Text(alertTitle),
-                        primaryButton: .destructive(Text("삭제")) {
-                            viewModel.personalNotiItem = [:]
-                            viewModel.publicNotiItem = [:]
-                        },
-                        secondaryButton: .cancel(Text("취소"))
-                    )
-                }
-            }
-        }
-    }
-}
-
-
+          .toolbar {
+              ToolbarItem(placement: .navigationBarTrailing) {
+                  Button {
+                      allClearAlertShowing = true
+                  } label: {
+                      Text("전체 삭제")
+                          .font(.system(size: 14))
+                          .foregroundColor(Color.black)
+                  }
+                  .alert(
+                      isPresented: $allClearAlertShowing
+                  ) {
+                      Alert(
+                          title: Text(alertTitle),
+                          primaryButton: .destructive(Text("삭제")) {
+                              viewModel.personalNotiItem = [:]
+                              viewModel.publicNotiItem = [:]
+                          },
+                          secondaryButton: .cancel(Text("취소"))
+                      )
+                  }
+              }
+          }
+      }
+  }
 
 struct AlarmContainer_Previews: PreviewProvider {
     static var previews: some View {
