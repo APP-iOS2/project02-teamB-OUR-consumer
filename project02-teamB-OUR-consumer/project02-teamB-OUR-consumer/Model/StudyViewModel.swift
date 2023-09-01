@@ -80,7 +80,9 @@ class StudyViewModel: ObservableObject {
                 for document in snapshot.documents {
                     do {
                         let item = try document.data(as: StudyDTO.self)
-                        temp.append(item)
+                        if item.deadline.toDate() >= Date() && item.reportCount < 5 {
+                            temp.append(item)
+                        }
                     } catch let error {
                         print(error)
                         return

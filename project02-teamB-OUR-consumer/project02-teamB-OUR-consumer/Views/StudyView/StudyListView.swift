@@ -42,13 +42,11 @@ struct StudyListView: View {
             List {
                 
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
-                    if study.deadline.toDate() >= Date() {
-                        NavigationLink(destination: {
-                            StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
-                        }, label: {
-                            StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
-                        })
-                    }
+                    NavigationLink(destination: {
+                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
+                    }, label: {
+                        StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
+                    })
                 }
                 .listRowSeparator(.hidden)
             }

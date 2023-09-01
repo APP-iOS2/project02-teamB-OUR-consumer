@@ -37,6 +37,10 @@ struct StudyDTO: Identifiable, Codable {
     var reportReason: [String]?
     var reportUserId: [String]?
     
+    var reportCount: Int {
+        return reportReason?.count ?? 0
+    }
+    
     func toStudyDetail(creator: User, currentMembers: [User], comments: [StudyComment], isJoined: Bool) -> StudyDetail {
             return StudyDetail(
                 id: self.id ?? UUID().uuidString,
