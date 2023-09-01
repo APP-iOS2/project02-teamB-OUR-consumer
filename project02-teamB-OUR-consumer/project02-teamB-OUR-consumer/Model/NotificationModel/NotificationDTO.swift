@@ -11,7 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct NotificationDTO: Identifiable,Codable{
-    @DocumentID var id: ID?
+//    @DocumentID var id: ID?
+    let id: ID?
     let userId: ID
     let type: String
     let content: String

@@ -41,6 +41,7 @@ class AlarmFireService {
                 completion: @escaping (String) -> () )
     {
         let date = notification.timestamp
+        print(notification)
         guard var dto = notification.asDictionary else { return }
         
         if let _ = dto["createdDate"] {

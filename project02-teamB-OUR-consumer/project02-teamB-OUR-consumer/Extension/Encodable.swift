@@ -18,6 +18,16 @@ extension Encodable {
     /// Object to Dictionary
     /// cf) Dictionary to Object: JSONDecoder().decode(Object.self, from: dictionary)
     var asDictionary: [String: Any]? {
+        print(self)
+        guard let object = try? JSONEncoder().encode(self) else {
+            return nil
+        }
+        
+        print(object)
+        
+        guard let dictionary = try? JSONSerialization.jsonObject(with: object) as? [String: Any] else {
+            return nil
+        }
         guard let object = try? JSONEncoder().encode(self),
               let dictinoary = try? JSONSerialization.jsonObject(with: object, options: []) as? [String: Any] else { return nil }
         return dictinoary

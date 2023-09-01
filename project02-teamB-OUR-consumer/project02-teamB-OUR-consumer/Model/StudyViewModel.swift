@@ -73,6 +73,7 @@ class StudyViewModel: ObservableObject {
     @Published var studyDetail: StudyDetail = StudyDetail.defaultStudyDetail
     @Published var selectedComment: StudyComment = StudyComment.defaultComment
     @Published var alertCase: StudyDetailAlert = .normal
+    let alarm = AlarmViewModel(dependency: AlarmViewModel.Dependency(alarmFireSerivce: AlarmFireService()))
     
     // MARK: 전체 스터디 불러오는 함수
     func fetchStudy() {
@@ -247,6 +248,7 @@ class StudyViewModel: ObservableObject {
             print("Document successfully updated")
         } catch {
             print("Error updating document: \(error)")
+            return
         }
         do {
             try await dbRef.collection(.studyGroup).document(studyDetail.id).updateData([
@@ -254,7 +256,10 @@ class StudyViewModel: ObservableObject {
             ])
         } catch {
             print("Error updating currentMemberids: \(error)")
+            return
         }
+        
+        alarm.sendNotification(type: .studyJoin, content: "스터디에 참가하였습니다")
         await reloadStudyDetail()
     }
     
@@ -269,6 +274,7 @@ class StudyViewModel: ObservableObject {
             print("Error adding doucment")
         }
         
+        alarm.sendNotification(type: .studyComment, content: "님이 모집중인 스터디에 신규 댓글이 달렸습니다")
         await reloadStudyDetail()
     }
     
