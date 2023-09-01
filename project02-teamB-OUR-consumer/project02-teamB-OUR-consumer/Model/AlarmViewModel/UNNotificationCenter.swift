@@ -15,7 +15,7 @@ class UNNotificationService{
     private let userNotiCenter = UNUserNotificationCenter.current()
     
     private init(){}
-    
+
     // 사용자에게 알림 권한 요청
     func requestAuthNoti() {
         let notiAuthOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])

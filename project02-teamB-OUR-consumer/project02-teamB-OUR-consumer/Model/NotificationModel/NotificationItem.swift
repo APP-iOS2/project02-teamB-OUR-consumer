@@ -12,7 +12,7 @@ typealias ID = String
 
 struct NotificationItem: Identifiable{
     let id: ID
-    let user: User
+    let userId: ID
     let type: NotificationType
     let content: String //
     var isRead: Bool
