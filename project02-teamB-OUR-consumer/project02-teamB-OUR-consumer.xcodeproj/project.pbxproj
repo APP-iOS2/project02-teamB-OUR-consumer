@@ -234,7 +234,6 @@
 		9650868A2A94D35900CDA0FC /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		9650868C2A95A86800CDA0FC /* UNNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNNotificationCenter.swift; sourceTree = "<group>"; };
 		965086912A95D29B00CDA0FC /* AlarmFireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFireService.swift; sourceTree = "<group>"; };
-		9660B4852AA098D9009D2FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9660B4872AA0A954009D2FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9688378A2A9C3E1C004B98E1 /* Resume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resume.swift; sourceTree = "<group>"; };
 		9688378B2A9C3E1C004B98E1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -799,7 +798,6 @@
 		FA435A742A9746C8000A2A11 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				9660B4852AA098D9009D2FA6 /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
