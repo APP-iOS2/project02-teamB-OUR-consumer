@@ -35,23 +35,32 @@ final class FeedStorageManager {
         try await userReference(id: id).child(path).data(maxSize: 3 * 1024 * 1024)
     }
     
-    func saveImage(data: Data, id: String) async throws -> (path: String, name: String, url: URL) {
+    func saveImage(data: Data, id: String) async throws -> URL {
         
-        
+//        metadata 삭제, return 타입 URL 만 받음
 //        let meta = StorageMetadata()
 //        meta.contentType = "image/jpeg"
         
         let path = "\(UUID().uuidString).jpeg"
-        let returnedMetaData = try await userReference(id: id).child(path).putDataAsync(data, metadata: nil)
-        
-        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else {
-            throw URLError(.badURL)
+        do {
+            //파베에 사진 저장하기
+            let _ = try await userReference(id: id).child(path).putDataAsync(data, metadata: nil)
+            
+            // 저장된 사진의 url 받아오기
+            let test = try await userReference(id: id).child(path).downloadURL()
+            // url 리턴하기
+            return test
+        } catch {
+            throw StorageErrorCode.quotaExceeded
         }
         
         
-        let test = try await userReference(id: id).child(path).downloadURL()
+    
+//        guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else {
+//            throw URLError(.badURL)
+//        }
         
-        return (returnedPath, returnedName, test)
+//        return test
     }
     
     
