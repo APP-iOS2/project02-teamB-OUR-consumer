@@ -41,7 +41,7 @@ struct StudyDetailView: View {
                                 .frame(height: 200)
                                 .clipped()
                         } placeholder: {
-                            Image("OUR_Logo")
+                            Image("our_placeholder")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(height: 200)
@@ -295,7 +295,7 @@ struct StudyDetailView: View {
                 .presentationDetents([.medium])
         }
         .sheet(isPresented: $isShowingReportSheet) {
-            StudyCommentReportView(viewModel: viewModel, isStudy: true)
+            StudyReportView(viewModel: viewModel, isStudy: true)
         }
         .alert(isPresented: $showAlert, content: {
             if viewModel.alertCase == .normal {
