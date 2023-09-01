@@ -110,8 +110,8 @@ class StudyViewModel: ObservableObject {
                     continue
                 }
             }
-            
-            return comments
+            let sortedArray = comments.sorted { $0.createdAt.toDate() < $1.createdAt.toDate() }
+            return sortedArray
         } catch let error {
             print(error.localizedDescription)
             return []

@@ -36,7 +36,7 @@ final class FeedStorageManager {
     }
     
     func saveImage(data: Data, id: String) async throws -> URL {
-        
+      
 //        metadata 삭제, return 타입 URL 만 받음
 //        let meta = StorageMetadata()
 //        meta.contentType = "image/jpeg"

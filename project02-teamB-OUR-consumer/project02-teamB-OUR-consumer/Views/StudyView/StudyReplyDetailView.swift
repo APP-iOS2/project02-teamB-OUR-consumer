@@ -9,20 +9,23 @@ import SwiftUI
 
 struct StudyReplyDetailView: View {
     
+    @State var userViewModel: UserViewModel = UserViewModel()
     @StateObject var studyViewModel: StudyViewModel
     var comment: StudyComment
+
     
     // studycomment니까 실제로 댓글 달면 studygroupcomment로 달아줘야겠죠?? 다시 디비로 보낼때도 변환하는 과정이 필요합니다!!
     
     @State var index: Int
     
+    @State var isShowingProfileSheet: Bool = false
     @Binding var showAlert: Bool
 
     var body: some View {
         LazyVStack {
             HStack {
                 Button {
-                    //해당 프로필 시트 올려주는 ~
+                    isShowingProfileSheet = true
                 } label: {
                     if comment.user.profileImage != nil {
                         Image(comment.user.profileImage ?? "OUR_Logo")
@@ -37,6 +40,10 @@ struct StudyReplyDetailView: View {
                             .frame(width: 40)
                             .clipShape(Circle())
                     }
+                }
+                .sheet(isPresented: $isShowingProfileSheet) {
+                    SheetView(user: comment.user, userViewModel: userViewModel)
+                        .presentationDetents([.medium, .medium])
                 }
                 
                 VStack(alignment: .leading, spacing: 5){
@@ -66,7 +73,7 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         NavigationLink {
-                            StudyCommentReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
+                            StudyReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)

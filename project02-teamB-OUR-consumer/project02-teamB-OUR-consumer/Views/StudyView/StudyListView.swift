@@ -53,18 +53,14 @@ struct StudyListView: View {
             }
             .listStyle(.plain)
             .navigationTitle("스터디 모임")
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink {
-                        //   SearchView()
-                    } label: {
-                        Label("검색", systemImage: "magnifyingglass")
-                            .foregroundColor(.black)
-                    }
-                    
-                }
-            }
             .onAppear {
+                studyViewModel.fetchStudy()
+                guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                    return
+                }
+                userViewModel.fetchUser(userId: userId)
+            }
+            .refreshable {
                 studyViewModel.fetchStudy()
                 guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                     return
