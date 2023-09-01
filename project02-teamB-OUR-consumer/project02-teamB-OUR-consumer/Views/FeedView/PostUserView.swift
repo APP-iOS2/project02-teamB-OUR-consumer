@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PostUserView: View {
-    @State var user: User = User.defaultUser
-    @State var userViewModel: UserViewModel = UserViewModel()
+//    var user: User
+    @StateObject var userViewModel: UserViewModel = UserViewModel()
     var post: Post
     @StateObject var postViewModel: PostViewModel = PostViewModel()
     
@@ -61,8 +61,8 @@ struct PostUserView: View {
                 .foregroundColor(.gray)
             }
             .sheet(isPresented: $isShowingSheet) {
-                SheetView(user: user, userViewModel: userViewModel)
-                    .presentationDetents([.medium, .medium])
+                SheetView(user: postViewModel.postModel.creator, post: post)
+                    .presentationDetents([.height(300), .height(300)])
             }
             // 수정, 삭제
             .sheet(isPresented: $isShowingPostOptionSheet) {

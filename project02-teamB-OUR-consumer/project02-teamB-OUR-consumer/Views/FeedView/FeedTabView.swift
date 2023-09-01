@@ -23,6 +23,9 @@ struct FeedTabView: View {
                 }
             }
         }
+        .refreshable {
+            postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+        }
     }
 }
 
