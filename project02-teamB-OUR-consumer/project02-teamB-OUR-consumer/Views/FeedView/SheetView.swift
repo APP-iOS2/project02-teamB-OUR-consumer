@@ -21,10 +21,12 @@ extension Color {
 
 struct SheetView: View {
     var user: User
-    @State var userViewModel: UserViewModel
+    var post: Post
+    @State var postModel: PostModel = PostModel.samplePostModel
+    @EnvironmentObject var postViewModel: PostViewModel
     
     var frameWidth: Double = 355
-    var frameHeight: Double = 120
+    var frameHeight: Double = 80
     var frameCornerRadius: Double = 25
     
     var body: some View {
@@ -50,15 +52,15 @@ struct SheetView: View {
                     .bold()
                 }
                 Spacer()
-                Button {
-                    
-                } label: {
-                    ZStack {
-                        FollowingButtonView()
-                            .foregroundColor(Color(hex: 0x090580))
-                            .padding(.trailing, 10)
-                    }
-                }
+//                Button {
+//
+//                } label: {
+//                    ZStack {
+//                        FollowingButtonView()
+//                            .foregroundColor(Color(hex: 0x090580))
+//                            .padding(.trailing, 10)
+//                    }
+//                }
             }
             .padding()
             HStack {
@@ -93,14 +95,14 @@ struct SheetView: View {
 //                    }
                     Spacer()
                     VStack {
-                        Text(String(user.numberOfFollower))
+                        Text("\(user.follower?.count ?? 0)")
                             .font(.system(size: 20))
                             .bold()
                         Text("Followers")
                     }
                     Spacer()
                     VStack {
-                        Text(String(user.numberOfFollowing))
+                        Text("\(user.following?.count ?? 0)")
                             .font(.system(size: 20))
                             .bold()
                         Text("Following")
@@ -127,16 +129,12 @@ struct SheetView: View {
                     .bold()
                     .padding()
             }
-//            .onAppear {
-//                userViewModel.fetchUser(userId: user.id ?? "")
-//            }
         }
-
     }
 }
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(user: User.defaultUser, userViewModel: UserViewModel())
+        SheetView(user: User.defaultUser, post: Post.samplePost)
     }
 }

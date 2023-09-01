@@ -51,7 +51,7 @@ struct PostReportView: View {
                 postViewModel.reportPost(postId: post.id ?? "", report: reportCategory)
                 
                 dismiss()
-                showToast.toggle()
+//                showToast.toggle()
             },
                   secondaryButton: .cancel(Text("취소")))
         }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct FeedView: View {
     
-    @EnvironmentObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
+//    @State var user: User = User.defaultUser
     @State private var postModel: PostModel = PostModel.samplePostModel
     @State private var isShowingSheet: Bool = false
     @State private var isScrapFeed: Bool = false
