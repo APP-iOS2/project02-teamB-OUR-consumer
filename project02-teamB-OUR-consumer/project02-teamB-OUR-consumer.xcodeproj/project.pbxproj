@@ -32,6 +32,9 @@
 		6332A6002A95A3640047E2DD /* PostButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A5FF2A95A3640047E2DD /* PostButtonView.swift */; };
 		6332A6032A95D1220047E2DD /* ScrapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A6022A95D1220047E2DD /* ScrapView.swift */; };
 		6332A60B2A98648E0047E2DD /* PostOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6332A60A2A98648E0047E2DD /* PostOptionView.swift */; };
+		636272E72AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */; };
+		636272E92AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */; };
+		636272EB2AA0E06300CC78EB /* PostRecruitLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */; };
 		6377FA412A9F7A7A00D8816C /* PostReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6377FA402A9F7A7A00D8816C /* PostReportView.swift */; };
 		63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */; };
 		642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */; };
@@ -200,6 +203,9 @@
 		6332A5FF2A95A3640047E2DD /* PostButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostButtonView.swift; sourceTree = "<group>"; };
 		6332A6022A95D1220047E2DD /* ScrapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapView.swift; sourceTree = "<group>"; };
 		6332A60A2A98648E0047E2DD /* PostOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOptionView.swift; sourceTree = "<group>"; };
+		636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailPhotoEditorView.swift; sourceTree = "<group>"; };
+		636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitPrivateSettingView.swift; sourceTree = "<group>"; };
+		636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRecruitLocationView.swift; sourceTree = "<group>"; };
 		6377FA402A9F7A7A00D8816C /* PostReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportView.swift; sourceTree = "<group>"; };
 		63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyDetailView.swift; sourceTree = "<group>"; };
 		642B35EC2A9ED70600494AF8 /* AdminAnnounceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAnnounceView.swift; sourceTree = "<group>"; };
@@ -383,6 +389,9 @@
 				6377FA402A9F7A7A00D8816C /* PostReportView.swift */,
 				6332A60A2A98648E0047E2DD /* PostOptionView.swift */,
 				63AA0FC82A9C8D18002D7982 /* PostModifyDetailView.swift */,
+				636272E82AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift */,
+				636272EA2AA0E06300CC78EB /* PostRecruitLocationView.swift */,
+				636272E62AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift */,
 				6332A5FF2A95A3640047E2DD /* PostButtonView.swift */,
 				9B35B2812A947C7100AD72D7 /* FollowingButtonView.swift */,
 				632883752A94F0ED004DC84E /* CommentView.swift */,
@@ -978,6 +987,7 @@
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
+				636272E72AA0829900CC78EB /* PostModifyDetailPhotoEditorView.swift in Sources */,
 				D5755B112A9716FB000BC8E2 /* StudyRecruitStore.swift in Sources */,
 				642B35ED2A9ED70600494AF8 /* AdminAnnounceView.swift in Sources */,
 				118AA9732A95A24E006946C3 /* MyIntroEditView.swift in Sources */,
@@ -1002,6 +1012,7 @@
 				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
 				63AA0FC92A9C8D18002D7982 /* PostModifyDetailView.swift in Sources */,
+				636272E92AA0E04C00CC78EB /* PostRecruitPrivateSettingView.swift in Sources */,
 				FAB51C792A96771F0047A725 /* IdClassStore.swift in Sources */,
 				118AA96D2A95099F006946C3 /* MyEduEditView.swift in Sources */,
 				962B7E1F2A95F05700083790 /* MyEduMoreView.swift in Sources */,
@@ -1037,6 +1048,7 @@
 				A0BCB8DE2A94917F00A47841 /* StudyReplyView.swift in Sources */,
 				FAB51C8B2A9678870047A725 /* Date.swift in Sources */,
 				A05CDDA32A9C8CD500B4948C /* MyFollowView.swift in Sources */,
+				636272EB2AA0E06300CC78EB /* PostRecruitLocationView.swift in Sources */,
 				A05CDD992A9C73C300B4948C /* ProfileHeaderView.swift in Sources */,
 				9B35B2802A94598400AD72D7 /* IdStore.swift in Sources */,
 				649085BA2A96068600506F46 /* RecommendDetailView.swift in Sources */,

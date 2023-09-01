@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct PostUserView: View {
-    @State var user: User = User.defaultUser
-    @State var userViewModel: UserViewModel = UserViewModel()
+//    var user: User
+    @StateObject var userViewModel: UserViewModel = UserViewModel()
     var post: Post
-    @StateObject var postViewModel: PostViewModel
+    @StateObject var postViewModel: PostViewModel = PostViewModel()
     
     @State private var postModel: PostModel = PostModel.samplePostModel
     
     @Binding var isShowingSheet: Bool
+    @State private var isShowingPostOptionSheet: Bool = false
+    @State private var isShowingPostReportView: Bool = false
+    @State private var isShowingModifyDetailView: Bool = false
     
     var body: some View {
         
@@ -31,30 +34,59 @@ struct PostUserView: View {
                         .clipShape(Circle())
                         .frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
-                        HStack {
-                            Text("\(postModel.creator.name)")
-                                .font(.system(size: 16))
-                                .foregroundColor(.black)
-                                .bold()
-                        }
+                        Text("\(postViewModel.postModel.creator.name)")
+                            .font(.system(size: 16))
+                            .foregroundColor(.black)
+                            .bold()
+                        Text("\(postViewModel.postModel.location)")
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
                     }
                 }
+                
                 Spacer()
+                
+                Button {
+                    if post.creator == getCurrentUser() {
+                        isShowingPostOptionSheet.toggle()
+                    } else {
+                        isShowingPostReportView.toggle()
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .padding(2)
+                }
+                .foregroundColor(.gray)
             }
             .sheet(isPresented: $isShowingSheet) {
-                SheetView(user: user, userViewModel: userViewModel)
-                    .presentationDetents([.medium, .medium])
+                SheetView(user: postViewModel.postModel.creator, post: post)
+                    .presentationDetents([.height(300), .height(300)])
+            }
+            // 수정, 삭제
+            .sheet(isPresented: $isShowingPostOptionSheet) {
+                PostOptionView(post: post, isShowingPostOptionSheet: $isShowingPostOptionSheet, isShowingModifyDetailView: $isShowingModifyDetailView)
+                    .presentationDetents([.height(350), .height(350)])
+            }
+            // 신고
+            .sheet(isPresented: $isShowingPostReportView) {
+                PostReportView(post: post, isShowingPostReportView: $isShowingPostReportView)
+                    .presentationDetents([.height(300), .height(300)])
             }
         }
         .onAppear {
-            postViewModel.getPost(of: post) { postModel in
-                self.postModel = postModel
-            }
+            postViewModel.getPost(of: post)
         }
+    }
+    func getCurrentUser() -> String {
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return "" }
+        return userId
     }
 }
 struct PostUserView_Previews: PreviewProvider {
     static var previews: some View {
-        PostUserView(post: Post.samplePost, postViewModel: PostViewModel(), isShowingSheet: .constant(false))
+        PostUserView(post: Post.samplePost, isShowingSheet: .constant(false))
+            .environmentObject(PostViewModel())
     }
 }

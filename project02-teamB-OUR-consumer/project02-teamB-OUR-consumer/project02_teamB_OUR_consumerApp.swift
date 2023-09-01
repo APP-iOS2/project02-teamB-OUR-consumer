@@ -72,6 +72,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
+
+    @StateObject var postViewModel = PostViewModel()
+
 //    @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()        //피드  등록모델
     @StateObject var studyStoreViewModel = StudyRecruitStore()      //스터디 등록모델
@@ -83,13 +86,13 @@ struct project02_teamB_OUR_consumerApp: App {
             NavigationStack {
                 LoginView()
             }
+            .environmentObject(postViewModel)
 //            .environmentObject(alarmViewModel)
             .environmentObject(resumeViewModel)
             .environmentObject(feedStoreViewModel)
             .environmentObject(studyStoreViewModel)
             .environmentObject(sharedViewModel)
             .environmentObject(userViewModel)
-
         }
     }
 }
