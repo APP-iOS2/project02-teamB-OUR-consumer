@@ -58,7 +58,7 @@ extension LocationManager: CLLocationManagerDelegate {
         
         var test:String = ""
         let geocoder = CLGeocoder()
-        let locale = Locale(identifier: "en_US_POSIX")
+        let locale = Locale(identifier: "ko_KR")
         
         let data = try await geocoder.reverseGeocodeLocation(location, preferredLocale: locale)
         
