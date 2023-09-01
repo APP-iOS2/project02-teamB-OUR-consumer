@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileBar: View {
     @Binding var isMyProfile: Bool
     
+    
+    
     var body: some View {
         HStack {
             if isMyProfile {
@@ -24,6 +26,8 @@ struct ProfileBar: View {
             if isMyProfile {
                 NavigationLink {
                     MyBookMarkView()
+                        .environmentObject(StudyViewModel())
+                        .environmentObject(UserViewModel())
                 } label: {
                     Image(systemName: "bookmark")
                         .font(.system(size: 24))
