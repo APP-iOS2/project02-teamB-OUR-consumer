@@ -48,6 +48,8 @@ struct StudyComment: Identifiable {
     var user: User
     var content: String
     var createdAt: String
+    var reportReasons: [String] = []
+    var reportUserIds: [String] = []
     
     var isMine: Bool {
         guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
@@ -80,7 +82,9 @@ class StudyViewModel: ObservableObject {
                 for document in snapshot.documents {
                     do {
                         let item = try document.data(as: StudyDTO.self)
-                        temp.append(item)
+                        if item.deadline.toDate() >= Date() && item.reportCount < 5 {
+                            temp.append(item)
+                        }
                     } catch let error {
                         print(error)
                         return
@@ -101,9 +105,11 @@ class StudyViewModel: ObservableObject {
             for document in snapshot.documents {
                 do {
                     let item = try await document.data(as: StudyCommentDTO.self)
-                    if let user = await self.getUserInfo(userId: item.userId ?? "") {
-                        let studyComment = item.toStudyComments(user: user)
-                        comments.append(studyComment)
+                    if item.reportCount < 5 {
+                        if let user = await self.getUserInfo(userId: item.userId ?? "") {
+                            let studyComment = item.toStudyComments(user: user)
+                            comments.append(studyComment)
+                        }
                     }
                 } catch let error {
                     print(error.localizedDescription)
@@ -201,6 +207,25 @@ class StudyViewModel: ObservableObject {
             "reportReason": self.studyDetail.reportReasons,
             "reportUserId": self.studyDetail.reportUserIds
         ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        await reloadStudyDetail()
+    }
+    
+    func reportComment(report: ReportData) async {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        self.selectedComment.reportReasons.append(report.reason)
+        self.selectedComment.reportUserIds.append(report.userId)
+        dbRef.collection(.studyGroup).document(self.studyDetail.id).collection(.studyComments).document(self.selectedComment.id).setData([
+            "reportReason": self.selectedComment.reportReasons,
+            "reportUserId": self.selectedComment.reportUserIds
+        ], merge: true) { err in
             if let err = err {
                 print("Error updating document: \(err)")
             } else {

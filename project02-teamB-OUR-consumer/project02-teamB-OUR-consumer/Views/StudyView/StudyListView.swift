@@ -43,7 +43,6 @@ struct StudyListView: View {
                 
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
                     NavigationLink(destination: {
-                        
                         StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
                     }, label: {
                         StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
