@@ -257,18 +257,18 @@ class AlarmViewModel: ObservableObject{
         let items = dto.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
         let models = self.mapToDictionary(items: items)
         
-        for (key,value) in models.0{
+        for (key,item) in models.0{
             if let value = self.personalNotiItem[key]{
-                self.personalNotiItem[key]?.append(contentsOf: value)
+                self.personalNotiItem[key]?.append(contentsOf: item)
             }else{
-                self.personalNotiItem[key] = value
+                self.personalNotiItem[key] = item
             }
         }
-        for (key,value) in models.1{
+        for (key,item) in models.1{
             if let value = self.publicNotiItem[key]{
-                self.publicNotiItem[key]?.append(contentsOf: value)
+                self.publicNotiItem[key]?.append(contentsOf: item)
             }else{
-                self.publicNotiItem[key] = value
+                self.publicNotiItem[key] = item
             }
         }
         return items
