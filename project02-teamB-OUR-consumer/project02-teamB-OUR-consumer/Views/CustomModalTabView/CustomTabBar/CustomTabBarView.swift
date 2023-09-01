@@ -9,12 +9,19 @@ import SwiftUI
 
 struct CustomTabBarView: View {
 
-    @ObservedObject var model = CustomTabBarViewModel()
-    @EnvironmentObject var alarmViewModel: AlarmViewModel
+
+    @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
+    
+    @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
+//    @StateObject var userViewModel = UserViewModel()
+//    @StateObject var resumeViewModel = ResumeViewModel()
+    @StateObject var studyViewModel = StudyViewModel()
+    
 
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
-    
+
+
     let tabBarImageNames = ["house.fill",  "book.fill", "plus.app", "bell.fill", "person.fill"]
     let tabBarTextNames = ["피드", "스터디", "", "알림", "프로필"]
     
@@ -28,18 +35,26 @@ struct CustomTabBarView: View {
                     FeedTabView()
                 case 1:
                     StudyListView()
+//                        .environmentObject(userViewModel)
+                        .environmentObject(studyViewModel)
                 case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 case 3:
                     AlarmContainer()
+//                        .environmentObject(userViewModel)
+                        .environmentObject(alarmViewModel)
                 case 4:
                     MyMain()
+//                        .environmentObject(userViewModel) -> App 으로 이동
+                        .environmentObject(studyViewModel)
+//                        .environmentObject(resumeViewModel)
                 default:
                     EmptyView()
                 }
             }
-
             
+
+            Spacer()
             
             ZStack {
                 
@@ -86,24 +101,24 @@ struct CustomTabBarView: View {
                                         .presentationDetents([.fraction(0.45)])
                                         .presentationDragIndicator(.visible)
                                 }
-                                
-                                
                             } else {
                                 VStack {
                                     if tabBarImageNames[index] == "bell.fill" {
                                         AlarmTabBarImage(selectedIndex: $selectedIndex, hasUnreadData: $alarmViewModel.hasUnreadData, index: index)
                                         .frame(width: 20, height: 35, alignment: .bottom)
+                                        
                                     }
                                     else {
                                         Image(systemName: tabBarImageNames[index])
                                             .font(.system(size: 22, weight: .light))
-                                            .foregroundColor(selectedIndex == index ? Color(.black) : Color(.tertiaryLabel))
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(hex: "#a6a6a6"))
                                         
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
-
-                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : .gray)
+                                            .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
+                                            
                                         
+
                                     }
                                 }
                             }
@@ -122,10 +137,12 @@ struct CustomTabBarView: View {
                 
             }
             .onAppear {
+                print("프린트 다시불림")
                 model.getReportCount()
             }
             
-        }.navigationBarBackButtonHidden()
+        }
+        .navigationBarBackButtonHidden()
             
     }
 }
@@ -133,6 +150,5 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBarView()
-            .environmentObject(AlarmViewModel())
     }
 }

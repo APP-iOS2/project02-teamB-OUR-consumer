@@ -166,6 +166,38 @@ final class FeedViewModelTemp: ObservableObject {
 }
 
 
+///Service  Enum
+struct Recruit {
+    /// 컬렉션 Enum
+    enum collection: String {
+        case anounce = "Announcement"
+        case follow = "follow"
+        case noti = "notification"
+        case posts = "posts"
+        case resume = "resumes"
+        case users = "users"
+        case studypost = "studyGroup"
+        case studyComent = "studyGroupComments"
+        
+    }
+    
+    /// 조건타입 Enum
+    enum WhereType {
+        case equal          // ==
+        case lessThan       // <
+        case overThan       // >
+        case lessOrEqual    // <=
+        case overOrEqual    // >=
+        case notEqual       // !=
+    }
+    
+    /// 정렬타입 Enum
+    enum OrderbyType {
+        case asc        //오름차순
+        case desc       //내림차순
+    }
+    
+}
 
 /// Recruit Firebase CRUD
 final class RecruitService {
@@ -174,39 +206,6 @@ final class RecruitService {
     let db = Firestore.firestore()
     
     var isWorking: Bool = false
-    
-    ///Service  Enum
-    struct Recruit {
-        /// 컬렉션 Enum
-        enum collection: String {
-            case anounce = "Announcement"
-            case follow = "follow"
-            case noti = "notification"
-            case posts = "posts"
-            case resume = "resumes"
-            case users = "users"
-            case studypost = "studyGroup"
-            case studyComent = "studyGroupComments"
-            
-        }
-        
-        /// 조건타입 Enum
-        enum WhereType {
-            case equal          // ==
-            case lessThan       // <
-            case overThan       // >
-            case lessOrEqual    // <=
-            case overOrEqual    // >=
-            case notEqual       // !=
-        }
-        
-        /// 정렬타입 Enum
-        enum OrderbyType {
-            case asc        //오름차순
-            case desc       //내림차순
-        }
-        
-    }
     
 
     ///READ, FETCH 1개 데이터
@@ -522,7 +521,7 @@ final class RecruitService {
     ///- collection: 컬렉션 Enum
     ///- data: 데이터객체 where Encodable
     func add<T: Encodable>( collection col: Recruit.collection, data: T ) {
-                
+        print(data)
         let colRef: CollectionReference = db.collection("\(col.rawValue)")
         
 //        var dicData = [String : Any]()

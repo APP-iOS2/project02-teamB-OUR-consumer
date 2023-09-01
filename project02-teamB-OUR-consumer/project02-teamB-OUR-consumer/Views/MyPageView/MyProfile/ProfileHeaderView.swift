@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileHeaderView: View {
     
     @ObservedObject var userViewModel: UserViewModel
+    
+    @EnvironmentObject var myViewModel: UserViewModel
     @Binding var isMyProfile: Bool
     @Binding var isFollowing: Bool
     
@@ -80,6 +82,7 @@ struct ProfileHeaderView: View {
                     
                     Button {
                         // TODO: 공유 페이지로 이동
+                        
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 5)
@@ -92,7 +95,15 @@ struct ProfileHeaderView: View {
                 } else {
                     // 팔로우 버튼
                     Button {
-                        isFollowing.toggle()
+                        if isFollowing == true {
+                            guard let userId = userViewModel.user?.id else { return }
+                            myViewModel.unfollowUser(targetUserId: userId)
+                            isFollowing = false
+                        } else {
+                            guard let userId = userViewModel.user?.id else { return }
+                            myViewModel.followUser(targetUserId: userId)
+                            isFollowing = true
+                        }
                     } label: {
                         MyFollowButton(isFollowing: $isFollowing)
                     }
@@ -109,6 +120,6 @@ struct ProfileHeaderView: View {
 
 struct ProfileHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView(userViewModel: UserViewModel(), isMyProfile: .constant(false), isFollowing: .constant(false))
+        ProfileHeaderView(userViewModel: UserViewModel(), isMyProfile: .constant(true), isFollowing: .constant(false))
     }
 }

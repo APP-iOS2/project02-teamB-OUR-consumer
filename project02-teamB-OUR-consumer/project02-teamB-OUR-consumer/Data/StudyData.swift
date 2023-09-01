@@ -14,7 +14,7 @@ struct StudyDTO: Identifiable, Codable {
     // study Id => 추후 documentId로 바꿀 수도 있음
     @DocumentID var id: String?
     // study 배경 Image
-    var imageString: String?
+    var imageString: [String]?
     // study를 만든 사람의 id
     var creatorId: String
     // study 제목
@@ -37,7 +37,7 @@ struct StudyDTO: Identifiable, Codable {
     var reportReason: [String]?
     var reportUserId: [String]?
     
-    func toStudyDetail(creator: User, currentMembers: [User], comments: [StudyComment]) -> StudyDetail {
+    func toStudyDetail(creator: User, currentMembers: [User], comments: [StudyComment], isJoined: Bool) -> StudyDetail {
             return StudyDetail(
                 id: self.id ?? UUID().uuidString,
                 imageString: self.imageString,
@@ -54,7 +54,8 @@ struct StudyDTO: Identifiable, Codable {
                 totalMemberCount: self.totalMemberCount,
                 comments: comments,
                 reportReasons: self.reportReason ?? [],
-                reportUserIds: self.reportUserId ?? []
+                reportUserIds: self.reportUserId ?? [],
+                isJoined: isJoined
             )
         }
 }
@@ -65,19 +66,18 @@ extension StudyDTO {
     }
 }
 
-struct StucyCommentDTO: Identifiable, Codable {
+struct StudyCommentDTO: Identifiable, Codable {
     @DocumentID var id: String?
     var userId: String
     var content: String
     var createdAt: String
-
     
     func toStudyComments(user: User) -> StudyComment {
-            return StudyComment(
-                id: self.id ?? UUID().uuidString,
-                user: user,
-                content: content,
-                createdAt: createdAt
-            )
-        }
+        return StudyComment(
+            id: self.id ?? UUID().uuidString,
+            user: user,
+            content: content,
+            createdAt: createdAt
+        )
+    }
 }

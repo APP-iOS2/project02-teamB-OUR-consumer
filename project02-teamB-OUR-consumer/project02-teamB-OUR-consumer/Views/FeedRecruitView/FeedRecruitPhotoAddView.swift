@@ -70,7 +70,7 @@ struct FeedRecruitPhotoAddView: View {
                                     
                                     Image(uiImage: image)
                                         .resizable()
-                                    //.scaledToFill()
+                                        .scaledToFit()
                                         .frame(width:150, height:150)
                                         .cornerRadius(10)
                                 }
@@ -99,15 +99,15 @@ struct FeedRecruitPhotoAddView: View {
                     if let data =  try await image.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
                             images.append(uiImage)
-                            print("온체인지-1\(uiImage)")
+                            //print("온체인지-1\(uiImage)")
                             
                         }
                     }
                 }
                 imageData = images
-                print("온체인지 \(imageData)")
+                //print("온체인지 \(imageData)")
             }
-
+            
             
         }
         

@@ -11,12 +11,14 @@ import CoreLocationUI
 import CoreLocation
 import PhotosUI
 
+
 struct FeedRecruitView: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
     
-    @StateObject var feedStoreViewModel: FeedRecruitStore = FeedRecruitStore()
+    @EnvironmentObject var feedStoreViewModel: FeedRecruitStore
     
+    let userID: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue ) ?? ""
     @State var privacySetting: PrivacySetting = PrivacySetting.Public
     @State var content: String = ""
     @State var locationAddress: String = ""
@@ -26,13 +28,16 @@ struct FeedRecruitView: View {
     @State var isAlert: Bool = false
     @State var createdDate: Date = Date()
     @State var newFeed: FeedRecruitModel = FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
-
     
+    
+    //MARK: - 1번 Toast 선언하기
+    @State var toast: Toast? = nil
     
     var body: some View {
         
         NavigationStack {
             ScrollView{
+                
                 VStack(alignment: .leading){
                     //공개범위 뷰
                     FeedRecruitPrivateSettingView(privacySetting: $privacySetting)
@@ -55,67 +60,76 @@ struct FeedRecruitView: View {
             }
             .toolbar {
                 ToolbarItem(placement:.navigationBarLeading) {
-                    Button("취소") {
-                        
-                        dismiss()
-                    }
+                    Button("취소") { dismiss() }
                 }
+                
                 ToolbarItem(placement:.navigationBarTrailing) {
+                    
                     Button("등록") {
-                        isAlert = true
                         
                         if selectedItem.isEmpty {
-                            let newFeed1 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                            feedImagePath.removeAll()
+                            let newFeed1 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                             
                             self.newFeed = newFeed1
-                            print("사진 없을경우 \(newFeed)")
+                            
+                            
+                            //print("사진 없을 경우 : \(newFeed)")
+                            feedStoreViewModel.addFeed(newFeed)
+                            //MARK: - 3번 원하는 구간에서 메세지 넣어주기
+                            toast = Toast(style: .success, message: "등록 완료",  width: 110)
+                            //MARK: - 4번 Toast 선언 후 true/false 로 닫거나 dismiss()하기
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                dismiss()
+                            }
+                            
                             return
                         } else {
-                            
                             Task {
-                                try await  feedImagePath = feedStoreViewModel.returnImagePath(items: selectedItem)
-                                let newFeed2 = FeedRecruitModel(creator: "", content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                                
-                                self.newFeed = newFeed2
-                                print("사진 있을경우 \(newFeed)")
-                                //feedStoreViewModel.addFeed(newFeed2)
+                                do {
+                                    feedImagePath.removeAll()
+                                    
+                                    feedImagePath = try await feedStoreViewModel.returnImagePath(items: selectedItem)
+                                    
+                                    print("FeedImagePATH: \(feedImagePath)")
+                                    let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                                    
+                                    self.newFeed = newFeed2
+                                    feedStoreViewModel.addFeed(newFeed2)
+                                  
+                                    toast = Toast(style: .success, message: "등록 완료",  width: 110)
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                        dismiss()
+                                    }
+                                    //print("사진 있을 경우: \(newFeed)")        
+                                } catch {
+                                    toast = Toast(style: .error, message: "등록 실패",  width: 110)
+                                    print("등록 실패 \(error.localizedDescription)")
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                        dismiss()
+                                    }
+                                }
                             }
                         }
                     }
                     .disabled(content.isEmpty)
                 }
-                
             }
-
-            .navigationTitle("피드 등록")
-            .navigationBarTitleDisplayMode(.inline)
-            .alert("피드", isPresented: $isAlert) {
-               
-                Button("등록" ,role: .destructive) {
-
-                    print("얼러트에서 등록 후\(newFeed)")
-                    feedStoreViewModel.addFeed(newFeed)
-
-                    newFeed =  FeedRecruitModel(creator: "", content: "", location: "", privateSetting: false, reportCount: 0, postImagePath: [])
-
-
-                    dismiss()
-                }
-                Button("취소" ,role: .cancel) {
-                    isAlert = false
-                }
-            } message: {
-                Text("등록하시겠습니까?")
-
-            }
-            
-            
         }
+        //MARK: - 2. NavigationStack 타이틀과 같은 위치에 아래를 추가하기
+        .toastView(toast: $toast)
+        .navigationTitle("피드 등록")
+        .navigationBarTitleDisplayMode(.inline)
     }
+    
 }
+
+
 
 struct FeedRecruitView_Previews: PreviewProvider {
     static var previews: some View {
         FeedRecruitView()
+            .environmentObject(FeedRecruitStore())
     }
 }

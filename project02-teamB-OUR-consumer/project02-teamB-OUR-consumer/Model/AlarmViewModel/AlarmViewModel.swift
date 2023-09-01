@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Firebase
+import Combine
+
 
 typealias ASection = String
 typealias NotiItem = [ASection : [NotificationItem]]
@@ -14,22 +16,60 @@ typealias NotiItem = [ASection : [NotificationItem]]
 class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
+
     
     @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
     
-    var publicIds: [String] = []
-    var personalIds: [String] = []
+    struct Dependency{
+        let alarmFireSerivce: AlarmFireService
+
+    }
     
-    init(dependency: AlarmFireService = AlarmFireService()){
-        self.service = dependency
+    init(dependency: Dependency){
+        self.service = dependency.alarmFireSerivce
+
 
         if let hasUnreadData = UserDefaults.standard.value(forKey: "hasUnreadData") as? Bool {
             self.hasUnreadData = hasUnreadData
         }
     }
-
+    
+    
+    
+    func followButtonTapped(user id: ID) {
+//        userViewModel.followUser(targetUserId: id)
+    }
+    
+    func unfollowButtonTapped(user id: ID) {
+//        userViewModel.unfollowUser(targetUserId: id)
+    }
+    
+    
+    
+    /// 알림 생성하는 함수 : 알림의 Type 과 Content를 인자로 전달 --> 파이어베이스 notifications path에 저장하게 됩니다.
+    /// - Parameters:
+    ///   - type: 알림의 종류 EX) study 참여,포스팅 좋아요 등
+    ///   - content: 알림 메시지 Content
+    func sendNotification(type: NotificationType, content: String){
+        let uuid = UUID().uuidString
+        let userId =  "" //userViewModel.user?.id else { return }
+        var content = content
+        
+        if let userName = .some("value") {
+            content = userName + " 님이 \(content)"
+        }else{
+            content = "익명 님이 \(content)"
+        }
+        
+        let dto = NotificationDTO(id: uuid, userId: userId, type: type.value, content: content, isRead: false, createdDate: Date())
+        service.create(send: dto, completion: { result in
+            print("저장성공")
+        })
+    }
+    
+ 
     // 모든 알람을 읽은 상태로 만드는 메서드
     func markAllAsRead() {
         personalNotiItem = markNotificationsAsRead(personalNotiItem)
@@ -52,52 +92,39 @@ class AlarmViewModel: ObservableObject{
                 return newNotification
             }
         }
-
         // 뱃지 업데이트
         if !idsToUpdate.isEmpty {
             update(isReads: idsToUpdate)
         }
-        
         return newNotiItem
     }
- 
-    #if DEBUG
-    // sample model 생성
-    func createNoti(){
-        let personal = DummyModel.getPersonal()
-        let publicmodel = DummyModel.getPublic()
-        personal.forEach { model in
-            service.create(send: model, completion: { value in
-                print("success : \(value)")
-                print("sampleModel : \(model)")
-            })
-        }
-        publicmodel.forEach { model in
-            service.create(send: model, completion: { value in
-                print("success2: \(value)")
-                print("sampleModel2: \(model)")
-            })
-        }
-    }
-    #endif
-    
-    
-    func fetchNotificationItem(limit: Int = 10) {
-        service.read { [weak self] ids, notifiationDTO in
-            guard let self = self else { return }
-            
-            let items = notifiationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
-            
-            personalNotiItem = self.mapToDictionary(items: items,ids: ids).0
-            publicNotiItem = self.mapToDictionary(items: items,ids: ids).1
 
-            // UserDefaults에 알람 상태를 저장합니다.
-            UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
-            
-            // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-            self.hasUnreadData = !notifiationDTO.allSatisfy { $0.isRead }
-        }
+    func fetchNotificationItem(limit: Int = 10) {
+        service.read(completion: { [weak self] result in
+            guard let self else {return }
+            switch result{
+            case .success(let notificationDTO):
+                let items = notificationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
+                let models = self.mapToDictionary(items: items)
+                self.personalNotiItem = models.0
+                self.publicNotiItem = models.1
+                
+              
+                // UserDefaults에 알람 상태를 저장합니다.
+                UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
+                
+                // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+                self.hasUnreadData = !items.allSatisfy { $0.isRead }
+                
+                // 이 부분도 로깅으로 확인
+                print("hasUnreadData updated to: \(self.hasUnreadData)")
+            case .failure(let error):
+                print("error: \(error) -- \(#function)")
+            }
+        })
     }
+    
+
     
         
     func delete(notification set: IndexSet?, access: NotificationType.Access, key: ASection){
@@ -107,11 +134,11 @@ class AlarmViewModel: ObservableObject{
             switch access {
             case .public:
                 for index in set{
-                    willDeleteIds.append(publicIds[index])
+                    willDeleteIds.append(self.publicNotiItem[key]![index].id)
                 }
             case .personal:
                 for index in set{
-                    willDeleteIds.append(personalIds[index])
+                    willDeleteIds.append(self.personalNotiItem[key]![index].id)
                 }
             case .none:
                 return
@@ -134,19 +161,6 @@ class AlarmViewModel: ObservableObject{
                     return
                 }
             })
-        }else{
-            switch access {
-            case .public:
-                service.delete(ids: publicIds, completion: { string in
-                    print("Delete Success \(string)")
-                })
-            case .personal:
-                service.delete(ids: personalIds, completion: { string in
-                    print("Delete Success \(string)")
-                })
-            case .none:
-                return
-            }
         }
     }
     
@@ -178,14 +192,15 @@ class AlarmViewModel: ObservableObject{
         })
     }
     
+    private var cancelable = Set<AnyCancellable>()
 
     func addNewNotification() {
         // 새로운 알림 데이터를 생성
         let newNotification = NotificationDTO(
             id: UUID().uuidString,
             userId: "새로운 사용자 ID",
-            type: "follow",
-            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
+            type: "like",
+            content: "장수지님이 게시물을 좋아합니다.",
             isRead: false,
             createdDate: "2023-08-29 13:50:39".toDate() // 현재 날짜와 시간을 설정
         )
@@ -200,43 +215,36 @@ class AlarmViewModel: ObservableObject{
         }
     }
 
+
     private func getUser(user id: ID) -> User?{
+            
         guard
             let sampleUserName = ["박형환","박찬호","장수지"].randomElement()
         else {return nil}
         
-        return User(name: sampleUserName,
-                    email: "",
-                    profileImage: "",
-                    profileMessage: "")
+        return User(id: nil, name: sampleUserName, email: "", profileImage: nil, profileMessage: nil, follower: nil, following: nil)
     }
     
     
     /// Mapping To View Model
     /// - Parameter items: notification Item
     /// - Returns: public , personal
-    private func mapToDictionary(items: [NotificationItem],ids: [ID]) -> (NotiItem,NotiItem){
-        return zip(items, ids).reduce(into: (NotiItem(),NotiItem()), { original, models in
-            
-            let (item, id) = models
-            
+    private func mapToDictionary(items: [NotificationItem]) -> (NotiItem,NotiItem){
+        return items.reduce(into: (NotiItem(),NotiItem()), { original, models in
+            let item = models
             if item.type.getAccessLevel() == .personal{
                 let dotDate = item.createdDate.dotString()
                 if let items = original.0[dotDate]{
                     original.0[dotDate] = items + [item]
-                    personalIds.append(id)
                 }else{
                     original.0[dotDate] = [item]
-                    personalIds = [id]
                 }
             }else {
                 let dotDate = item.createdDate.dotString()
                 if let items = original.1[dotDate]{
                     original.1[dotDate] = items + [item]
-                    publicIds.append(id)
                 }else{
                     original.1[dotDate] = [item]
-                    publicIds = [id]
                 }
             }
         })
@@ -254,21 +262,21 @@ struct DummyModel{
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
+                            content: "장수지님이 팔로잉했습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "follow",
-                            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
+                            type: "like",
+                            content: "박형환님이 게시물을 좋아합니다.",
                             isRead: false,
                             createdDate: "2022-08-23 13:50:39".toDate()),
             
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "like",
-                            content: "@Tom_Johnson 님이 댓글을 남겼습니다.",
+                            type: "comments",
+                            content: "박찬호님이 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate())
         ]
@@ -280,28 +288,28 @@ struct DummyModel{
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@John_Doe 님이 팔로우했습니다 다다다 다다다다 다다.",
+                            content: "박찬호님이 팔로잉했습니다.",
+                            isRead: false,
+                            createdDate: "2023-08-21 13:50:39".toDate()),
+            
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "like",
+                            content: "장수지님이 게시물을 좋아합니다.",
+                            isRead: false,
+                            createdDate: "2022-08-23 13:50:39".toDate()),
+            
+            NotificationDTO(id: UUID().uuidString,
+                            userId: UUID().uuidString,
+                            type: "comments",
+                            content: "박형환님이 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2023-08-21 13:50:39".toDate()),
             
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
                             type: "follow",
-                            content: "@Jane_Smith 님이 게시물을 좋아합니다.",
-                            isRead: false,
-                            createdDate: "2022-08-23 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "like",
-                            content: "@Tom_Johnson 님이 댓글을 남겼습니다.",
-                            isRead: false,
-                            createdDate: "2023-08-21 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "comment",
-                            content: "@Emily_Davis 님이 팔로우했습니다.",
+                            content: "박찬호님이 팔로잉했습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate())
         ]
@@ -311,20 +319,20 @@ struct DummyModel{
         return [
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "studyAutoJoin",
-                            content: "@ddu님이 @Study_X에 가입했습니다.",
+                            type: "studyGrops",
+                            content: "박형환님이 @Study_X에 가입했습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate()),
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "studyReply",
-                            content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
+                            type: "studyGroupComments",
+                            content: "장수지님이 @Study_Y에 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2023-06-21 13:50:39".toDate()),
             NotificationDTO(id: UUID().uuidString,
                             userId: UUID().uuidString,
-                            type: "studyReply",
-                            content: "@jjang님이 @Study_X에 댓글을 남겼습니다.",
+                            type: "studyGroupComments",
+                            content: "박찬호님이 @Study_Z에 댓글을 남겼습니다.",
                             isRead: false,
                             createdDate: "2022-06-21 13:50:39".toDate())
         ]

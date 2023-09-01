@@ -22,7 +22,8 @@ class StudyRecruitStore: ObservableObject {
     let service = RecruitService()
 //    private let userCollection = Firestore.firestore().collection("StudyPosts")
 //
-    let dbRef = Firestore.firestore().collection("StudyPosts")
+    
+    let dbRef = Firestore.firestore().collection(Recruit.collection.studypost.rawValue)
     
     
     
@@ -36,6 +37,11 @@ class StudyRecruitStore: ObservableObject {
     func addFeed(_ study: StudyRecruitModel) {
         var temp = study
         temp.creator = userID
+        
+        //만약 StudyRecruitModel에서 currentMemberIds의 타입이 옵셔널일 경우
+        //여기서 옵셔널처리를 해줘야한다. -> nil일경우 빈배열을 생성해주는 작업.
+        temp.currentMemberIds.insert(userID, at: 0) //스터디참여멤버에 작성자 미리 추가해놓기
+ 
         service.add(collection: .studypost, data: temp)
     }
     
@@ -104,36 +110,47 @@ class StudyRecruitStore: ObservableObject {
 //    }
     
     
-    //TODO: document 문서번호가 지정이 안되어있음.
-    ///이미지 경로 반환함수
-    func returnImagePath(item: PhotosPickerItem) async -> String {
-        do {
-            guard let data = try await item.loadTransferable(type: Data.self) else {
-                return ""
-            }
+//    TODO: document 문서번호가 지정이 안되어있음.
+//    /이미지 경로 반환함수
+    func returnImagePath(items: [PhotosPickerItem]) async throws -> [String]{
+
+        var urlString:[String] = []
+
+        for item in items {
+
+            guard let data = try? await item.loadTransferable(type: Data.self) else {return urlString}
+            print("원래데이터 크기:\(data.count)")
+
+            guard let uiImage = UIImage(data: data) else {return urlString}
+            guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {return urlString}
+            print("변형된 데이터 크기:\(compressImage.count)")
+
             do {
-                let (_, _, url) = try await StorageManger.shared.saveImage(data: data, id: dbRef.document().documentID)
-                return url.absoluteString
+                let (_, _, url) = try await StorageManger.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
+
+                urlString.append(url.absoluteString)
             } catch {
-                print("\(error.localizedDescription)")
+                print("리턴이미지패스\(error.localizedDescription)")
             }
-        } catch(let error) {
-            print("\(error.localizedDescription)")
+
         }
-        return  ""
+
+        return urlString
     }
     
-    
-    
-//    func returnImagePath(item: PhotosPickerItem, completion: @escaping (String?) -> Void) async {
-//        Task {
-//            guard let data = try await item.loadTransferable(type: Data.self) else {
+//    func returnImagePath(item: [PhotosPickerItem], completion: @escaping (String?) -> Void) async {
+//
+//        for index in item {
+//            guard let data = try await index.loadTransferable(type: Data.self) else {
 //                completion(nil)
 //                return
 //            }
 //            let (_, _, url) = try await StorageManger.shared.saveImage(data: data, id: dbRef.document().documentID)
 //            completion(url.absoluteString)
+//
 //        }
+//
+//
 //    }
     
     
@@ -148,3 +165,5 @@ class StudyRecruitStore: ObservableObject {
         }
     }
 }
+
+

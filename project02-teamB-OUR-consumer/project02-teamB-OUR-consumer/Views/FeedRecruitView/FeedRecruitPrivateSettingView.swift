@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct FeedRecruitPrivateSettingView: View {
-   @Binding var privacySetting : PrivacySetting
+    @Binding var privacySetting : PrivacySetting
     
     var body: some View {
-     
+        
         HStack{
             Picker("PrivacySetting", selection: $privacySetting) {
-                Text("Public").tag(PrivacySetting.Public)
-                Text("Private").tag(PrivacySetting.Private)
+                Text("공개").tag(PrivacySetting.Public)
+                Text("비공개").tag(PrivacySetting.Private)
             }
             .pickerStyle(.menu)
             Spacer()

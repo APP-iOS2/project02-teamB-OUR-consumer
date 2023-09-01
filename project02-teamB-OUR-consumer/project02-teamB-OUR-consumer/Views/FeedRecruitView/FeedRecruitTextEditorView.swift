@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedRecruitTextEditorView: View {
     @Binding var content: String
-    @State var placeholder: String = "Share Your Idea In OUR."
+    @State var placeholder: String = "내용을 입력해주세요."
     var body: some View {
         
         ZStack{
@@ -22,7 +22,7 @@ struct FeedRecruitTextEditorView: View {
             if content.isEmpty {
                 Text(placeholder)
                     .foregroundColor(.secondary)
-                    .position(x: 100, y: 20) //plaecholder 위치변경
+                    .position(x: 80, y: 20) //plaecholder 위치변경
                 
             }
             

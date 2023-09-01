@@ -1,5 +1,7 @@
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class ResumeViewModel: ObservableObject {
     @Published var resume: Resume?
@@ -8,7 +10,13 @@ class ResumeViewModel: ObservableObject {
     // Read
     func fetchResume(userId: String) {
         db.collection("resumes").whereField("userId", isEqualTo: userId).getDocuments { (snapshot, error) in
-            if let snapshot = snapshot, !snapshot.isEmpty, let document = snapshot.documents.first {
+            if let snapshot = snapshot, snapshot.isEmpty {
+                self.createResume(
+                    resume: Resume(userId: userId, workExperience: [], education: [], skills: [], projects: [])
+                )
+            }
+            
+            if let snapshot = snapshot, let document = snapshot.documents.first {
                 let result = Result {
                     try document.data(as: Resume.self)
                 }
@@ -21,6 +29,7 @@ class ResumeViewModel: ObservableObject {
                 }
             }
         }
+        
     }
     
     // Create

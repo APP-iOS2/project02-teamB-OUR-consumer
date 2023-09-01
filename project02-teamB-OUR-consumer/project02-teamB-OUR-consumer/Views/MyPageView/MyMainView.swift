@@ -10,53 +10,32 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// MARK: 추후 통합후 삭제 예정 Color
-//
-//let sampleResume = Resume(id: UUID().uuidString,
-//                          userId: "0RPDyJNyzxSViwBvMw573KU0jKv1",
-//                          introduction: "샘플 데이터입니다",
-//                          workExperience: [
-//                            WorkExperience(
-//                                id: UUID().uuidString,
-//                                jobTitle: "잠자는사람",
-//                                company: Company(companyName: "멋사", companyImage: nil),
-//                                startDate: Date(),
-//                                endDate: Date(),
-//                                description: "좋은 회사입니다")
-//                          ],
-//                          education: [
-//                            Education(id: UUID().uuidString, schoolName: "아무대", degree: "졸업", fieldOfStudy: "전공임?", startDate: Date(), endDate: Date(), description: "좋은 학교입니다")
-//                          ],
-//                          skills: [
-//                            Skill(id: UUID().uuidString, skillName: "빨리밥먹기", description: "좋은스킬")
-//                          ],
-//                          projects: [
-//                            Project(id: UUID().uuidString, projectTitle: "밥먹기대회", jobTitle: "1등", startDate: Date(), endDate: Date(), description: "아무")
-//                          ]
-//)
-
 let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
-    @StateObject private var studyViewModel = StudyViewModel()
+    
     @State private var currentTab: Int = 0
     @State private var isMyProfile: Bool = true
-    @State private var isFollowing: Bool = false
+    @State private var isFollowing: Bool = true
     
-    @ObservedObject var userViewModel = UserViewModel()
-    @ObservedObject var resumeViewModel = ResumeViewModel()
+    @EnvironmentObject var studyViewModel: StudyViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var resumeViewModel: ResumeViewModel
+    
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
-    
     var body: some View {
         NavigationStack {
             ScrollView {
                 ProfileBar(isMyProfile: $isMyProfile)
+                
                         .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 20) {
                     
                     ProfileHeaderView(userViewModel: userViewModel, isMyProfile: $isMyProfile, isFollowing: $isFollowing)
+                        .environmentObject(UserViewModel())
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
+                        //무슨 오류..?
                         Section {
                             switch currentTab {
                             case 0:
@@ -88,14 +67,19 @@ struct MyMain: View {
                 }
             }
             .padding(.top, 1)
+            .navigationTitle("")
         }
         .onAppear(){
-            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
-            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                return
+            }
+            resumeViewModel.fetchResume(userId: currentUserId)
         }
         .refreshable {
-            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
-            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                return
+            }
+            resumeViewModel.fetchResume(userId: currentUserId)
         }
     }
     
@@ -117,6 +101,9 @@ struct MyMainView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             MyMain()
+                .environmentObject(UserViewModel())
+                .environmentObject(StudyViewModel())
+                .environmentObject(ResumeViewModel())
         }
     }
 }

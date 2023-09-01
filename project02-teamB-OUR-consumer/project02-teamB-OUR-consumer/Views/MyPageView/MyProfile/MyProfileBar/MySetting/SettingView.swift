@@ -17,9 +17,10 @@ struct SettingView: View {
     
     @State var isLoggedIn: Bool = true
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
-        NavigationStack {
+        VStack {
             ScrollView {
                 Divider()
                     .padding(.top, 0)
@@ -40,17 +41,17 @@ struct SettingView: View {
                     
                     Group {
                         HStack {
-                            Text("알림 설정")
-                                .font(.headline)
-                            
-                            Toggle(isOn: $notificationsEnabled) {
-                                // 상태 변화
+                            Button {
+                                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+                                }
+                            } label: {
+                                Text("알림 설정")
                             }
-                            .offset(y: 10)
+                            .font(.headline)
+                            .foregroundColor(.black)
                         }
-                        Text("게시물, 추천 알림")
-                            .font(.footnote)
-                            .padding(.bottom, 10)
+                        .padding(.vertical)
                         Divider()
                     }
                     
@@ -69,6 +70,7 @@ struct SettingView: View {
                     Group {
                         Button {
                             // 로그아웃
+                            isLogoutAlert = true
                         } label: {
                             Text("로그아웃")
                                 .font(.headline)
@@ -94,6 +96,9 @@ struct SettingView: View {
                 Image(systemName: "chevron.backward")
             })
         }
+        .onAppear {
+            print("userViewModel \(userViewModel.user)")
+        }
         .background(
             NavigationLink(destination: LoginView(), isActive: $isLoggedIn, label: {
                 Text("")
@@ -106,6 +111,7 @@ struct SettingView: View {
         do {
             try Auth.auth().signOut()
             isLoggedIn = false
+            NavigationUtil.popToRootView()
         } catch {
             print("-----로그아웃에 실패하였습니다-----")
         }
@@ -118,3 +124,30 @@ struct SettingView_Previews: PreviewProvider {
     }
 }
 
+struct NavigationUtil {
+  static func popToRootView() {
+      let keyWindow = UIApplication.shared.connectedScenes
+              .filter({$0.activationState == .foregroundActive})
+              .compactMap({$0 as? UIWindowScene})
+              .first?.windows
+              .filter({$0.isKeyWindow}).first
+    findNavigationController(viewController: keyWindow?.rootViewController)?
+      .popToRootViewController(animated: true)
+  }
+ 
+  static func findNavigationController(viewController: UIViewController?) -> UINavigationController? {
+    guard let viewController = viewController else {
+      return nil
+    }
+ 
+    if let navigationController = viewController as? UINavigationController {
+      return navigationController
+    }
+ 
+    for childViewController in viewController.children {
+      return findNavigationController(viewController: childViewController)
+    }
+ 
+    return nil
+  }
+}

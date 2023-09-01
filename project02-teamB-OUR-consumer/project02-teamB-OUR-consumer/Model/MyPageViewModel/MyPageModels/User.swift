@@ -10,6 +10,8 @@ struct User: Identifiable, Codable {
     var profileMessage: String?
     var follower: [String]?
     var following: [String]?
+    var joinedStudy: [String]?
+    var savedStudyIDs: [String]?
     
     var numberOfFollower: Int {
         follower?.count ?? 0
@@ -20,8 +22,6 @@ struct User: Identifiable, Codable {
     }
 }
 
-extension User {
-    static var defaultUser: User {
-        return User(name: "test", email: "test@gamil.com")
-    }
+extension User{
+    static var defaultUser: User = User(name: "abc", email: "asdf@gmail.com")
 }

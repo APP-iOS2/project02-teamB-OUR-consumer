@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyBoardView: View {
     @StateObject var postViewModel: PostViewModel = PostViewModel()
+
     @State private var isShowingSheet: Bool = false
     @State private var isShowingPostOptionSheet: Bool = false
     @State private var isScrapFeed: Bool = false
@@ -25,8 +26,14 @@ struct MyBoardView: View {
                     }
                     Rectangle()
                         .fill(Color("DefaultGray"))
+
                 }
-                
+                .onAppear{
+                    postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+                }
+                .refreshable {
+                    postViewModel.fetchPostForCurrentUserFollower(limit: 3)
+                }
             }
         }
         .onAppear {
@@ -38,5 +45,6 @@ struct MyBoardView: View {
 struct MyBoardView_Previews: PreviewProvider {
     static var previews: some View {
         MyBoardView()
+            .environmentObject(UserViewModel())
     }
 }

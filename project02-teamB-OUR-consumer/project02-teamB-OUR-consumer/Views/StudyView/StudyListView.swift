@@ -16,13 +16,13 @@ enum StudyList: String, CaseIterable, Identifiable {
 
 struct StudyListView: View {
     
-    @StateObject var studyViewModel = StudyViewModel()
+    @EnvironmentObject var studyViewModel: StudyViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @State var navigate: Bool = false
     @State var searchText: String = ""
     @State var isOnline: Bool = false
     @State private var selectedArray: StudyList = .allList
-    @State var isSavedBookmark: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -40,32 +40,41 @@ struct StudyListView: View {
             }
             
             List {
-
+                
                 ForEach(studyViewModel.sortedStudy(sorted: selectedArray)) { study in
                     NavigationLink(destination: {
-                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: $isSavedBookmark)
+                        
+                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
                     }, label: {
-                        StudyListItemView(isSavedBookmark: $isSavedBookmark, study: study)
+                        StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
                     })
                 }
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("스터디 모임")
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink {
-                     //   SearchView()
-                    } label: {
-                        Label("검색", systemImage: "magnifyingglass")
-                            .foregroundColor(.black)
-                    }
-
-                }
-            }
             .onAppear {
                 studyViewModel.fetchStudy()
+                guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                    return
+                }
+                userViewModel.fetchUser(userId: userId)
             }
+            .refreshable {
+                studyViewModel.fetchStudy()
+                guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                    return
+                }
+                userViewModel.fetchUser(userId: userId)
+            }
+        }
+    }
+    func isBookmarkedStudy(studyID: String) -> Bool {
+        guard let studyIDs = userViewModel.user?.savedStudyIDs else { return false }
+        if studyIDs.contains(studyID) {
+            return true
+        } else {
+            return false
         }
     }
 }
@@ -73,5 +82,7 @@ struct StudyListView: View {
 struct StudyListView_Previews: PreviewProvider {
     static var previews: some View {
         StudyListView()
+            .environmentObject(UserViewModel())
+            .environmentObject(StudyViewModel())
     }
 }

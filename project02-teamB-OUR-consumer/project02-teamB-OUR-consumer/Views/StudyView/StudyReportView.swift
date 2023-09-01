@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StudyCommentReportView: View {
+struct StudyReportView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -78,14 +78,15 @@ struct StudyCommentReportView: View {
         })
         .padding()
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("신고하시겠습니까?"),
-                  message: Text("\"\(reportCategory)\" 사유로 신고합니다"),
+            Alert(title:  Text("\"\(reportCategory)\" 사유로 신고합니다"),
                   primaryButton: .destructive(Text("신고하기")) {
                 if isStudy {
                     guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                         return
                     }
-                    viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    Task {
+                        await viewModel.reportStudy(report: ReportData(reason: reportCategory, userId: userId))
+                    }
                 }
                 dismiss()//뷰 닫기
             },
@@ -97,7 +98,7 @@ struct StudyCommentReportView: View {
 struct StudyCommentReportView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            StudyCommentReportView(viewModel: StudyViewModel(), isStudy: true)
+            StudyReportView(viewModel: StudyViewModel(), isStudy: true)
         }
     }
 }
