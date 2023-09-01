@@ -50,7 +50,7 @@ class FeedRecruitStore: ObservableObject {
             guard let uiImage = UIImage(data: data) else {return urlString}
             guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {return urlString}
             print("변형된 데이터 크기:\(compressImage.count)")
-                       
+            
             do {
                 
                 let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
@@ -59,7 +59,7 @@ class FeedRecruitStore: ObservableObject {
             } catch {
                 print("리턴이미지패스\(error.localizedDescription)")
             }
-           
+            
         }
         
         return urlString
