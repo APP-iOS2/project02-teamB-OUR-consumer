@@ -84,7 +84,7 @@ struct NotificationRow: View {
                     }
                     
                     if notification.type == .follow{
-                        NavigationLink(destination: MyMain())
+                        NavigationLink(destination: MyMainDetailView(userId: notification.user.id ?? "9o8gkYLUFHdsO877xqX9rvSVdI82"))
                         {
                             EmptyView()
                         }
@@ -140,7 +140,7 @@ struct NotificationRow: View {
                                 .font(.system(size: 14, weight: .bold))
                                 .foregroundColor(isFollowing ? AColor.main.color : Color.white)
                                 .frame(width: 80, height: 27.85)
-                                .background(isFollowing ? Color.white : AColor.main.color)
+                                .background(isFollowing ? Color.white : AColor  .main.color)
                                 .cornerRadius(5)
                                 .overlay(RoundedRectangle(cornerRadius: 5)
                                     .stroke(AColor.main.color, lineWidth: 2))

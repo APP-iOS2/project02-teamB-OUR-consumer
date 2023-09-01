@@ -1,41 +1,37 @@
 //
-//  MyMainView.swift
+//  MyMainDetailView.swift
 //  project02-teamB-OUR-consumer
 //
-//  Created by 김성훈 on 2023/08/22.
+//  Created by 김성훈 on 2023/09/01.
 //
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
-let mainColor = Color(hex: "#090580")
 
-struct MyMain: View {
+struct MyMainDetailView: View {
     
     @State private var currentTab: Int = 0
-    @State private var isMyProfile: Bool = true
+    @State private var isMyProfile: Bool = false
     @State private var isFollowing: Bool = true
     
-    @EnvironmentObject var studyViewModel: StudyViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject var resumeViewModel: ResumeViewModel
+    @ObservedObject var studyViewModel: StudyViewModel = StudyViewModel()
+    @ObservedObject var resumeViewModel: ResumeViewModel = ResumeViewModel()
+    @ObservedObject var userViewModel: UserViewModel = UserViewModel()
+    
+    @EnvironmentObject var myViewModel: UserViewModel
+    let userId: String
     
     //MARK: 팔로우 하고 있으면 팔로잉 (팔로잉 누르면 취소 - alert)
     var body: some View {
-        NavigationStack {
+        VStack {
             ScrollView {
                 ProfileBar(isMyProfile: $isMyProfile)
-                
                         .padding(.horizontal)
 
                 VStack(alignment: .leading, spacing: 20) {
                     
                     ProfileHeaderView(userViewModel: userViewModel, isMyProfile: $isMyProfile, isFollowing: $isFollowing)
-                        .environmentObject(UserViewModel())
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        //무슨 오류..?
                         Section {
                             switch currentTab {
                             case 0:
@@ -69,18 +65,28 @@ struct MyMain: View {
             .padding(.top, 1)
             .navigationTitle("")
         }
-        .onAppear(){
-            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-                return
-            }
-            resumeViewModel.fetchResume(userId: currentUserId)
+        .onAppear {
+            print("왜 호출안댐?")
+            isFollowingUser()
+            userViewModel.fetchUser(userId: userId)
+            resumeViewModel.fetchResume(userId: userId)
         }
         .refreshable {
-            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-                return
-            }
-            resumeViewModel.fetchResume(userId: currentUserId)
+            userViewModel.fetchUser(userId: userId)
+            resumeViewModel.fetchResume(userId: userId)
         }
+    }
+    
+    private func isFollowingUser() {
+        guard let userFollowingList = userViewModel.user?.following else { return isFollowing = false }
+        if userFollowingList.contains(where: { user in
+            user == userId
+        }) {
+            isFollowing = true
+        } else {
+            isFollowing = false
+        }
+        print("isFollowing \(isFollowing)")
     }
     
     private func rightSwipeAction() {
@@ -97,13 +103,10 @@ struct MyMain: View {
     
 }
 
-struct MyMainView_Previews: PreviewProvider {
+struct MyMainDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MyMain()
-                .environmentObject(UserViewModel())
-                .environmentObject(StudyViewModel())
-                .environmentObject(ResumeViewModel())
+            MyMainDetailView(userId: "BMTtH2JFcPNPiofzyzMI5TcJn")
         }
     }
 }

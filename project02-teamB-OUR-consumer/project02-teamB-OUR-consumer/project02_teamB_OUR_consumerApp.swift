@@ -75,7 +75,8 @@ struct project02_teamB_OUR_consumerApp: App {
 //    @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()        //피드  등록모델
     @StateObject var studyStoreViewModel = StudyRecruitStore()      //스터디 등록모델
-
+    @StateObject var userViewModel = UserViewModel()
+    @StateObject var resumeViewModel = ResumeViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -83,9 +84,11 @@ struct project02_teamB_OUR_consumerApp: App {
                 LoginView()
             }
 //            .environmentObject(alarmViewModel)
+            .environmentObject(resumeViewModel)
             .environmentObject(feedStoreViewModel)
             .environmentObject(studyStoreViewModel)
             .environmentObject(sharedViewModel)
+            .environmentObject(userViewModel)
 
         }
     }
