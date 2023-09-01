@@ -70,14 +70,12 @@ struct MyMain: View {
             guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                 return
             }
-            userViewModel.fetchUser(userId: currentUserId)
             resumeViewModel.fetchResume(userId: currentUserId)
         }
         .refreshable {
             guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
                 return
             }
-            userViewModel.fetchUser(userId: currentUserId)
             resumeViewModel.fetchResume(userId: currentUserId)
         }
     }

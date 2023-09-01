@@ -14,6 +14,13 @@ class UserViewModel: ObservableObject {
     
     private var db = Firestore.firestore()
     
+    init() {
+        guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        self.fetchUser(userId: currentUserId)
+    }
+    
     // Create
     func createUser(user: User) {
         do {
