@@ -57,7 +57,7 @@ class AlarmViewModel: ObservableObject{
                 }.filter{ value in value.userId != self.userId}
                 
                 if !value.isEmpty{
-                    let items = self.mappingToDTO(dto: value)
+                    let items = self.mappingTOexistList(dto: value)
                     // UserDefaults에 알람 상태를 저장합니다.
                     UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
                     // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
@@ -124,7 +124,7 @@ class AlarmViewModel: ObservableObject{
         guard let myID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
             return }
         
-        service.fetchUser(userId: myID){ [weak self] user in
+        service.fetchUser(userId: myID) { [weak self] user in
             guard let self else { return }
             if let followingsIds = user.following{
                 service.read(followingsIDs: followingsIds, completion: { [weak self] result in
@@ -253,6 +253,26 @@ class AlarmViewModel: ObservableObject{
     }
     
     
+    private func mappingTOexistList(dto: [NotificationDTO]) -> [NotificationItem] {
+        let items = dto.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
+        let models = self.mapToDictionary(items: items)
+        
+        for (key,value) in models.0{
+            if let value = self.personalNotiItem[key]{
+                self.personalNotiItem[key]?.append(contentsOf: value)
+            }else{
+                self.personalNotiItem[key] = value
+            }
+        }
+        for (key,value) in models.1{
+            if let value = self.publicNotiItem[key]{
+                self.publicNotiItem[key]?.append(contentsOf: value)
+            }else{
+                self.publicNotiItem[key] = value
+            }
+        }
+        return items
+    }
     
     private func mappingToDTO(dto: [NotificationDTO]) -> [NotificationItem] {
         let items = dto.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
