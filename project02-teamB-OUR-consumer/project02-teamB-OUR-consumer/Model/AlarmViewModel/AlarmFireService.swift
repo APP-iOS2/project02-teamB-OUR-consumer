@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -27,10 +28,23 @@ class AlarmFireService {
 
     var ref: DocumentReference?
     
+    var notificationChangeRef: ListenerRegistration?
+    
+    var userId: ID = ""
+    
     init(){
         
+        let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) ?? ""
+        print("userId : \(userId)")
+        self.userId = userId
+    }
+    
+    
+    func observingNotification(path: String = "notification", completion: @escaping (QuerySnapshot?, Error?) -> Void) {
+        notificationChangeRef = db.collection("\(path)").addSnapshotListener(completion)
     }
 
+    
     /// Create Notification
     /// - Parameters:
     ///   - notification: 알림 DTO 객체
@@ -41,18 +55,34 @@ class AlarmFireService {
                 completion: @escaping (String) -> () )
     {
         let date = notification.timestamp
-        guard var dto = notification.asDictionary else { return }
-        
-        if let _ = dto["createdDate"] {
-            dto["createdDate"] = date
+ 
+        do{
+            _ = try db.collection("\(path)").addDocument( from: notification ) { error in
+                if let error = error {
+                    print("신규추가 중 에러 : \(error.localizedDescription)")
+                    
+                } else {
+                    print("추가완료")
+                }
+            }
+        }catch{
+            
         }
-        
-        ref = db.collection("\(path)").addDocument(data: dto) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document NotificationDTO added with ID: \(self.ref!.documentID)")
-                completion(self.ref!.documentID)
+    }
+    
+    // Read
+    func fetchUser(userId: String, completion: @escaping (User) -> ()) {
+        db.collection("users").document(userId).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let result = Result {
+                    try document.data(as: User.self)
+                }
+                switch result {
+                case .success(let user):
+                    completion(user)
+                case .failure(let error):
+                    print("Error decoding user: \(error)")
+                }
             }
         }
     }
@@ -62,19 +92,25 @@ class AlarmFireService {
     /// - Parameters:
     ///   - path: notification path
     ///   - completion: 모델 가져와서 뷰에 전달 역할
-    func read(path: String = "notification",completion: @escaping (Result<[NotificationDTO],Error>) -> ()) {
-        db.collection("\(path)").getDocuments{ (querySnapshot, err) in
+    func read(path: String = "notification",followingsIDs: [String] ,completion: @escaping (Result<[NotificationDTO],Error>) -> ()) {
+        
+        let query: Query
+        if followingsIDs.isEmpty{
+            query = db.collection("\(path)")
+        }else{
+            query = db.collection("\(path)").whereField("userId", in: followingsIDs)
+        }
+        
+        query.getDocuments{ querySnapshot,err in
             if let err = err {
                 print("Error getting documents: \(err)")
             }
             if let snapshot = querySnapshot {
-                
                 let dto = snapshot.documents.compactMap { snap in try? snap.data(as: NotificationDTO.self)}
                 completion(.success(dto))
             }
         }
     }
-    
     
     
     /// 여러개의 DocumentID 의 notification 삭제하기
@@ -138,7 +174,5 @@ class AlarmFireService {
                 }
             })
         }
-       
     }
-    
 }
