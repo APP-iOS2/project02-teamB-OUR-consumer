@@ -88,35 +88,30 @@ struct FeedRecruitView: View {
                             Task {
                                 do {
                                     feedImagePath.removeAll()
+                                    
                                     feedImagePath = try await feedStoreViewModel.returnImagePath(items: selectedItem)
                                     
-                                    
-                                    //print("FeedImagePATH: \(feedImagePath)")
+                                    print("FeedImagePATH: \(feedImagePath)")
                                     let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
                                     
                                     self.newFeed = newFeed2
+                                    feedStoreViewModel.addFeed(newFeed2)
+                                  
                                     toast = Toast(style: .success, message: "등록 완료",  width: 110)
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         dismiss()
                                     }
-                                    //print("사진 있을 경우: \(newFeed)")
-                                    //feedStoreViewModel.addFeed(newFeed2)
-                                    
+                                    //print("사진 있을 경우: \(newFeed)")        
                                 } catch {
-                                    toast = Toast(style: .success, message: "등록 실패",  width: 110)
-                                    print("실패 \(error.localizedDescription)")
+                                    toast = Toast(style: .error, message: "등록 실패",  width: 110)
+                                    print("등록 실패 \(error.localizedDescription)")
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         dismiss()
                                     }
-                                    
-                                    
                                 }
                             }
-                            
                         }
-                        
-                        
                     }
                     .disabled(content.isEmpty)
                 }

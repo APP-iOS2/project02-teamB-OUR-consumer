@@ -44,36 +44,40 @@ class FeedRecruitStore: ObservableObject {
         
         for item in items {
             
-            guard let data = try? await item.loadTransferable(type: Data.self) else {return urlString}
+            
+            guard let data = try? await item.loadTransferable(type: Data.self) else { throw URLError(.badURL)}
             print("원래데이터 크기:\(data.count)")
             
-            guard let uiImage = UIImage(data: data) else {return urlString}
-            guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {return urlString}
+            guard let uiImage = UIImage(data: data) else {throw URLError(.badURL)}
+            guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {throw URLError(.badURL) }
             print("변형된 데이터 크기:\(compressImage.count)")
             
             do {
                 
-                let (_, _, url) = try await FeedStorageManager.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
-                
+                let url = try await FeedStorageManager.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
                 urlString.append(url.absoluteString)
             } catch {
-                print("리턴이미지패스\(error.localizedDescription)")
+                print("리턴이미지패스 에러 \(error.localizedDescription)")
             }
             
         }
         
-        return urlString
+        if !urlString.isEmpty {
+            return urlString
+            
+        } else { throw URLError(.badURL)}
+        
     }
     
-    func saveStudyImage(item: PhotosPickerItem) {
-        Task {
-            guard let data = try await item.loadTransferable(type: Data.self) else { return }
-            let (path, name, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
-            print("SUCCESS!!!!")
-            print("path : \(path)")
-            print("name : \(name)")
-            print("url : \(url)")
-        }
-    }
+//    func saveStudyImage(item: PhotosPickerItem) {
+//        Task {
+//            guard let data = try await item.loadTransferable(type: Data.self) else { return }
+//            let (path, name, url) = try await FeedStorageManager.shared.saveImage(data: data, id: dbRef.document().documentID)
+//            print("SUCCESS!!!!")
+//            print("path : \(path)")
+//            print("name : \(name)")
+//            print("url : \(url)")
+//        }
+//    }
     
 }

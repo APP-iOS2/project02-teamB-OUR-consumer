@@ -70,7 +70,7 @@ struct FeedRecruitPhotoAddView: View {
                                     
                                     Image(uiImage: image)
                                         .resizable()
-                                    //.scaledToFill()
+                                        .scaledToFit()
                                         .frame(width:150, height:150)
                                         .cornerRadius(10)
                                 }

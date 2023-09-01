@@ -50,6 +50,7 @@ struct AlarmContainer: View {
             
             viewModel.fetchNotificationItem()
             viewModel.markAllAsRead()
+            print("userViewModel in alarm \(userViewModel.user)")
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)

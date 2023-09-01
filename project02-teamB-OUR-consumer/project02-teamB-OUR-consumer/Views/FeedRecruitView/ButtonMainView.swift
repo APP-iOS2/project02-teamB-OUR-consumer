@@ -58,6 +58,7 @@ struct ButtonMainView: View {
                 }
                 .font(.system(size: 15))
                 .frame(minWidth: 200)
+                .frame(maxHeight: 150)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                 
@@ -76,10 +77,9 @@ struct ButtonMainView: View {
                     PersonnelSheet(isShowingPersonSheet: $isShowingPersonSheet, number: $number)
                         .presentationDetents([.fraction(0.45)])
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.vertical)
+                .frame(maxWidth: .infinity)
+                .frame(maxHeight: 180)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                
                 
             }
 //            .padding()

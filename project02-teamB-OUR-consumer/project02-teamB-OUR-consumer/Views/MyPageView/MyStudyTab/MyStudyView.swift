@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyStudyView: View {
     @StateObject private var studyViewModel = StudyViewModel()
+    
     var studyArray: [StudyDTO]
     
     var body: some View {
@@ -92,6 +93,10 @@ struct MyStudyView: View {
                     .padding(.leading)
                 }
                 */
+                VStack(alignment: .leading) {
+                    MystudyItemView(study: StudyDTO.defaultStudy)
+                }
+                    .environmentObject(UserViewModel())
                 VStack(alignment: .leading) {
                     HStack {
                         Text("참여 예정 스터디")

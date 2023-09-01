@@ -98,7 +98,9 @@ struct LoginView: View {
                 }
             }
         }
+        
     }
+    
 }
 
 struct ActivityIndicator: View {
