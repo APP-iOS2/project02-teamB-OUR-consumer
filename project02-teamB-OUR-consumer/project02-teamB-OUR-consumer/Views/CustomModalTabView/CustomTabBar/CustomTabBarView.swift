@@ -12,10 +12,11 @@ struct CustomTabBarView: View {
 
     @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
     
-    @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
-//    @StateObject var userViewModel = UserViewModel()
-//    @StateObject var resumeViewModel = ResumeViewModel()
-    @StateObject var studyViewModel = StudyViewModel()
+    @EnvironmentObject var alarmViewModel: AlarmViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var studyViewModel: StudyViewModel
+    @EnvironmentObject var resumeViewModel: ResumeViewModel
+
     
 
     @State private var selectedIndex = 0
@@ -39,10 +40,11 @@ struct CustomTabBarView: View {
                         .environmentObject(studyViewModel)
                 case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
+                    
                 case 3:
                     AlarmContainer()
-//                        .environmentObject(userViewModel)
                         .environmentObject(alarmViewModel)
+                        .environmentObject(userViewModel)
                 case 4:
                     MyMain()
 //                        .environmentObject(userViewModel) -> App 으로 이동
@@ -116,9 +118,6 @@ struct CustomTabBarView: View {
                                         Text("\(tabBarTextNames[index])")
                                             .font(.system(size: 14))
                                             .foregroundColor(selectedIndex == index ? Color(hex: "#090580") : Color(.tertiaryLabel))
-                                            
-                                        
-
                                     }
                                 }
                             }

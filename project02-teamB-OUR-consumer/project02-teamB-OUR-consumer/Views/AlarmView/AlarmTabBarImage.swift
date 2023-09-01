@@ -15,12 +15,12 @@ struct AlarmTabBarImage: UIViewRepresentable{
     var index: Int
     
      func makeUIView(context: Context) -> AlarmImageContainer {
-         print("value: \(selectedIndex)")
+//         print("value: \(selectedIndex)")
          return AlarmImageContainer()
      }
      
     func updateUIView(_ uiView: AlarmImageContainer, context: Context) {
-         print("value: \(selectedIndex)")
+//         print("value: \(selectedIndex)")
 
         if selectedIndex == index {
             uiView.selected(uicolor: UIColor(named: "AccentColor")!)
