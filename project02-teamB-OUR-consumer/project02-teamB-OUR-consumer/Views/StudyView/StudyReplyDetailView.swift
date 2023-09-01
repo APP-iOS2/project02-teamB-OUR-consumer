@@ -74,8 +74,13 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         Button {
-                            isShowingCommentReportSheet = true
-                            studyViewModel.selectedComment = comment
+                            if isAlreadyReported() {
+                                studyViewModel.alertCase = .alreadyReportedComment
+                                showAlert = true
+                            } else {
+                                isShowingCommentReportSheet = true
+                                studyViewModel.selectedComment = comment
+                            }
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
@@ -89,6 +94,15 @@ struct StudyReplyDetailView: View {
             }
             
         }
+    }
+    func isAlreadyReported() -> Bool {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return false
+        }
+        if studyViewModel.selectedComment.reportUserIds.contains(userId) {
+            return true
+        }
+        return false
     }
 }
 

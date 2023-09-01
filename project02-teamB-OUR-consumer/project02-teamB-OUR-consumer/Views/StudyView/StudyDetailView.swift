@@ -12,6 +12,7 @@ enum StudyDetailAlert {
     case delete
     case normal
     case commentDelete
+    case alreadyReportedComment
 }
 
 struct StudyDetailView: View {
@@ -328,7 +329,7 @@ struct StudyDetailView: View {
                     viewModel.deleteStudy(studyID: viewModel.studyDetail.id)
                     dismiss()
                 }, secondaryButton: .cancel(Text("취소")))
-            } else {
+            } else if viewModel.alertCase == .commentDelete {
                 return Alert(title: Text("댓글을 삭제하겠습니까?"),
                              message: Text("댓글을 삭제합니다"),
                              primaryButton: .destructive(Text("삭제")) {
@@ -336,6 +337,11 @@ struct StudyDetailView: View {
                         await self.viewModel.deleteComment()
                     }
                 }, secondaryButton: .cancel(Text("취소")))
+            } else {
+                return Alert(title: Text("알림"),
+                             message: Text("이미 신고한 댓글입니다."),
+                             dismissButton: .destructive(Text("확인")) {
+                })
             }
         })
         .onAppear(){
