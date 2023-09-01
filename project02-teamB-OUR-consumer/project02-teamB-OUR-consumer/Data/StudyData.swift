@@ -87,7 +87,9 @@ struct StudyCommentDTO: Identifiable, Codable {
             id: self.id ?? UUID().uuidString,
             user: user,
             content: content,
-            createdAt: createdAt
+            createdAt: createdAt,
+            reportReasons: reportReason ?? [],
+            reportUserIds: reportUserId ?? []            
         )
     }
 }

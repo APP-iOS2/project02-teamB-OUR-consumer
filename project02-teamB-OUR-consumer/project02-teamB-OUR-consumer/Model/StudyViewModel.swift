@@ -48,6 +48,8 @@ struct StudyComment: Identifiable {
     var user: User
     var content: String
     var createdAt: String
+    var reportReasons: [String] = []
+    var reportUserIds: [String] = []
     
     var isMine: Bool {
         guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
@@ -202,6 +204,25 @@ class StudyViewModel: ObservableObject {
         self.studyDetail.reportReasons.append(report.reason)
         self.studyDetail.reportUserIds.append(report.userId)
         dbRef.collection(.studyGroup).document(self.studyDetail.id).updateData([
+            "reportReason": self.studyDetail.reportReasons,
+            "reportUserId": self.studyDetail.reportUserIds
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        await reloadStudyDetail()
+    }
+    
+    func reportComment(report: ReportData) async {
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        self.selectedComment.reportReasons.append(report.reason)
+        self.selectedComment.reportUserIds.append(report.userId)
+        dbRef.collection(.studyGroup).document(self.studyDetail.id).collection(.studyComments).document(self.selectedComment.id).updateData([
             "reportReason": self.studyDetail.reportReasons,
             "reportUserId": self.studyDetail.reportUserIds
         ]) { err in
