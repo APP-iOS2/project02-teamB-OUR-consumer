@@ -51,7 +51,10 @@ struct MyFollowerCell: View {
                     }
                 } else {
                     Button(action: {
-                        userViewModel.followUser(targetUserId: follower.id ?? "")
+//                        userViewModel.followUser(targetUserId: follower.id ?? "")
+                        userViewModel.followUser(targetUserId: follower.id ?? "", completion: {_,_,_ in
+                            
+                        })
                         print("팔로우 되었습니다.")
                     }){
                         Text("팔로우")
