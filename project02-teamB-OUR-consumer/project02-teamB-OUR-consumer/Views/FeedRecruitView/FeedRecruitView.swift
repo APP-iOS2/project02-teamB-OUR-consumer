@@ -11,6 +11,7 @@ import CoreLocationUI
 import CoreLocation
 import PhotosUI
 
+
 struct FeedRecruitView: View {
     
     @Environment(\.dismiss) private var dismiss: DismissAction
@@ -64,70 +65,59 @@ struct FeedRecruitView: View {
                     
                     Button("등록") {
                         
-                        isAlert = true
-                
+                        if selectedItem.isEmpty {
+                            feedImagePath.removeAll()
+                            let newFeed1 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                            
+                            self.newFeed = newFeed1
+                            
+                            //isAlert = false
+                            //print("사진 없을 경우 : \(newFeed)")
+                            feedStoreViewModel.addFeed(newFeed)
+                            dismiss()
+                            
+                            return
+                        } else {
+                            Task {
+                                do {
+                                    feedImagePath.removeAll()
+                                    feedImagePath = try await feedStoreViewModel.returnImagePath(items: selectedItem)
+                                    //print("FeedImagePATH: \(feedImagePath)")
+                                    let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
+                                    
+                                    self.newFeed = newFeed2
+                                    //print("사진 있을 경우: \(newFeed)")
+                                    feedStoreViewModel.addFeed(newFeed2)
+                                    dismiss()
+                                } catch {
+                                    
+                                    print("실패 \(error.localizedDescription)")
+                                }
+                                
+                                
+                            }
+                        }
+                        
                     }
                     .disabled(content.isEmpty)
                     
                 }
                 
             }
-            
-            .navigationTitle("피드 등록")
-            .navigationBarTitleDisplayMode(.inline)
-            .alert("피드", isPresented: $isAlert) {
-                
-                Button("등록" ,role: .destructive) {
-                    
-                   
-                    
-                  
-                    if selectedItem.isEmpty {
-                        feedImagePath.removeAll()
-                        let newFeed1 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                        
-                        self.newFeed = newFeed1
-                        
-                        //isAlert = false
-                        //print("사진 없을 경우 : \(newFeed)")
-                        feedStoreViewModel.addFeed(newFeed)
-                        dismiss()
-         
-                        return
-                    } else {
-                        Task {
-                            do {
-                                feedImagePath.removeAll()
-                                feedImagePath = try await feedStoreViewModel.returnImagePath(items: selectedItem)
-                                //print("FeedImagePATH: \(feedImagePath)")
-                                let newFeed2 = FeedRecruitModel(creator: userID, content: content, location: locationAddress, privateSetting: privacySetting.setting, reportCount: 0,createdAt: createdDate.toString(), postImagePath: feedImagePath)
-                                
-                                self.newFeed = newFeed2
-                                //print("사진 있을 경우: \(newFeed)")
-                                feedStoreViewModel.addFeed(newFeed2)
-                                dismiss()
-                            } catch {
-                                
-                                print("실패 \(error.localizedDescription)")
-                            }
-                       
-                            
-                        }
-                    }
-
-                }
-                Button("취소" ,role: .cancel) {
-                    isAlert = false
-                }
-            } message: {
-                Text("피드가 등록됩니다.")
+            .onAppear{
+                isAlert = true
                 
             }
             
-            
         }
+        
+        .navigationTitle("피드 등록")
+        .navigationBarTitleDisplayMode(.inline)
     }
+    
 }
+
+
 
 struct FeedRecruitView_Previews: PreviewProvider {
     static var previews: some View {
