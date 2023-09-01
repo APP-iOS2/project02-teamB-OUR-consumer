@@ -73,7 +73,7 @@ struct StudyReplyDetailView: View {
                         }
                     } else {
                         NavigationLink {
-                            StudyCommentReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
+                            StudyReportView(viewModel: studyViewModel, isStudy: false, comment: comment)
                         } label: {
                             Text("신고하기")
                                 .foregroundColor(.red)
