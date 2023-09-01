@@ -222,10 +222,10 @@ class StudyViewModel: ObservableObject {
         }
         self.selectedComment.reportReasons.append(report.reason)
         self.selectedComment.reportUserIds.append(report.userId)
-        dbRef.collection(.studyGroup).document(self.studyDetail.id).collection(.studyComments).document(self.selectedComment.id).updateData([
+        dbRef.collection(.studyGroup).document(self.studyDetail.id).collection(.studyComments).document(self.selectedComment.id).setData([
             "reportReason": self.studyDetail.reportReasons,
             "reportUserId": self.studyDetail.reportUserIds
-        ]) { err in
+        ], merge: true) { err in
             if let err = err {
                 print("Error updating document: \(err)")
             } else {

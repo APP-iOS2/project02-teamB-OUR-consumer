@@ -17,6 +17,8 @@ struct StudyReplyView: View {
     //현재 로그인 된 아이디
     @State var commentUserId: String = "test"
     
+    @State var isShowingCommentReportSheet = false
+    
     var body: some View {
         VStack{
             
@@ -34,7 +36,7 @@ struct StudyReplyView: View {
             
             //List {
             ForEach(viewModel.studyDetail.comments) { comment in
-                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, showAlert: $showAlert)
+                StudyReplyDetailView(studyViewModel: viewModel, comment: comment, index: 0, showAlert: $showAlert, isShowingCommentReportSheet: $isShowingCommentReportSheet)
             }
             // }
             .listStyle(.plain)
@@ -61,9 +63,10 @@ struct StudyReplyView: View {
                 }
             }
             .padding()
+            .sheet(isPresented: $isShowingCommentReportSheet) {
+                StudyReportView(viewModel: viewModel, isStudy: false)
+            }
             
-        }
-        .onAppear {
         }
         
     }
