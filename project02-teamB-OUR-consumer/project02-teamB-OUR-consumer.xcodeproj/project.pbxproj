@@ -115,6 +115,9 @@
 		A0BCB8E22A949A8E00A47841 /* StudyReplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */; };
 		A0CE323D2A952C110019300F /* StudyReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE323C2A952C110019300F /* StudyReportView.swift */; };
 		B0F67D5A2A948B3400B2A138 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F67D592A948B3300B2A138 /* TestView.swift */; };
+		B74E102B2AA16A310058636B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E102A2AA16A310058636B /* Toast.swift */; };
+		B74E102D2AA16B4C0058636B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E102C2AA16B4C0058636B /* ToastView.swift */; };
+		B74E102F2AA16E8F0058636B /* ToastViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74E102E2AA16E8F0058636B /* ToastViewModifier.swift */; };
 		B7610BA72A951A6E0074F78C /* FeedRecruitLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7610BA62A951A6E0074F78C /* FeedRecruitLocationModel.swift */; };
 		B786FC162A987ADF00E3C1E9 /* FeedStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */; };
 		B786FC192A987B0F00E3C1E9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B786FC182A987B0F00E3C1E9 /* FirebaseStorage */; };
@@ -278,6 +281,9 @@
 		A0BCB8E12A949A8E00A47841 /* StudyReplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReplyDetailView.swift; sourceTree = "<group>"; };
 		A0CE323C2A952C110019300F /* StudyReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyReportView.swift; sourceTree = "<group>"; };
 		B0F67D592A948B3300B2A138 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		B74E102A2AA16A310058636B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		B74E102C2AA16B4C0058636B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		B74E102E2AA16E8F0058636B /* ToastViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastViewModifier.swift; sourceTree = "<group>"; };
 		B7610BA62A951A6E0074F78C /* FeedRecruitLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitLocationModel.swift; sourceTree = "<group>"; };
 		B786FC152A987ADF00E3C1E9 /* FeedStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStorageManager.swift; sourceTree = "<group>"; };
 		B786FC3B2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecruitPrivateSettingView.swift; sourceTree = "<group>"; };
@@ -736,6 +742,9 @@
 				FAB51C7E2A9677F00047A725 /* ButtonMainView.swift */,
 				FAB51C7F2A9677F00047A725 /* DatePickerSheet.swift */,
 				FAB51C802A9677F00047A725 /* PersonnelSheet.swift */,
+				B74E102A2AA16A310058636B /* Toast.swift */,
+				B74E102C2AA16B4C0058636B /* ToastView.swift */,
+				B74E102E2AA16E8F0058636B /* ToastViewModifier.swift */,
 				FA63F03F2A9513550010B0FE /* FeedRecruitView.swift */,
 				B786FC3F2A9D78CE00E3C1E9 /* FeedRecruitTextEditorView.swift */,
 				B786FC3D2A9D762300E3C1E9 /* FeedRecruitLocationView.swift */,
@@ -961,6 +970,7 @@
 				965086922A95D29B00CDA0FC /* AlarmFireService.swift in Sources */,
 				54FEB27C2A9693940083A33F /* InquiryView.swift in Sources */,
 				965086872A94C86A00CDA0FC /* Color.swift in Sources */,
+				B74E102F2AA16E8F0058636B /* ToastViewModifier.swift in Sources */,
 				649085B62A9604AD00506F46 /* FollowButtonView.swift in Sources */,
 				960EFDDB2A9491980036CEC1 /* MyResumeView.swift in Sources */,
 				A09ED4C42A95BDDC00E6A626 /* ImagePicker.swift in Sources */,
@@ -983,6 +993,7 @@
 				A09ED4CC2A95F63700E6A626 /* MyStudyView.swift in Sources */,
 				B786FC3C2A9D753D00E3C1E9 /* FeedRecruitPrivateSettingView.swift in Sources */,
 				960EFDE62A9497430036CEC1 /* MyEduView.swift in Sources */,
+				B74E102D2AA16B4C0058636B /* ToastView.swift in Sources */,
 				A09ED4D02A97402D00E6A626 /* CameraView.swift in Sources */,
 				962B7E1B2A95D8F100083790 /* MyWorkMoreView.swift in Sources */,
 				960EFDE22A94971D0036CEC1 /* MyWorkView.swift in Sources */,
@@ -1035,6 +1046,7 @@
 				FAB51C7D2A9677E40047A725 /* DateStore.swift in Sources */,
 				9B6B9B322A94A3F2004609AF /* PostCommentStore.swift in Sources */,
 				6445B0FC2A9DD7B500DC3091 /* LikeListView.swift in Sources */,
+				B74E102B2AA16A310058636B /* Toast.swift in Sources */,
 				649085B82A96067A00506F46 /* RecommendFriendView.swift in Sources */,
 				9B6B9B2E2A949F15004609AF /* IdData.swift in Sources */,
 				FAB51C762A96755C0047A725 /* RecruitImagePicker.swift in Sources */,
