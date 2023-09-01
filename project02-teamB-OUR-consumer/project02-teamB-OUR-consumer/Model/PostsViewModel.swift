@@ -23,12 +23,12 @@ class PostViewModel: ObservableObject {
     func fetchPostForCurrentUserFollower(limit amount: Int) {
         
         /// 로그인한 유저의 UID를 가져옴
-//        guard let currentUserUID = PostFireService.getCurrentUserUID() else {
-//            print("Error: current user UID")
-//            return
-//        }
+        guard let currentUserUID = PostFireService.getCurrentUserUID() else {
+            print("Error: current user UID")
+            return
+        }
         
-        let currentUserUID = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+//        let currentUserUID = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         
         fireStoreService.fetchFollowerUIDs(for: currentUserUID) { followerUIDs in
             guard let followerUIDs = followerUIDs else {
@@ -79,6 +79,13 @@ class PostViewModel: ObservableObject {
     
     func reportPost(postId: String, report: String) {
         fireStoreService.reportPost(report: report, postId: postId) {
+            
+        }
+    }
+    
+    func modifyPosts(post: Post) {
+        fireStoreService.modifyPosts(post: post) { result in
+            print("결과: \(result)")
             
         }
     }

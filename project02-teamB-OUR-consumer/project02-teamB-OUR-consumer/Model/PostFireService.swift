@@ -38,8 +38,8 @@ class PostFireService {
     /// 로그인한 유저의 팔로워들의 게시물만 가져옴
     func fetchPosts(for followerUIDs: [String], path: String, amount: Int, completion: @escaping ([Post]) -> ()) {
         var allUIds = followerUIDs
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         allUIds.append(userId)
         let uniqueUIds = Array(Set(allUIds))
         
@@ -97,8 +97,8 @@ class PostFireService {
     }
     
     func writeComment(content: String, postId: String, completion: @escaping (Bool) -> ()) {
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         
         let postComment = PostComment(userId: userId, content: content)
         
@@ -131,8 +131,8 @@ class PostFireService {
             completion(false)
             return
         }
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
 
         db.collection("posts").document(postId).getDocument { (document, error) in
             guard let document = document?.data() else {
@@ -161,8 +161,8 @@ class PostFireService {
     }
     
     func likePost(postID: String, completion: @escaping (Bool) -> ()) {
-//        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         print("포스트ID\(postID)")
 
         let likeCollectionRef = db.collection("posts").document(postID)
@@ -295,8 +295,8 @@ class PostFireService {
     }
     
     func fetchMyPost(completion: @escaping ([Post]) -> ()) {
-        //        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+                guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         db.collection("posts")
             .whereField("creator", isEqualTo: userId)
             .getDocuments { querySnapshot, error in
@@ -319,11 +319,11 @@ class PostFireService {
     }
     
     func reportPost(report: String, postId: String, completion: @escaping () -> ()) {
-//        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-//            return
-//        }
+        guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
         
-        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
+//        let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
         print(postId)
         
         db.collection("posts").document(postId).updateData([
@@ -337,54 +337,19 @@ class PostFireService {
             }
         }
     }
+    
+    func modifyPosts(post: Post, completion: @escaping (Bool) -> ()) {
+        let docRef = db.collection("posts").document(post.id ?? "")
+        print("포스트아이디\(String(describing: post.id))")
+        
+        do {
+            try docRef.setData(from: post)
+        } catch {
+            print(error)
+        }
+    }
 }
 
 
 
-// func likePost(postID: String, completion: @escaping (Bool) -> ()) {
-////        guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else { return }
-//     let userId = "eYebZXFIGGQFqYt1fI4v4M3efSv2"
-//     print("포스트ID\(postID)")
-//
-//     let likeCollectionRef = db.collection("posts").document(postID)
-
-//     likeCollectionRef.getDocument { (document, error) in
-//         if let error = error {
-//             print("Error checking likes: \(error)")
-//         } else if let document = document {
-//             if var likes = document.data()?["like"] as? [String] {
-//                 if likes.contains(userId) {
-//                     // 이미 좋아요를 눌렀을 경우, userId를 배열에서 삭제
-//                     likes.removeAll(where: { $0 == userId })
-//                 } else {
-//                     // 좋아요를 누르지 않았을 경우, userId를 배열에 추가
-//                     likes.append(userId)
-//                 }
-//                 likeCollectionRef.updateData([
-//                     "like": likes
-//                 ]) { error in
-//                     if let error = error {
-//                         print("Error updating likes: \(error)")
-//                     } else {
-//                         print("Updated likes")
-//                         completion(true)
-//                     }
-//                 }
-//             } else {
-//                 // like 필드가 존재하지 않을 경우, 새로운 배열 생성 후 userId 추가
-//                 let newLikes = [userId]
-//                 likeCollectionRef.updateData([
-//                     "like": newLikes
-//                 ]) { error in
-//                     if let error = error {
-//                         print("Error creating likes: \(error)")
-//                     } else {
-//                         print("Created likes")
-//                         completion(true)
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 

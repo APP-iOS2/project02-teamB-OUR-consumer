@@ -69,7 +69,7 @@ struct PostCommentModel: Identifiable {
 }
 
 extension Post {
-    static var samplePost = Post(id: "zYk3NUbsxlbJ0kH3DJDq", creator: "Y7f1tHkuWcWcEQDd461PAumjobn2", privateSetting: false, content: "fdsfsdfd", createdAt: "2023-08-30 11:22:49", location: "ddd", postImagePath: ["https://mblogthumb-phinf.pstatic.net/MjAyMzAxMjZfMTE3/MDAxNjc0NzAzODY5Njc2.daD8cumac9oeiRbx7Cm3ju1ptXAJkBcGQ6uZbYjTHcYg.xxsc_0CdR37nTbaDHQwUTOlOpo0xGiV1eojCPYPZ_Gsg.JPEG.sweetgirl328/IMG_8633.jpg?type=w800"], reportCount: 0, like: ["eYebZXFIGGQFqYt1fI4v4M3efSv2"])
+    static var samplePost = Post(id: "zYk3NUbsxlbJ0kH3DJDq", creator: "eYebZXFIGGQFqYt1fI4v4M3efSv2", privateSetting: false, content: "fdsfsdfd", createdAt: "2023-08-30 11:22:49", location: "ddd", postImagePath: ["https://mblogthumb-phinf.pstatic.net/MjAyMzAxMjZfMTE3/MDAxNjc0NzAzODY5Njc2.daD8cumac9oeiRbx7Cm3ju1ptXAJkBcGQ6uZbYjTHcYg.xxsc_0CdR37nTbaDHQwUTOlOpo0xGiV1eojCPYPZ_Gsg.JPEG.sweetgirl328/IMG_8633.jpg?type=w800"], reportCount: 0, like: ["eYebZXFIGGQFqYt1fI4v4M3efSv2"])
 }
 
 extension PostModel {
