@@ -38,11 +38,11 @@ final class FeedStorageManager {
     func saveImage(data: Data, id: String) async throws -> (path: String, name: String, url: URL) {
         
         
-        let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
+//        let meta = StorageMetadata()
+//        meta.contentType = "image/jpeg"
         
         let path = "\(UUID().uuidString).jpeg"
-        let returnedMetaData = try await userReference(id: id).child(path).putDataAsync(data, metadata: meta)
+        let returnedMetaData = try await userReference(id: id).child(path).putDataAsync(data, metadata: nil)
         
         guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else {
             throw URLError(.badURL)
