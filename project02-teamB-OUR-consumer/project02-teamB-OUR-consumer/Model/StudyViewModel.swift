@@ -103,9 +103,11 @@ class StudyViewModel: ObservableObject {
             for document in snapshot.documents {
                 do {
                     let item = try await document.data(as: StudyCommentDTO.self)
-                    if let user = await self.getUserInfo(userId: item.userId ?? "") {
-                        let studyComment = item.toStudyComments(user: user)
-                        comments.append(studyComment)
+                    if item.reportCount < 5 {
+                        if let user = await self.getUserInfo(userId: item.userId ?? "") {
+                            let studyComment = item.toStudyComments(user: user)
+                            comments.append(studyComment)
+                        }
                     }
                 } catch let error {
                     print(error.localizedDescription)

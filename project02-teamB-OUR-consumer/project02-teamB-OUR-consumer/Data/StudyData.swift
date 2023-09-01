@@ -75,6 +75,12 @@ struct StudyCommentDTO: Identifiable, Codable {
     var userId: String
     var content: String
     var createdAt: String
+    var reportReason: [String]?
+    var reportUserId: [String]?
+    
+    var reportCount: Int {
+        reportReason?.count ?? 0
+    }
     
     func toStudyComments(user: User) -> StudyComment {
         return StudyComment(

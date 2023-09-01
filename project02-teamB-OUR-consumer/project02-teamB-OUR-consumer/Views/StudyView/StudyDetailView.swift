@@ -268,21 +268,23 @@ struct StudyDetailView: View {
                     Label("공유하기", systemImage: "square.and.arrow.up")
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    Button(action: {
-                        if isAlreadyReported() {
-                            alertText = "이미 신고한 스터디입니다."
-                            viewModel.alertCase = .normal
-                            showAlert = true
-                        } else {
-                            isShowingReportSheet = true
-                        }
-                    }, label: {
-                        Label("신고하기", systemImage: "exclamationmark.shield")
-                    })
-                } label: {
-                    Image(systemName: "ellipsis")
+            if !isMyStudy() {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button(action: {
+                            if isAlreadyReported() {
+                                alertText = "이미 신고한 스터디입니다."
+                                viewModel.alertCase = .normal
+                                showAlert = true
+                            } else {
+                                isShowingReportSheet = true
+                            }
+                        }, label: {
+                            Label("신고하기", systemImage: "exclamationmark.shield")
+                        })
+                    } label: {
+                        Image(systemName: "ellipsis")
+                    }
                 }
             }
         }
