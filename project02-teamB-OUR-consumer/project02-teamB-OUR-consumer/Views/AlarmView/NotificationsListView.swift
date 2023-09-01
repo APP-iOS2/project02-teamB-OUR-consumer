@@ -13,9 +13,8 @@ struct NotificationsListView: View {
     
     @EnvironmentObject var alarmViewModel: AlarmViewModel
     @StateObject var study: StudyViewModel = StudyViewModel()
-    
     @EnvironmentObject var userViewModel: UserViewModel
-    @State var isLoading = true
+    
     var access: NotificationType.Access
     
     var body: some View {
@@ -29,15 +28,7 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
-        .disabled(isLoading)
-        .redacted(reason: isLoading ? .placeholder : [])
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.isLoading = false
-            }
-            if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
-                userViewModel.fetchUser(userId: userID)
-            }
             alarmViewModel.fetchNotificationItem()
         }
         .refreshable {
@@ -78,7 +69,7 @@ struct NotificationsListView: View {
         }
         return NotificationRow(notification: notification,isFollowing: false,access: access)
             .environmentObject(study)
-    } 
+    }
 }
 
 // 알림 행
@@ -88,6 +79,7 @@ struct NotificationRow: View {
     @EnvironmentObject var studyViewModel: StudyViewModel
     @EnvironmentObject var alarmViewModel: AlarmViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @State var isLoading = true
     
     var access: NotificationType.Access
     
@@ -148,7 +140,7 @@ struct NotificationRow: View {
                                 Spacer()
                             }
                         }
-
+                        
                         Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(Color.gray)
@@ -172,10 +164,7 @@ struct NotificationRow: View {
                                 isFollowing.toggle()
                                 sound(is: isFollowing)
                                 following(is: isFollowing){ id, type in
-                                    
-                                        alarmViewModel.sendNotification(userId: id, type: type)
-                                    
-                                    
+                                    alarmViewModel.sendNotification(userId: id, type: type)
                                 }
                                 // 임시 푸시알림
                                 UNNotificationService.shared.requestSendNoti(seconds: 0.1,
@@ -195,10 +184,19 @@ struct NotificationRow: View {
             }
         }
         .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+        .redacted(reason: isLoading ? .placeholder : [])
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.isLoading = false
+            }
+            if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
+                userViewModel.fetchUser(userId: userID)
+            }
+        }
     }
     
     
-
+    
     func following(is following: Bool, completion: @escaping (ID,NotificationType) -> () ) {
         
         following ?
