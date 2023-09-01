@@ -171,8 +171,11 @@ struct NotificationRow: View {
                             .onTapGesture {
                                 isFollowing.toggle()
                                 sound(is: isFollowing)
-                                following(is: isFollowing){ id, name, type in
-                                    alarmViewModel.sendNotification(userId: id, user: name, type: type)
+                                following(is: isFollowing){ id, type in
+                                    
+                                        alarmViewModel.sendNotification(userId: id, type: type)
+                                    
+                                    
                                 }
                                 // 임시 푸시알림
                                 UNNotificationService.shared.requestSendNoti(seconds: 0.1,
@@ -196,14 +199,12 @@ struct NotificationRow: View {
     
     
 
-    func following(is following: Bool, completion: @escaping (ID,String,NotificationType) -> () ) {
-        guard let myID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-            return }
+    func following(is following: Bool, completion: @escaping (ID,NotificationType) -> () ) {
         
         following ?
-        userViewModel.followUser(document: myID,targetUserId: notification.userId, completion: completion)
+        userViewModel.followUser(targetUserId: notification.userId, completion: completion)
         :
-        userViewModel.unfollowUser(document: myID,targetUserId: notification.userId)
+        userViewModel.unfollowUser(targetUserId: notification.userId)
     }
     
     func sound(is following: Bool) {

@@ -107,7 +107,7 @@ struct FeedRecruitPhotoAddView: View {
                 imageData = images
                 //print("온체인지 \(imageData)")
             }
-
+            
             
         }
         

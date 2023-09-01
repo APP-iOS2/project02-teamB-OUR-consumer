@@ -17,7 +17,8 @@ class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
     private var userId: ID?
-    
+    var user: User?
+
     @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
     @Published var publicNotiItem: NotiItem = [:]
@@ -31,6 +32,13 @@ class AlarmViewModel: ObservableObject{
         self.service = dependency.alarmFireSerivce
         
         self.userId = dependency.alarmFireSerivce.userId
+        
+        if let userID = self.userId{
+            dependency.alarmFireSerivce.fetchUser(userId: userID, completion: {[weak self] user in
+                guard let self else { return }
+                self.user = user
+            })
+        }
         
         if let hasUnreadData = UserDefaults.standard.value(forKey: "hasUnreadData") as? Bool {
             self.hasUnreadData = hasUnreadData
@@ -64,9 +72,15 @@ class AlarmViewModel: ObservableObject{
     /// - Parameters:
     ///   - type: 알림의 종류 EX) study 참여,포스팅 좋아요 등
     ///   - content: 알림 메시지 Content , name
-    func sendNotification(userId: ID,user name: String ,type: NotificationType){
+    func sendNotification(userId: ID ,type: NotificationType){
         let userId = userId //userViewModel.user?.id else { return }
-        let content = "@" + name + " 님이" + type.content
+        let content: String
+        
+        if let name = self.user?.name{
+            content = "@" + name + " 님이" + type.content
+        }else{
+            content = "@" + "장수지" + " 님이" + type.content
+        }
         
         let dto = NotificationDTO(userId: userId, type: type.value, content: content, isRead: false, createdDate: Date())
         

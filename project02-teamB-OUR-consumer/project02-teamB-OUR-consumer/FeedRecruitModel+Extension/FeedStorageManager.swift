@@ -10,18 +10,18 @@ final class FeedStorageManager {
     
     private let storage = Storage.storage().reference()
     
-
-   
-//    func delete() async {
-//
-//        do{
-//            //try await print("딜리트 함수실행:::\(storage.child("FeedPosts").listAll())")
-//            try await storage.child("FeedPosts").delete()
-//        }catch {
-//            print(error.localizedDescription)
-//        }
-//    }
-//
+    
+    
+    //    func delete() async {
+    //
+    //        do{
+    //            //try await print("딜리트 함수실행:::\(storage.child("FeedPosts").listAll())")
+    //            try await storage.child("FeedPosts").delete()
+    //        }catch {
+    //            print(error.localizedDescription)
+    //        }
+    //    }
+    //
     
     private var imagesReference: StorageReference {
         storage.child("images")
@@ -37,7 +37,7 @@ final class FeedStorageManager {
     
     func saveImage(data: Data, id: String) async throws -> (path: String, name: String, url: URL) {
         
-
+        
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
         

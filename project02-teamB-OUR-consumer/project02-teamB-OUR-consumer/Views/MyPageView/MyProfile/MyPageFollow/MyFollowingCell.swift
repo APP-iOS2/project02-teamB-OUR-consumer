@@ -50,7 +50,7 @@ struct MyFollowingCell: View {
                 } else {
                     Button(action: {
                         //TODO: alarm으로 notification
-                        userViewModel.followUser(targetUserId: following.id ?? ""){ _,_,_ in
+                        userViewModel.followUser(targetUserId: following.id ?? ""){ _,_ in
                             
                         }
                         print("팔로우 되었습니다.")

@@ -32,11 +32,11 @@ class UserViewModel: ObservableObject {
                     try document.data(as: User.self)
                 }
                 switch result {
-                    case .success(let user):
-                        self.user = user
+                case .success(let user):
+                    self.user = user
                     
-                    case .failure(let error):
-                        print("Error decoding user: \(error)")
+                case .failure(let error):
+                    print("Error decoding user: \(error)")
                 }
             }
         }
@@ -56,32 +56,55 @@ class UserViewModel: ObservableObject {
 
 // 마이페이지 뷰 팔로우 팔로잉
 extension UserViewModel {
-    func followUser(document path: String = "BMTtH2JFcPNPiofzyzMI5TcJn1S2" ,targetUserId: String, completion: ((ID,String,NotificationType) -> ())?) {
+//<<<<<<< HEAD
+//    func followUser(document path: String = "BMTtH2JFcPNPiofzyzMI5TcJn1S2" ,targetUserId: String, completion: ((ID,String,NotificationType) -> ())?) {
+//
+//        let userName = user?.name
+//            db.collection("users").document("\(path)").updateData([
+//                "following": FieldValue.arrayUnion([targetUserId])
+//            ], completion: { error in
+//                if error == nil{
+//                    completion?(path, userName ?? "장수지" , .follow)
+//                }
+//            })
+//
+//            db.collection("users").document(targetUserId).updateData([
+//                "follower": FieldValue.arrayUnion(["\(path)"])
+//            ])
+//=======
+    func followUser(targetUserId: String, completion: ((ID,NotificationType) -> ())?) {
+        guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
         
-        let userName = user?.name
-            db.collection("users").document("\(path)").updateData([
-                "following": FieldValue.arrayUnion([targetUserId])
-            ], completion: { error in
-                if error == nil{
-                    completion?(path, userName ?? "장수지" , .follow)
-                }
-            })
-            
-            db.collection("users").document(targetUserId).updateData([
-                "follower": FieldValue.arrayUnion(["\(path)"])
-            ])
+        db.collection("users").document(currentUserId).updateData([
+            "following": FieldValue.arrayUnion([targetUserId])
+        ], completion: { error in
+            if error == nil{
+                completion?(currentUserId, .follow)
+            }
+        })
         
-            user?.following?.append(targetUserId)
+        
+        db.collection("users").document(targetUserId).updateData([
+            "follower": FieldValue.arrayUnion([currentUserId])
+        ])
+        
+        user?.following?.append(targetUserId)
     }
-
-    func unfollowUser(document path: String = "BMTtH2JFcPNPiofzyzMI5TcJn1S2", targetUserId: String) {
-            db.collection("users").document("\(path)").updateData([
-                "following": FieldValue.arrayRemove([targetUserId])
-            ])
-            
-            db.collection("users").document(targetUserId).updateData([
-                "follower": FieldValue.arrayRemove(["\(path)"])
-            ])
+    
+    func unfollowUser(targetUserId: String) {
+        guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return
+        }
+        
+        db.collection("users").document(currentUserId).updateData([
+            "following": FieldValue.arrayRemove([targetUserId])
+        ])
+        
+        db.collection("users").document(targetUserId).updateData([
+            "follower": FieldValue.arrayRemove([currentUserId])
+        ])
         
         user?.following?.removeAll(where: { id in
             return id == targetUserId
@@ -89,18 +112,18 @@ extension UserViewModel {
     }
     
     func fetchFollowDetails(userId: String, follow: FollowType, completion: @escaping ([User]) -> Void) {
-           db.collection("users").document(userId).getDocument { (document, error) in
-               if let data = document?.data(), let followingIds = data[follow.rawValue] as? [String] {
-                   self.fetchUsersDetails(userIds: followingIds, completion: completion)
-               } else {
-                   completion([])
-               }
-           }
-       }
+        db.collection("users").document(userId).getDocument { (document, error) in
+            if let data = document?.data(), let followingIds = data[follow.rawValue] as? [String] {
+                self.fetchUsersDetails(userIds: followingIds, completion: completion)
+            } else {
+                completion([])
+            }
+        }
+    }
     
     private func fetchUsersDetails(userIds: [String], completion: @escaping ([User]) -> Void) {
         if userIds.count == 0 { return completion([]) }
-
+        
         db.collection("users").whereField(FieldPath.documentID(), in: userIds).getDocuments { (querySnapshot, error) in
             if let documents = querySnapshot?.documents {
                 let users = documents.compactMap { document -> User? in
@@ -125,14 +148,14 @@ extension UserViewModel {
             completion(false)
             return
         }
-
+        
         guard let userId = user?.id else {
             completion(false)
             return
         }
-
+        
         let storageRef = Storage.storage().reference().child("profileImages/\(userId).jpg")
-
+        
         storageRef.putData(imageData, metadata: nil) { (metadata, error) in
             if let error = error {
                 print("Error uploading image: \(error)")
@@ -146,7 +169,7 @@ extension UserViewModel {
                     completion(false)
                     return
                 }
-    
+                
                 self.user?.profileImage = downloadURL.absoluteString
             }
         }
@@ -160,6 +183,27 @@ extension UserViewModel {
                 completion(nil)
             } else {
                 completion(url)
+            }
+        }
+    }
+}
+
+extension UserViewModel {
+    func fetchMyPosts(userId: String, completion: @escaping ([Post]) -> Void) {
+        db.collection("posts").whereField("creator", isEqualTo: userId).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching posts: \(error)")
+                completion([])
+                return
+            }
+            
+            if let snapshot = snapshot, !snapshot.isEmpty {
+                let posts = snapshot.documents.compactMap { document -> Post? in
+                    try? document.data(as: Post.self)
+                }
+                completion(posts)
+            } else {
+                completion([])
             }
         }
     }
