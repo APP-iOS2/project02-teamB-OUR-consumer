@@ -62,6 +62,7 @@ struct MyMain: View {
                     ProfileHeaderView(userViewModel: userViewModel, isMyProfile: $isMyProfile, isFollowing: $isFollowing)
                         .environmentObject(UserViewModel())
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
+                        //무슨 오류..?
                         Section {
                             switch currentTab {
                             case 0:
