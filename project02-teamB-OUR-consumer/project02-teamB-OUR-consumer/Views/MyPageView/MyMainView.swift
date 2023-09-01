@@ -10,31 +10,6 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// MARK: 추후 통합후 삭제 예정 Color
-//
-//let sampleResume = Resume(id: UUID().uuidString,
-//                          userId: "0RPDyJNyzxSViwBvMw573KU0jKv1",
-//                          introduction: "샘플 데이터입니다",
-//                          workExperience: [
-//                            WorkExperience(
-//                                id: UUID().uuidString,
-//                                jobTitle: "잠자는사람",
-//                                company: Company(companyName: "멋사", companyImage: nil),
-//                                startDate: Date(),
-//                                endDate: Date(),
-//                                description: "좋은 회사입니다")
-//                          ],
-//                          education: [
-//                            Education(id: UUID().uuidString, schoolName: "아무대", degree: "졸업", fieldOfStudy: "전공임?", startDate: Date(), endDate: Date(), description: "좋은 학교입니다")
-//                          ],
-//                          skills: [
-//                            Skill(id: UUID().uuidString, skillName: "빨리밥먹기", description: "좋은스킬")
-//                          ],
-//                          projects: [
-//                            Project(id: UUID().uuidString, projectTitle: "밥먹기대회", jobTitle: "1등", startDate: Date(), endDate: Date(), description: "아무")
-//                          ]
-//)
-
 let mainColor = Color(hex: "#090580")
 
 struct MyMain: View {
@@ -94,12 +69,18 @@ struct MyMain: View {
             .navigationTitle("")
         }
         .onAppear(){
-            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
-            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                return
+            }
+            userViewModel.fetchUser(userId: currentUserId)
+            resumeViewModel.fetchResume(userId: currentUserId)
         }
         .refreshable {
-            userViewModel.fetchUser(userId: "BMTtH2JFcPNPiofzyzMI5TcJn1S2")
-            resumeViewModel.fetchResume(userId: "0RPDyJNyzxSViwBvMw573KU0jKv1")
+            guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                return
+            }
+            userViewModel.fetchUser(userId: currentUserId)
+            resumeViewModel.fetchResume(userId: currentUserId)
         }
     }
     
