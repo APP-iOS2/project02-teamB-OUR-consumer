@@ -21,16 +21,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             FireBase 에뮬레이터 사용시 주석 제거
          ----------------------------------*/
         //스토리지
-//        Storage.storage().useEmulator(withHost:"127.0.0.1", port:9199)
+        Storage.storage().useEmulator(withHost:"127.0.0.1", port:9199)
         
         //인증관련
 //        Auth.auth().useEmulator(withHost:"127.0.0.1", port:9099)
         
         //파이어스토어
-//        let settings = Firestore.firestore().settings
-//        settings.host = "127.0.0.1:8080"
-//        settings.isSSLEnabled = false
-//        Firestore.firestore().settings = settings
+        let settings = Firestore.firestore().settings
+        settings.host = "127.0.0.1:8080"
+        settings.isSSLEnabled = false
+        Firestore.firestore().settings = settings
         
         
         UNUserNotificationCenter.current().delegate = self
