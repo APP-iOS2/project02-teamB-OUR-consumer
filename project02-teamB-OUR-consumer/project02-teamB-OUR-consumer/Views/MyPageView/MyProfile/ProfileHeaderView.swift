@@ -101,7 +101,9 @@ struct ProfileHeaderView: View {
                             isFollowing = false
                         } else {
                             guard let userId = userViewModel.user?.id else { return }
-                            myViewModel.followUser(targetUserId: userId)
+                            myViewModel.followUser(targetUserId: userId){ type, value in
+                                
+                            }
                             isFollowing = true
                         }
                     } label: {

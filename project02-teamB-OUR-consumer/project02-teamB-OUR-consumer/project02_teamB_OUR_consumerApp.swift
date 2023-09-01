@@ -27,20 +27,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //        Auth.auth().useEmulator(withHost:"127.0.0.1", port:9099)
         
         //파이어스토어
-<<<<<<< HEAD
-//        let settings = Firestore.firestore().settings
-//        settings.host = "127.0.0.1:8080"
-//        settings.isSSLEnabled = false
-//        Firestore.firestore().settings = settings
-
-=======
         let settings = Firestore.firestore().settings
         settings.host = "127.0.0.1:8080"
         settings.isSSLEnabled = false
         Firestore.firestore().settings = settings
         
         
->>>>>>> f5866249644d25827699c6a6671d448104cdd0fd
         UNUserNotificationCenter.current().delegate = self
         
         return true

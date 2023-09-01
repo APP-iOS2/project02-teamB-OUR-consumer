@@ -95,12 +95,15 @@ struct NotificationRow: View {
                     .opacity(0.0)
                     .buttonStyle(PlainButtonStyle())
                     
+
                     HStack {
+                        
                     }
+                    
                 }
                 
                 if notification.type == .follow{
-                    NavigationLink(destination: MyMainDetailView(userId: notification.user.id ?? "9o8gkYLUFHdsO877xqX9rvSVdI82"))
+                    NavigationLink(destination: MyMainDetailView(userId: notification.userId ?? "9o8gkYLUFHdsO877xqX9rvSVdI82"))
                     {
                         EmptyView()
                     }
@@ -110,6 +113,7 @@ struct NotificationRow: View {
                     HStack {
                     }
                 }
+                
                 
                 if notification.type == .studyReply || notification.type == .studyAutoJoin {
                     NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: true))
@@ -140,7 +144,6 @@ struct NotificationRow: View {
                             }
                         }
                         
-                        <<<<<<< HEAD
                         Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(Color.gray)
@@ -165,100 +168,76 @@ struct NotificationRow: View {
                                 sound(is: isFollowing)
                                 following(is: isFollowing){ id, type in
                                     alarmViewModel.sendNotification(userId: id, type: type)
-                                    =======
-                                    // 팔로우/팔로잉 버튼 (해당되는 경우)
-                                    if notification.type == .follow {
-                                        Spacer()
-                                        
-                                        // 팔로우 버튼만 오른쪽으로 밀기
-                                        //                            Spacer()
-                                        Text(isFollowing ? "팔로잉" : "팔로우")
-                                            .font(.system(size: 14, weight: .bold))
-                                            .foregroundColor(isFollowing ? AColor.main.color : Color.white)
-                                            .frame(width: 80, height: 27.85)
-                                            .background(isFollowing ? Color.white : AColor  .main.color)
-                                            .cornerRadius(5)
-                                            .overlay(RoundedRectangle(cornerRadius: 5)
-                                                .stroke(AColor.main.color, lineWidth: 2))
-                                            .onTapGesture {
-                                                isFollowing.toggle()
-                                                sound(is: isFollowing)
-                                                following(is: isFollowing)
-                                                // 임시 푸시알림
-                                                UNNotificationService.shared.requestSendNoti(seconds: 0.1,
-                                                                                             type: notification.type,
-                                                                                             body: notification.content)
-                                                >>>>>>> f5866249644d25827699c6a6671d448104cdd0fd
-                                            }
-                                        // 임시 푸시알림
-                                        UNNotificationService.shared.requestSendNoti(seconds: 0.1,
-                                                                                     type: notification.type,
-                                                                                     body: notification.content)
-                                    }
                                 }
-                                
-                                // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
-                                if notification.type == .like || notification.type == .comment,
-                                   let imageUrl = notification.imageURL {
-                                    Spacer()
-                                    RemoteImage(url: imageUrl)
-                                        .frame(width: 40, height: 40)
-                                }
+                                // 임시 푸시알림
+                                UNNotificationService.shared.requestSendNoti(seconds: 0.1,
+                                                                             type: notification.type,
+                                                                             body: notification.content)
                             }
                     }
-                }
-                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-                .redacted(reason: isLoading ? .placeholder : [])
-                .onAppear{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        self.isLoading = false
-                    }
-                    if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
-                        userViewModel.fetchUser(userId: userID)
+                    
+                    // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
+                    if notification.type == .like || notification.type == .comment,
+                       let imageUrl = notification.imageURL {
+                        Spacer()
+                        RemoteImage(url: imageUrl)
+                            .frame(width: 40, height: 40)
                     }
                 }
-            }
-            
-            
-            
-            func following(is following: Bool, completion: @escaping (ID,NotificationType) -> () ) {
-                
-                following ?
-                userViewModel.followUser(targetUserId: notification.userId, completion: completion)
-                :
-                userViewModel.unfollowUser(targetUserId: notification.userId)
-            }
-            
-            func sound(is following: Bool) {
-                // (숫자)바꾸면 기본 제공 효과음
-                if following {
-                    AudioServicesPlaySystemSound(1004)
-                } else {
-                    AudioServicesPlaySystemSound(1003)
-                }
-            }
-            
-            func styledText(content: String) -> Text {
-                var output = Text("")
-                let components = content.tokenize("@#. ")
-                for component in components {
-                    if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
-                        print("styledText: \(component)")
-                        output = output + Text(component).foregroundColor(.accentColor)
-                    } else {
-                        print("styledText2: \(component)")
-                        output = output + Text(component)
-                    }
-                }
-                return output
             }
         }
+        .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+        .redacted(reason: isLoading ? .placeholder : [])
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.isLoading = false
+            }
+            if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
+                userViewModel.fetchUser(userId: userID)
+            }
+        }
+    }
+    
+    
+    
+    func following(is following: Bool, completion: @escaping (ID,NotificationType) -> () ) {
         
-        struct NotificationsListView_Previews: PreviewProvider {
-            static var previews: some View {
-                NavigationStack{
-                    NotificationsListView(access: .personal)
-                        .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService())))
-                }
+        following ?
+        userViewModel.followUser(targetUserId: notification.userId, completion: completion)
+        :
+        userViewModel.unfollowUser(targetUserId: notification.userId)
+    }
+    
+    func sound(is following: Bool) {
+        // (숫자)바꾸면 기본 제공 효과음
+        if following {
+            AudioServicesPlaySystemSound(1004)
+        } else {
+            AudioServicesPlaySystemSound(1003)
+        }
+    }
+    
+    func styledText(content: String) -> Text {
+        var output = Text("")
+        let components = content.tokenize("@#. ")
+        for component in components {
+            if component.rangeOfCharacter(from: CharacterSet(charactersIn: "@#")) != nil {
+                print("styledText: \(component)")
+                output = output + Text(component).foregroundColor(.accentColor)
+            } else {
+                print("styledText2: \(component)")
+                output = output + Text(component)
             }
         }
+        return output
+    }
+}
+
+struct NotificationsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack{
+            NotificationsListView(access: .personal)
+                .environmentObject(AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService())))
+        }
+    }
+}
