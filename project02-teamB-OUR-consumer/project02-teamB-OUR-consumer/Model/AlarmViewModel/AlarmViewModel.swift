@@ -16,7 +16,7 @@ typealias NotiItem = [ASection : [NotificationItem]]
 class AlarmViewModel: ObservableObject{
     
     private var service: AlarmFireService
-
+    private var userId: ID?
     
     @Published var hasUnreadData: Bool = false // 뱃지 표시 여부
     @Published var personalNotiItem: NotiItem = [:]
@@ -30,40 +30,46 @@ class AlarmViewModel: ObservableObject{
     init(dependency: Dependency){
         self.service = dependency.alarmFireSerivce
 
-
+        self.userId = dependency.alarmFireSerivce.userId
+        
         if let hasUnreadData = UserDefaults.standard.value(forKey: "hasUnreadData") as? Bool {
             self.hasUnreadData = hasUnreadData
         }
+        observingNotification()
     }
+
     
-    
-    
-    func followButtonTapped(user id: ID) {
-//        userViewModel.followUser(targetUserId: id)
+    func observingNotification(){
+        service.observingNotification(completion: { [weak self] snapshot, error in
+            guard let self else { return }
+            if let snapshot = snapshot?.documentChanges{
+                let value = snapshot.compactMap { change in
+                    let value = try? change.document.data(as: NotificationDTO.self)
+                    return value
+                }.filter{ value in value.userId != self.userId}
+                
+                if !value.isEmpty{
+                    let items = self.mappingToDTO(dto: value)
+                    // UserDefaults에 알람 상태를 저장합니다.
+                    UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
+                    // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+                    self.hasUnreadData = !items.allSatisfy { $0.isRead }
+                }
+            }
+        })
     }
-    
-    func unfollowButtonTapped(user id: ID) {
-//        userViewModel.unfollowUser(targetUserId: id)
-    }
-    
     
     
     /// 알림 생성하는 함수 : 알림의 Type 과 Content를 인자로 전달 --> 파이어베이스 notifications path에 저장하게 됩니다.
     /// - Parameters:
     ///   - type: 알림의 종류 EX) study 참여,포스팅 좋아요 등
-    ///   - content: 알림 메시지 Content
-    func sendNotification(type: NotificationType, content: String){
-        let uuid = UUID().uuidString
-        let userId =  "" //userViewModel.user?.id else { return }
-        var content = content
+    ///   - content: 알림 메시지 Content , name
+    func sendNotification(userId: ID,user name: String ,type: NotificationType){
+        let userId = userId //userViewModel.user?.id else { return }
+        let content = "@" + name + " 님이" + type.content
+
+        let dto = NotificationDTO(userId: userId, type: type.value, content: content, isRead: false, createdDate: Date())
         
-        if let userName = .some("value") {
-            content = userName + " 님이 \(content)"
-        }else{
-            content = "익명 님이 \(content)"
-        }
-        
-        let dto = NotificationDTO(id: uuid, userId: userId, type: type.value, content: content, isRead: false, createdDate: Date())
         service.create(send: dto, completion: { result in
             print("저장성공")
         })
@@ -100,28 +106,33 @@ class AlarmViewModel: ObservableObject{
     }
 
     func fetchNotificationItem(limit: Int = 10) {
-        service.read(completion: { [weak self] result in
-            guard let self else {return }
-            switch result{
-            case .success(let notificationDTO):
-                let items = notificationDTO.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
-                let models = self.mapToDictionary(items: items)
-                self.personalNotiItem = models.0
-                self.publicNotiItem = models.1
-                
-              
-                // UserDefaults에 알람 상태를 저장합니다.
-                UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
-                
-                // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
-                self.hasUnreadData = !items.allSatisfy { $0.isRead }
-                
-                // 이 부분도 로깅으로 확인
-                print("hasUnreadData updated to: \(self.hasUnreadData)")
-            case .failure(let error):
-                print("error: \(error) -- \(#function)")
+        
+        guard let myID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+            return }
+    
+        service.fetchUser(userId: myID){ [weak self] user in
+            guard let self else { return }
+            if let followingsIds = user.following{
+                service.read(followingsIDs: followingsIds, completion: { [weak self] result in
+                    guard let self else {return }
+                    switch result{
+                    case .success(let notificationDTO):
+                      
+                        let items = self.mappingToDTO(dto: notificationDTO)
+                        // UserDefaults에 알람 상태를 저장합니다.
+                        UserDefaults.standard.setValue(self.hasUnreadData, forKey: "hasUnreadData")
+                        
+                        // 읽지 않은 알림이 있는지 확인하여 뱃지 표시 여부 결정
+                        self.hasUnreadData = !items.allSatisfy { $0.isRead }
+                        
+                        // 이 부분도 로깅으로 확인
+                        print("hasUnreadData updated to: \(self.hasUnreadData)")
+                    case .failure(let error):
+                        print("error: \(error) -- \(#function)")
+                    }
+                })
             }
-        })
+        }
     }
     
 
@@ -197,16 +208,18 @@ class AlarmViewModel: ObservableObject{
     func addNewNotification() {
         // 새로운 알림 데이터를 생성
         let newNotification = NotificationDTO(
-            id: UUID().uuidString,
-            userId: "새로운 사용자 ID",
+            userId: "Y7f1tHkuWcWcEQDd461PAumjobn2",
             type: "follow",
-            content: "장수지님이 게시물을 좋아합니다.",
+            content: "장수지님이 팔로우 하였습니다.",
             isRead: false,
             createdDate: "2023-08-29 13:50:39".toDate() // 현재 날짜와 시간을 설정
         )
+        
+        print("newNotification: \(newNotification)")
 
         // Firestore 서비스를 통해 데이터를 추가
         service.create(send: newNotification) { result in
+            print("result failed")
             if result == "success" {  // 예시: 성공 시 "success" 문자열 반환
                 print("New notification added successfully.")
             } else {
@@ -223,6 +236,16 @@ class AlarmViewModel: ObservableObject{
         else {return nil}
         
         return User(id: nil, name: sampleUserName, email: "", profileImage: nil, profileMessage: nil, follower: nil, following: nil)
+    }
+    
+    
+    
+    private func mappingToDTO(dto: [NotificationDTO]) -> [NotificationItem] {
+        let items = dto.compactMap { $0.toDomain(user: self.getUser(user: $0.userId) ?? User(name: "", email: "", profileImage: "", profileMessage: "")) }
+        let models = self.mapToDictionary(items: items)
+        self.personalNotiItem = models.0
+        self.publicNotiItem = models.1
+        return items
     }
     
     
@@ -256,85 +279,85 @@ class AlarmViewModel: ObservableObject{
 
 
 struct DummyModel{
+//
+//    static func getPersonalRandom() -> [NotificationDTO]{
+//        return [
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "follow",
+//                            content: "장수지님이 팔로우했습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-08-21 13:50:39".toDate()),
+//
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "follow",
+//                            content: "박형환님이 게시물을 좋아합니다.",
+//                            isRead: false,
+//                            createdDate: "2022-08-23 13:50:39".toDate()),
+//
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "like",
+//                            content: "박찬호님이 댓글을 남겼습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-08-21 13:50:39".toDate())
+//        ]
+//    }
     
-    static func getPersonalRandom() -> [NotificationDTO]{
-        return [
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "follow",
-                            content: "장수지님이 팔로우했습니다.",
-                            isRead: false,
-                            createdDate: "2023-08-21 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "follow",
-                            content: "박형환님이 게시물을 좋아합니다.",
-                            isRead: false,
-                            createdDate: "2022-08-23 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "like",
-                            content: "박찬호님이 댓글을 남겼습니다.",
-                            isRead: false,
-                            createdDate: "2023-08-21 13:50:39".toDate())
-        ]
-    }
     
-    
-    static func getPersonal() -> [NotificationDTO]{
-        return [
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "follow",
-                            content: "박찬호님이 팔로잉 했습니다.",
-                            isRead: false,
-                            createdDate: "2023-08-21 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "follow",
-                            content: "장수지님이 게시물을 좋아합니다.",
-                            isRead: false,
-                            createdDate: "2022-08-23 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "like",
-                            content: "박형환님이 댓글을 남겼습니다.",
-                            isRead: false,
-                            createdDate: "2023-08-21 13:50:39".toDate()),
-            
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "comment",
-                            content: "박찬호님이 팔로우했습니다.",
-                            isRead: false,
-                            createdDate: "2023-06-21 13:50:39".toDate())
-        ]
-    }
-    
-    static func getPublic() -> [NotificationDTO]{
-        return [
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "studyAutoJoin",
-                            content: "박형환님이 @Study_X에 가입했습니다.",
-                            isRead: false,
-                            createdDate: "2023-06-21 13:50:39".toDate()),
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "studyReply",
-                            content: "장수지님이 @Study_Y에 댓글을 남겼습니다.",
-                            isRead: false,
-                            createdDate: "2023-06-21 13:50:39".toDate()),
-            NotificationDTO(id: UUID().uuidString,
-                            userId: UUID().uuidString,
-                            type: "studyReply",
-                            content: "박찬호님이 @Study_Z에 댓글을 남겼습니다.",
-                            isRead: false,
-                            createdDate: "2022-06-21 13:50:39".toDate())
-        ]
-    }
+//    static func getPersonal() -> [NotificationDTO]{
+//        return [
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "follow",
+//                            content: "박찬호님이 팔로잉 했습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-08-21 13:50:39".toDate()),
+//            
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "follow",
+//                            content: "장수지님이 게시물을 좋아합니다.",
+//                            isRead: false,
+//                            createdDate: "2022-08-23 13:50:39".toDate()),
+//            
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "like",
+//                            content: "박형환님이 댓글을 남겼습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-08-21 13:50:39".toDate()),
+//            
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "comment",
+//                            content: "박찬호님이 팔로우했습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-06-21 13:50:39".toDate())
+//        ]
+//    }
+//    
+//    static func getPublic() -> [NotificationDTO]{
+//        return [
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "studyAutoJoin",
+//                            content: "박형환님이 @Study_X에 가입했습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-06-21 13:50:39".toDate()),
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "studyReply",
+//                            content: "장수지님이 @Study_Y에 댓글을 남겼습니다.",
+//                            isRead: false,
+//                            createdDate: "2023-06-21 13:50:39".toDate()),
+//            NotificationDTO(id: UUID().uuidString,
+//                            userId: UUID().uuidString,
+//                            type: "studyReply",
+//                            content: "박찬호님이 @Study_Z에 댓글을 남겼습니다.",
+//                            isRead: false,
+//                            createdDate: "2022-06-21 13:50:39".toDate())
+//        ]
+//    }
 }
