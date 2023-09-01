@@ -45,24 +45,6 @@ struct StudyReplyView: View {
             }
             .padding([.horizontal, .bottom], 10)
             .padding([.leading,.trailing], 8)
-            
-            
-            HStack {
-                //프로필 이미지
-                Image("OUR_Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 40)
-                    .clipShape(Circle())
-                TextField("댓글을 입력하세요", text: $content, axis: .vertical)
-                Button("등록") {
-                    Task {
-                        await viewModel.addComments(content: content)
-                        content = ""
-                    }
-                }
-            }
-            .padding()
             .sheet(isPresented: $isShowingCommentReportSheet) {
                 StudyReportView(viewModel: viewModel, isStudy: false)
             }

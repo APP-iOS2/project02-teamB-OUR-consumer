@@ -26,6 +26,7 @@ struct StudyDetailView: View {
     @State var isShowingLocationSheet: Bool = false
     @State var isShowingReportSheet: Bool = false
     @State var isSavedBookmark: Bool
+    @State var content: String = ""
     @State var showAlert: Bool = false
     @State var alertText: String = ""
     
@@ -157,10 +158,10 @@ struct StudyDetailView: View {
                             HStack {
                                 //MARK: 1 - 내가 작성한 글
                                 if isMyStudy()  {
-//                                    NavigationLink {
-//                                        //TODO: 수정페이지로 이동
-//                                        StudyDetailEditView(viewModel: viewModel, study: study)
-//                                    }
+                                    //                                    NavigationLink {
+                                    //                                        //TODO: 수정페이지로 이동
+                                    //                                        StudyDetailEditView(viewModel: viewModel, study: study)
+                                    //                                    }
                                     Button {
                                         alertText = "할거에여.."
                                         viewModel.alertCase = .normal
@@ -288,6 +289,21 @@ struct StudyDetailView: View {
                 }
             }
         }
+        
+        HStack {
+            Image("OUR_Logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40)
+                .clipShape(Circle())
+            TextField("댓글을 입력하세요", text: $content, axis: .vertical)
+            Button("등록") {
+                Task {
+                    await viewModel.addComments(content: content)
+                    content = ""
+                }
+            }
+        }.padding()
         .sheet(isPresented: $isShowingStudyMemberSheet) {
             StudyMemberSheetView(isShowingStudyMemberSheet: $isShowingStudyMemberSheet, viewModel: viewModel)
                 .presentationDetents([.medium, .large])
