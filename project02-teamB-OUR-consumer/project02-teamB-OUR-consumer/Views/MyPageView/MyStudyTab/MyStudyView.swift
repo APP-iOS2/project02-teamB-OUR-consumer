@@ -92,6 +92,8 @@ struct MyStudyView: View {
                     .padding(.leading)
                 }
                 */
+                MystudyItemView(study: StudyDTO.defaultStudy)
+                    .environmentObject(UserViewModel())
                 VStack(alignment: .leading) {
                     HStack {
                         Text("참여 예정 스터디")
