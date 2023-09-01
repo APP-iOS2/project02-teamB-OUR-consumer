@@ -22,18 +22,21 @@ struct MyBookMarkView: View {
     
     var body: some View {
         NavigationStack {
+            if !studyViewModel.studyArray.filter({ study in
+                isBookmarkedStudy(studyID: study.id ?? "")
+            }).isEmpty {
             List {
-                ForEach(studyViewModel.studyArray.filter { study in
-                    isBookmarkedStudy(studyID: study.id ?? "")
-                }) { study in
-                    NavigationLink(destination: {
-                        
-                        StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
-                    }, label: {
-                        StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
-                    })
-                }
-                .listRowSeparator(.hidden)
+                    ForEach(studyViewModel.studyArray.filter { study in
+                        isBookmarkedStudy(studyID: study.id ?? "")
+                    }) { study in
+                        NavigationLink(destination: {
+                            
+                            StudyDetailView(viewModel: studyViewModel, study: study, isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""))
+                        }, label: {
+                            StudyListItemView(isSavedBookmark: isBookmarkedStudy(studyID: study.id ?? ""), study: study)
+                        })
+                    }
+                    .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("북마크한 스터디")
@@ -44,28 +47,20 @@ struct MyBookMarkView: View {
             }){
                 Image(systemName: "chevron.backward")
             })
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink {
-                        //   SearchView()
-                    } label: {
-                        Label("검색", systemImage: "magnifyingglass")
-                            .foregroundColor(.black)
-                    }
-                    
-                }
-            }
-            .onAppear {
-                studyViewModel.fetchStudy()
-                guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
-                    return
-                }
-                userViewModel.fetchUser(userId: userId)
+
+            } else {
+                Text("북마크된 내용이 없습니다.")
             }
         }
-
-        
+        .onAppear {
+            studyViewModel.fetchStudy()
+            guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                return
+            }
+            userViewModel.fetchUser(userId: userId)
+        }
     }
+    
     func isBookmarkedStudy(studyID: String) -> Bool {
         guard let studyIDs = userViewModel.user?.savedStudyIDs else { return false }
         if studyIDs.contains(studyID) {
