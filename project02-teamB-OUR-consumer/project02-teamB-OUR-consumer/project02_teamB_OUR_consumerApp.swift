@@ -31,8 +31,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //        settings.host = "127.0.0.1:8080"
 //        settings.isSSLEnabled = false
 //        Firestore.firestore().settings = settings
-        
-        
+
         UNUserNotificationCenter.current().delegate = self
         
         return true
@@ -72,7 +71,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
 struct project02_teamB_OUR_consumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sharedViewModel = SharedViewModel()
-//    @StateObject var alarmViewModel = AlarmViewModel()
     @StateObject var feedStoreViewModel = FeedRecruitStore()        //피드  등록모델
     @StateObject var studyStoreViewModel = StudyRecruitStore()      //스터디 등록모델
 
@@ -82,7 +80,6 @@ struct project02_teamB_OUR_consumerApp: App {
             NavigationStack {
                 LoginView()
             }
-//            .environmentObject(alarmViewModel)
             .environmentObject(feedStoreViewModel)
             .environmentObject(studyStoreViewModel)
             .environmentObject(sharedViewModel)

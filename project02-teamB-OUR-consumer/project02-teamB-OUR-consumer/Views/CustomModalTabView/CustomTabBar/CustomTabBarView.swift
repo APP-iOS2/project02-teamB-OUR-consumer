@@ -42,7 +42,7 @@ struct CustomTabBarView: View {
                 case 3:
                     AlarmContainer()
                         .environmentObject(alarmViewModel)
-                        
+                        .environmentObject(userViewModel)
                 case 4:
                     MyMain()
                         .environmentObject(userViewModel)

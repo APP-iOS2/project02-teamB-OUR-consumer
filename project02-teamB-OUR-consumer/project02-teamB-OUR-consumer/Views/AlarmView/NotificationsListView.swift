@@ -13,6 +13,8 @@ struct NotificationsListView: View {
     
     @EnvironmentObject var alarmViewModel: AlarmViewModel
     @StateObject var study: StudyViewModel = StudyViewModel()
+    
+    @EnvironmentObject var userViewModel: UserViewModel
     @State var isLoading = true
     var access: NotificationType.Access
     
@@ -32,6 +34,9 @@ struct NotificationsListView: View {
         .onAppear{
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.isLoading = false
+            }
+            if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
+                userViewModel.fetchUser(userId: userID)
             }
             alarmViewModel.fetchNotificationItem()
         }
@@ -53,8 +58,9 @@ struct NotificationsListView: View {
                     .foregroundColor(Color.black),
                         content:  {
                     ForEach(items[key]!, id: \.id) { notification in
-                        NotificationRow(notification: notification,access: access)
-                            .environmentObject(study)
+                        
+                        makeNotificationRow(notification: notification)
+                        
                     }.onDelete(perform: { offset in
                         // key
                         alarmViewModel.delete(notification: offset, access: access, key: key)
@@ -63,14 +69,26 @@ struct NotificationsListView: View {
             }
         }
     }
+    
+    func makeNotificationRow(notification: NotificationItem) -> some View {
+        if let following = userViewModel.user?.following,
+           following.contains(notification.userId){
+            return NotificationRow(notification: notification,isFollowing: true,access: access)
+                .environmentObject(study)
+        }
+        return NotificationRow(notification: notification,isFollowing: false,access: access)
+            .environmentObject(study)
+    } 
 }
 
 // 알림 행
 struct NotificationRow: View {
     let notification: NotificationItem
-    @State private var isFollowing: Bool = false // 팔로우 상태 추적
+    @State var isFollowing: Bool = false // 팔로우 상태 추적
     @EnvironmentObject var studyViewModel: StudyViewModel
     @EnvironmentObject var alarmViewModel: AlarmViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     var access: NotificationType.Access
     
     var body: some View {
@@ -130,7 +148,7 @@ struct NotificationRow: View {
                                 Spacer()
                             }
                         }
-                        
+
                         Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(Color.gray)
@@ -153,7 +171,12 @@ struct NotificationRow: View {
                             .onTapGesture {
                                 isFollowing.toggle()
                                 sound(is: isFollowing)
-                                following(is: isFollowing)
+                                following(is: isFollowing){ id, type in
+                                    
+                                        alarmViewModel.sendNotification(userId: id, type: type)
+                                    
+                                    
+                                }
                                 // 임시 푸시알림
                                 UNNotificationService.shared.requestSendNoti(seconds: 0.1,
                                                                              type: notification.type,
@@ -175,13 +198,13 @@ struct NotificationRow: View {
     }
     
     
-    func following(is following: Bool) {
-        if let id = notification.user.id{
-            following ? alarmViewModel.followButtonTapped(user: id) : alarmViewModel.unfollowButtonTapped(user: id)
-        }else{
-            print("\(#function) not exist USER ID")
-        }
-        //        alarmViewModel.sendNotification(type: ``, content: asdf)
+
+    func following(is following: Bool, completion: @escaping (ID,NotificationType) -> () ) {
+        
+        following ?
+        userViewModel.followUser(targetUserId: notification.userId, completion: completion)
+        :
+        userViewModel.unfollowUser(targetUserId: notification.userId)
     }
     
     func sound(is following: Bool) {

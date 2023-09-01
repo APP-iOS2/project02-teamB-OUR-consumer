@@ -5,7 +5,8 @@
 //  Created by 이희찬 on 2023/08/26.
 //
 
-import Foundation
+
+import UIKit
 import Firebase
 import FirebaseStorage
 
@@ -55,14 +56,34 @@ class UserViewModel: ObservableObject {
 
 // 마이페이지 뷰 팔로우 팔로잉
 extension UserViewModel {
-    func followUser(targetUserId: String) {
+//<<<<<<< HEAD
+//    func followUser(document path: String = "BMTtH2JFcPNPiofzyzMI5TcJn1S2" ,targetUserId: String, completion: ((ID,String,NotificationType) -> ())?) {
+//
+//        let userName = user?.name
+//            db.collection("users").document("\(path)").updateData([
+//                "following": FieldValue.arrayUnion([targetUserId])
+//            ], completion: { error in
+//                if error == nil{
+//                    completion?(path, userName ?? "장수지" , .follow)
+//                }
+//            })
+//
+//            db.collection("users").document(targetUserId).updateData([
+//                "follower": FieldValue.arrayUnion(["\(path)"])
+//            ])
+//=======
+    func followUser(targetUserId: String, completion: ((ID,NotificationType) -> ())?) {
         guard let currentUserId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
             return
         }
         
         db.collection("users").document(currentUserId).updateData([
             "following": FieldValue.arrayUnion([targetUserId])
-        ])
+        ], completion: { error in
+            if error == nil{
+                completion?(currentUserId, .follow)
+            }
+        })
         
         
         db.collection("users").document(targetUserId).updateData([

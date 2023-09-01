@@ -42,6 +42,12 @@ struct AlarmContainer: View {
             }
         }
         .onAppear{
+            guard let userId: String = UserDefaults.standard.string(forKey: Keys.userId.rawValue)
+            else {
+                return
+            }
+            userViewModel.fetchUser(userId: userId)
+            
             viewModel.fetchNotificationItem()
             viewModel.markAllAsRead()
         }
