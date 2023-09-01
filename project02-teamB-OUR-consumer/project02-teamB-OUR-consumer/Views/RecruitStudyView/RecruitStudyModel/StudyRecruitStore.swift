@@ -110,35 +110,33 @@ class StudyRecruitStore: ObservableObject {
 //    }
     
     
-    //TODO: document 문서번호가 지정이 안되어있음.
-    ///이미지 경로 반환함수
+//    TODO: document 문서번호가 지정이 안되어있음.
+//    /이미지 경로 반환함수
     func returnImagePath(items: [PhotosPickerItem]) async throws -> [String]{
-        
+
         var urlString:[String] = []
-        
+
         for item in items {
-            
+
             guard let data = try? await item.loadTransferable(type: Data.self) else {return urlString}
             print("원래데이터 크기:\(data.count)")
-            
+
             guard let uiImage = UIImage(data: data) else {return urlString}
             guard let compressImage = uiImage.jpegData(compressionQuality: 0.5) else {return urlString}
             print("변형된 데이터 크기:\(compressImage.count)")
-           
+
             do {
                 let (_, _, url) = try await StorageManger.shared.saveImage(data: compressImage, id: dbRef.document().documentID)
-                
+
                 urlString.append(url.absoluteString)
             } catch {
                 print("리턴이미지패스\(error.localizedDescription)")
             }
-           
+
         }
-        
+
         return urlString
     }
-    
-    
     
 //    func returnImagePath(item: [PhotosPickerItem], completion: @escaping (String?) -> Void) async {
 //

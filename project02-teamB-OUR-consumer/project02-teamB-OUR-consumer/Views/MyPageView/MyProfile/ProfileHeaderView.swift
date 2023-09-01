@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileHeaderView: View {
     
     @ObservedObject var userViewModel: UserViewModel
+    
+    @EnvironmentObject var myViewModel: UserViewModel
     @Binding var isMyProfile: Bool
     @Binding var isFollowing: Bool
     
@@ -93,7 +95,17 @@ struct ProfileHeaderView: View {
                 } else {
                     // 팔로우 버튼
                     Button {
-                        isFollowing.toggle()
+                        if isFollowing == true {
+                            guard let userId = userViewModel.user?.id else { return }
+                            myViewModel.unfollowUser(targetUserId: userId)
+                            isFollowing = false
+                        } else {
+                            guard let userId = userViewModel.user?.id else { return }
+                            myViewModel.followUser(targetUserId: userId){ type, value in
+                                
+                            }
+                            isFollowing = true
+                        }
                     } label: {
                         MyFollowButton(isFollowing: $isFollowing)
                     }

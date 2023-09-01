@@ -16,6 +16,7 @@ struct CustomTabBarView: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var studyViewModel: StudyViewModel
     @EnvironmentObject var resumeViewModel: ResumeViewModel
+
     
 
     @State private var selectedIndex = 0
@@ -35,7 +36,7 @@ struct CustomTabBarView: View {
                     FeedTabView()
                 case 1:
                     StudyListView()
-                        .environmentObject(userViewModel)
+//                        .environmentObject(userViewModel)
                         .environmentObject(studyViewModel)
                 case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
@@ -46,13 +47,14 @@ struct CustomTabBarView: View {
                         .environmentObject(userViewModel)
                 case 4:
                     MyMain()
-                        .environmentObject(userViewModel)
+//                        .environmentObject(userViewModel) -> App 으로 이동
                         .environmentObject(studyViewModel)
-                        .environmentObject(resumeViewModel)
+//                        .environmentObject(resumeViewModel)
                 default:
                     EmptyView()
                 }
             }
+            
 
             Spacer()
             
@@ -134,10 +136,12 @@ struct CustomTabBarView: View {
                 
             }
             .onAppear {
+                print("프린트 다시불림")
                 model.getReportCount()
             }
             
-        }.navigationBarBackButtonHidden()
+        }
+        .navigationBarBackButtonHidden()
             
     }
 }

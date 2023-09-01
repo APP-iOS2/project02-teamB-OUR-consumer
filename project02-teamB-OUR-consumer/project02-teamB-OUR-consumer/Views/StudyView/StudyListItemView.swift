@@ -73,6 +73,12 @@ struct StudyListItemView: View {
                             } else {
                                 studyViewModel.removeBookmark(studyID: study.id ?? "")
                             }
+                            
+                            studyViewModel.fetchStudy()
+                            guard let userId = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
+                                return
+                            }
+                            userViewModel.fetchUser(userId: userId)
                         } label: {
                             Label("", systemImage: isSavedBookmark ? "bookmark.fill" : "bookmark")
                                 .font(.title2)
