@@ -17,9 +17,6 @@ struct CustomTabBarView: View {
 //    @StateObject var resumeViewModel = ResumeViewModel()
     @StateObject var studyViewModel = StudyViewModel()
     
-    @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject var resumeViewModel: ResumeViewModel
-    
 
     @State private var selectedIndex = 0
     @State var isShowingSheet: Bool = false
