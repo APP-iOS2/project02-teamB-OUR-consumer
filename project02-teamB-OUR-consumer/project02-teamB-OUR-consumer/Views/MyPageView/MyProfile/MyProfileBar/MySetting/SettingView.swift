@@ -17,9 +17,10 @@ struct SettingView: View {
     
     @State var isLoggedIn: Bool = true
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @EnvironmentObject var userViewModel: UserViewModel
     
     var body: some View {
-        NavigationStack {
+        VStack {
             ScrollView {
                 Divider()
                     .padding(.top, 0)
@@ -94,6 +95,9 @@ struct SettingView: View {
             }){
                 Image(systemName: "chevron.backward")
             })
+        }
+        .onAppear {
+            print("userViewModel \(userViewModel.user)")
         }
         .background(
             NavigationLink(destination: LoginView(), isActive: $isLoggedIn, label: {

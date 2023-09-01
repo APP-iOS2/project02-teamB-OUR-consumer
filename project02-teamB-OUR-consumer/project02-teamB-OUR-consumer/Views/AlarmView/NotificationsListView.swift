@@ -84,7 +84,7 @@ struct NotificationRow: View {
                     }
                     
                     if notification.type == .follow{
-                        NavigationLink(destination: MyMain())
+                        NavigationLink(destination: MyMainDetailView(userId: notification.user.id ?? "9o8gkYLUFHdsO877xqX9rvSVdI82"))
                         {
                             EmptyView()
                         }

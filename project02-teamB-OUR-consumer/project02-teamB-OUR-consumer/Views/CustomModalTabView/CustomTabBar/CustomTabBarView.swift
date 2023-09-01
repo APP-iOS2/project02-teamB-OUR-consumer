@@ -13,9 +13,8 @@ struct CustomTabBarView: View {
     @StateObject var model = CustomTabBarViewModel()  //여기서만 씁니다.
     
     @StateObject var alarmViewModel = AlarmViewModel(dependency: .init(alarmFireSerivce: AlarmFireService()))
-    @StateObject var userViewModel = UserViewModel()
     @StateObject var studyViewModel = StudyViewModel()
-    @StateObject var resumeViewModel = ResumeViewModel()
+    
     
 
     @State private var selectedIndex = 0
@@ -35,23 +34,24 @@ struct CustomTabBarView: View {
                     FeedTabView()
                 case 1:
                     StudyListView()
-                        .environmentObject(userViewModel)
+//                        .environmentObject(userViewModel)
                         .environmentObject(studyViewModel)
                 case 2:
                     RecruitMainSheet(isShowingSheet: $isShowingSheet)
                 case 3:
                     AlarmContainer()
+//                        .environmentObject(userViewModel)
                         .environmentObject(alarmViewModel)
-                        
                 case 4:
                     MyMain()
-                        .environmentObject(userViewModel)
+//                        .environmentObject(userViewModel) -> App 으로 이동
                         .environmentObject(studyViewModel)
-                        .environmentObject(resumeViewModel)
+//                        .environmentObject(resumeViewModel)
                 default:
                     EmptyView()
                 }
             }
+            
 
             Spacer()
             
@@ -136,10 +136,13 @@ struct CustomTabBarView: View {
                 
             }
             .onAppear {
+                print("프린트 다시불림")
                 model.getReportCount()
             }
             
-        }.navigationBarBackButtonHidden()
+        }
+//        .environmentObject(userViewModel)
+        .navigationBarBackButtonHidden()
             
     }
 }
