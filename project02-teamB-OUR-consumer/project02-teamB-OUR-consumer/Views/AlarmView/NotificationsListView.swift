@@ -13,9 +13,9 @@ struct NotificationsListView: View {
     
     @EnvironmentObject var alarmViewModel: AlarmViewModel
     @StateObject var study: StudyViewModel = StudyViewModel()
+    
     @EnvironmentObject var userViewModel: UserViewModel
-    
-    
+    @State var isLoading = true
     var access: NotificationType.Access
     
     var body: some View {
@@ -29,14 +29,17 @@ struct NotificationsListView: View {
                 EmptyView()
             }
         }
-        .onAppear {
+        .disabled(isLoading)
+        .redacted(reason: isLoading ? .placeholder : [])
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.isLoading = false
+            }
             if let userID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) {
                 userViewModel.fetchUser(userId: userID)
             }
+            alarmViewModel.fetchNotificationItem()
         }
-//        .onAppear{
-//            alarmViewModel.fetchNotificationItem()
-//        }
         .refreshable {
             // 새로고침 로직
             alarmViewModel.fetchNotificationItem()
@@ -89,109 +92,110 @@ struct NotificationRow: View {
     var access: NotificationType.Access
     
     var body: some View {
-            HStack {
-                ZStack {
-                    if notification.type == .like || notification.type == .comment {
-                        NavigationLink(destination:
-                                        FeedView()
-                        ) {
-                            EmptyView()
-                        }
-                        .opacity(0.0)
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        HStack {
-                        }
+        HStack {
+            ZStack {
+                if notification.type == .like || notification.type == .comment {
+                    NavigationLink(destination:
+                                    FeedView()
+                    ) {
+                        EmptyView()
                     }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
                     
-                    if notification.type == .follow{
-                        NavigationLink(destination: MyMain())
-                        {
-                            EmptyView()
-                        }
-                        .opacity(0.0)
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        HStack {
-                        }
+                    HStack {
                     }
-                    
-                    
-                    if notification.type == .studyReply || notification.type == .studyAutoJoin {
-                        NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: .constant(true)))
-                        {
-                            EmptyView()
-                        }
-                        .opacity(0.0)
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        HStack {
-                        }
+                }
+                
+                if notification.type == .follow{
+                    NavigationLink(destination: MyMain())
+                    {
+                        EmptyView()
                     }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
                     
-                    HStack{
-                        // 사용자 이미지
-                        Circle()
-                            .fill(AColor.defalut.color)
-                            .frame(width: 40, height: 40)
-                        
-                        // 텍스트
-                        VStack(alignment: .leading) {
-                            HStack{
-                                styledText(content: notification.content)
-                                    .font(.system(size: 12, weight: .medium))
-                                
-                                if access == .public{
-                                    Spacer()
-                                }
+                    HStack {
+                    }
+                }
+                
+                
+                if notification.type == .studyReply || notification.type == .studyAutoJoin {
+                    NavigationLink(destination: StudyDetailView(viewModel: studyViewModel, study: studyViewModel.studyArray.first ?? StudyDTO.defaultStudy, isSavedBookmark: true))
+                    {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                    }
+                }
+                
+                HStack{
+                    // 사용자 이미지
+                    Circle()
+                        .fill(AColor.defalut.color)
+                        .frame(width: 40, height: 40)
+                    
+                    // 텍스트
+                    VStack(alignment: .leading) {
+                        HStack{
+                            styledText(content: notification.content)
+                                .font(.system(size: 12, weight: .medium))
+                            
+                            if access == .public{
+                                Spacer()
                             }
-                            
-                            Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundColor(Color.gray)
                         }
+
+                        Text(DateCalculate().caluculateTime(notification.createdDate.toString()))
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(Color.gray)
+                    }
+                    
+                    // 팔로우/팔로잉 버튼 (해당되는 경우)
+                    if notification.type == .follow {
+                        Spacer()
                         
-                        // 팔로우/팔로잉 버튼 (해당되는 경우)
-                        if notification.type == .follow {
-                            Spacer()
-                            
-                            // 팔로우 버튼만 오른쪽으로 밀기
-//                            Spacer()
-                            Text(isFollowing ? "팔로잉" : "팔로우")
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundColor(isFollowing ? AColor.main.color : Color.white)
-                                .frame(width: 80, height: 27.85)
-                                .background(isFollowing ? Color.white : AColor.main.color)
-                                .cornerRadius(5)
-                                .overlay(RoundedRectangle(cornerRadius: 5)
-                                    .stroke(AColor.main.color, lineWidth: 2))
-                                .onTapGesture {
-                                    isFollowing.toggle()
-                                    sound(is: isFollowing)
-                                    following(is: isFollowing){ id, name, type in
-                                        alarmViewModel.sendNotification(userId: id, user: name, type: type)
-                                    }
-                                    // 임시 푸시알림
-                                    UNNotificationService.shared.requestSendNoti(seconds: 0.1,
-                                                                                 type: notification.type,
-                                                                                 body: notification.content)
+                        // 팔로우 버튼만 오른쪽으로 밀기
+                        //                            Spacer()
+                        Text(isFollowing ? "팔로잉" : "팔로우")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(isFollowing ? AColor.main.color : Color.white)
+                            .frame(width: 80, height: 27.85)
+                            .background(isFollowing ? Color.white : AColor.main.color)
+                            .cornerRadius(5)
+                            .overlay(RoundedRectangle(cornerRadius: 5)
+                                .stroke(AColor.main.color, lineWidth: 2))
+                            .onTapGesture {
+                                isFollowing.toggle()
+                                sound(is: isFollowing)
+                                following(is: isFollowing){ id, name, type in
+                                    alarmViewModel.sendNotification(userId: id, user: name, type: type)
                                 }
-                        }
-                        
-                        // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
-                        if notification.type == .like || notification.type == .comment,
-                           let imageUrl = notification.imageURL {
-                            Spacer()
-                            RemoteImage(url: imageUrl)
-                                .frame(width: 40, height: 40)
-                        }
+                                // 임시 푸시알림
+                                UNNotificationService.shared.requestSendNoti(seconds: 0.1,
+                                                                             type: notification.type,
+                                                                             body: notification.content)
+                            }
+                    }
+                    
+                    // 게시물 이미지 (좋아요, 댓글 알림에만 표시)
+                    if notification.type == .like || notification.type == .comment,
+                       let imageUrl = notification.imageURL {
+                        Spacer()
+                        RemoteImage(url: imageUrl)
+                            .frame(width: 40, height: 40)
                     }
                 }
             }
-            .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
         }
+        .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+    }
     
     
+
     func following(is following: Bool, completion: @escaping (ID,String,NotificationType) -> () ) {
         guard let myID = UserDefaults.standard.string(forKey: Keys.userId.rawValue) else {
             return }

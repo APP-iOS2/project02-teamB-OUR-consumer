@@ -521,7 +521,7 @@ final class RecruitService {
     ///- collection: 컬렉션 Enum
     ///- data: 데이터객체 where Encodable
     func add<T: Encodable>( collection col: Recruit.collection, data: T ) {
-                
+        print(data)
         let colRef: CollectionReference = db.collection("\(col.rawValue)")
         
 //        var dicData = [String : Any]()

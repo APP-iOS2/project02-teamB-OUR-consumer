@@ -65,15 +65,16 @@ struct AlarmContainer: View {
                 .foregroundColor(.black)
                 .font(.system(size: 14, weight: .medium))
                 .alert(
-                    alertTitle,
                     isPresented: $allClearAlertShowing
                 ) {
-                    Button(role: .destructive) {
-                        viewModel.personalNotiItem = [:]
-                        viewModel.publicNotiItem = [:]
-                    } label: {
-                        Text("Delete")
-                    }
+                    Alert(
+                        title: Text(alertTitle),
+                        primaryButton: .destructive(Text("삭제")) {
+                            viewModel.personalNotiItem = [:]
+                            viewModel.publicNotiItem = [:]
+                        },
+                        secondaryButton: .cancel(Text("취소"))
+                    )
                 }
             }
         }

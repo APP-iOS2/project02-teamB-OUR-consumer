@@ -80,25 +80,7 @@ struct LoginView: View {
                             .background(Color.white)
                             .cornerRadius(8)
                         }
-                    }
-//                    NavigationLink {
-//                        //                    LoginSecondView(viewModel: viewModel)
-//                    } label: {
-//                        HStack {
-//                            Image("AppleLogo")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 25)
-//                            Text("Apple 로그인")
-//                        }
-//                        .fontWeight(.medium)
-//                        .foregroundColor(.white)
-//                        .frame(width: 300, height: 40)
-//                        .background(Color.black)
-//                        .cornerRadius(10)
-//                    }
-//                    .disabled(true)
-                    
+                    }              
                     Spacer()
                     
                 }.onAppear(perform: {
