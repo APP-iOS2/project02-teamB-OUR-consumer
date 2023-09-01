@@ -30,6 +30,7 @@ struct StudyImageView: View {
                             if let uiimage = UIImage(data: imageDataArray[imageData]) {
                                 Image(uiImage: uiimage)
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 170, height: 170)
                                     .overlay(
                                         Button(action: {
