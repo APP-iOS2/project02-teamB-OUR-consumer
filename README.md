@@ -30,17 +30,55 @@
 
 ## 5. 개발에 참여한 사람들
 ---
-- **홈 뷰** : 김종찬, 이승준, 정한두
+**PM**
+| Name | GitHub |
+|---|---|
+| 전민석 | [@a-jb97](https://github.com/a-jb97) |
 
-- **스터디 뷰** : 노유리, 안지영, 여성은
+**홈 뷰**
+| Name | GitHub |
+|---|---|
+| 김종찬 | [@JCxxn](https://github.com/JCxxn) |
+| 이승준 | [@seungzunlee](https://github.com/seungzunlee) |
+| 정한두 | [@JCxxn](https://github.com/JCxxn) |
 
-- **등록 뷰** : 김형준, 박서연, 송성욱, 윤해수
+**스터디 뷰**
+| Name | GitHub |
+|---|---|
+| 노유리 | [@yforyuri](https://github.com/yforyuri) |
+| 안지영 | [@yyomzzi](https://github.com/yyomzzi) |
+| 여성은 | [@YeoSungeun](https://github.com/YeoSungeun) |
 
-- **알림 뷰** : 박찬호, 장수지, 박형환
+**등록 뷰**
+| Name | GitHub |
+|---|---|
+| 김형준 | [@KaiKimiOS](https://github.com/KaiKimiOS) |
+| 박서연 | [@syss220211](https://github.com/syss220211) |
+| 송성욱 | [@songseongwook · he/him](https://github.com/songseongwook) |
+| 윤해수 | [@Haesus](https://github.com/Haesus) |
 
-- **마이페이지 뷰** : 최소정, 김성훈, 변상필, 봉주헌
+**알림 뷰**
+| Name | GitHub |
+|---|---|
+| 박찬호 | [@ParkChanH](https://github.com/ParkChanH) |
+| 장수지 | [@ddudios](https://github.com/ddudios) |
+| 박형환 | [@hyeonghwan](https://github.com/hyeonghwan) |
 
-- **백엔드** : 신우진, 마경미, 이희찬, 손윤호
+**마이페이지 뷰**
+| Name | GitHub |
+|---|---|
+| 최소정 | [@karmanx](https://github.com/karmanx) |
+| 김성훈 | [@Ggurup](https://github.com/Ggurup) |
+| 변상필 | [@OzDevelop](https://github.com/OzDevelop) |
+| 봉주헌 | [@Bongjooheon](https://github.com/Bongjooheon) |
+
+**백엔드**
+| Name | GitHub |
+|---|---|
+| 신우진 | [@swjtwin](https://github.com/swjtwin) |
+| 마경미 | [@akrudal](https://github.com/akrudal) |
+| 이희찬 | [@lhchan4010](https://github.com/lhchan4010) |
+| 손윤호 | [@SonYoonho](https://github.com/SonYoonho) |
 
 ---
 테스트 구글 계정
