@@ -14,7 +14,17 @@
 
 ## 2. 설치 및 실행에 필요한 부가정보
 ---
+- Xcode에서 **project02-teamB-OUR-consumer.xcodeproj** 파일 열기
+- 아래 파일 필요
+```
 - GoogleService-Info.plist 파일
+- Firebase 프로젝트 생성 후 Authentication, Firestore Database, Storage 를 추가
+```
+- 테스트 구글 계정
+```
+- 아이디 : ourtest033
+- 패스워드 : qwerty033
+```
 
 ## 3. 현재 적용된 내용
 ---
@@ -79,10 +89,3 @@
 | 마경미 | [@akrudal](https://github.com/akrudal) |
 | 이희찬 | [@lhchan4010](https://github.com/lhchan4010) |
 | 손윤호 | [@SonYoonho](https://github.com/SonYoonho) |
-
----
-테스트 구글 계정
----
-아이디 : ourtest033
-
-패스워드 : qwerty033
